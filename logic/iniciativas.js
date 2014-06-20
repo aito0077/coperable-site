@@ -93,6 +93,13 @@ exports.findByName = function(name, done) {
 
 
 
+exports.listLast = function(req, res, done) {
+  console.log('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude);
+  cop_api.client.get('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude, function(err, request, response, iniciativas) {
+    done(err, iniciativas);
+  });
+};
+
 exports.list = function(req, res, done) {
   cop_api.client.get('/api/iniciativa', function(err, request, response, iniciativas) {
     done(err, iniciativas);

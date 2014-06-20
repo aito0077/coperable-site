@@ -6,7 +6,7 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "*",
+    "express": "3.x",
     "hogan-express": "0.5.2",
     "passport": "0.1.15",
     "passport-local": "0.1.6",
