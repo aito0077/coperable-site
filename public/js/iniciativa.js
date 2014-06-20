@@ -167,8 +167,6 @@ Backbone.emulateHTTP = true;
         range: "min"
       });
 
-      $('.calendar-time').prepend('Hora: ');
-
       $("#activities").tagsInput({
          //autocomplete_url: url_to_autocomplete_api,
          interactive:true,
@@ -196,37 +194,22 @@ Backbone.emulateHTTP = true;
 
         });
 
-        /*
-       $('.datepicker').daterangepicker({
-            format: 'DD/MM/YYYY',
-            singleDatePicker: true,
-            locale: {
-                applyLabel: 'Aplicar',
-                cancelLabel: 'Cancelar',
-                fromLabel: 'Desde',
-                toLabel: 'Hasta',
-                weekLabel: 'S',
-                customRangeLabel: 'Rango',
-                daysOfWeek: moment()._lang._weekdaysMin.slice(),
-                monthNames: moment()._lang._monthsShort.slice(),
-                firstDay: 0
-            }
+        $('.calendar-time').prepend('Hora: ');
 
+        $('#description_red').redactor({
+          lang: 'es',
+          plugins: ['fullscreen'],
+          minHeight: 200, 
+          imageUpload: '/uploads/'
         });
-    */
-       $('#description_red').redactor({
-         lang: 'es',
-         plugins: ['fullscreen'],
-         minHeight: 200, 
-         imageUpload: '/uploads/'
-       });
-      $(".btn-group a").click(function() {
-        $(this).siblings().removeClass("active");
-        $(this).addClass("active");
-      });
+
+        $(".btn-group a").click(function() {
+          $(this).siblings().removeClass("active");
+          $(this).addClass("active");
+        });
 
 
-      $('#iniciativa_wizard').tab('show');
+        $('#iniciativa_wizard').tab('show');
 
 
       $('[name="address"]').on('change', function(){
