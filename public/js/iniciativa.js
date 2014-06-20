@@ -26,12 +26,6 @@ Backbone.emulateHTTP = true;
             return value && value.length > 0 ? {isValid: true} : {isValid: false, message: "Tenes que ingresar descripcion"};
         };
 
-        /*
-        this.validators.date = function (value) {
-            return value && value.length > 0 ? {isValid: true} : {isValid: false, message: "Tenes que ingresar fecha"};
-        };
-        */
-
         this.validators.profile_picture = function (value) {
             return value && value.length > 0 ? {isValid: true} : {isValid: false, message: "Tenes que ingresar imagen"};
         };
@@ -56,8 +50,6 @@ Backbone.emulateHTTP = true;
 
         return _.size(messages) > 0 ? {isValid: false, messages: messages} : {isValid: true};
     },
-
-
 
   });
 
@@ -95,7 +87,6 @@ Backbone.emulateHTTP = true;
     initialize: function() {
       _.bindAll(this);
 
-      console.log('inicializando...');
 
       this.current_tab = 'basicos_tab';
       this.model = new iniciativa.Model;
@@ -138,7 +129,6 @@ Backbone.emulateHTTP = true;
         dataType: 'json',
         url: '/uploads',
         done: function (e, data) {
-            console.log('Done!');
             $.each(data.result.files, function (index, file) {
                 self.model.set({'profile_picture': file.name});
                 $('#dropzone').css('background', "url('"+file.thumbnailUrl+"')");
@@ -219,7 +209,6 @@ Backbone.emulateHTTP = true;
       })
 
       this.$map = $("#address_map");
-        console.dir(this.$map);
       this.$map.goMap({
         markers: [{
           latitude: -34.615853,
@@ -239,7 +228,6 @@ Backbone.emulateHTTP = true;
          });
        });
        this.address.on('location_change', function(location) {
-        console.dir(location);
          self.model.set({
            latitud: location.latitud,
            longitud: location.longitud,
@@ -298,16 +286,13 @@ Backbone.emulateHTTP = true;
       this.model.set({
         description: JSON.stringify($('#description_red').getCode())
     });
-        console.log(this.model.get('description'));
 
       if(this.validate()) {
         this.model.save(null, {
           success: function() {
             self.after_save();
-            console.log('Exito en crear iniciativa');
           },
           error: function() {
-            console.log('Error en crear iniciativa');
           }
         });
       }
@@ -326,7 +311,6 @@ Backbone.emulateHTTP = true;
           tab_to_show = 'basicos_tab';
           break;
       }
-      console.log('Current: '+this.current_tab+' -to-  '+tab_to_show);
       $('#'+tab_to_show).tab('show');
     },
 
@@ -337,7 +321,6 @@ Backbone.emulateHTTP = true;
     validate: function() {
         var check = this.model.validateAll();
 
-        console.dir(check);
         if (check.isValid === false) {
             //utils.addValidationError(target.id, check.message);
             alert(_.first(_.values(check.messages)));
@@ -480,22 +463,18 @@ Backbone.emulateHTTP = true;
     setup_binding: function() {
       var self = this;
       this.addresspickerMap.on("addressChanged", function(evt, address) {
-        console.log('Address Changed');
         try {
 
           var direccion = address.formatted_address.replace(/Province/g, 'Provincia' );
           self.trigger('direccion_change', direccion);
         } catch(e) {
-          console.log(e);
         }
-        console.dir(address);
         self.trigger('location_change', {
           latitud: address.geometry.location.lat(),
           longitud: address.geometry.location.lng()
         });
       });
       this.addresspickerMap.on("positionChanged", function(evt, markerPosition) {
-        console.log('Position Changed');
         markerPosition.getAddress( function(address) {
           if (address) {
             $( "#addresspicker_map").val(address.formatted_address);
@@ -545,7 +524,7 @@ Backbone.emulateHTTP = true;
     },
 
     initialize: function() {
-      _.bindAll(this);
+      _.bindAll(this, 'traer_last_iniciativas');
 
       this.model = new iniciativa.Model;
       this.iniciativas = new iniciativa.Collection;
@@ -566,6 +545,7 @@ Backbone.emulateHTTP = true;
       this.initialLocation = this.user_default;
 
       this.render_map();
+        
     },
 
     setup_binding: function() {
@@ -668,12 +648,35 @@ Backbone.emulateHTTP = true;
       });
     },
 
+    traer_last_iniciativas: function() {
+      var self = this;
+      this.iniciativas.fetch({
+        data: $.param({
+            last: true,
+            latitude: self.user_default.lat(),
+            longitude: self.user_default.lng()
+        }),
+        success: function(iniciativas, response, options) {
+            _.each(self.iniciativas.models, function(model) {
+                if(model && !_.isEmpty(model)) {
+                    $('#iniciativas_list').append(self.itemTemplate(_.extend({
+                        main_category: '',
+                        profile_picture: '',
+                        goal: ''
+                    }, model.toJSON())));
+                }
+            });
+        }
+      });
+    },
+
+
     clear_markers: function() {
       _.each(this.markers, function(marker) {
         marker.setMap(null);
       });
       this.markers = new Array();
-      $('#iniciativas_list').html('');
+      //$('#iniciativas_list').html('');
     },
 
     marcar_iniciativas: function() {
@@ -688,7 +691,6 @@ Backbone.emulateHTTP = true;
           map: self.map
         });
 
-        console.log(self.markerTemplate(model.toJSON()));
         marker.info = new google.maps.InfoWindow({
           content:self.markerTemplate(_.extend({
             profile_picture: '',
@@ -700,16 +702,12 @@ Backbone.emulateHTTP = true;
         });
         self.markers.push(marker);
 
-        $('#iniciativas_list').append(self.itemTemplate(_.extend({
-            profile_picture: '',
-            goal: ''
-        }, model.toJSON())));
       });
     },
 
     render_map: function() {
-      this.map.setCenter(this.initialLocation);
-      this.traer_iniciativas();
+        this.map.setCenter(this.initialLocation);
+        this.traer_iniciativas();
     },
 
     detect_geolocation: function() {
@@ -717,53 +715,48 @@ Backbone.emulateHTTP = true;
         try {
           navigator.geolocation.getCurrentPosition(function(position) {
             var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-            console.log('Latitud: '+initialLocation.lat()+' - Longitud: '+initialLocation.lng());
             $.get(
               '/user/geolocalization/'+initialLocation.lat()+'/'+initialLocation.lng(),
             {},
             function(responseText) {
-              console.log(responseText);
             });
           },
           function() {
             handleNoGeolocation(browserSupportFlag);
           });
         } catch(positionError) {
-          console.dir(positionError);
         }
       }
     },
 
     browse_iniciativas: function(e) {
       var category = null;
-      console.log('Target id: '+e.target.id);
       $('.category_tab').removeClass('selected');
       $('#'+e.target.id).addClass('selected');
-      switch(e.target.id) {
-        case 'browser_all':
-          category = null;
-          break;
-        case 'browser_me':
-          category = this.MEDIO_AMBIENTE;
-          break;
-        case 'browser_ac':
-          category = this.ARTE_CULTURA;
-          break;
-        case 'browser_ed':
-          category = this.EDUCACION;
-          break;
-        case 'browser_ds':
-          category = this.DESARROLLO;
-          break;
-        default:
-          break;
-      }
-      console.log('Filtrar usando: '+category);
+          switch(e.target.id) {
+            case 'browser_all':
+              category = null;
+              break;
+            case 'browser_me':
+              category = this.MEDIO_AMBIENTE;
+              break;
+            case 'browser_ac':
+              category = this.ARTE_CULTURA;
+              break;
+            case 'browser_ed':
+              category = this.EDUCACION;
+              break;
+            case 'browser_ds':
+              category = this.DESARROLLO;
+              break;
+            default:
+              break;
+          }
 
-      this.traer_iniciativas(category);
+            this.traer_iniciativas(category);
 
-    }
-  });
+        }
+    });
 
  
  iniciativa.OwnerBrowser = Backbone.View.extend({
@@ -828,7 +821,6 @@ Backbone.emulateHTTP = true;
 
     traer_iniciativas: function(userId) {
       var self = this;
-      console.log('TRAER INICIATIVAS BY OWNER : ' + userId);
       this.iniciativas.fetch({
         data: $.param({
           userId: userId
@@ -842,10 +834,7 @@ Backbone.emulateHTTP = true;
     
     listar_iniciativas_owner: function() {
       var self = this;
-      console.log('LISTAR INICIATIVAS OWNER');
       _.each(this.iniciativas.models, function(model) {
-        console.log('EACH ' + model.get('_id'));
-	// console.log(self.markerTemplate(model.toJSON()));
        
         $('#div_iniciativas_owner').append(self.iniciativasByOwnerTemplate(_.extend({
             profile_picture: '',
@@ -856,9 +845,6 @@ Backbone.emulateHTTP = true;
     },
     
     geo_localizar_iniciativas: function(model){
-	console.dir(model);
-	console.log('GEO_LOCALIZAR_INICIATIVAS ' + model.get('_id'));
-	//INICIATIVAS
           var $item = $("#iniciativas-list-item-"+model.get('_id'));
           $item.find('.iniciativas-list-item-map').goMap({
             markers: [{

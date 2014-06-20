@@ -108,9 +108,16 @@ app.get('/api/iniciativas', function(req, res, next) {
       res.send(iniciativas);
     });
   } else {
-    iniciativas.list(req, res, function(err, iniciativas) {
-      res.send(iniciativas);
-    });
+
+    if(req.query.last) {
+        iniciativas.listLast(req, res, function(err, iniciativas) {
+          res.send(iniciativas);
+        });
+    } else {
+        iniciativas.list(req, res, function(err, iniciativas) {
+          res.send(iniciativas);
+        });
+    }
   }
 });
 
