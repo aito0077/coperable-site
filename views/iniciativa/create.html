@@ -1,30 +1,29 @@
 
 <div id="inciativa_editor" class="container">
   <h3>Organizar Iniciativa</h3>
-    <ul class="nav nav-tabs" id="iniciativa_wizard">
-      <li class="active"><a id="basicos_tab" href="#basico" data-toggle="tab">Datos B&aacute;sicos</a></li>
-      <li><a id="tareas_tab" href="#tareas" data-toggle="tab">Tareas</a></li>
-    </ul>
-
     <div class="tab-content">
       <div class="tab-pane active" id="basico">
         <div class="form-horizontal">
+
           <input type="hidden" name="latitude" id="latitude"/>
           <input type="hidden" name="longitude" id="longitude"/>
           <input type="hidden" name="slug" id="slug"/>
           <input type="hidden" name="description" id="description"/>
+
           <div class="control-group">
             <label class="control-label" for="name">Nombre Iniciativa</label>
             <div class="controls">
               <input type="text" name="name" id="name" value="" class="span6" required autocomplete="off"/>
             </div>
           </div>
+
           <div class="control-group">
             <label class="control-label" for="goal">Objetivo</label>
             <div class="controls">
               <input type="text" name="goal" id="goal" value="" class="span6" required autocomplete="off" rows="4" cols="50"/>
             </div>
           </div>
+
           <div class="control-group">
             <label class="control-label" for="categoria">Categor&iacute;a</label>
             <div class="controls" id="categoria">
@@ -46,26 +45,22 @@
               </div>
             </div>
           </div>
+
           <div class="control-group">
             <label class="control-label" for="description">Descripci&oacute;n</label>
             <div class="controls">
               <textarea id="description_red" class="input-xxlarge" autocomplete="off"></textarea autocomplete="off">
             </div>
           </div>
-          <!--div class="control-group">
-            <label class="control-label" for="date">Fecha</label>
-            <div class="controls">
-                <input type="text" id="date" class="span2 datepicker" required autocomplete="off"/>
-            </div>
-          </div-->
+
           <div class="control-group">
-            <label class="control-label" for="date_duracion_from">Duraci&oacute;n</label>
+            <label class="control-label" for="date_duracion_from">Fecha y duraci&oacute;n</label>
             <div class="controls">
                 <input type="text" id="date_duracion_from" class="span5"></input>
             </div>
           </div>
 
-            {{> widget_address}}
+          {{> widget_address}}
 
           <div class="control-group">
             <label class="control-label" for="picture">Foto Portada</label>
@@ -73,133 +68,49 @@
                 <input id="profile_picture" type="file" name="files[]" multiple>
             </div>
           </div>
-            <div id="super-zone" class="span5 row">
-                <div id="dropzone" class="span5" style="height:120px">Arrastrar Imágen Aquí</div>
-            </div>
-          <div class="row control-group">
-		<div class="span">
-			    <label class="control-label" for="participants_amount">Cantidad Participantes <span id="show_amount" class="strong">(16)</span></label>
-			    <div aria-disabled="false" id="slider" class="ui-slider span5 ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-			      <div class="ui-slider-segment"></div>
-			      <div class="ui-slider-segment"></div>
-			      <div class="ui-slider-segment"></div>
-			    <div style="width: 30.6122%;" id="slider_range" class="ui-slider-range ui-widget-header ui-slider-range-min"></div><a style="left: 30.6122%;" id="slider-handle" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a></div>
-		</div>
-		<!--div class="span1">
-		<label class="checkbox checked" for="checkbox_participantes"><span class="icon"></span><span class="icon-to-fade"></span>
-		<span class="icons">
-		<span class="first-icon fui-checkbox-unchecked"></span>
-		<span class="second-icon fui-checkbox-checked"></span>
-		</span>
-		<input type="checkbox" id="checkbox_participantes" data-toggle="checkbox" value="">
-		Ilimitados
-		</label>
-	</div-->
+          
+          <div id="super-zone" class="span5 row">
+              <div id="dropzone" class="span5" style="height:120px">Arrastrar Imágen Aquí</div>
           </div>
-          <!--div class="control-group">
-            <label class="control-label" for="phone">Tel&eacute;fono</label>
-            <div class="controls">
-              <input  name="phone" id="phone" value="" class="span5" required autocomplete="off"/>
-            </div>
-          </div-->
+          
+          <div class="row control-group">
+        		<div class="span">
+    			    <label class="control-label" for="participants_amount">Cantidad Participantes <span id="show_amount" class="strong">(16)</span></label>
+    			    <div aria-disabled="false" id="slider" class="ui-slider span5 ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+    			      <div class="ui-slider-segment"></div>
+    			      <div class="ui-slider-segment"></div>
+    			      <div class="ui-slider-segment"></div>
+    			    <div style="width: 30.6122%;" id="slider_range" class="ui-slider-range ui-widget-header ui-slider-range-min"></div><a style="left: 30.6122%;" id="slider-handle" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a></div>
+        		</div>
+          </div>
+          
           <div class="control-group">
             <label class="control-label" for="email">Email</label>
             <div class="controls">
               <input name="email" id="email" value="" class="span5" required autocomplete="off"/>
             </div>
           </div>
-          <div class="form-actions">
-            <span id="submit_iniciativa" class="btn btn-primary">Aceptar</span>
+
+          <div class="control-group">
+            <label class="control-label" for="email">Actividades</label>
+            <div class="controls">
+              <input name="activities" id="activities" class="tagsinput input-xxlarge" value=""  autocomplete="off"/>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="tab-pane" id="tareas">
-         <div class="offset1 content">
-	  <div class="row">
-          <div class="demo-tooltips">
-		<h3 class="demo-panel-title">Actividades</h3>
-		<p align="center" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Actividades"></p>
-		<h4>Agregá las diferentes actividades y tareas que realizarán quienes asistan a la iniciativa.</h4>
-		</div>
-	  </div>
-
-
-      <div class="row span5" >
-        <input name="activities" id="activities" class="tagsinput input-xxlarge" value=""  autocomplete="off"/>
-      </div>
-
-      <!--div class="row span8 demo-samples">
-        <div class="span4">
-          <div class="todo mrm tabbable tabs-left">
-            <ul>
-              <li class="todo-done">
-                <div class="todo-icon fui-mail-24"></div>
-                <div class="todo-content">
-                  <h4 class="todo-name">
-                    <strong>Mail</strong>
-                  </h4>
-                </div>
-              </li>
-              <li class="todo-done">
-                <div class="todo-icon fui-man-24"></div>
-                <div class="todo-content">
-                  <h4 class="todo-name">
-                    <strong>Facebook</strong>
-                  </h4>
-                </div>
-              </li>
-              <li class="todo-done">
-                <div class="todo-icon fui-man-24"></div>
-                <div class="todo-content">
-                  <h4 class="todo-name">
-                    <strong>Twitter</strong>
-                  </h4>
-                </div>
-              </li>
-              <li class="todo-done">
-                <div class="todo-icon fui-man-24"></div>
-                <div class="todo-content">
-                  <h4 class="todo-name">
-                    <strong>Google+</strong>
-                  </h4>
-                </div>
-              </li>
-              <li class="todo-done">
-                <div class="todo-icon fui-video-24"></div>
-                <div class="todo-content">
-                  <h4 class="todo-name">
-                    <strong>Youtube</strong>
-                  </h4>
-                </div>
-              </li>
-              <li class="todo-done">
-                <div class="todo-icon fui-video-24"></div>
-                <div class="todo-content">
-                  <h4 class="todo-name">
-                    <strong>Vimeo</strong>
-                  </h4>
-                </div>
-              </li>
-              <li class="todo-done">
-                <div class="todo-icon fui-camera-24"></div>
-                <div class="todo-content">
-                  <h4 class="todo-name">
-                    <strong>Flickr</strong>
-                  </h4>
-                </div>
-              </li>
-
-
-            </ul>
-           </div>
-        </div>
-      </div-->
-
-
-    </div>
-
+          <!--
+         	  <div class="row">
+              <div class="demo-tooltips">
+            		<p align="center" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Actividades"></p>
+             		<h4>Agregá las diferentes actividades y tareas que realizarán quienes asistan a la iniciativa.</h4>
+           		</div>
+         	  </div>
+            <div class="row span5" >
+              
+            </div>
+            -->
+          </div>
           <div class="row form-actions">
+            <br clear="all" />
             <button type="button" id="submit_iniciativa_tasks" class="btn btn-primary">Aceptar</button>
           </div>
-</div>
-
+      </div>
