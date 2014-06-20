@@ -1,0 +1,30 @@
+{
+  "name": "coperable",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "hogan-express": "0.5.2",
+    "passport": "0.1.15",
+    "passport-local": "0.1.6",
+    "passport-facebook": "0.1.5",
+    "passport-twitter": "0.1.4",
+    "underscore": "1.4.4",
+    "restify": "2.3.4",
+    "bcrypt": "0.7.5",
+    "redis": "0.8.2",
+    "connect-redis": "1.4.5",
+    "aws-sdk": "0.9.7-pre.8",
+    "mime-magic": "5.14.0",
+    "validator": "1.1.1",
+    "express-validator": "0.3.2",
+    "fbgraph": "0.2.6",
+    "jade": "~0.35.0",
+    "stylus": "~0.38.0",
+    "imagemagick": "*",
+    "nib": "~1.0.1"
+  }
+}
