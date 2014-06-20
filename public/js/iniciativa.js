@@ -167,7 +167,7 @@ Backbone.emulateHTTP = true;
         range: "min"
       });
 
-      
+      $('.calendar-time').prepend('Hora: ');
 
       $("#activities").tagsInput({
          //autocomplete_url: url_to_autocomplete_api,
