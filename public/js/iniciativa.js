@@ -600,6 +600,8 @@ Backbone.emulateHTTP = true;
 
       this.itemTemplate = _.template([
       '<li data-category="<%= main_category %>" class="initiative">',
+          '<div class="schedule pull-right"><%= date_f %></div>',
+
         '<div data-label="<%= main_category %>" class="pic">',
           '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
             '<img src="/static/uploads/thumbs/<%= profile_picture %>" width="100%"/>',
@@ -610,7 +612,7 @@ Backbone.emulateHTTP = true;
             '<h4><%= name %></h4>',
           '</a>',
           '<div class="place" data-icon=""><%= address %></div>',
-          '<div class="schedule" data-icon=""></div>',
+          '<div class="schedule" data-icon=""><%= date_f %></div>',
         '</div>',
         '<div class="bottom">',
           '<div class="wrapper">',
@@ -662,11 +664,14 @@ Backbone.emulateHTTP = true;
 	    if(!_.isEmpty(self.last_iniciativas.models)) {
             _.each(self.last_iniciativas.models, function(model) {
                 if(model && !_.isEmpty(model)) {
+
+                    var momento = moment(model.get('start_date')).lang('es');
                     $('#iniciativas_list').append(self.itemTemplate(_.extend({
                         main_category: '',
                         profile_picture: '',
                         address: '',
-                        goal: ''
+                        goal: '',
+                        date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
                     }, model.toJSON())));
                 }
             });
