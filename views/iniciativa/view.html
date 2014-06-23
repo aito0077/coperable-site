@@ -8,7 +8,7 @@
             <div class="objective">{{iniciativa.goal}}</div>
             <div class="location">
               <div class="info">
-                  <div class="when">{{iniciativa.creation_date}}</div>
+                  <div class="when">{{iniciativa.start_date}}</div>
                     <div class="where">{{iniciativa.address}}</div>
                 </div>
             </div>
@@ -89,6 +89,8 @@
                   $(function(){
                     var $btn = $('.participar')
                     $btn.on('click', function(){ $btn.toggleClass('participando') })
+                    var momento = moment($('.when').html()).lang('es');
+                    $('.when').html(momento.format('DD MMMM YYYY'));
                   })
                 </script>
             </div>
