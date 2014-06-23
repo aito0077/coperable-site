@@ -13,8 +13,7 @@
 			  </h4>
 		
 	 <p class="address ellipsis" data-icon="">Organizador: {{owner.name}}</p>
-          <div class="start-date ellipsis" data-icon="">Creado: {{creation_date}}
-          </div>
+          <div class="start-date ellipsis" data-icon="">{{start_date}}</div>
           <p class="address ellipsis" data-icon="">{{address}}</p>
         </div>
         <ul class="stages wrapper">
@@ -33,24 +32,11 @@
       <script type="text/javascript">
         $(function(){
 
-	//INICIATIVAS
-          var $item = $("#iniciativas-list-item-{{_id}}")
-          $item.find('.iniciativas-list-item-map').goMap({
-            markers: [{
-                latitude: {{location.latitude}},
-                longitude: {{location.longitude}}
-            }],
-            navigationControl: false,
-            mapTypeControl: false,
-            zoom: 13,
-            scrollwheel: false,
-            disableDoubleClickZoom: true,
-            maptype: 'ROADMAP'
-          });
-          var $date = $item.find('.start-date')
-          $date.html(moment($date.html()).lang('es').fromNow());
+          var $item = $("#iniciativas-list-item-{{_id}}");
+          var $date = $item.find('.start-date');
+            var momento = moment($date.html()).lang('es');
+          $date.html(momento.fromNow()+' ('+momento.format('DD MMMM')+')');
 
-	//CATEGORIAS
 	  var categoria=({{categories.arte_cultura}}?'Arte y cultura':({{categories.desarrollo}}?'Desarrollo':		({{categories.educacion}}?'Educacion':({{categories.medio_ambiente}}?'Medio ambiente':'Otra categoría'))));
 	  $("#div_categoria").html(categoria);
 
