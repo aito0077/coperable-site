@@ -694,6 +694,8 @@ Backbone.emulateHTTP = true;
       this.clear_markers();
 	
 
+        var infowindow = new google.maps.InfoWindow();
+
       _.each(this.iniciativas.models, function(model) {
         var location = model.get('location');
         var marker = new google.maps.Marker({
@@ -702,15 +704,24 @@ Backbone.emulateHTTP = true;
           map: self.map
         });
 
+        /*
         marker.info = new google.maps.InfoWindow({
           content:self.markerTemplate(_.extend({
 	    main_category: '',
             profile_picture: '',
+            address: '',
             goal: ''
         }, model.toJSON()))
         });
+        */
         google.maps.event.addListener(marker, 'click', function(){
-          marker.info.open(self.map, marker);
+            infowindow.setContent(
+              self.markerTemplate(_.extend({
+                profile_picture: '',
+                address: '',
+                goal: ''
+            }, model.toJSON())));
+            infowindow.open(self.map, marker);
         });
         self.markers.push(marker);
 
