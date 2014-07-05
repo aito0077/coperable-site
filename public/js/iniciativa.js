@@ -666,6 +666,7 @@ Backbone.emulateHTTP = true;
                     $('#iniciativas_list').append(self.itemTemplate(_.extend({
                         main_category: '',
                         profile_picture: '',
+                        address: '',
                         goal: '',
                         date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
                     }, model.toJSON())));
@@ -702,6 +703,7 @@ Backbone.emulateHTTP = true;
         marker.info = new google.maps.InfoWindow({
           content:self.markerTemplate(_.extend({
             profile_picture: '',
+            address: '',
             goal: ''
         }, model.toJSON()))
         });
@@ -710,6 +712,7 @@ Backbone.emulateHTTP = true;
             infowindow.setContent(
               self.markerTemplate(_.extend({
                 profile_picture: '',
+                address: '',
                 goal: ''
             }, model.toJSON())));
             infowindow.open(self.map, marker);
