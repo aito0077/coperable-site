@@ -74,7 +74,6 @@ exports.get = function(req, res, done) {
   console.log('id:' + id);
   cop_api.client.get('/api/iniciativa/'+id, function(err, req, res, iniciativa) { 
     console.log('INICIATIVA - debug: ');
-    console.dir(iniciativa);
     res.send(iniciativa);
   });
 };
