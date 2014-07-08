@@ -11,7 +11,6 @@ cop_api.client.put('/api/usuario', user_data, function(err, req, res, obj) { con
 
 exports.do_signup = function(req, res, done) {
   var user_data = us.extend({}, req.body);
-  console.log(user_data);
 
   cop_api.client.put('/api/usuario', user_data, function(err, req, res, obj) {
     console.log('%d -> %j', res.statusCode, res.headers);
@@ -25,7 +24,6 @@ exports.authenticate = function(username, password, done) {
     username: username,
     password: password
   };
-  console.log(user_data);
 
   cop_api.client.post('/api/user/authenticate', user_data, function(err, req, res, user) {
     console.log('%j', user);
