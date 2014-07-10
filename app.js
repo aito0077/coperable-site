@@ -103,7 +103,6 @@ app.post('/api/iniciativas/:id/:userId', iniciativas.participate);
 app.post('/api/iniciativas', iniciativas.create);
 
 app.get('/api/iniciativas', function(req, res, next) {
-  console.dir(req.query);
   if(req.query.category) {
     iniciativas.browseByCategory(req, res, function(err, iniciativas) {
       res.send(iniciativas);
@@ -180,7 +179,6 @@ app.get('/user/:id', user.profile);
 app.post('/uploads', external_files.upload);
 app.post('/gets3credentials', external_files.createS3Policy);
 app.get('/uploadsuccess', function(req, resp) {
-  console.dir(req);
   console.log('Exito en subir la imagen');
   res.send('OK');
 });

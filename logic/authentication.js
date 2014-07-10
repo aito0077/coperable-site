@@ -30,7 +30,6 @@ passport.use(new LocalStrategy({
       if (us.isEmpty(user)) {
         return done(null, false, { message: 'Usuario/Password incorrecto.' });
       }
-      console.log('Username: '+username+' autenticado correctamente.');
       return done(null, user);
     });
   }
@@ -40,21 +39,24 @@ passport.use(new LocalStrategy({
 var oauthenticate_create = function(accessToken, refreshToken, given_profile, done) {
   var profile = given_profile._json;
   users.oauthenticate(given_profile.provider, given_profile.id, function(err, user) {
-    if (err) { return done(err); }
-    if (us.isEmpty(user)) {
+    if (err) { 
+	console.log(err);
+	return done(err); 
+    }
+    if (us.isEmpty(user) || us.isUndefined(user._id)) {
       var user_data = {};
         
       switch(given_profile.provider) {
         case 'facebook':
           user_data = {
-            first_name: given_profile.first_name || profile.name ,
-            last_name: given_profile.last_name,
+            first_name: given_profile.first_name || given_profile.name.givenName,
+            last_name: given_profile.last_name  || given_profile.name.familyName,
             verified: true
           };
           break;
         case 'twitter':
           user_data = {
-            first_name: given_profile.name || given_profile.screen_name,
+            first_name: given_profile.username || given_profile.displayName,
             verified: true
           };
           break;
@@ -63,8 +65,10 @@ var oauthenticate_create = function(accessToken, refreshToken, given_profile, do
 
           break;
       }
+	user_data['username'] = user_data['first_name'];
       user_data['authenticate_with'] = given_profile.provider;
       user_data[given_profile.provider+'_id'] = given_profile.id;
+		console.dir(user_data);
 
       cop_api.client.put('/api/usuario', user_data, function(err, req, res, user) {
         done(null, user);

@@ -30,6 +30,13 @@
   <div class="ultimas-iniciativas-mapa-wrapper">
     <div id="map_canvas" style="width:100%; height:100%"></div>
   </div>
+</div>
+<div style="clear:both"></div>
+<div id="lastInitiatives">
+    <ul class="list" id="iniciativas_list">
+    </ul>
+<div style="clear:both"></div>
+</div>
   <script>
     $(function(){
       map_browser = new iniciativa.MapBrowser();
@@ -45,10 +52,4 @@
       map_browser.traer_last_iniciativas();
     });
   </script>
-</div>
-<div style="clear:both"></div>
-<div id="lastInitiatives">
-    <ul class="list" id="iniciativas_list">
-    </ul>
-<div style="clear:both"></div>
-</div>
+

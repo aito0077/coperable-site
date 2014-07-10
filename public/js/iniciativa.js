@@ -528,6 +528,7 @@ Backbone.emulateHTTP = true;
 
       this.model = new iniciativa.Model;
       this.iniciativas = new iniciativa.Collection;
+      this.last_iniciativas = new iniciativa.Collection;
       this.buenos_aires = new google.maps.LatLng(-34.615692,-58.432846);
       this.user_default = this.buenos_aires;
       this.browserSupportGeolocation =  navigator.geolocation ? true : false;
@@ -652,14 +653,16 @@ Backbone.emulateHTTP = true;
 
     traer_last_iniciativas: function() {
       var self = this;
-      this.iniciativas.fetch({
+      this.last_iniciativas.fetch({
         data: $.param({
             last: true,
             latitude: self.user_default.lat(),
             longitude: self.user_default.lng()
         }),
-        success: function(iniciativas, response, options) {
-            _.each(self.iniciativas.models, function(model) {
+        success: function(last_iniciativas, response, options) {
+
+	    if(!_.isEmpty(self.last_iniciativas.models)) {
+            _.each(self.last_iniciativas.models, function(model) {
                 if(model && !_.isEmpty(model)) {
 
                     var momento = moment(model.get('start_date')).lang('es');
@@ -672,6 +675,7 @@ Backbone.emulateHTTP = true;
                     }, model.toJSON())));
                 }
             });
+		}
         }
       });
     },
@@ -688,6 +692,7 @@ Backbone.emulateHTTP = true;
     marcar_iniciativas: function() {
       var self = this;
       this.clear_markers();
+	
 
         var infowindow = new google.maps.InfoWindow();
 
@@ -702,6 +707,7 @@ Backbone.emulateHTTP = true;
         /*
         marker.info = new google.maps.InfoWindow({
           content:self.markerTemplate(_.extend({
+	    main_category: '',
             profile_picture: '',
             address: '',
             goal: ''

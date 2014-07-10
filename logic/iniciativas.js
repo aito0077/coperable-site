@@ -4,7 +4,6 @@ var config = require('../config'),
 
 
 function prepare_to_persist(req, done) {
-  console.dir(req.body);
   var body = req.body.model ? JSON.parse(req.body.model) : req.body,
     activities = body.activities,
     task = new Array();
@@ -32,11 +31,9 @@ function prepare_to_persist(req, done) {
 };
 
 exports.create = function(req, res, done) {
-    console.log("Iniciativa create");
-    console.dir(req);
   prepare_to_persist(req, function(iniciativa_data) {
-    console.dir(iniciativa_data);
     cop_api.client.post('/api/iniciativa', iniciativa_data, function(err, request, response, obj) {
+	console.log('iniciativa creada: '+err);
       res.send(obj);
     });
   });
