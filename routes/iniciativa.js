@@ -106,33 +106,6 @@ exports.view_slug = function(req, res) {
 
 exports.list = function(req, res) {
   iniciativas.list(req, res, function(err, iniciativas){
-    /*
-    res.locals = us.extend(res.locals, {
-      iniciativas: iniciativas
-    });
-    return res.render('iniciativa/browser',{
-      partials: {
-        header: 'wrapper/header',
-        menu_site: 'wrapper/menu_site',
-        footer: 'wrapper/footer'
-      }
-    });
-    */
-    // iniciativas = [
-    //   {
-    //     name: 'Sembrando sonrisas en Boedo',
-    //     slug: 'sembrando-semillas-en-boedo',
-    //     category: {
-    //       slug: 'environment',
-    //       name: 'Medio Ambiente',
-    //     },
-    //     thumb: '/static/img/iniciativas/initiativepic-1-mq.jpg',
-    //     address: 'Palermo, Buenos Aires',
-    //     start_date: 'Martes 28/06/13 16:40hs',
-    //     current_stage: 'convocatoria',
-    //     pariticipants_amount: 28,
-    //   }
-    // ]
     if( req.xhr ) {
       return res.send(iniciativas)
     } else {

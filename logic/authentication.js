@@ -30,7 +30,6 @@ passport.use(new LocalStrategy({
       if (us.isEmpty(user)) {
         return done(null, false, { message: 'Usuario/Password incorrecto.' });
       }
-	console.log('usuario '+username+' autenticado');
       return done(null, user);
     });
   }

@@ -60,6 +60,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function loadUserInformation(req, res, next) {
+    console.dir(req.user);
   var geo = (req.session ? req.session.geo : false) || (req.cookies ? req.cookies.geo : undefined);
   res.locals = {
     user: req.user,
