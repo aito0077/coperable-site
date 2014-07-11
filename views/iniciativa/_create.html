@@ -10,14 +10,14 @@
             <div class="number">1</div>
             <div class="content">
                 <label class="control-label" for="name">Elige un nombre para tu Iniciativa</label>
-                <input type="text" name="name" id="name" required autocomplete="off" placeholder="Nombre" size="65" />
+                <input type="text" name="name" id="name" required autocomplete="off" placeholder="Nombre" />
             </div>
         </div>
         <div class="control-group">
             <div class="number">2</div>
             <div class="content">
                 <label class="control-label" for="goal">¿Cuál es el objetivo de esta Iniciativa?</label>
-                <input type="text" name="goal" id="goal" required autocomplete="off" placeholder="Objetivo" size="84" />
+                <input type="text" name="goal" id="goal" required autocomplete="off" placeholder="Objetivo" />
             </div>
         </div>
 
@@ -28,10 +28,18 @@
                 <div class="controls" id="categoria">
                     <div class="btn-toolbar">
                         <div class="btn-group" data-toggle="buttons-checkbox">
-                            <button id="medio_ambiente" class="category-environment ini_category btn btn-primary inline"></button>
-                            <button id="educacion" class="category-education ini_category btn btn-primary inline"></button>
-                            <button id="arte_cultura" class="category-art ini_category btn btn-primary inline"></button>
-                            <button id="desarrollo" class="category-social ini_category btn btn-primary inline"></button>
+                            <button id="medio_ambiente" class="category-environment ini_category btn btn-primary inline fui-time-16">
+                                Medio Ambiente
+                            </button>
+                            <button id="educacion" class="category-education ini_category btn btn-primary inline fui-heart-16">
+                                Educación
+                            </button>
+                            <button id="arte_cultura" class="category-art ini_category btn btn-primary inline fui-eye-16">
+                                Arte y Cultura
+                            </button>
+                            <button id="desarrollo" class="category-social ini_category btn btn-primary inline fui-new-16">
+                                Desarrollo Social
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -69,39 +77,34 @@
         </div>
         {{> widget_address}}
         <div class="control-group">
-            <div class="number">8</div>
-            <div class="content">
-                <label class="control-label" for="picture">Foto Portada</label>
-                <div class="controls">
-                    <input id="profile_picture" type="file" name="files[]" multiple>
-                </div>
-            </div>
-        </div>
-
-        <div class="row control-group">
-            <div class="number">9</div>
-            <div class="content">
-            	<div class="span">
-            	    <label class="control-label" for="participants_amount">Cantidad de Participantes</label>
-            	    <div aria-disabled="false" id="slider" class="ui-slider span5 ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-            	      <div class="ui-slider-segment"></div>
-            	      <div class="ui-slider-segment"></div>
-            	      <div class="ui-slider-segment"></div>
-            	    <div style="width: 30.6122%;" id="slider_range" class="ui-slider-range ui-widget-header ui-slider-range-min"></div><a style="left: 30.6122%;" id="slider-handle" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a></div>
-                </div>
+            <label class="control-label" for="picture">Foto Portada</label>
+            <div class="controls">
+            <input id="profile_picture" type="file" name="files[]" multiple>
             </div>
         </div>
           
-        <div class="control-group">
-            <div class="number">10</div>
-            <div class="content">
-                <label class="control-label" for="email">Mail de contacto</label>
-                <div class="controls">
-                    <input type="text" name="email" id="email" value="" class="span5" required autocomplete="off"/>
-                    <span class="help-block"><small>Se mostrar&aacute; en tu iniciativa.</small></span>
-                </div>
+          <div id="super-zone" class="span5 row">
+              <div id="dropzone" class="span5" style="height:120px">Arrastrar Imágen Aquí</div>
+          </div>
+          
+          <div class="row control-group">
+        		<div class="span">
+    			    <label class="control-label" for="participants_amount">Cantidad Participantes <span id="show_amount" class="strong">(16)</span></label>
+    			    <div aria-disabled="false" id="slider" class="ui-slider span5 ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+    			      <div class="ui-slider-segment"></div>
+    			      <div class="ui-slider-segment"></div>
+    			      <div class="ui-slider-segment"></div>
+    			    <div style="width: 30.6122%;" id="slider_range" class="ui-slider-range ui-widget-header ui-slider-range-min"></div><a style="left: 30.6122%;" id="slider-handle" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a></div>
+        		</div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="email">Mail de contacto</label>
+            <div class="controls">
+              <input type="text" name="email" id="email" value="" class="span5" required autocomplete="off"/>
+              <span class="help-block"><small>Se mostrar&aacute; en tu iniciativa.</small></span>
             </div>
-        </div>
+          </div>
 
           </div>
           <div class="row form-actions">

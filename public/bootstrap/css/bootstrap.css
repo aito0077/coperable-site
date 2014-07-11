@@ -223,7 +223,6 @@ textarea {
 
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #333333;
@@ -1065,7 +1064,6 @@ input,
 button,
 select,
 textarea {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 label {
@@ -1106,10 +1104,12 @@ input[type="color"],
 input,
 textarea,
 .uneditable-input {
-  width: 206px;
+  min-width: 206px;
 }
 
 textarea {
+  padding-top: 10px !important;
+  resize: none;
   height: auto;
   line-height: normal;
 }
@@ -1944,22 +1944,43 @@ legend + .control-group {
   -webkit-margin-top-collapse: separate;
 }
 
-.form-horizontal .control-group {
+.control-group {
   margin-bottom: 20px;
   *zoom: 1;
 }
-
-.form-horizontal .control-group:before,
-.form-horizontal .control-group:after {
+.control-group > .number {
+  float: left;
+  width: 52px;
+  height: 52px;
+  text-align: center;
+  line-height: 50px;
+  color: #595959;
+  font-size: 24px;
+  border: 2px solid #00BE94;
+  margin-right: 40px;
+  border-radius: 52px;
+  -o-border-radius: 52px;
+  -ms-border-radius: 52px;
+  -moz-border-radius: 52px;
+  -webkit-border-radius: 52px;
+}
+.control-group > .content {
+  float: left;
+  width: 705px;
+}
+.control-group:before,
+.control-group:after {
   display: table;
   line-height: 0;
   content: "";
 }
-
-.form-horizontal .control-group:after {
+.control-group:after {
   clear: both;
 }
-
+.control-label {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
 .form-horizontal .control-label {
   float: left;
   width: 160px;
@@ -4511,7 +4532,6 @@ input[type="submit"].btn.btn-mini {
 .navbar-search .search-query {
   padding: 4px 14px;
   margin-bottom: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: normal;
   line-height: 1;
