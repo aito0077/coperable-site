@@ -31,9 +31,21 @@
 .daterangepicker .ranges .range_inputs>div {
   float: left;
 }
+.daterangepicker .ranges .range_inputs .applyBtn {
+  float: left;
+  width: 38px;
+  height: 32px;
+  background: #00BE94 url(/static/img/v-icon.png) center center no-repeat;
+  margin-right: 10px;
+}
+.daterangepicker .ranges .range_inputs .cancelBtn {
+  float: left;
+  width: 38px;
+  height: 32px;
+  background: #EC3939 url(/static/img/x-icon.png) center center no-repeat;
+}
 
 .daterangepicker .ranges .range_inputs>div:nth-child(2) {
-  padding-left: 11px;
 }
 
 .daterangepicker .calendar {
@@ -86,7 +98,7 @@
   vertical-align: middle;
   margin: 0 0 10px 0;
   padding: 0 6px;
-  width: 74px;
+  min-width: 160px;
 }
 
 .daterangepicker .ranges ul {
@@ -258,8 +270,6 @@
 }
 
 .daterangepicker_end_input {
-  float: left; 
-  padding-left: 11px
 }
 
 .daterangepicker th.month {

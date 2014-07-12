@@ -54,12 +54,23 @@
     }
 }
 
+.pagetitle {
+    margin: 40px 0 35px;
+}
+
 #inciativa_editor {
+    width: 800px;
+    margin: 0 auto 50px;
+    .control-group {
+        margin-bottom: 15px;
+    }
     .ini_category {
         width: 170px;
         height: 51px;
         margin-right: 10px;
         background-repeat: none !important;
+        background-color: transparent !important;
+        .transition(none);
         &.active {
             background-position: 0 -51px !important;
         }
@@ -78,5 +89,35 @@
     }
     #description_red {
         width: 100%;
+    }
+    #super-zone {
+        background: url(/static/img/dropzone-bg.png) repeat;
+        width: 280px;
+        height: 150px;
+        #dropzone {
+            background: url(/static/img/pics-img.png) center 30px no-repeat;
+            width: 280px;
+            height: 150px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,.5);
+            text-align: center;
+            color: #FFF;
+            font-size: 12px;
+            padding-top: 95px;
+            .text-hover {
+                display: none;
+            }
+            &.hover {
+                background-image: url(/static/img/upload-img.png);
+                .text-hover {
+                    display: inline;
+                }
+                .text {
+                    display: none;
+                }
+            }
+        }
+    }
+    #slider {
+        width: 425px;
     }
 }

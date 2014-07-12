@@ -1,5 +1,5 @@
 <div id="inciativa_editor" class="container">
-    <h3>Organizar Iniciativa</h3>
+    <h3 class="pagetitle">Organizar Iniciativa</h3>
     <form action="">
         <input type="hidden" name="latitude" id="latitude"/>
         <input type="hidden" name="longitude" id="longitude"/>
@@ -9,22 +9,22 @@
         <div class="control-group">
             <div class="number">1</div>
             <div class="content">
-                <label class="control-label" for="name">Elige un nombre para tu Iniciativa</label>
-                <input type="text" name="name" id="name" required autocomplete="off" placeholder="Nombre" size="65" />
+                <label class="control-label" for="name">Nombre de la Iniciativa</label>
+                <input type="text" name="name" id="name" required autocomplete="off" placeholder="Elige un nombre claro, explicativo y atractivo" size="65" />
             </div>
         </div>
         <div class="control-group">
             <div class="number">2</div>
             <div class="content">
-                <label class="control-label" for="goal">¿Cuál es el objetivo de esta Iniciativa?</label>
-                <input type="text" name="goal" id="goal" required autocomplete="off" placeholder="Objetivo" size="84" />
+                <label class="control-label" for="goal">Objetivo</label>
+                <input type="text" name="goal" id="goal" required autocomplete="off" placeholder="¿Cuál es la finalidad?" size="84" />
             </div>
         </div>
 
         <div class="control-group">
             <div class="number">3</div>
             <div class="content">
-                <label class="control-label" for="categoria">Asigna una o más categorías</label>
+                <label class="control-label" for="categoria">Categorías</label>
                 <div class="controls" id="categoria">
                     <div class="btn-toolbar">
                         <div class="btn-group" data-toggle="buttons-checkbox">
@@ -43,7 +43,7 @@
             <div class="content">
                 <label class="control-label" for="description">Agrega una descripción</label>
                 <div class="controls">
-                    <textarea id="description_red" class="input-xxlarge" autocomplete="off"></textarea autocomplete="off">
+                    <textarea id="description_red" class="input-xxlarge" autocomplete="off">Contá de que se trata tu iniciativa. Te recomendamos que primero describas lo más importante, lo que primero se preguntará un participante. Luego si querés podés contar como nace, quienes organizan y participan o lo que te paresca adecuado.</textarea autocomplete="off">
                 </div>
             </div>
         </div>
@@ -51,7 +51,8 @@
         <div class="control-group">
             <div class="number">5</div>
             <div class="content">
-                <label class="control-label" for="email">Actividades</label>
+                <label for="email">Actividades</label>
+                <div class="help-block"><small>¿Qué tipo de tareas se van a realizar en la iniciativa?</small></div>
                 <div class="controls">
                     <input name="activities" id="activities" class="tagsinput input-xxlarge" value=""  autocomplete="off" />
                 </div>
@@ -61,51 +62,71 @@
         <div class="control-group">
             <div class="number">6</div>
             <div class="content">
-                <label class="control-label" for="date_duracion_from">Fecha y duración</label>
-                    <div class="controls">
-                    <input type="text" id="date_duracion_from" class="span5"></input>
+                <label for="email">Temática</label>
+                <div class="help-block"><small>Agrega palabras claves que ayuden a encontrar e identificarla</small></div>
+                <div class="controls">
+                    <input name="topic" id="topic" class="tagsinput input-xxlarge" value=""  autocomplete="off" />
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="number">7</div>
+            <div class="content">
+                <label for="date_duracion_from">Duración</label>
+                <div class="help-block"><small>¿Cúanto dura el encuentro?</small></div>
+                <div class="controls">
+                    <input type="text" id="date_duracion_from"></input>
                 </div>
             </div>
         </div>
         {{> widget_address}}
         <div class="control-group">
-            <div class="number">8</div>
+            <div class="number">9</div>
             <div class="content">
-                <label class="control-label" for="picture">Foto Portada</label>
+                <label for="picture">Imagen de Portada</label>
+                <div class="help-block"><small>Una imagen vale más que mil palabras. Elegí una que la represente.</small></div>
                 <div class="controls">
-                    <input id="profile_picture" type="file" name="files[]" multiple>
+                    <input style="display:none;" id="profile_picture" type="file" name="files[]" multiple>
+                      <div id="super-zone">
+                          <div id="dropzone">
+                            <span class="text">Arrastra hasta aquí una<br>foto para la portada</span>
+                            <span class="text-hover">¡Suéltala!</span>
+                          </div>
+                      </div>
                 </div>
             </div>
         </div>
 
-        <div class="row control-group">
-            <div class="number">9</div>
+        <div class="control-group">
+            <div class="number">10</div>
             <div class="content">
-            	<div class="span">
-            	    <label class="control-label" for="participants_amount">Cantidad de Participantes</label>
-            	    <div aria-disabled="false" id="slider" class="ui-slider span5 ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-            	      <div class="ui-slider-segment"></div>
-            	      <div class="ui-slider-segment"></div>
-            	      <div class="ui-slider-segment"></div>
-            	    <div style="width: 30.6122%;" id="slider_range" class="ui-slider-range ui-widget-header ui-slider-range-min"></div><a style="left: 30.6122%;" id="slider-handle" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a></div>
+                <label class="control-label" for="participants_amount">Cantidad de Participantes</label>
+                <div id="slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                    <div class="min">1</div>
+                    <div class="max">1000</div>
+                    <div id="slider_range" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
+                    <a id="slider-handle" class="ui-slider-handle ui-state-default ui-corner-all" href="#">
+                        <div class="tooltip">1</div>
+                    </a>
                 </div>
             </div>
         </div>
           
         <div class="control-group">
-            <div class="number">10</div>
+            <div class="number">11</div>
             <div class="content">
                 <label class="control-label" for="email">Mail de contacto</label>
                 <div class="controls">
-                    <input type="text" name="email" id="email" value="" class="span5" required autocomplete="off"/>
-                    <span class="help-block"><small>Se mostrar&aacute; en tu iniciativa.</small></span>
+                    <input type="text" name="email" id="email" autocomplete="off" size="45" />
+                    <div class="help-block"><small>Opcional. En caso de que los participantes te quieren contactar y este sea diferente al del organizador</small></div>
                 </div>
             </div>
         </div>
 
-          </div>
-          <div class="row form-actions">
-            <br clear="all" />
-            <button type="button" id="submit_iniciativa" class="btn btn-primary">Aceptar</button>
-          </div>
-      </div>
+        <div class="row">
+            <button type="submit" id="submit_iniciativa" class="btn">Crear</button>
+        </div>
+
+    </form>
+</div>

@@ -805,16 +805,16 @@ input[type="search"],
 input[type="tel"],
 input[type="color"],
 .uneditable-input {
-  border: 1px solid #F0F0F0;
+  border: 1px solid #CCC;
   color: #34495e;
   font-family: "Lato", sans-serif;
   font-size: 14px;
   padding: 0px 20px;
   margin-bottom: 0px;
   
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 
   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.06);
   -moz-box-shadow: 0 1px 3px rgba(0,0,0,.06);
@@ -830,7 +830,8 @@ button[type=submit] {
   font-weight: normal;
   padding: 0 35px;
   height: 46px;
-  margin-top: 15px;
+  margin: 15px auto 0;
+  display: table;
 }
 
 
@@ -1253,51 +1254,73 @@ textarea,
     background-size: 30px 29px; } }
 .tagsinput {
   background: white;
-  border: 2px solid #1abc9c;
-  border-radius: 6px;
-  height: 100px;
-  padding: 6px 1px 1px 6px;
+  border: 1px solid #F0F0F0;
+  font-size: 14px;
+  padding: 6px;
+  margin-bottom: 0px;
+  
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+
+  height: 50px;
   overflow-y: auto;
-  text-align: left; }
+  text-align: left;
+}
   .tagsinput .tag {
-    border-radius: 4px;
-    background: #1abc9c;
-    color: white;
+    background: none repeat scroll 0 0 #f6f7f9;
+    border: 1px solid #ebecf0;
+    
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #585858;
     cursor: pointer;
     margin-right: 5px;
-    margin-bottom: 5px;
     overflow: hidden;
-    padding: 6px 13px 6px 19px;
+    padding: 0 13px 0 19px;
+    height: 36px;
+    line-height: 36px;
     position: relative;
     vertical-align: middle;
     display: inline-block;
     zoom: 1;
     *display: inline;
+    float: left;
     -webkit-transition: 0.14s linear;
     -moz-transition: 0.14s linear;
     -o-transition: 0.14s linear;
     transition: 0.14s linear;
-    -webkit-backface-visibility: hidden; }
+    -webkit-backface-visibility: hidden;
+  }
     .tagsinput .tag:hover {
-      background-color: #16a085;
+      background-color: #585858;
       padding-left: 12px;
-      padding-right: 20px; }
+      padding-right: 20px;
+      color: #FFF
+    }
       .tagsinput .tag:hover .tagsinput-remove-link {
         color: white;
         opacity: 1;
-        display: block\9; }
+        display: block\9;
+      }
   .tagsinput input {
     background: transparent;
     border: none;
     color: #34495e;
     font-family: "Lato", sans-serif;
     font-size: 14px;
-    margin: 0px;
     padding: 0 0 0 5px;
     outline: 0;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    width: 12px; }
+    margin: 0 5px;
+    width: 12px;
+    height: 36px;
+    line-height: 36px;
+  }
 
 .tagsinput-remove-link {
   bottom: 0;
@@ -1310,10 +1333,11 @@ textarea,
   right: 0;
   text-align: right;
   text-decoration: none;
-  top: 0;
+  top: -7px;
   width: 100%;
   z-index: 2;
-  display: none\9; }
+  display: none\9; 
+}
   .tagsinput-remove-link:before {
     color: white; }
 
@@ -1321,25 +1345,37 @@ textarea,
   vertical-align: middle;
   display: inline-block;
   zoom: 1;
-  *display: inline; }
+  *display: inline;
+  float: left;
+}
 
 .tagsinput-add {
-  background-color: #bbc3cb;
+  background-color: #F6F7F9;
+  border: 1px solid #EBECF0;
+  float: left;
+
   border-radius: 3px;
-  color: white;
+  
+  color: #585858;
   cursor: pointer;
-  margin-bottom: 5px;
-  padding: 6px 9px;
   display: inline-block;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  text-indent: -1px;
+  width: 36px;
   zoom: 1;
   *display: inline;
   -webkit-transition: 0.25s;
   -moz-transition: 0.25s;
   -o-transition: 0.25s;
   transition: 0.25s;
-  -webkit-backface-visibility: hidden; }
+  -webkit-backface-visibility: hidden;
+}
   .tagsinput-add:hover {
-    background-color: #1abc9c; }
+    background-color: #585858;
+    color: #FFF;
+  }
 
 .tags_clear {
   clear: both;
@@ -1349,9 +1385,9 @@ textarea,
 .not_valid {
   background: #fbd8db !important;
   color: #90111a !important; }
-
 .progress, .ui-slider {
-  background: #e8edf2;
+  background: #373F46;
+  box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
   border-radius: 32px;
   height: 12px;
   -webkit-box-shadow: none;
@@ -1378,34 +1414,66 @@ textarea,
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); }
 
 .ui-slider {
+  margin-top: 50px;
   margin-bottom: 20px;
-  position: relative; }
+  position: relative;
+}
+.ui-slider .min,
+.ui-slider .max {
+  position: absolute;
+  font-size: 18px;
+  color: #393F45;
+  text-align: center;
+  width: 40px;
+  margin-left: -20px;
+  top: -36px;
+  font-weight: bold;
+}
+.ui-slider .min {left:0;}
+.ui-slider .max {left:100%;}
 
 .ui-slider-handle {
-  background-color: #16a085;
+  background: url(/static/img/slider-bt.png) no-repeat;
   border-radius: 50%;
   cursor: pointer;
-  height: 18px;
-  margin-left: -9px;
+  height: 52px;
+  width: 42px;
+  margin-left: -20px;
+  top: -20px;
   position: absolute;
-  top: -3px;
-  width: 18px;
   z-index: 2;
   -webkit-transition: background 0.25s;
   -moz-transition: background 0.25s;
   -o-transition: background 0.25s;
   transition: background 0.25s;
-  -webkit-backface-visibility: hidden; }
-  .ui-slider-handle[style*='100'] {
-    margin-left: -15px; }
-  .ui-slider-handle:hover, .ui-slider-handle:focus {
-    background-color: #2fe2bf;
-    outline: none; }
-  .ui-slider-handle:active {
-    background-color: #16a085; }
+  -webkit-backface-visibility: hidden;
+}
+.ui-slider-handle[style*='100'] {
+  margin-left: -15px;
+}
+.ui-slider-handle .tooltip {
+  background: url(/static/img/mintooltip-img.png) no-repeat;
+  width: 52px;
+  height: 47px;
+  margin-left: -5px;
+  position: absolute;
+  top: -28px;
+  text-align: center;
+  line-height: 38px;
+  color: #FFF;
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 1 !important;
+  pointer-events: none;
+  display: none;
+}
+.ui-slider-handle:hover .tooltip {
+  display: block !important;
+}
 
 .ui-slider-range {
-  background-color: #1abc9c;
+  background: #03BF95;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,.1);
   border-radius: 30px 0 0 30px;
   display: block;
   height: 100%;

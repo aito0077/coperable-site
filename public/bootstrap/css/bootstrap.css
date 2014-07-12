@@ -659,7 +659,7 @@ p {
 }
 
 small {
-  font-size: 85%;
+  font-size: 75%;
 }
 
 strong {
@@ -1068,7 +1068,7 @@ textarea {
 
 label {
   display: block;
-  margin-bottom: 5px;
+  font-size: 18px;
 }
 
 select,
@@ -1654,7 +1654,7 @@ select:focus:invalid:focus {
 
 .help-block {
   display: block;
-  margin-bottom: 10px;
+  margin: 5px 0 10px;
 }
 
 .help-inline {
@@ -1978,7 +1978,6 @@ legend + .control-group {
   clear: both;
 }
 .control-label {
-  font-size: 18px;
   margin-bottom: 15px;
 }
 .form-horizontal .control-label {

@@ -76,6 +76,7 @@ Backbone.emulateHTTP = true;
       'change #phone': 'set_phone',
       'change #email': 'set_email',
       'change #activities': 'set_activities',
+      'change #topic': 'set_topics',
       'click .ini_category': 'set_category',
       'click #submit_iniciativa': 'create_iniciativa',
       'click #submit_iniciativa_tasks': 'add_iniciativa_tasks',
@@ -150,11 +151,20 @@ Backbone.emulateHTTP = true;
      
       $("#slider").slider({
         min: 1,
-        max: 50,
+        max: 100,
         step: 1,
-        value: 5,
-        orientation: "horizontal",
-        range: "min"
+        value: 1,
+        orientation: 'horizontal',
+        range: 'min',
+        slide: function(evt, ui) {
+          $(evt.target).find('.tooltip').html(ui.value);
+        },
+        start: function(evt, ui) {
+          $(evt.target).find('.tooltip').show();
+        },
+        stop: function(evt, ui) {
+          $(evt.target).find('.tooltip').hide();
+        }
       });
 
       $("#activities").tagsInput({
@@ -165,14 +175,22 @@ Backbone.emulateHTTP = true;
          removeWithBackspace: true,
          minChars: 3
       });
+      $("#topic").tagsInput({
+         //autocomplete_url: url_to_autocomplete_api,
+         interactive:true,
+         width: '600px',
+         onChange : this.set_topics,
+         removeWithBackspace: true,
+         minChars: 3
+      });
       $('#date_duracion_from').daterangepicker({
             format: 'DD/MM/YYYY HH:mm',
             timePickerIncrement: 30,
             timePicker12Hour: false,
             timePicker: true,
             locale: {
-                applyLabel: 'Aplicar',
-                cancelLabel: 'Cancelar',
+                applyLabel: '',
+                cancelLabel: '',
                 fromLabel: 'Desde',
                 toLabel: 'Hasta',
                 weekLabel: 'S',
@@ -433,8 +451,12 @@ Backbone.emulateHTTP = true;
       this.model.set({
         activities: $('#activities').val()
       });
+    },
+    set_topics: function(e) {
+      this.model.set({
+        topic: $('#topic').val()
+      });
     }
-
   });
 
 
