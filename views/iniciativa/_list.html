@@ -9,7 +9,7 @@
         </div>
         <div class="wrapper">
 			  <h4 class="title">
-			    <a href="/iniciativas/{{_id}}">{{name}}</a>
+			    <a href="/iniciativas/{{_id}}"> {{name}}</a>
 			  </h4>
 		
 	 <p class="address ellipsis" data-icon="">Organizador: {{owner.name}}</p>
@@ -17,9 +17,10 @@
           <p class="address ellipsis" data-icon="">{{address}}</p>
         </div>
         <ul class="stages wrapper">
-          <li class="convocatoria actual">Convocatoria<div class="icon"></div></li>
-          <li class="activando">Activando<div class="icon"></div></li>
-          <li class="finalizada">Finalizada<div class="icon"></div></li>
+            
+          <li class="convocatoria {{#convocatoria}}actual{{/convocatoria}}">Convocatoria<div class="icon"></div></li>
+          <li class="activando {{#activando}}actual{{/activando}}">Activando<div class="icon"></div></li>
+          <li class="finalizada {{#finalizada}}actual{{/finalizada}}">Finalizada<div class="icon"></div></li>
         </ul>
         <div class="actions wrapper">
           <a href="/iniciativas/{{_id}}" rel="/iniciativas/{{_id}}" class="btn btn-success boton-participar">Participá</a>

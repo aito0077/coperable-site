@@ -98,6 +98,14 @@ exports.listLast = function(req, res, done) {
 
 exports.list = function(req, res, done) {
   cop_api.client.get('/api/iniciativa', function(err, request, response, iniciativas) {
+    us.each(iniciativas, function(iniciativa) {
+        var current_stage = iniciativa.current_stage;
+            iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+            iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+            iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+        
+    });
+console.dir(iniciativas);
     done(err, iniciativas);
   });
 };
