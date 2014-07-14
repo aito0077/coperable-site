@@ -51,9 +51,10 @@
     <div id="initiativeSidebar">
         <div class="wrapper">
             <ul class="status">
-                <li>Convocatoria<div class="icon"></div></li>
-                <li class="actual">Activando<div class="icon"></div></li>
-                <li>Finalizada<div class="icon"></div></li>
+                  <li class="convocatoria {{#convocatoria}}actual{{/convocatoria}}">Convocatoria<div class="icon"></div></li>
+                  <li class="activando {{#activando}}actual{{/activando}}">Activando<div class="icon"></div></li>
+                  <li class="finalizada {{#finalizada}}actual{{/finalizada}}">Finalizada<div class="icon"></div></li>
+
             </ul>
             <div class="participants">
               <div class="info">

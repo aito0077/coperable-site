@@ -70,19 +70,33 @@ exports.get = function(req, res, done) {
   var id = req.params['id'];
   console.log('id:' + id);
   cop_api.client.get('/api/iniciativa/'+id, function(err, req, res, iniciativa) { 
-    console.log('INICIATIVA - debug: ');
-    res.send(iniciativa);
+    var current_stage = iniciativa.current_stage;
+        iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+        iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+        iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+     res.send(iniciativa);
   });
 };
 
 exports.findById = function(id, done) {
   cop_api.client.get('/api/iniciativa/'+id, function(err, req, res, iniciativa) {
+    var current_stage = iniciativa.current_stage;
+        iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+        iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+        iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
     done(err, iniciativa);
   });
 };
 
 exports.findByName = function(name, done) {
   cop_api.client.get('/api/iniciativa/s_name/'+name, function(err, req, res, iniciativas) {
+    us.each(iniciativas, function(iniciativa) {
+        var current_stage = iniciativa.current_stage;
+            iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+            iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+            iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+        
+    });
     done(err, iniciativas[0]);
   });
 };
@@ -92,6 +106,13 @@ exports.findByName = function(name, done) {
 exports.listLast = function(req, res, done) {
   console.log('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude);
   cop_api.client.get('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude, function(err, request, response, iniciativas) {
+    us.each(iniciativas, function(iniciativa) {
+        var current_stage = iniciativa.current_stage;
+            iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+            iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+            iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+        
+    });
     done(err, iniciativas);
   });
 };
@@ -105,7 +126,6 @@ exports.list = function(req, res, done) {
             iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
         
     });
-console.dir(iniciativas);
     done(err, iniciativas);
   });
 };
@@ -115,6 +135,13 @@ exports.browseByCategory = function(req, res, done) {
   var category= req.query['category'];
   console.log('Buscando por categoria: '+category);
   cop_api.client.get('/api/iniciativa/category/'+category, function(err, request, response, iniciativas) {
+    us.each(iniciativas, function(iniciativa) {
+        var current_stage = iniciativa.current_stage;
+            iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+            iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+            iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+        
+    });
      done(err, iniciativas);
   });
 };

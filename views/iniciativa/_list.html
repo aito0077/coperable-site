@@ -22,6 +22,7 @@
           <li class="activando {{#activando}}actual{{/activando}}">Activando<div class="icon"></div></li>
           <li class="finalizada {{#finalizada}}actual{{/finalizada}}">Finalizada<div class="icon"></div></li>
         </ul>
+        <div class="actions wrapper" {{#finalizada}}style="display:none"{{/finalizada}}>
         <div class="actions wrapper">
           <a href="/iniciativas/{{_id}}" rel="/iniciativas/{{_id}}" class="btn btn-success boton-participar">Participá</a>
           <div class="text" id="div_participantes-{{_id}}"></div>
