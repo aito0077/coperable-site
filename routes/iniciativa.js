@@ -64,6 +64,9 @@ exports.view = function(req, res) {
         res.locals = us.extend(res.locals, {
           profile: user,
           iniciativa: iniciativa,
+		finalizada: iniciativa.finalizada,
+		activando: iniciativa.activando,
+		convocatoria: iniciativa.convocatoria,
           layoutTitle: iniciativa.name,
           layoutId: 'iniciativas-view',
         });

@@ -804,7 +804,8 @@ input[type="url"],
 input[type="search"],
 input[type="tel"],
 input[type="color"],
-.uneditable-input {
+.uneditable-input,
+.social-input-wrapper {
   border: 1px solid #CCC;
   color: #34495e;
   font-family: "Lato", sans-serif;

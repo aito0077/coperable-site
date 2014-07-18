@@ -149,9 +149,22 @@ Backbone.emulateHTTP = true;
         });
         */
      
+        $('.social-input').each(function() {
+            var $input = $(this);
+            $input.wrap('<div class="social-input-wrapper"></div>');
+
+            var $wrapper = $input.parent();
+            
+            $wrapper.prepend('<div class="prefix">'+$input.data('prefix')+'</div>');
+            $input.width($wrapper.width()-$wrapper.find('.prefix').width()-5);
+            $wrapper.find('.prefix').click(function() {
+              $(this).siblings('input').trigger('focus');
+            })
+        })
+
       $("#slider").slider({
         min: 1,
-        max: 100,
+        max: 1000,
         step: 1,
         value: 1,
         orientation: 'horizontal',
@@ -591,7 +604,7 @@ Backbone.emulateHTTP = true;
       '<div class="media" data-category="<%= main_category %>" class="initiative">',
         '<div data-label="<%= main_category %>" class="pic">',
           '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
-            '<img src="/static/uploads/thumbs/<%= profile_picture %>" width="100%"/>',
+            '<img src="/static/uploads/thumbs/<%= profile_picture %>"/>',
           '</a>',
         '</div>',
         '<div class="wrapper">',
@@ -604,13 +617,12 @@ Backbone.emulateHTTP = true;
         '<div class="bottom">',
           '<div class="wrapper">',
             '<ul class="status">',
-
-              '<li class="<% if(convocatoria) {%>actual<%}%>">Convocatoria <div class="icon"></div></li>',
-              '<li class="<% if(activando) {%>actual<%}%>">Activando<div class="icon"></div></li>',
-              '<li class="<% if(finalizada) {%>actual<%}%>">Finalizada<div class="icon"></div></li>',
+              '<li class="actual"><%= stages[0].stage %> <div class="icon"></div></li>',
+              '<li>Activando<div class="icon"></div></li>',
+              '<li>Finalizada<div class="icon"></div></li>',
             '</ul>',
           '</div>',
-          '<div class="actions wrapper" <% if(finalizada) {%>style="display:none"<%}%>>',
+          '<div class="actions wrapper">',
             '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>',
             '<div class="text"><%= members.length %></div>',
           '</div>',
@@ -640,12 +652,12 @@ Backbone.emulateHTTP = true;
         '<div class="bottom">',
           '<div class="wrapper">',
             '<ul class="status">',
-              '<li class="<% if(convocatoria) {%>actual<%}%>">Convocatoria <div class="icon"></div></li>',
-              '<li class="<% if(activando) {%>actual<%}%>">Activando<div class="icon"></div></li>',
-              '<li class="<% if(finalizada) {%>actual<%}%>">Finalizada<div class="icon"></div></li>',
+              '<li class="actual"><%= stages[0].stage %> <div class="icon"></div></li>',
+              '<li>Activando<div class="icon"></div></li>',
+              '<li>Finalizada<div class="icon"></div></li>',
             '</ul>',
           '</div>',
-          '<div class="actions wrapper" <% if(finalizada) {%>style="display:none"<%}%>>',
+          '<div class="actions wrapper">',
             '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>',
             '<div class="text"><%= members.length %></div>',
           '</div>',
@@ -717,7 +729,9 @@ Backbone.emulateHTTP = true;
       this.clear_markers();
 	
 
-        var infowindow = new google.maps.InfoWindow();
+        var infowindow = new google.maps.InfoWindow({
+          maxWidth: 280
+        });
 
       _.each(this.iniciativas.models, function(model) {
         var location = model.get('location');
@@ -847,11 +861,11 @@ Backbone.emulateHTTP = true;
 	'	<p class="address ellipsis" data-icon=""><%= address %></p>',
 	'</div>',
 	'<ul class="stages wrapper">',
-    '<li class="<% if(convocatoria) {%>actual<%}%>">Convocatoria <div class="icon"></div></li>',
-    '<li class="<% if(activando) {%>actual<%}%>">Activando<div class="icon"></div></li>',
-    '<li class="<% if(finalizada) {%>actual<%}%>">Finalizada<div class="icon"></div></li>',
+	'  <li class="convocatoria actual">Convocatoria<div class="icon"></div></li>',
+	'  <li class="activando">Activando<div class="icon"></div></li>',
+	'  <li class="finalizada">Finalizada<div class="icon"></div></li>',
 	'</ul>',
-    '<div class="actions wrapper" <% if(finalizada) {%>style="display:none"<%}%>>',
+	'<div class="actions wrapper">',
 	'  <a href="/iniciativas/<%= _id %>" rel="/iniciativas/<%= _id %>" class="btn btn-success boton-participar">Participá</a>',
 	'  <div class="text" id="div_participantes-<%= _id %>"></div>',
 	'</div>',

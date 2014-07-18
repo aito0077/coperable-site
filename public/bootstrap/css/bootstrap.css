@@ -107,11 +107,29 @@ img {
   -ms-interpolation-mode: bicubic;
 }
 
-#map_canvas img,
+#map_canvas img {
+  max-width: none;
+  width: 100%;
+}
 .google-maps img {
   max-width: none;
 }
-
+.gm-style .gm-style-iw {
+  width: auto !important;
+  height: auto !important;
+}
+.gm-style .gm-style-iw .media {
+  margin-right: 10px;
+}
+.gm-style .gm-style-iw .media .schedule {
+  height: 28px;
+}
+.gm-style .gm-style-iw .media .actions {
+  margin-top: 5px;
+}
+.gm-style .gm-style-iw .media .actions .text {
+  display: none;
+}
 button,
 input,
 select,
@@ -1087,7 +1105,8 @@ input[type="url"],
 input[type="search"],
 input[type="tel"],
 input[type="color"],
-.uneditable-input {
+.uneditable-input,
+.social-input-wrapper {
   display: inline-block;
   height: 44px;
   line-height: 44px;
@@ -1096,9 +1115,39 @@ input[type="color"],
   font-size: 14px;
   color: #555555;
   vertical-align: middle;
+  background: #FFF;
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
           border-radius: 4px;
+}
+.social-input-wrapper {
+  *zoom: 1;
+  margin-bottom: 15px;
+}
+.social-input-wrapper:before,
+.social-input-wrapper:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.social-input-wrapper:after {
+  clear: both;
+}
+
+.social-input-wrapper .social-input {
+  background: none;
+  border: none !important;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+  float: right;
+  padding: 0;
+}
+.social-input-wrapper .prefix {
+  float: left;
+  height: 44px;
+  line-height: 44px;
+  color: #606060;
 }
 
 input,
