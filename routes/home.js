@@ -29,7 +29,7 @@ exports.index = function(req, res) {
             (req.cookies ? req.cookies.geo : undefined)
 
   return res.render('home/index.html', {
-    layoutTitle: 'Home',
+    layoutTitle: 'Coperable - Organizá y participa de iniciativas comunitarias y colaborativas',
     layoutId: 'home-index',
     user: req.user,
     geo: geo
