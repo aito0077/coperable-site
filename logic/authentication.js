@@ -24,6 +24,7 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   },
   function(username, password, done) {
+    console.log('autenticando localmente');
     console.log('Username: '+username+' - password: '+password);
     users.authenticate(username, password, function(err, user) {
       if (err) { return done(err); }
