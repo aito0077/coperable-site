@@ -13,8 +13,8 @@ exports.do_signup = function(req, res, done) {
   var user_data = us.extend({}, req.body);
 
   cop_api.client.put('/api/usuario', user_data, function(err, req, res, obj) {
+    console.log('[users.js] Executed PUT to /api/usuario. Response: %j', obj);
     console.log('%d -> %j', res.statusCode, res.headers);
-    console.log('%j', obj);
     done();
   });
 };
@@ -24,9 +24,8 @@ exports.authenticate = function(username, password, done) {
     username: username,
     password: password
   };
-
   cop_api.client.post('/api/user/authenticate', user_data, function(err, req, res, user) {
-    console.log('%j', user);
+    console.log('User authentificated: %j', user);
     done(err, user);
   });
 };

@@ -38,8 +38,25 @@
             var momento = moment($date.html()).lang('es');
           $date.html(momento.fromNow()+' ('+momento.format('DD MMMM')+')');
 
-	  var categoria=({{categories.arte_cultura}}?'Arte y cultura':({{categories.desarrollo}}?'Desarrollo':		({{categories.educacion}}?'Educacion':({{categories.medio_ambiente}}?'Medio ambiente':'Otra categoría'))));
-	  $("#div_categoria").html(categoria);
+	 /* Matias Niklison: Creo que esto no se usa
+    var categoria = (
+      {{categories.arte_cultura}}? 
+        'Arte y cultura' : 
+        (
+          {{categories.desarrollo}}?
+            'Desarrollo' :
+            (
+              {{categories.educacion}}?
+                'Educacion' :
+                (
+                  {{categories.medio_ambiente}}?
+                    'Medio ambiente' :
+                    'Otra categoría'
+                )
+            )
+        )
+      );
+	  $("#div_categoria").html(categoria);*/
 
 
 	  var participantes='0';

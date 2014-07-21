@@ -52,6 +52,10 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+/**
+ * Ensure user authentification. If it's not logged in, redirect him there; else, go to the next
+ * matching route.
+ */
 function ensureAuthenticated(req, res, next) {
   if(!req.isAuthenticated()) {
     res.redirect('/user/login');
@@ -59,8 +63,11 @@ function ensureAuthenticated(req, res, next) {
   next('route');
 }
 
+/**
+ * Load user information;then go to the next
+ * matching route.
+ */
 function loadUserInformation(req, res, next) {
-    console.dir(req.user);
   var geo = (req.session ? req.session.geo : false) || (req.cookies ? req.cookies.geo : undefined);
   res.locals = {
     user: req.user,

@@ -1,5 +1,7 @@
 $(function(){
-
+    /**
+     * FIXME (Matias Niklison 21/07/2014) Pareciera que este archivo no se utiliza.
+     */
     var MainView = Backbone.View.extend({
         BUENOS_AIRES: new google.maps.LatLng(-34.615692,-58.432846),
 
@@ -14,7 +16,6 @@ $(function(){
 
         initialize: function () {
             _.bindAll(this, 'render', 'init', 'init_map', 'set_geo_cookie', 'obtain_current_location', 'set_default_location');
-
 
         },
 
@@ -61,9 +62,8 @@ $(function(){
 
         set_default_location: function() {
 
-        }
+        },
     });
-
 });
 
 

@@ -1,12 +1,15 @@
 $(function(){
-Backbone.emulateHTTP = true;
-  var self = this;
-     Backbone.emulateJSON = true; 
+  Backbone.emulateHTTP = true;
+  Backbone.emulateJSON = true; 
+  moment.lang('es');
 
   if (typeof iniciativa == 'undefined') {
-    window.iniciativa = self.iniciativa = {};
+    window.iniciativa = this.iniciativa = {};
   }
 
+  /**
+   * Iniciativa Model
+   */
   iniciativa.Model = Backbone.Model.extend({
     urlRoot : '/api/iniciativas',
     idAttribute: "_id",
@@ -36,7 +39,6 @@ Backbone.emulateHTTP = true;
     },
 
     validateAll: function () {
-
         var messages = {};
 
         for (var key in this.validators) {
@@ -49,22 +51,22 @@ Backbone.emulateHTTP = true;
         }
 
         return _.size(messages) > 0 ? {isValid: false, messages: messages} : {isValid: true};
-    },
-
+    }
   });
 
-    moment.lang('es');
-
+  /**
+   * Iniciativa Collection
+   */
   iniciativa.Collection = Backbone.Collection.extend({
     model: iniciativa.Model,
     url: '/api/iniciativas',
     idAttribute: "_id"
   });
 
-
+  /**
+   * Iniciativa Edit View
+   */
   iniciativa.Edit = Backbone.View.extend({
-
-
     events: {
       'change #name': 'set_name',
       'change #goal': 'set_goal',
@@ -104,11 +106,9 @@ Backbone.emulateHTTP = true;
          map_canvas: '#map_canvas',
          user_position: this.user_default
        });
-
     },
 
     setup_bindings: function() {
-
       this.model.on('change:latitud', function(model, attribute) {
         $('#latitude').val(model.get('latitud'));
       });
@@ -125,7 +125,7 @@ Backbone.emulateHTTP = true;
     setup_components: function() {
       var self = this;
 
-    $('#profile_picture').fileupload({
+      $('#profile_picture').fileupload({
         dropZone: $('#dropzone'),
         dataType: 'json',
         url: '/uploads',
@@ -135,32 +135,22 @@ Backbone.emulateHTTP = true;
                 $('#dropzone').css('background', "url('"+file.thumbnailUrl+"')");
             });
         }
-    });
-
+      });
 
       $('.ini_category').button();
 
-        /*
-        $('#datetimepicker_from').datetimepicker({
-            language: 'es-AR'
-        });
-        $('#datetimepicker_to').datetimepicker({
-            language: 'es-AR'
-        });
-        */
-     
-        $('.social-input').each(function() {
-            var $input = $(this);
-            $input.wrap('<div class="social-input-wrapper"></div>');
+      $('.social-input').each(function() {
+        var $input = $(this);
+        $input.wrap('<div class="social-input-wrapper"></div>');
 
-            var $wrapper = $input.parent();
-            
-            $wrapper.prepend('<div class="prefix">'+$input.data('prefix')+'</div>');
-            $input.width($wrapper.width()-$wrapper.find('.prefix').width()-5);
-            $wrapper.find('.prefix').click(function() {
-              $(this).siblings('input').trigger('focus');
-            })
-        })
+        var $wrapper = $input.parent();
+          
+        $wrapper.prepend('<div class="prefix">'+$input.data('prefix')+'</div>');
+        $input.width($wrapper.width()-$wrapper.find('.prefix').width()-5);
+        $wrapper.find('.prefix').click(function() {
+          $(this).siblings('input').trigger('focus');
+        });
+      });
 
       $("#slider").slider({
         min: 1,
@@ -197,48 +187,47 @@ Backbone.emulateHTTP = true;
          minChars: 3
       });
         
-      $('#date_duracion_from').daterangepicker({
-            format: 'DD/MM/YYYY HH:mm',
-            timePickerIncrement: 30,
-            timePicker12Hour: false,
-            timePicker: true,
-            locale: {
-                applyLabel: '',
-                cancelLabel: '',
-                fromLabel: 'Desde',
-                toLabel: 'Hasta',
-                weekLabel: 'S',
-                customRangeLabel: 'Rango',
-                daysOfWeek: moment()._lang._weekdaysMin.slice(),
-                monthNames: moment()._lang._monthsShort.slice(),
-                firstDay: 0
-            } 
-           },
-            function(start, end) {
-                self.model.set({
-                    start_date: start,
-                    end_date: end
-                });
-            }
-         );
+      $('#date_duracion_from').daterangepicker(
+        {
+          format: 'DD/MM/YYYY HH:mm',
+          timePickerIncrement: 30,
+          timePicker12Hour: false,
+          timePicker: true,
+          locale: {
+            applyLabel: '',
+            cancelLabel: '',
+            fromLabel: 'Desde',
+            toLabel: 'Hasta',
+            weekLabel: 'S',
+            customRangeLabel: 'Rango',
+            daysOfWeek: moment()._lang._weekdaysMin.slice(),
+            monthNames: moment()._lang._monthsShort.slice(),
+            firstDay: 0
+          } 
+        },
+        function(start, end) {
+          self.model.set({
+            start_date: start,
+            end_date: end
+          });
+        }
+      );
 
-        $('.calendar-time').prepend('Hora: ');
+      $('.calendar-time').prepend('Hora: ');
 
-        $('#description_red').redactor({
-          lang: 'es',
-          plugins: ['fullscreen'],
-          minHeight: 200, 
-          imageUpload: '/uploads/'
-        });
+      $('#description_red').redactor({
+        lang: 'es',
+        plugins: ['fullscreen'],
+        minHeight: 200, 
+        imageUpload: '/uploads/'
+      });
 
-        $(".btn-group a").click(function() {
-          $(this).siblings().removeClass("active");
-          $(this).addClass("active");
-        });
+      $(".btn-group a").click(function() {
+        $(this).siblings().removeClass("active");
+        $(this).addClass("active");
+      });
 
-
-        $('#iniciativa_wizard').tab('show');
-
+      $('#iniciativa_wizard').tab('show');
 
       $('[name="address"]').on('change', function(){
         self.model.set({
@@ -258,62 +247,60 @@ Backbone.emulateHTTP = true;
         disableDoubleClickZoom: true
       });
 
-       this.address = new AddressPicker();
+      this.address = new AddressPicker();
 
-       this.address.on('direccion_change', function(direccion) {
+      this.address.on('direccion_change', function(direccion) {
          self.model.set({
            address: direccion
          });
        });
-       this.address.on('location_change', function(location) {
-         self.model.set({
-           latitud: location.latitud,
-           longitud: location.longitud,
-           location: {
-             latitude: location.latitud,
-             longitude: location.longitud
-           }
-         });
-       });
 
-
-        $(document).bind('dragover', function (e) {
-            var dropZone = $('#dropzone'),
-                timeout = window.dropZoneTimeout;
-            if (!timeout) {
-                dropZone.addClass('in');
-            } else {
-                clearTimeout(timeout);
-            }
-            var found = false,
-                node = e.target;
-            do {
-                if (node === dropZone[0]) {
-                    found = true;
-                    break;
-                }
-                node = node.parentNode;
-            } while (node != null);
-            if (found) {
-                dropZone.addClass('hover');
-            } else {
-                dropZone.removeClass('hover');
-            }
-            window.dropZoneTimeout = setTimeout(function () {
-                window.dropZoneTimeout = null;
-                dropZone.removeClass('in hover');
-            }, 100);
+      this.address.on('location_change', function(location) {
+        self.model.set({
+          latitud: location.latitud,
+          longitud: location.longitud,
+          location: {
+            latitude: location.latitud,
+            longitude: location.longitud
+          }
         });
+      });
 
+      $(document).bind('dragover', function (e) {
+          var dropZone = $('#dropzone'),
+              timeout = window.dropZoneTimeout;
+          if (!timeout) {
+              dropZone.addClass('in');
+          } else {
+              clearTimeout(timeout);
+          }
+          var found = false,
+              node = e.target;
+          do {
+              if (node === dropZone[0]) {
+                  found = true;
+                  break;
+              }
+              node = node.parentNode;
+          } while (node != null);
+          if (found) {
+              dropZone.addClass('hover');
+          } else {
+              dropZone.removeClass('hover');
+          }
+          window.dropZoneTimeout = setTimeout(function () {
+              window.dropZoneTimeout = null;
+              dropZone.removeClass('in hover');
+          }, 100);
+      });
     },
   
     set_participantes_ilimitados: function(){
-	var checkeado = $('#checkbox_participantes').is(':checked');
+	    var checkeado = $('#checkbox_participantes').is(':checked');
 	
-	//$('#slider').css('display',(checkeado?'none':'inline'));
-	$('#show_amount').css('display',(checkeado?'none':'inline'));
-	
-    },
+    	//$('#slider').css('display',(checkeado?'none':'inline'));
+      $('#show_amount').css('display',(checkeado?'none':'inline'));
+	  },
 
     create_iniciativa: function(e) {
       this.save_iniciativa();
@@ -323,16 +310,18 @@ Backbone.emulateHTTP = true;
       var self = this;
       this.model.set({
         description: JSON.stringify($('#description_red').getCode())
-    });
+      });
 
       if(this.validate()) {
-        this.model.save(null, {
-          success: function() {
-            self.after_save();
-          },
-          error: function() {
+        this.model.save(null, 
+          {
+            success: function() {
+              self.after_save();
+            },
+            error: function() {
+            }
           }
-        });
+        );
       }
     },
 
@@ -345,7 +334,7 @@ Backbone.emulateHTTP = true;
         case 'tareas_tab':
           tab_to_show = 'redes_tab';
           break;
-        deafult:
+        default:
           tab_to_show = 'basicos_tab';
           break;
       }
@@ -366,7 +355,6 @@ Backbone.emulateHTTP = true;
         } else {
             return true;
         }
-
     },
 
     add_iniciativa_tasks: function(e) {
@@ -457,14 +445,13 @@ Backbone.emulateHTTP = true;
         categories: value_map
       });
 
-        _.each(_.keys(value_map), function(cat) {
-            if(value_map[cat]) {
-                $('#'+cat).addClass('active');
-            } else {
-                $('#'+cat).removeClass('active');
-            }
-        });
-      
+      _.each(_.keys(value_map), function(cat) {
+        if(value_map[cat]) {
+          $('#'+cat).addClass('active');
+        } else {
+          $('#'+cat).removeClass('active');
+        }
+      });
     },
 
     set_activities: function(e) {
@@ -479,9 +466,11 @@ Backbone.emulateHTTP = true;
     }
   });
 
-
+  /**
+   * TODO Investigate what it does, document and move to util.js or something like that.
+   * It doesn't belong here (Matias Niklison 21/07/2014)
+   */
   window.AddressPicker = Backbone.View.extend({
-
 
     zoom_default: 12,
 
@@ -506,7 +495,6 @@ Backbone.emulateHTTP = true;
       var self = this;
       this.addresspickerMap.on("addressChanged", function(evt, address) {
         try {
-
           var direccion = address.formatted_address.replace(/Province/g, 'Provincia' );
           self.trigger('direccion_change', direccion);
         } catch(e) {
@@ -516,6 +504,7 @@ Backbone.emulateHTTP = true;
           longitud: address.geometry.location.lng()
         });
       });
+
       this.addresspickerMap.on("positionChanged", function(evt, markerPosition) {
         markerPosition.getAddress( function(address) {
           if (address) {
@@ -523,11 +512,9 @@ Backbone.emulateHTTP = true;
           }
         })
       });
-
     },
 
     setup_component: function() {
-      var self = this;
       this.addresspicker = $( "#addresspicker" ).addresspicker();
       this.addresspickerMap = $( "#addresspicker_map" ).addresspicker({
         regionBias: "ar",
@@ -535,11 +522,10 @@ Backbone.emulateHTTP = true;
         typeaheaddelay: 1000,
         mapOptions: {
           languaje: "es",
-          zoom: 16 || self.zoom_default,
-          center: self.user_position
+          zoom: 16 || this.zoom_default,
+          center: this.user_position
         }
       });
-
     }
   });
 
@@ -587,12 +573,10 @@ Backbone.emulateHTTP = true;
       }
       this.initialLocation = this.user_default;
 
-      this.render_map();
-        
+      this.render_map();    
     },
 
     setup_binding: function() {
-      var self = this;
     },
 
     setup_component: function() {
@@ -608,71 +592,68 @@ Backbone.emulateHTTP = true;
         '</div>'].join(''));
 
       this.markerTemplate = _.template([
-      '<div class="media" data-category="<%= main_category %>" class="initiative">',
-        '<div data-label="<%= main_category %>" class="pic">',
-          '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
-            '<img src="/static/uploads/thumbs/<%= profile_picture %>"/>',
-          '</a>',
-        '</div>',
-        '<div class="wrapper">',
-          '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
-            '<h4><%= name %></h4>',
-          '</a>',
-          '<div class="place" data-icon=""><%= address %></div>',
-          '<div class="schedule" data-icon=""></div>',
-        '</div>',
-        '<div class="bottom">',
+        '<div class="media" data-category="<%= main_category %>" class="initiative">',
+          '<div data-label="<%= main_category %>" class="pic">',
+            '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
+              '<img src="/static/uploads/thumbs/<%= profile_picture %>"/>',
+            '</a>',
+          '</div>',
           '<div class="wrapper">',
-            '<ul class="status">',
-              '<li class="actual"><%= stages[0].stage %> <div class="icon"></div></li>',
-              '<li>Activando<div class="icon"></div></li>',
-              '<li>Finalizada<div class="icon"></div></li>',
-            '</ul>',
+            '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
+              '<h4><%= name %></h4>',
+            '</a>',
+            '<div class="place" data-icon=""><%= address %></div>',
+            '<div class="schedule" data-icon=""></div>',
           '</div>',
-          '<div class="actions wrapper">',
-            '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>',
-            '<div class="text"><%= members.length %></div>',
+          '<div class="bottom">',
+            '<div class="wrapper">',
+              '<ul class="status">',
+                '<li class="actual"><%= stages[0].stage %> <div class="icon"></div></li>',
+                '<li>Activando<div class="icon"></div></li>',
+                '<li>Finalizada<div class="icon"></div></li>',
+              '</ul>',
+            '</div>',
+            '<div class="actions wrapper">',
+              '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>',
+              '<div class="text"><%= members.length %></div>',
+            '</div>',
           '</div>',
-        '</div>',
-      '</div>'
+        '</div>'
         ].join(''));
-
-
-
 
       this.itemTemplate = _.template([
-      '<li data-category="<%= main_category %>" class="initiative">',
-          '<div class="schedule pull-right"><%= date_f %></div>',
+        '<li data-category="<%= main_category %>" class="initiative">',
+            '<div class="schedule pull-right"><%= date_f %></div>',
 
-        '<div data-label="<%= main_category %>" class="pic">',
-          '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
-            '<img src="/static/uploads/thumbs/<%= profile_picture %>" width="100%"/>',
-          '</a>',
-        '</div>',
-        '<div class="wrapper">',
-          '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
-            '<h4><%= name %></h4>',
-          '</a>',
-          '<div class="place" data-icon=""><%= address %></div>',
-          '<div class="schedule" data-icon=""><%= date_f %></div>',
-        '</div>',
-        '<div class="bottom">',
+          '<div data-label="<%= main_category %>" class="pic">',
+            '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
+              '<img src="/static/uploads/thumbs/<%= profile_picture %>" width="100%"/>',
+            '</a>',
+          '</div>',
           '<div class="wrapper">',
-            '<ul class="status">',
-              '<li class="actual"><%= stages[0].stage %> <div class="icon"></div></li>',
-              '<li>Activando<div class="icon"></div></li>',
-              '<li>Finalizada<div class="icon"></div></li>',
-            '</ul>',
+            '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
+              '<h4><%= name %></h4>',
+            '</a>',
+            '<div class="place" data-icon=""><%= address %></div>',
+            '<div class="schedule" data-icon=""><%= date_f %></div>',
           '</div>',
-          '<div class="actions wrapper">',
-            '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>',
-            '<div class="text"><%= members.length %></div>',
+          '<div class="bottom">',
+            '<div class="wrapper">',
+              '<ul class="status">',
+                '<li class="actual"><%= stages[0].stage %> <div class="icon"></div></li>',
+                '<li>Activando<div class="icon"></div></li>',
+                '<li>Finalizada<div class="icon"></div></li>',
+              '</ul>',
+            '</div>',
+            '<div class="actions wrapper">',
+              '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>',
+              '<div class="text"><%= members.length %></div>',
+            '</div>',
           '</div>',
-        '</div>',
-      '</li>'
+        '</li>'
         ].join(''));
 
-     var myOptions = {
+      var myOptions = {
         zoom: 12,
         center:  this.user_default,
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -698,13 +679,13 @@ Backbone.emulateHTTP = true;
       this.last_iniciativas.fetch({
         data: $.param({
             last: true,
-            latitude: self.user_default.lat(),
-            longitude: self.user_default.lng()
+            latitude: this.user_default.lat(),
+            longitude: this.user_default.lng()
         }),
         success: function(last_iniciativas, response, options) {
-
-	    if(!_.isEmpty(self.last_iniciativas.models)) {
-            _.each(self.last_iniciativas.models, function(model) {
+	        if(!_.isEmpty(self.last_iniciativas.models)) {
+            _.each(self.last_iniciativas.models,
+              function(model) {
                 if(model && !_.isEmpty(model)) {
 
                     var momento = moment(model.get('start_date')).lang('es');
@@ -716,12 +697,12 @@ Backbone.emulateHTTP = true;
                         date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
                     }, model.toJSON())));
                 }
-            });
-		}
+              }
+            );
+	        }
         }
       });
     },
-
 
     clear_markers: function() {
       _.each(this.markers, function(marker) {
@@ -734,11 +715,10 @@ Backbone.emulateHTTP = true;
     marcar_iniciativas: function() {
       var self = this;
       this.clear_markers();
-	
 
-        var infowindow = new google.maps.InfoWindow({
-          maxWidth: 280
-        });
+      var infowindow = new google.maps.InfoWindow({
+        maxWidth: 280
+      });
 
       _.each(this.iniciativas.models, function(model) {
         var location = model.get('location');
@@ -748,27 +728,16 @@ Backbone.emulateHTTP = true;
           map: self.map
         });
 
-        /*
-        marker.info = new google.maps.InfoWindow({
-          content:self.markerTemplate(_.extend({
-	    main_category: '',
-            profile_picture: '',
-            address: '',
-            goal: ''
-        }, model.toJSON()))
-        });
-        */
         google.maps.event.addListener(marker, 'click', function(){
-            infowindow.setContent(
-              self.markerTemplate(_.extend({
-                profile_picture: '',
-                address: '',
-                goal: ''
-            }, model.toJSON())));
-            infowindow.open(self.map, marker);
+          infowindow.setContent(
+            self.markerTemplate(_.extend({
+              profile_picture: '',
+              address: '',
+              goal: ''
+          }, model.toJSON())));
+          infowindow.open(self.map, marker);
         });
         self.markers.push(marker);
-
       });
     },
 
@@ -800,30 +769,28 @@ Backbone.emulateHTTP = true;
       var category = null;
       $('.category_tab').removeClass('selected');
       $('#'+e.target.id).addClass('selected');
-          switch(e.target.id) {
-            case 'browser_all':
-              category = null;
-              break;
-            case 'browser_me':
-              category = this.MEDIO_AMBIENTE;
-              break;
-            case 'browser_ac':
-              category = this.ARTE_CULTURA;
-              break;
-            case 'browser_ed':
-              category = this.EDUCACION;
-              break;
-            case 'browser_ds':
-              category = this.DESARROLLO;
-              break;
-            default:
-              break;
-          }
-
-            this.traer_iniciativas(category);
-
-        }
-    });
+      switch(e.target.id) {
+        case 'browser_all':
+          category = null;
+          break;
+        case 'browser_me':
+          category = this.MEDIO_AMBIENTE;
+          break;
+        case 'browser_ac':
+          category = this.ARTE_CULTURA;
+          break;
+        case 'browser_ed':
+          category = this.EDUCACION;
+          break;
+        case 'browser_ds':
+          category = this.DESARROLLO;
+          break;
+        default:
+          break;
+      }
+      this.traer_iniciativas(category);
+    }
+  });
 
  
  iniciativa.OwnerBrowser = Backbone.View.extend({
@@ -846,44 +813,40 @@ Backbone.emulateHTTP = true;
     },
 
     setup_binding: function() {
-      var self = this;
     },
 
     setup_component: function() {
-
       this.iniciativasByOwnerTemplate = _.template([
-	'<div class="iniciativas-list-item-wrapper">',
-     	'	<div class="iniciativas-list-item category-environment stage-<%=current_stage%>" id="iniciativas-list-item-<%= _id %>">',
-        '		<div class="thumb">',
-	'			<div class="label" id="div_categoria"></div>',
-	'	  		<div class="iniciativas-list-item-map" style="width: 100%;height: 130px;"></div>',
-	'		</div>',
-        '		<div class="wrapper">',
-	'			<h4 class="title">',
-	'				<a href="/iniciativas/<%= _id %>"><%= name %></a>',
-	'			</h4>',
-	'		<p class="address ellipsis" data-icon="">Organizador: <%= owner.name %></p>',
-	'	  	<div class="start-date ellipsis" data-icon="">Creado: <%= creation_date %>',
-	'	</div>',
-	'	<p class="address ellipsis" data-icon=""><%= address %></p>',
-	'</div>',
-	'<ul class="stages wrapper">',
-	'  <li class="convocatoria actual">Convocatoria<div class="icon"></div></li>',
-	'  <li class="activando">Activando<div class="icon"></div></li>',
-	'  <li class="finalizada">Finalizada<div class="icon"></div></li>',
-	'</ul>',
-	'<div class="actions wrapper">',
-	'  <a href="/iniciativas/<%= _id %>" rel="/iniciativas/<%= _id %>" class="btn btn-success boton-participar">Participá</a>',
-	'  <div class="text" id="div_participantes-<%= _id %>"></div>',
-	'</div>',
-	'<div class="row">',
-	'	<div style="position:absolute; left:40%" id="div_social_network-<%= _id %>"></div>',
-	'</div>',
-      	'</div>',
-	'</div>',
-        ].join(''));
-
-	
+      	'<div class="iniciativas-list-item-wrapper">',
+          '<div class="iniciativas-list-item category-environment stage-<%=current_stage%>" id="iniciativas-list-item-<%= _id %>">',
+            '<div class="thumb">',
+      	      '<div class="label" id="div_categoria"></div>',
+      	      '<div class="iniciativas-list-item-map" style="width: 100%;height: 130px;"></div>',
+      	    '</div>',
+            '<div class="wrapper">',
+      	      '<h4 class="title">',
+      	        '<a href="/iniciativas/<%= _id %>"><%= name %></a>',
+      	      '</h4>',
+      	      '<p class="address ellipsis" data-icon="">Organizador: <%= owner.name %></p>',
+      	      '<div class="start-date ellipsis" data-icon="">Creado: <%= creation_date %>',
+              '</div>',
+              '<p class="address ellipsis" data-icon=""><%= address %></p>',
+            '</div>',
+            '<ul class="stages wrapper">',
+              '<li class="convocatoria actual">Convocatoria<div class="icon"></div></li>',
+              '<li class="activando">Activando<div class="icon"></div></li>',
+              '<li class="finalizada">Finalizada<div class="icon"></div></li>',
+            '</ul>',
+            '<div class="actions wrapper">',
+              '<a href="/iniciativas/<%= _id %>" rel="/iniciativas/<%= _id %>" class="btn btn-success boton-participar">Participá</a>',
+              '<div class="text" id="div_participantes-<%= _id %>"></div>',
+            '</div>',
+            '<div class="row">',
+              '<div style="position:absolute; left:40%" id="div_social_network-<%= _id %>"></div>',
+            '</div>',
+          '</div>',
+        '</div>',
+      ].join(''));
     },
 
     traer_iniciativas: function(userId) {
@@ -902,41 +865,40 @@ Backbone.emulateHTTP = true;
     listar_iniciativas_owner: function() {
       var self = this;
       _.each(this.iniciativas.models, function(model) {
-       
         $('#div_iniciativas_owner').append(self.iniciativasByOwnerTemplate(_.extend({
             profile_picture: '',
             goal: ''
         }, model.toJSON())));
-	self.geo_localizar_iniciativas(model);
+	      self.geo_localizar_iniciativas(model);
       });
     },
     
     geo_localizar_iniciativas: function(model){
-          var $item = $("#iniciativas-list-item-"+model.get('_id'));
-          $item.find('.iniciativas-list-item-map').goMap({
-            markers: [{
-                latitude: model.get('location.latitude'),
-                longitude: model.get('location.longitude')
-            }],
-            navigationControl: false,
-            mapTypeControl: false,
-            zoom: 13,
-            scrollwheel: false,
-            disableDoubleClickZoom: true,
-            maptype: 'ROADMAP'
-          });
-          var $date = $item.find('.start-date')
-          $date.html(moment($date.html()).lang('es').fromNow());
+      var $item = $("#iniciativas-list-item-"+model.get('_id'));
+      $item.find('.iniciativas-list-item-map').goMap({
+        markers: [{
+          latitude: model.get('location.latitude'),
+          longitude: model.get('location.longitude')
+        }],
+        navigationControl: false,
+        mapTypeControl: false,
+        zoom: 13,
+        scrollwheel: false,
+        disableDoubleClickZoom: true,
+        maptype: 'ROADMAP'
+      });
+      var $date = $item.find('.start-date')
+      $date.html(moment($date.html()).lang('es').fromNow());
 
-	//CATEGORIAS
-	  var categoria=(model.get('categories.arte_cultura')?'Arte y cultura':(model.get('categories.desarrollo')?'Desarrollo':	(model.get('categories.educacion')?'Educacion':(model.get('categories.medio_ambiente')?'Medio ambiente':'Otra categoría'))));
-	  $("#div_categoria").html(categoria);
+      //CATEGORIAS
+      var categoria=(model.get('categories.arte_cultura')?'Arte y cultura':(model.get('categories.desarrollo')?'Desarrollo':	(model.get('categories.educacion')?'Educacion':(model.get('categories.medio_ambiente')?'Medio ambiente':'Otra categoría'))));
+      $("#div_categoria").html(categoria);
 
 
-	//PARTICIPANTES
-	  var participantes='0';
-	  //{{#pariticipants_amount}} participantes=model.get('pariticipants_amount') {{/pariticipants_amount}}
-	  $("#div_participantes-"+model.get('_id')).html(participantes + ' participantes');
+      //PARTICIPANTES
+  	  var participantes='0';
+  	  //{{#pariticipants_amount}} participantes=model.get('pariticipants_amount') {{/pariticipants_amount}}
+  	  $("#div_participantes-"+model.get('_id')).html(participantes + ' participantes');
     }
 
    });

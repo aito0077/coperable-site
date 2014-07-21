@@ -33,7 +33,7 @@ function prepare_to_persist(req, done) {
 exports.create = function(req, res, done) {
   prepare_to_persist(req, function(iniciativa_data) {
     cop_api.client.post('/api/iniciativa', iniciativa_data, function(err, request, response, obj) {
-	console.log('iniciativa creada: '+err);
+	console.log('iniciativa creada. ' + (err? 'Error: ' + err : ''));
       res.send(obj);
     });
   });
@@ -119,6 +119,8 @@ exports.listLast = function(req, res, done) {
 
 exports.list = function(req, res, done) {
   cop_api.client.get('/api/iniciativa', function(err, request, response, iniciativas) {
+    console.log("Iniciativas: ");
+    console.dir(iniciativas);
     us.each(iniciativas, function(iniciativa) {
         var current_stage = iniciativa.current_stage;
             iniciativa['finalizada'] = current_stage == 'FINALIZADO';
