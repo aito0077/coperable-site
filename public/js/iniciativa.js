@@ -196,7 +196,6 @@ Backbone.emulateHTTP = true;
          removeWithBackspace: true,
          minChars: 3
       });
-        
       $('#date_duracion_from').daterangepicker({
             format: 'DD/MM/YYYY HH:mm',
             timePickerIncrement: 30,
@@ -212,15 +211,9 @@ Backbone.emulateHTTP = true;
                 daysOfWeek: moment()._lang._weekdaysMin.slice(),
                 monthNames: moment()._lang._monthsShort.slice(),
                 firstDay: 0
-            } 
-           },
-            function(start, end) {
-                self.model.set({
-                    start_date: start,
-                    end_date: end
-                });
             }
-         );
+
+        });
 
         $('.calendar-time').prepend('Hora: ');
 
@@ -445,7 +438,7 @@ Backbone.emulateHTTP = true;
 
     set_email: function(e) {
       this.model.set({
-        email: e.target.value
+        emai: e.target.value
       });
     },
 
@@ -642,7 +635,6 @@ Backbone.emulateHTTP = true;
 
       this.itemTemplate = _.template([
       '<li data-category="<%= main_category %>" class="initiative">',
-          '<div class="schedule pull-right"><%= date_f %></div>',
 
         '<div data-label="<%= main_category %>" class="pic">',
           '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
