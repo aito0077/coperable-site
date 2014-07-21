@@ -57,7 +57,7 @@ var oauthenticate_create = function(accessToken, refreshToken, given_profile, do
           break;
         case 'twitter':
           user_data = {
-            first_name: given_profile.username || given_profile.displayName,
+            first_name: given_profile.username || given_profile.displayName || given_profile.screen_name|| given_profile.name,
             verified: true
           };
           break;
@@ -72,6 +72,7 @@ var oauthenticate_create = function(accessToken, refreshToken, given_profile, do
 		console.dir(user_data);
 
       cop_api.client.put('/api/usuario', user_data, function(err, req, res, user) {
+	console.log(err);
         done(null, user);
       });
     } else {

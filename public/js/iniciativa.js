@@ -186,32 +186,25 @@ $(function(){
          removeWithBackspace: true,
          minChars: 3
       });
-        
-      $('#date_duracion_from').daterangepicker(
-        {
-          format: 'DD/MM/YYYY HH:mm',
-          timePickerIncrement: 30,
-          timePicker12Hour: false,
-          timePicker: true,
-          locale: {
-            applyLabel: '',
-            cancelLabel: '',
-            fromLabel: 'Desde',
-            toLabel: 'Hasta',
-            weekLabel: 'S',
-            customRangeLabel: 'Rango',
-            daysOfWeek: moment()._lang._weekdaysMin.slice(),
-            monthNames: moment()._lang._monthsShort.slice(),
-            firstDay: 0
-          } 
-        },
-        function(start, end) {
-          self.model.set({
-            start_date: start,
-            end_date: end
-          });
+      $('#date_duracion_from').daterangepicker({
+        format: 'DD/MM/YYYY HH:mm',
+        timePickerIncrement: 30,
+        timePicker12Hour: false,
+        timePicker: true,
+        locale: {
+          applyLabel: '',
+          cancelLabel: '',
+          fromLabel: 'Desde',
+          toLabel: 'Hasta',
+          weekLabel: 'S',
+          customRangeLabel: 'Rango',
+          daysOfWeek: moment()._lang._weekdaysMin.slice(),
+          monthNames: moment()._lang._monthsShort.slice(),
+          firstDay: 0
         }
-      );
+      });
+
+      $('.calendar-time').prepend('Hora: ');
 
       $('.calendar-time').prepend('Hora: ');
 
@@ -433,7 +426,7 @@ $(function(){
 
     set_email: function(e) {
       this.model.set({
-        email: e.target.value
+        emai: e.target.value
       });
     },
 
@@ -623,8 +616,6 @@ $(function(){
 
       this.itemTemplate = _.template([
         '<li data-category="<%= main_category %>" class="initiative">',
-            '<div class="schedule pull-right"><%= date_f %></div>',
-
           '<div data-label="<%= main_category %>" class="pic">',
             '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
               '<img src="/static/uploads/thumbs/<%= profile_picture %>" width="100%"/>',
