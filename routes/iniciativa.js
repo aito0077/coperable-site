@@ -3,19 +3,6 @@ var iniciativas = require('../logic/iniciativas'),
     us = require('underscore');
 
 exports.create = function(req, res) {
-  /*
-  us.extend(res.locals, {
-    title: 'Organiza'
-  });
-  return res.render('iniciativa/create',{
-    partials: {
-      header: 'wrapper/header',
-      menu_site: 'wrapper/menu_site',
-      footer: 'wrapper/footer',
-      widget_address: 'widgets/address'
-    }
-  });
-  */
   return res.render('iniciativa/create.html', {
     layoutTitle: 'Empezar Iniciativa',
     partials: {
@@ -58,6 +45,8 @@ exports.success = function(req, res) {
         iniciativa.creation_date = iniciativa.creation_date ? new Date(iniciativa.creation_date).toDateString() : '';
     users.profile(iniciativa.owner.user, function(err, user) {
 
+        var first_iniciativa = us.isEmpty(us.filter(user.iniciativas, function(model){ return model.owner; }));
+
         res.locals = us.extend(res.locals, {
           profile: user,
           iniciativa: iniciativa,
@@ -67,7 +56,7 @@ exports.success = function(req, res) {
           layoutTitle: iniciativa.name,
           layoutId: 'iniciativas-view',
         });
-        return res.render('iniciativa/created_success.html',{
+        return res.render(first_iniciativa ? 'iniciativa/first_created.html' : 'iniciativa/created_success.html',{
           partials: {
             map: 'widgets/map',
           }
@@ -123,7 +112,6 @@ exports.view_slug = function(req, res) {
   console.log('route view_slug')
   var slug = req.params['slug'];
   iniciativas.findByName(slug, function(err, iniciativa) {
-    console.dir(iniciativa);
     try {
       iniciativa.description = JSON.parse(iniciativa.description);
     }catch(e) {console.log(e);}
