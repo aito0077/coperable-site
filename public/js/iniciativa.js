@@ -617,3 +617,23 @@
     }
   });
 })();
+
+
+
+
+// Esta función habría que reemplazarla por una más funcional a los filtros
+
+$(document).ready(function($) {
+  var filter_texts = {
+      browser_all : '',
+      browser_me  : 'Buscamos promover dinámicas, espacios e iniciativas que aporten a la ecología o conciencia de la misma dentro de su propia comunidad: desarrollo y consumo de productos locales, microemprendimientos, cooperativismo, trabajo artesanal, mercados comunales, encuentros culturales, cine debate, iniciativas que mejores y concienticen sobre el medio ambiente como huertas urbanas o compostaje comunitario o talleres sobre ecología.',
+      browser_ac  : 'Festivales culturales, Talleres y clases gratuitas. Muestras de arte, Shows y Recitales gratuitos, Ferias municipales, Eventos y actividades en el espacio público, Encuentros abiertos y participativos, Actividades con fines sociales, Convocatorias de espacios a artistas, Actividades en centros culturales, Convocatoria a formar grupos de afinidad sobre temas artístico-culturales.',
+      browser_ed  : 'Iniciativas de educación alternativa, Talleres abiertos y gratuitos, internambio de saberes y habilidades, encuentros de aprendizaje horizontal,  espacios de apoyo escolar, formación y capacitación gratuita.',
+      browser_ds  : 'Entendemos el desarrollo social como el desarrollo del capital humano y social, reforzando y vínculos y enfocado en el desarrollo comunitario local.<br />Creemos que el desarrollo debe girar en torno a las personas, buscado incentivar y preferenciar el contacto humano cara a cara a través de ambientes favorables tanto al desarrollo del potencial de cada individuo como la convivencia solidaria.'
+    }
+
+  $('.ultimas-iniciativas-filtro .category_tab').click(function() {
+    $(this).addClass('selected').siblings('.category_tab').removeClass('selected');
+    $('.filtro-desc').html(filter_texts[$(this).attr('id')])
+  })
+});

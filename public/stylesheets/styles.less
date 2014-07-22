@@ -185,6 +185,34 @@ ul.status {
 			&:after {display:none;}
 		}
 	}
+	&.PREPARACION li:nth-child(1),
+	&.ACTIVANDO   li:nth-child(2),
+	&.FINALIZADA  li:nth-child(3) {
+		color:#78983E;
+	}
+	&.PREPARACION li:nth-child(1),
+	&.ACTIVANDO   li:nth-child(1),
+	&.ACTIVANDO   li:nth-child(2),
+	&.FINALIZADA  li:nth-child(1),
+	&.FINALIZADA  li:nth-child(2),
+	&.FINALIZADA  li:nth-child(3) {
+		.icon {
+			.gradient(#92B05C,#738E42);
+			color:#FFF;
+			text-shadow:none;
+			box-shadow:0 1px 1px rgba(0,0,0,.2),inset 0 -1px 1px rgba(0,0,0,.4);
+			&:after {
+				content:'';
+				position: absolute;
+				.gradient(#92B05C,#738E42);
+				box-shadow:0 1px 1px rgba(0,0,0,.2),inset 0 -1px 1px rgba(0,0,0,.4);
+				top:8px;
+				left:-103px;
+				width:103px;
+				height:5px;
+			}
+		}
+	}
 }
 .users-list-sq {
 	.clearfix;
@@ -518,6 +546,10 @@ ul.status {
 	    line-height: 41px;
 	  }
 	}
+}
+.filtro-desc {
+	font-size: 13px;
+    margin: 0 10px;
 }
 
 #achievments {
