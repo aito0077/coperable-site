@@ -64,9 +64,6 @@
     },
 
     setup_component: function() {
-
-      this.markerTemplate = _.template(_.unescape(this.$templates.find(".marker-template").html()));
-
       this.itemTemplate = _.template(_.unescape(this.$templates.find(".item-template").html()));
 
       var myOptions = {
@@ -103,22 +100,11 @@
             _.each(self.last_iniciativas.models,
               function(model) {
                 if(model && !_.isEmpty(model)) {
+                    model.updateCurrentStage();
 
-                    var momento = moment(model.get('start_date')).lang('es');
-                    var $itemTemplate = $(self.itemTemplate(_.extend(
-                      {
-                        main_category: '',
-                        profile_picture: '',
-                        address: '',
-                        goal: '',
-                        date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
-                      },
-                      model.toJSON())));
-                    // this avoids 404 errors provoked by the placeholders
-                    $itemTemplate.find("img.replace-src").each(function(index, element) {
-                      $(this).attr("src", $(this).data("src"));
-                    });
-                    $('#iniciativas_list').append($itemTemplate);
+                    var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
+                    var $li = $('<li class="initiative"/>').append($itemTemplate);
+                    $('#iniciativas_list').append($li);
                 }
               }
             );
@@ -144,6 +130,7 @@
       });
 
       _.each(this.iniciativas.models, function(model) {
+        model.updateCurrentStage();
         var location = model.get('location');
         var marker = new google.maps.Marker({
           title: model.get('name'),
@@ -152,18 +139,10 @@
         });
 
         google.maps.event.addListener(marker, 'click', function(){
-          $markerTemplate = $(self.markerTemplate(_.extend(
-            {
-              profile_picture: '',
-              address: '',
-              goal: ''
-            },
-            model.toJSON())));
-          // this avoids 404 errors provoked by the placeholders
-          $markerTemplate.find("img.replace-src").each(function(index, element) {
-            $(this).attr("src", $(this).data("src"));
-          });
-          infowindow.setContent($markerTemplate.html());
+          var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
+          var $dummy = $('<div/>').append($itemTemplate);
+
+          infowindow.setContent($dummy.html());
           infowindow.open(self.map, marker);
         });
         self.markers.push(marker);

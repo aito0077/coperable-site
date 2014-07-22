@@ -11,7 +11,7 @@ exports.index = function(req, res) {
     layoutId: 'home-index',
     javascripts: ['map-browser.js'],
     partials: {
-      mapBrowserMap: "templates/mapBrowserTemplates.html"
+      iniciativaItemTemplate: "templates/iniciativaItemTemplate.html"
     },
     user: req.user,
     geo: geo

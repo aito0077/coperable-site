@@ -48,6 +48,54 @@
         }
 
         return _.size(messages) > 0 ? {isValid: false, messages: messages} : {isValid: true};
+    },
+
+    /**
+     * Updates the current_stage of the model, comparing with the current date.
+     */
+    updateCurrentStage: function () {
+      var startDate = this.get('start_date'),
+          endDate = this.get('end_date'),
+          today = new Date(),
+          tomorrow = new Date();
+      today.setHours(0);
+      today.setMinutes(0);
+      today.setSeconds(0);
+      tomorrow.setHours(23);
+      tomorrow.setMinutes(59);
+      tomorrow.setSeconds(59);
+      if (moment(startDate).isAfter(tomorrow)) {
+        this.set('current_stage', 'PREPARACION');
+      } else {
+        if (moment(endDate).isBefore(today)) {
+          this.set('current_stage', 'FINALIZADO');
+        } else {
+          this.set('current_stage', 'ACTIVO');
+        }
+      }
+    },
+
+    /**
+     * Returns a populated itemTemplate.
+     * @returns {jQueryDomElement}
+     */
+    populateItemTemplate: function (itemTemplate) {
+      var momento = moment(this.get('start_date')).lang('es');
+      var $itemTemplate = $(itemTemplate(_.extend(
+        {
+          main_category: '',
+          profile_picture: '',
+          address: '',
+          goal: '',
+          date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
+        },
+        this.toJSON())));
+      // this avoids 404 errors provoked by the placeholders
+      $itemTemplate.find("img.replace-src").each(function(index, element) {
+        $(this).attr("src", $(this).data("src"));
+      });
+
+      return $itemTemplate
     }
   });
 
