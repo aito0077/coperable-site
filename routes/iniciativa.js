@@ -74,13 +74,11 @@ exports.success = function(req, res) {
 
 
 exports.view = function(req, res) {
-  console.log('route view')
+  console.log('route view');
   var iniciativa_id = req.params['id'];
-  console.log('Jose debug: iniciativa_id: ' + iniciativa_id);
   iniciativas.findById(iniciativa_id, function(err, iniciativa) {
-    console.dir(iniciativa);
     try {
-      iniciativa.description = JSON.parse(iniciativa.description);
+      iniciativa.description = JSON.parse(iniciativa.description).replace(/\"/g,"");
     }catch(e) {console.log(e);}
 
     console.dir(iniciativa.owner);
