@@ -358,115 +358,113 @@ ul.status {
 	ul.list {
 		.clearfix;
 		margin-top: 20px;
-		
-	}
-}
-
-.initiative.initiative-item {
-	float:left;
-	overflow:hidden;
-	background:#FFF;
-	width:310px;
-	height:400px;
-	margin:0 15px 15px 0;
-	border-radius:4px;
-	box-shadow:0 1px 1px rgba(0,0,0,.3);
-	color:#959595;
-	font-weight:bold;
-	font-size:12px;
-	position:relative;
-	&:nth-child(3n) {
-		margin-right:0;
-	}
-	[data-icon] {
-		padding-left:25px;
-		&:before {
-			top:-3px;
-			font-size:20px;
-			color:#ACACAC;
-		}
-	}
-	.place {
-		margin-bottom:12px;
-	}
-	.schedule.started {
-		font-weight:bold;
-		color:#C32C2C;
-	}
-	.wrapper {
-		padding:0 15px;
-	}
-	.pic {
-		position:relative;
-		&:before {
-			content:attr(data-label);
-			position:absolute;
-			color:#FFF;
-			font-size:10px;
-			height:26px;
-			line-height:26px;
-			left:0;
-			top:12px;
-			text-transform:uppercase;
-			padding:0 15px 0 30px;
-			box-shadow:0 1px 3px rgba(0,0,0,.25);
-			border-radius:0 3px 3px 0;
-		}
-		&:after {
-			position:absolute;
-			font-family:'icomoon';
-			height:36px;
-			width:30px;
-			text-align:center;
-			top:15px;
-			font-size:18px;
-			left:0;
-			color:#FFF;
-		}
-		a {display:block;}
-	}
-	&[data-category=environment] {
-		.pic:before {background:#388D47;}
-		.pic:after {content:''}
-	}
-	&[data-category=art] {
-		.pic:before {background:#EB3130;}
-		.pic:after {content:''}
-	}
-	&[data-category=education] {
-		.pic:before {background:#37A2df;}
-		.pic:after {content:''}
-	}
-	&[data-category=social] {
-		.pic:before {background:#E17a36;}
-		.pic:after {content:''}
-	}
-
-
-	.bottom {
-		box-shadow:inset 0 1px 1px rgba(0,0,0,.05);
-		border-top:1px solid #DDD;
-		width:100%;
-		height:140px;
-		background:#F7F7F7;
-		position:absolute;
-		bottom:0;
-		.wrapper:first-of-type {
-			border-bottom:1px solid #EAEAEA;
-		}
-		.actions {
-			padding-top:10px;
-			line-height:36px;
-			.button,.text {
-				float:right;
-				margin-left:15px;
+		li.initiative {
+			float:left;
+			overflow:hidden;
+			background:#FFF;
+			width:310px;
+			height:400px;
+			margin:0 15px 15px 0;
+			border-radius:4px;
+			box-shadow:0 1px 1px rgba(0,0,0,.3);
+			color:#959595;
+			font-weight:bold;
+			font-size:12px;
+			position:relative;
+			&:nth-child(3n) {
+				margin-right:0;
 			}
-			.text {
-				display: none;
+			[data-icon] {
+				padding-left:25px;
+				&:before {
+					top:-3px;
+					font-size:20px;
+					color:#ACACAC;
+				}
 			}
-		}
-		ul.status {
-			margin:15px 0;
+			.place {
+				margin-bottom:12px;
+			}
+			.schedule.started {
+				font-weight:bold;
+				color:#C32C2C;
+			}
+			.wrapper {
+				padding:0 15px;
+			}
+			.pic {
+				position:relative;
+				&:before {
+					content:attr(data-label);
+					position:absolute;
+					color:#FFF;
+					font-size:10px;
+					height:26px;
+					line-height:26px;
+					left:0;
+					top:12px;
+					text-transform:uppercase;
+					padding:0 15px 0 30px;
+					box-shadow:0 1px 3px rgba(0,0,0,.25);
+					border-radius:0 3px 3px 0;
+				}
+				&:after {
+					position:absolute;
+					font-family:'icomoon';
+					height:36px;
+					width:30px;
+					text-align:center;
+					top:15px;
+					font-size:18px;
+					left:0;
+					color:#FFF;
+				}
+				a {display:block;}
+			}
+			&[data-category=environment] {
+				.pic:before {background:#388D47;}
+				.pic:after {content:''}
+			}
+			&[data-category=art] {
+				.pic:before {background:#EB3130;}
+				.pic:after {content:''}
+			}
+			&[data-category=education] {
+				.pic:before {background:#37A2df;}
+				.pic:after {content:''}
+			}
+			&[data-category=social] {
+				.pic:before {background:#E17a36;}
+				.pic:after {content:''}
+			}
+
+
+			.bottom {
+				box-shadow:inset 0 1px 1px rgba(0,0,0,.05);
+				border-top:1px solid #DDD;
+				width:100%;
+				height:140px;
+				background:#F7F7F7;
+				position:absolute;
+				bottom:0;
+				.wrapper:first-of-type {
+					border-bottom:1px solid #EAEAEA;
+				}
+				.actions {
+					padding-top:10px;
+					line-height:36px;
+					.button,.text {
+						float:right;
+						margin-left:15px;
+					}
+					.text {
+						display: none;
+					}
+				}
+				ul.status {
+					margin:15px 0;
+				}
+			}
 		}
 	}
 }
