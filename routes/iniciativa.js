@@ -45,7 +45,9 @@ exports.success = function(req, res) {
         iniciativa.creation_date = iniciativa.creation_date ? new Date(iniciativa.creation_date).toDateString() : '';
     users.profile(iniciativa.owner.user, function(err, user) {
 
-        var first_iniciativa = us.isEmpty(us.filter(user.iniciativas, function(model){ return model.owner; }));
+        var first_iniciativa = us.size(user.iniciativas, function(model){ return model.owner; }) == 1;
+
+        console.log("Primera iniciativa? "+first_iniciativa);
 
         res.locals = us.extend(res.locals, {
           profile: user,
