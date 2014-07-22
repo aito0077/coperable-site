@@ -7,7 +7,11 @@
 		<div style="position:relative; left:15%">
        	    		{{#profile}}
 				<h3>{{profile.username}}</h3>
-		            	<h5>{{profile.about}}</h5>
+                <h3>{{profile.about}}</h3>
+
+
+
+
 				{{#profile.networks.facebook.has}}
 					<img class="img-rounded img-responsive" src="/static/img/facebook.png">
 				{{/profile.networks.facebook.has}}
@@ -27,6 +31,30 @@
                 </div>
 	</div>
 	<br/>
+
+
+    first_name:   {{profile.first_name}} </br> 
+    last_name:   {{profile.last_name}} </br> 
+    email:   {{profile.email}} </br> 
+    location:   {{profile.location}} </br> 
+    birthdate: {{profile.birthdate}} </br> 
+    picture: {{profile.picture}} </br> 
+    picture_thumb: {{profile.picture_thumb}} </br> 
+    about: {{profile.about}} </br> 
+    cantidad_iniciativas:  {{profile.cantidad_iniciativas}} </br> 
+
+
+<h2>INICIATIVAS</h2>
+    <ul>
+    {{#profile.iniciativas}}
+        <li>
+        title: {{title}} </br> 
+        description: {{description}} </br> 
+        profile_picture: {{profile_picture}} </br> 
+        owner: {{owner}} </br>
+        </li>
+    {{/profile.iniciativas}}
+    </ul>
 
 	<div id="div_iniciativas_owner" class="iniciativas-list" style="position:relative; top:15px;"></div>	
 
