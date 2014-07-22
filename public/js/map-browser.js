@@ -2,6 +2,10 @@
   /**
    * Widget that initializes a map browser, to browse throu the latest iniciativas.
    */
+  if(typeof(window.iniciativa) == 'undefined') {
+    window.iniciativa = {};
+  }
+
   window.iniciativa.MapBrowser = Backbone.View.extend({
 
     el: null,
