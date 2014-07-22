@@ -37,19 +37,25 @@
     <ul class="list" id="iniciativas_list">
     </ul>
 </div>
-  <script>
-    $(function(){
-      map_browser = new iniciativa.MapBrowser();
-      {{#geo}}
-	      map_browser.reset({
-          user_location: {
-            latitud: {{geo.latitud}},
-            longitud: {{geo.longitud}}
-          }
-        });
-      {{/geo}}
-      map_browser.traer_iniciativas();
-      map_browser.traer_last_iniciativas();
+<div id="map-browser-templates" style="display: none;">
+    {{> mapBrowserMap }}
+</div>
+<script>
+  $(function(){
+    map_browser = new iniciativa.MapBrowser({
+      el: $('#map_browser'),
+      $templates: $('#map-browser-templates')
     });
-  </script>
+    {{#geo}}
+	    map_browser.reset({
+        user_location: {
+          latitud: {{geo.latitud}},
+          longitud: {{geo.longitud}}
+        }
+      });
+    {{/geo}}
+    map_browser.traer_iniciativas();
+    map_browser.traer_last_iniciativas();
+  });
+</script>
 

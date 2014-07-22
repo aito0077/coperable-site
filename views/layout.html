@@ -18,6 +18,9 @@
   <script src="/static/js/iniciativa.js?2"></script>
   <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
   <script type="text/javascript"> localStorage.clear();</script>
+  {{#javascripts}}
+    <script src="/static/js/{{.}}"></script>
+  {{/javascripts}}
   {{>head_resources}}
 </head>
 <body id='{{layoutId}}'>

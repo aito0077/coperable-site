@@ -1,16 +1,13 @@
-$(function(){
+(function() {
   Backbone.emulateHTTP = true;
   Backbone.emulateJSON = true; 
+  window.iniciativa = {};
   moment.lang('es');
-
-  if (typeof iniciativa == 'undefined') {
-    window.iniciativa = this.iniciativa = {};
-  }
 
   /**
    * Iniciativa Model
    */
-  iniciativa.Model = Backbone.Model.extend({
+  window.iniciativa.Model = Backbone.Model.extend({
     urlRoot : '/api/iniciativas',
     idAttribute: "_id",
 
@@ -57,7 +54,7 @@ $(function(){
   /**
    * Iniciativa Collection
    */
-  iniciativa.Collection = Backbone.Collection.extend({
+  window.iniciativa.Collection = Backbone.Collection.extend({
     model: iniciativa.Model,
     url: '/api/iniciativas',
     idAttribute: "_id"
@@ -66,7 +63,7 @@ $(function(){
   /**
    * Iniciativa Edit View
    */
-  iniciativa.Edit = Backbone.View.extend({
+  window.iniciativa.Edit = Backbone.View.extend({
     events: {
       'change #name': 'set_name',
       'change #goal': 'set_goal',
@@ -522,269 +519,8 @@ $(function(){
     }
   });
 
-
-
-  iniciativa.MapBrowser = Backbone.View.extend({
-
-    el: $('#map_browser'),
-    zoom_default: 12,
-
-    ARTE_CULTURA: 'arte_cultura',
-    DESARROLLO: 'desarrollo',
-    EDUCACION: 'educacion',
-    MEDIO_AMBIENTE: 'medio_ambiente',
-
-    markers: new Array(),
-
-    events: {
-      'click #browser_all': 'browse_iniciativas',
-      'click #browser_me': 'browse_iniciativas',
-      'click #browser_ac': 'browse_iniciativas',
-      'click #browser_ed': 'browse_iniciativas',
-      'click #browser_ds': 'browse_iniciativas'
-    },
-
-    initialize: function() {
-      _.bindAll(this, 'traer_last_iniciativas');
-
-      this.model = new iniciativa.Model;
-      this.iniciativas = new iniciativa.Collection;
-      this.last_iniciativas = new iniciativa.Collection;
-      this.buenos_aires = new google.maps.LatLng(-34.615692,-58.432846);
-      this.user_default = this.buenos_aires;
-      this.browserSupportGeolocation =  navigator.geolocation ? true : false;
-
-      this.setup_component();
-      this.setup_binding();
-    },
-
-    reset: function(options) {
-      if(options.user_location) {
-        this.user_default = new google.maps.LatLng(options.user_location.latitud, options.user_location.longitud);
-        this.has_location = true;
-        this.user_location = options.user_user_location;
-      }
-      this.initialLocation = this.user_default;
-
-      this.render_map();    
-    },
-
-    setup_binding: function() {
-    },
-
-    setup_component: function() {
-      this.markerTemplate_old = _.template([
-        '<div class="media">',
-          '<a class="pull-left" href="#">',
-          '</a>',
-          '<div class="media-body">',
-            '<h3><a class="iniciativa" data-id="<%= _id %>" href="/iniciativas/<%= _id %>"><%= name %></a></h3>',
-            '<div class="media">',
-            '</div>',
-          '</div>',
-        '</div>'].join(''));
-
-      this.markerTemplate = _.template([
-        '<div class="media" data-category="<%= main_category %>" class="initiative">',
-          '<div data-label="<%= main_category %>" class="pic">',
-            '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
-              '<img src="/static/uploads/thumbs/<%= profile_picture %>"/>',
-            '</a>',
-          '</div>',
-          '<div class="wrapper">',
-            '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
-              '<h4><%= name %></h4>',
-            '</a>',
-            '<div class="place" data-icon=""><%= address %></div>',
-            '<div class="schedule" data-icon=""></div>',
-          '</div>',
-          '<div class="bottom">',
-            '<div class="wrapper">',
-              '<ul class="status">',
-                '<li class="actual"><%= stages[0].stage %> <div class="icon"></div></li>',
-                '<li>Activando<div class="icon"></div></li>',
-                '<li>Finalizada<div class="icon"></div></li>',
-              '</ul>',
-            '</div>',
-            '<div class="actions wrapper">',
-              '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>',
-              '<div class="text"><%= members.length %></div>',
-            '</div>',
-          '</div>',
-        '</div>'
-        ].join(''));
-
-      this.itemTemplate = _.template([
-        '<li data-category="<%= main_category %>" class="initiative">',
-          '<div data-label="<%= main_category %>" class="pic">',
-            '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
-              '<img src="/static/uploads/thumbs/<%= profile_picture %>" width="100%"/>',
-            '</a>',
-          '</div>',
-          '<div class="wrapper">',
-            '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">',
-              '<h4><%= name %></h4>',
-            '</a>',
-            '<div class="place" data-icon=""><%= address %></div>',
-            '<div class="schedule" data-icon=""><%= date_f %></div>',
-          '</div>',
-          '<div class="bottom">',
-            '<div class="wrapper">',
-              '<ul class="status">',
-                '<li class="actual"><%= stages[0].stage %> <div class="icon"></div></li>',
-                '<li>Activando<div class="icon"></div></li>',
-                '<li>Finalizada<div class="icon"></div></li>',
-              '</ul>',
-            '</div>',
-            '<div class="actions wrapper">',
-              '<a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>',
-              '<div class="text"><%= members.length %></div>',
-            '</div>',
-          '</div>',
-        '</li>'
-        ].join(''));
-
-      var myOptions = {
-        zoom: 12,
-        center:  this.user_default,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-
-      this.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-    },
-
-    traer_iniciativas: function(category) {
-      var self = this;
-      this.iniciativas.fetch({
-        data: $.param({
-          category: category
-        }),
-        success: function(iniciativas, response, options) {
-          self.marcar_iniciativas();
-        }
-      });
-    },
-
-    traer_last_iniciativas: function() {
-      var self = this;
-      this.last_iniciativas.fetch({
-        data: $.param({
-            last: true,
-            latitude: this.user_default.lat(),
-            longitude: this.user_default.lng()
-        }),
-        success: function(last_iniciativas, response, options) {
-	        if(!_.isEmpty(self.last_iniciativas.models)) {
-            _.each(self.last_iniciativas.models,
-              function(model) {
-                if(model && !_.isEmpty(model)) {
-
-                    var momento = moment(model.get('start_date')).lang('es');
-                    $('#iniciativas_list').append(self.itemTemplate(_.extend({
-                        main_category: '',
-                        profile_picture: '',
-                        address: '',
-                        goal: '',
-                        date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
-                    }, model.toJSON())));
-                }
-              }
-            );
-	        }
-        }
-      });
-    },
-
-    clear_markers: function() {
-      _.each(this.markers, function(marker) {
-        marker.setMap(null);
-      });
-      this.markers = new Array();
-      //$('#iniciativas_list').html('');
-    },
-
-    marcar_iniciativas: function() {
-      var self = this;
-      this.clear_markers();
-
-      var infowindow = new google.maps.InfoWindow({
-        maxWidth: 280
-      });
-
-      _.each(this.iniciativas.models, function(model) {
-        var location = model.get('location');
-        var marker = new google.maps.Marker({
-          title: model.get('name'),
-          position: new google.maps.LatLng(location.latitude,location.longitude),
-          map: self.map
-        });
-
-        google.maps.event.addListener(marker, 'click', function(){
-          infowindow.setContent(
-            self.markerTemplate(_.extend({
-              profile_picture: '',
-              address: '',
-              goal: ''
-          }, model.toJSON())));
-          infowindow.open(self.map, marker);
-        });
-        self.markers.push(marker);
-      });
-    },
-
-    render_map: function() {
-        this.map.setCenter(this.initialLocation);
-        this.traer_iniciativas();
-    },
-
-    detect_geolocation: function() {
-      if(this.browserSupportGeolocation) {
-        try {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-            $.get(
-              '/user/geolocalization/'+initialLocation.lat()+'/'+initialLocation.lng(),
-            {},
-            function(responseText) {
-            });
-          },
-          function() {
-            handleNoGeolocation(browserSupportFlag);
-          });
-        } catch(positionError) {
-        }
-      }
-    },
-
-    browse_iniciativas: function(e) {
-      var category = null;
-      $('.category_tab').removeClass('selected');
-      $('#'+e.target.id).addClass('selected');
-      switch(e.target.id) {
-        case 'browser_all':
-          category = null;
-          break;
-        case 'browser_me':
-          category = this.MEDIO_AMBIENTE;
-          break;
-        case 'browser_ac':
-          category = this.ARTE_CULTURA;
-          break;
-        case 'browser_ed':
-          category = this.EDUCACION;
-          break;
-        case 'browser_ds':
-          category = this.DESARROLLO;
-          break;
-        default:
-          break;
-      }
-      this.traer_iniciativas(category);
-    }
-  });
-
  
- iniciativa.OwnerBrowser = Backbone.View.extend({
+  window.iniciativa.OwnerBrowser = Backbone.View.extend({
     el: $('#div_iniciativas_owner'),
 
     events: {
@@ -891,11 +627,5 @@ $(function(){
   	  //{{#pariticipants_amount}} participantes=model.get('pariticipants_amount') {{/pariticipants_amount}}
   	  $("#div_participantes-"+model.get('_id')).html(participantes + ' participantes');
     }
-
-   });
-
-});
-
-
-
-
+  });
+})();

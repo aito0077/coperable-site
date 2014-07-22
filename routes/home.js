@@ -9,8 +9,11 @@ exports.index = function(req, res) {
   return res.render('home/index.html', {
     layoutTitle: 'Coperable - Organizá y participa de iniciativas comunitarias y colaborativas',
     layoutId: 'home-index',
-    javascipts: ['map-browser.js'],
+    javascripts: ['map-browser.js'],
+    partials: {
+      mapBrowserMap: "templates/mapBrowserTemplates.html"
+    },
     user: req.user,
     geo: geo
-  })
+  });
 };

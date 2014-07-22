@@ -24,7 +24,7 @@ var sessionStore = new RedisStore({client:rClient});
 var app = express();
 
 app.engine('html', require('hogan-express'));
-app.set('layout', 'layout.html')
+app.set('layout', 'layout.html');
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
