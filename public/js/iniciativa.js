@@ -48,6 +48,54 @@
         }
 
         return _.size(messages) > 0 ? {isValid: false, messages: messages} : {isValid: true};
+    },
+
+    /**
+     * Updates the current_stage of the model, comparing with the current date.
+     */
+    updateCurrentStage: function () {
+      var startDate = this.get('start_date'),
+          endDate = this.get('end_date'),
+          today = new Date(),
+          tomorrow = new Date();
+      today.setHours(0);
+      today.setMinutes(0);
+      today.setSeconds(0);
+      tomorrow.setHours(23);
+      tomorrow.setMinutes(59);
+      tomorrow.setSeconds(59);
+      if (moment(startDate).isAfter(tomorrow)) {
+        this.set('current_stage', 'PREPARACION');
+      } else {
+        if (moment(endDate).isBefore(today)) {
+          this.set('current_stage', 'FINALIZADO');
+        } else {
+          this.set('current_stage', 'ACTIVO');
+        }
+      }
+    },
+
+    /**
+     * Returns a populated itemTemplate.
+     * @returns {jQueryDomElement}
+     */
+    populateItemTemplate: function (itemTemplate) {
+      var momento = moment(this.get('start_date')).lang('es');
+      var $itemTemplate = $(itemTemplate(_.extend(
+        {
+          main_category: '',
+          profile_picture: '',
+          address: '',
+          goal: '',
+          date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
+        },
+        this.toJSON())));
+      // this avoids 404 errors provoked by the placeholders
+      $itemTemplate.find("img.replace-src").each(function(index, element) {
+        $(this).attr("src", $(this).data("src"));
+      });
+
+      return $itemTemplate
     }
   });
 
@@ -617,3 +665,23 @@
     }
   });
 })();
+
+
+
+
+// Esta función habría que reemplazarla por una más funcional a los filtros
+
+$(document).ready(function($) {
+  var filter_texts = {
+      browser_all : '',
+      browser_me  : 'Buscamos promover dinámicas, espacios e iniciativas que aporten a la ecología o conciencia de la misma dentro de su propia comunidad: desarrollo y consumo de productos locales, microemprendimientos, cooperativismo, trabajo artesanal, mercados comunales, encuentros culturales, cine debate, iniciativas que mejores y concienticen sobre el medio ambiente como huertas urbanas o compostaje comunitario o talleres sobre ecología.',
+      browser_ac  : 'Festivales culturales, Talleres y clases gratuitas. Muestras de arte, Shows y Recitales gratuitos, Ferias municipales, Eventos y actividades en el espacio público, Encuentros abiertos y participativos, Actividades con fines sociales, Convocatorias de espacios a artistas, Actividades en centros culturales, Convocatoria a formar grupos de afinidad sobre temas artístico-culturales.',
+      browser_ed  : 'Iniciativas de educación alternativa, Talleres abiertos y gratuitos, internambio de saberes y habilidades, encuentros de aprendizaje horizontal,  espacios de apoyo escolar, formación y capacitación gratuita.',
+      browser_ds  : 'Entendemos el desarrollo social como el desarrollo del capital humano y social, reforzando y vínculos y enfocado en el desarrollo comunitario local.<br />Creemos que el desarrollo debe girar en torno a las personas, buscado incentivar y preferenciar el contacto humano cara a cara a través de ambientes favorables tanto al desarrollo del potencial de cada individuo como la convivencia solidaria.'
+    }
+
+  $('.ultimas-iniciativas-filtro .category_tab').click(function() {
+    $(this).addClass('selected').siblings('.category_tab').removeClass('selected');
+    $('.filtro-desc').html(filter_texts[$(this).attr('id')])
+  })
+});
