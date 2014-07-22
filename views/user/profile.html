@@ -1,31 +1,63 @@
+{{#profile}}
+	<div class="first_field">
+		<img src="/static/img/users/user-12-mq.jpg" class="user-face" />
+		<div class="user-info">
+			<div class="user-name">{{profile.username}}</div>
+            <div class="user-about">{{profile.about}}</div>
 
-       	    		{{#profile}}
-	<div class="first_field" style="position:relative; width:100%; top:10px; float:left; width:100%; height:143px;">	
-		<div style="position:absolute; width:25%">
-		    <img src="/static/img/users/user-12-mq.jpg" style="width:55%; height:130px;" 
-			class="img-rounded img-responsive"/>
-		</div>
-		<div style="position:relative; left:15%">
-				<h3>{{profile.username}}</h3>
-                <h3>{{profile.about}}</h3>
-
-
-
-
-				{{#profile.networks.facebook.has}}
-					<img class="img-rounded img-responsive" src="/static/img/facebook.png">
-				{{/profile.networks.facebook.has}}
-				{{#profile.networks.twitter.has}}
-					<img class="img-rounded img-responsive" src="/static/img/twitter.png">
-				{{/profile.networks.twitter.has}}
-				{{#profile.networks.googleplus.has}}
-					<img class="img-rounded img-responsive" src="/static/img/google_plus.png">
-				{{/profile.networks.googleplus.has}}
-                </div>
+            <ul class="social">
+                {{#profile.networks.twitter.has}}
+    				<li>
+                    <a href="{{profile.networks.twitter}}">
+                        <img src="/static/img/twitter-circle.png">
+                    </a>
+                </li>
+    			{{/profile.networks.twitter.has}}
+                
+                {{#profile.networks.facebook.has}}
+                    <li>
+                    <a href="{{profile.networks.facebook}}">
+                        <img src="/static/img/facebook-circle.png">
+                    </a>
+                </li>
+                {{/profile.networks.facebook.has}}
+                
+                {{#profile.networks.youtube.has}}
+                    <li>
+                    <a href="{{profile.networks.youtube}}">
+                        <img src="/static/img/youtube-circle.png">
+                    </a>
+                </li>
+                {{/profile.networks.youtube.has}}
+                
+                {{#profile.networks.flickr.has}}
+                    <li>
+                    <a href="{{profile.networks.flickr}}">
+                        <img src="/static/img/flickr-circle.png">
+                    </a>
+                </li>
+                {{/profile.networks.flickr.has}}
+                
+                {{#profile.networks.linkedin.has}}
+                    <li>
+                    <a href="{{profile.networks.linkedin}}">
+                        <img src="/static/img/linkedin-circle.png">
+                    </a>
+                </li>
+                {{/profile.networks.linkedin.has}}
+                
+                {{#profile.networks.delicious.has}}
+                    <li>
+                    <a href="{{profile.networks.delicious}}">
+                        <img src="/static/img/delicious-circle.png">
+                    </a>
+                </li>
+                {{/profile.networks.delicious.has}}
+            </ul>
+        </div>
 	</div>
-	<br/>
 
-
+<!--
     first_name:   {{profile.first_name}} </br> 
     last_name:   {{profile.last_name}} </br> 
     email:   {{profile.email}} </br> 
@@ -35,19 +67,33 @@
     picture_thumb: {{profile.picture_thumb}} </br> 
     about: {{profile.about}} </br> 
     cantidad_iniciativas:  {{profile.cantidad_iniciativas}} </br> 
-
-
-<h2>INICIATIVAS</h2>
-    <ul>
+-->
+    <br /><br />
+    <h3>Participó en</h3>
+    <ul class="list-user">
     {{#profile.iniciativas}}
-        <li>
-        title: {{title}} </br> 
-        description: {{description}} </br> 
-        profile_picture: {{profile_picture}} </br> 
-        owner: {{owner}} </br>
+        <li class="initiative">
+            <div class="content">
+                <div class="img" style="background-image:url({{profile_picture}});"></div>
+                <div class="title">{{title}}</div>
+            </div>
+        </li>
+    {{/profile.iniciativas}}
+    </ul>
+    
+    <br /><br />
+
+    <h3>Organizó</h3>
+    <ul class="list-user">
+    {{#profile.iniciativas}}
+        <li class="initiative">
+            <div class="content">
+                <div class="img" style="background-image:url({{profile_picture}});"></div>
+                <div class="title">{{title}}</div>
+            </div>
         </li>
     {{/profile.iniciativas}}
     </ul>
 
-
-			{{/profile}}
+<br /><br />
+{{/profile}}

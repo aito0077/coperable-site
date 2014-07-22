@@ -185,6 +185,34 @@ ul.status {
 			&:after {display:none;}
 		}
 	}
+	&.PREPARACION li:nth-child(1),
+	&.ACTIVANDO   li:nth-child(2),
+	&.FINALIZADA  li:nth-child(3) {
+		color:#78983E;
+	}
+	&.PREPARACION li:nth-child(1),
+	&.ACTIVANDO   li:nth-child(1),
+	&.ACTIVANDO   li:nth-child(2),
+	&.FINALIZADA  li:nth-child(1),
+	&.FINALIZADA  li:nth-child(2),
+	&.FINALIZADA  li:nth-child(3) {
+		.icon {
+			.gradient(#92B05C,#738E42);
+			color:#FFF;
+			text-shadow:none;
+			box-shadow:0 1px 1px rgba(0,0,0,.2),inset 0 -1px 1px rgba(0,0,0,.4);
+			&:after {
+				content:'';
+				position: absolute;
+				.gradient(#92B05C,#738E42);
+				box-shadow:0 1px 1px rgba(0,0,0,.2),inset 0 -1px 1px rgba(0,0,0,.4);
+				top:8px;
+				left:-103px;
+				width:103px;
+				height:5px;
+			}
+		}
+	}
 }
 .users-list-sq {
 	.clearfix;
@@ -421,19 +449,19 @@ ul.status {
 				}
 				a {display:block;}
 			}
-			&[data-category=environment] {
+			&[data-category='medio_ambiente'] {
 				.pic:before {background:#388D47;}
 				.pic:after {content:''}
 			}
-			&[data-category=art] {
+			&[data-category='arte_cultura'] {
 				.pic:before {background:#EB3130;}
 				.pic:after {content:''}
 			}
-			&[data-category=education] {
+			&[data-category='educacion'] {
 				.pic:before {background:#37A2df;}
 				.pic:after {content:''}
 			}
-			&[data-category=social] {
+			&[data-category='social'] {
 				.pic:before {background:#E17a36;}
 				.pic:after {content:''}
 			}
@@ -518,6 +546,10 @@ ul.status {
 	    line-height: 41px;
 	  }
 	}
+}
+.filtro-desc {
+	font-size: 13px;
+    margin: 0 10px;
 }
 
 #achievments {
@@ -829,6 +861,24 @@ ul.status {
 	}
 }
 
+#initiativeSuccess {
+	img.checkmark {
+		margin: 30px 0 0;
+	}
+	a.link {
+		background: url(../img/link-icon.png) no-repeat;
+		color: #88A555;
+		padding-left: 36px;
+	}
+	.small {
+		font-size: 14px;
+		width: 450px;
+		border-top: 1px solid #D5D5D5;
+		padding-top: 20px;
+		color: #656565;
+		margin: 50px auto 0;
+	}
+}
 
 
 
