@@ -306,7 +306,7 @@
         this.model.save(null, 
           {
             success: function() {
-              self.after_save();
+                self.after_save(self.model.get('_id'));
             },
             error: function() {
             }
@@ -315,20 +315,8 @@
       }
     },
 
-    after_save: function() {
-      var tab_to_show = 'basicos_tab';
-      switch(this.current_tab) {
-        case 'basicos_tab':
-          tab_to_show = 'tareas_tab';
-          break;
-        case 'tareas_tab':
-          tab_to_show = 'redes_tab';
-          break;
-        default:
-          tab_to_show = 'basicos_tab';
-          break;
-      }
-      $('#'+tab_to_show).tab('show');
+    after_save: function(id) {
+        window.location.href = "/iniciativas/success/"+id;
     },
 
     set_current_tab: function(e) {

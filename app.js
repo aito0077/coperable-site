@@ -101,6 +101,7 @@ app.post('/iniciativas', iniciativas.create);
 //app.put('/iniciativas/:id', iniciativas.save);
 app.get('/iniciativas/name/:slug', iniciativa.view_slug);
 app.get('/iniciativas/:id', iniciativa.view);
+app.get('/iniciativas/success/:id', iniciativa.success);
 
 app.get('/api/iniciativas/user/:userId', iniciativas.findByOwner);
 app.get('/api/iniciativas/view/:id', iniciativa.view);

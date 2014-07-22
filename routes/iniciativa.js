@@ -46,6 +46,42 @@ exports.edit = function(req, res) {
 
 };
 
+
+exports.success = function(req, res) {
+  var iniciativa_id = req.params['id'];
+  iniciativas.findById(iniciativa_id, function(err, iniciativa) {
+    try {
+      iniciativa.description = JSON.parse(iniciativa.description);
+    }catch(e) {console.log(e);}
+
+    if(iniciativa.owner) {
+        iniciativa.creation_date = iniciativa.creation_date ? new Date(iniciativa.creation_date).toDateString() : '';
+    users.profile(iniciativa.owner.user, function(err, user) {
+
+        res.locals = us.extend(res.locals, {
+          profile: user,
+          iniciativa: iniciativa,
+		finalizada: iniciativa.finalizada,
+		activando: iniciativa.activando,
+		convocatoria: iniciativa.convocatoria,
+          layoutTitle: iniciativa.name,
+          layoutId: 'iniciativas-view',
+        });
+        return res.render('iniciativa/created_success.html',{
+          partials: {
+            map: 'widgets/map',
+          }
+        });
+    });
+    } else {
+        res.send("");
+    }
+  });
+
+};
+
+
+
 exports.view = function(req, res) {
   console.log('route view')
   var iniciativa_id = req.params['id'];
@@ -104,6 +140,8 @@ exports.view_slug = function(req, res) {
   });
 
 };
+
+
 
 
 
