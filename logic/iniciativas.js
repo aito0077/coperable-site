@@ -105,14 +105,14 @@ exports.findByName = function(name, done) {
 
 exports.listLast = function(req, res, done) {
   console.log('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude);
-  cop_api.client.get('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude, function(err, request, response, iniciativas) {
-    us.each(iniciativas, function(iniciativa) {
-        var current_stage = iniciativa.current_stage;
-            iniciativa['finalizada'] = current_stage == 'FINALIZADO';
-            iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
-            iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
-        
-    });
+  cop_api.client.get('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude,
+    function(err, request, response, iniciativas) {
+      us.each(iniciativas, function(iniciativa) {
+          var current_stage = iniciativa.current_stage;
+              iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+              iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+              iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+      });
     done(err, iniciativas);
   });
 };

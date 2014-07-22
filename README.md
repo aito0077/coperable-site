@@ -16,4 +16,5 @@ $ npm install
 
 start redis server
 start api server
-start site server.
+start site server
+
