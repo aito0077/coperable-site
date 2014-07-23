@@ -59,7 +59,6 @@
                   <li class="convocatoria {{#convocatoria}}actual{{/convocatoria}}">Convocatoria<div class="icon"></div></li>
                   <li class="activando {{#activando}}actual{{/activando}}">Activando<div class="icon"></div></li>
                   <li class="finalizada {{#finalizada}}actual{{/finalizada}}">Finalizada<div class="icon"></div></li>
-
             </ul>
             <div class="participants">
               <div class="info">
@@ -78,7 +77,12 @@
                   <li><img src="/static/img/users/user-10-sq.jpg" /></li>
                   <li><img src="/static/img/users/user-11-sq.jpg" /></li>
                 </ul>
-                <a class="green button big block participar">Participá</a>
+                {{#user}}
+                  <a class="green button big block participar">Participá</a>
+                {{/user}}
+                {{^user}}
+                  <a class="green button big block participar" href="/user/login?returnURL=/iniciativas/{{iniciativa._id}}">Ingresá para participar</a>
+                {{/user}}
                 <style type="text/css">
                   .participar {
                     -webkit-transition: background-color 0.3s linear;

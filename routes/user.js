@@ -19,6 +19,7 @@ exports.profile = function(req, res) {
 };
 
 exports.login = function(req, res) {
+  req.session.redirectURL = req.query.returnURL;
   return res.render('user/login.html', {
     layoutTitle: 'Login',
     layoutId: 'user-login'

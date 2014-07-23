@@ -148,13 +148,41 @@ app.get(['/user/login', '/user/signup'], function(req, res, next){
   next('route')
 });
 app.get('/user/login', user.login);
-app.post('/user/login',
-  passport.authenticate('local', {
-    successRedirect: '/user/success_login',
-    failureRedirect: '/user/failure_login',
-    failureFlash: false
-  })
-);
+
+
+function loginCustomCallback(err, user, info) {
+  if (err) { return res.redirect('/user/failure_login'); }
+
+  if (!user) { return res.redirect('/user/login'); }
+
+  req.logIn(user, function(err) {
+    if (err) { return res.redirect('/user/failure_login'); }
+  });
+
+  var redirectURL = '/user/success_login';
+  if (req.session.redirectURL) {
+    redirectURL = req.session.redirectURL;
+    req.session.redirectURL = null;
+  }
+
+  return res.redirect(redirectURL);
+}
+
+app.post('/user/login', function(req, res, next) {
+  passport.authenticate('local', loginCustomCallback)(req, res, next);
+});
+
+
+/*
+ * FIXME (Matias Niklison 23/07/2014) Aplicar el mismo tipo de redireccionamiento de local a facebook y twitter.
+ * En este momento no se puede testear xq el login de facebook redirecciona a produccion.
+ * Seria algo asi:
+
+    app.get('/auth/facebook', passport.authenticate('facebook'));
+    app.get('/auth/facebook/callback', function(req, res, next) {
+      passport.authenticate('facebook', loginCustomCallback)(req, res, next);
+    });
+ */
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
