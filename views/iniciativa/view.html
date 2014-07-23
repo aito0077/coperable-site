@@ -21,23 +21,11 @@
             <div class="cell tags-wrapper">
               <h3>Tareas</h3>
                 <ul class="orange tags">
-                {{#iniciativa.tasks}}
-                  <li>{{tag}}</li>
-                {{/iniciativa.tasks}}
-                
+                  {{#iniciativa.tasks}}
+                    <li>{{tag}}</li>
+                  {{/iniciativa.tasks}}
                 </ul>
             </div>
-            <!--  
-            <div class="cell tags-wrapper">
-              <h3>Etiquetas</h3>
-                <ul class="tags">
-                  <li>Basura</li>
-                  <li>Residuos</li>
-                  <li>Contaminación</li>
-                  <li>Reciclaje</li>
-                </ul>
-            </div>
-            -->
 
             <div class="cell description">
               <h3>Descripción</h3>
@@ -55,10 +43,10 @@
     </div>
     <div id="initiativeSidebar">
         <div class="wrapper">
-            <ul class="status">
-                  <li class="convocatoria {{#convocatoria}}actual{{/convocatoria}}">Convocatoria<div class="icon"></div></li>
-                  <li class="activando {{#activando}}actual{{/activando}}">Activando<div class="icon"></div></li>
-                  <li class="finalizada {{#finalizada}}actual{{/finalizada}}">Finalizada<div class="icon"></div></li>
+            <ul class="status {{iniciativa.current_stage}}">
+              <li>Convocatoria <div class="icon"></div></li>
+              <li>Activando<div class="icon"></div></li>
+              <li>Finalizada<div class="icon"></div></li>
             </ul>
             <div class="participants">
               <div class="info">
@@ -66,22 +54,17 @@
                     <b>de <span class="total">{{iniciativa.participants_amount}}</span></b>
                 </div>
                 <ul class="users-list-sq">
-                  <li><img src="/static/img/users/user-1-sq.jpg" /></li>
-                  <li><img src="/static/img/users/user-2-sq.jpg" /></li>
-                  <li><img src="/static/img/users/user-3-sq.jpg" /></li>
-                  <li><img src="/static/img/users/user-4-sq.jpg" /></li>
-                  <li><img src="/static/img/users/user-5-sq.jpg" /></li>
-                  <li><img src="/static/img/users/user-6-sq.jpg" /></li>
-                  <li><img src="/static/img/users/user-7-sq.jpg" /></li>
-                  <li><img src="/static/img/users/user-8-sq.jpg" /></li>
-                  <li><img src="/static/img/users/user-10-sq.jpg" /></li>
-                  <li><img src="/static/img/users/user-11-sq.jpg" /></li>
+                  {{#members}}
+                    <li><img src="{{members.picture_thumb}}" /></li>
+                  {{/members}}
                 </ul>
                 {{#user}}
                   <a class="green button big block participar">Participá</a>
                 {{/user}}
                 {{^user}}
-                  <a class="green button big block participar" href="/user/login?returnURL=/iniciativas/{{iniciativa._id}}">Ingresá para participar</a>
+                  <a class="green button big block participar" href="/user/login?returnURL=/iniciativas/{{iniciativa._id}}">
+                    Ingresá para participar
+                  </a>
                 {{/user}}
                 <style type="text/css">
                   .participar {
@@ -104,19 +87,29 @@
                   })
                 </script>
             </div>
+            {{#iniciativa.networks}}
             <div class="cell">
                 <h4>Seguinos</h4>
-                <a href="#" class="twitter-btn"></a>
-                <a href="#" class="facebook-btn"></a>
-                <a href="#" class="youtube-btn"></a>
-                <a href="#" class="flickr-btn"></a>
-                <a href="#" class="linkedin-btn"></a>
-                <a href="#" class="delicious-btn"></a>
+                {{#iniciativa.networks.twitter}}
+                  <a href="http://twitter.com/{{iniciativa.networks.twitter}}" class="twitter-btn"></a>
+                {{/iniciativa.networks.twitter}}
+                {{#iniciativa.networks.facebook}}
+                  <a href="http://facebook.com/{{iniciativa.networks.facebook}}" class="facebook-btn"></a>
+                {{/iniciativa.networks.facebook}}
+                {{#iniciativa.networks.youtube}}
+                  <a href="http://youtube.com/{{iniciativa.networks.youtube}}" class="youtube-btn"></a>
+                {{/iniciativa.networks.youtube}}
+                {{#iniciativa.networks.flickr}}
+                  <a href="http://flickr.com/{{iniciativa.networks.flickr}}" class="flickr-btn"></a>
+                {{/iniciativa.networks.flickr}}
+                {{#iniciativa.networks.linkedin}}
+                  <a href="http://linkedin.com/{{iniciativa.networks.linkedin}}" class="linkedin-btn"></a>
+                {{/iniciativa.networks.linkedin}}
+                {{#iniciativa.networks.delicious}}
+                  <a href="http://delicious.com/{{iniciativa.networks.delicious}}" class="delicious-btn"></a>
+                {{/iniciativa.networks.delicious}}
             </div>
-            <div class="cell">
-                <h4>Video</h4>
-                <iframe src="http://player.vimeo.com/video/37376915" width="265" height="141" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-            </div>
+            {{/iniciativa.networks}}
             <div class="cell">
               <h4>Difundir</h4>
               <div class="clearfix">
@@ -128,23 +121,23 @@
         <div class="wrapper about">
           <div class="title">Sobre el organizador</div>
             <div class="info">
-                <img src="/static/img/users/user-12-mq.jpg" />
+                {{#iniciativa.owner.picture_thumb}}
+                  <img src="{{iniciativa.owner.picture_thumb}}" />
+                {{/iniciativa.owner.picture_thumb}}
                 <a href="/user/{{iniciativa.owner.user}}" class="name">{{iniciativa.owner.name}}</a>
                 <div class="place">{{user.location}}</div>
             </div>
             <div class="description">
-                {{profile.about}}
+                {{owner.about}}
             </div>
             <div class="other">
-              <div class="title">Otras iniciativas de {{iniciativa.owner.name}}</div>
-                {{#profile.iniciativas}}
-                
-                <div class="pic">
-                	<div class="name">{{description}}</div>
-                  	<img src="{{profile_picture}}" />
-                </div>
-                {{/profile.iniciativas}}
-
+              <div class="title">Otras iniciativas de {{owner.username}}</div>
+                {{#owner.iniciativas}}
+                  <div class="pic">
+                      <div class="name">{{description}}</div>
+                      <img src="{{profile_picture}}" />
+                  </div>
+                {{/owner.iniciativas}}
             </div>
         </div>
         <a class="report-initiative" href="#"><i class="icon-warning-sign"></i> Denunciar iniciativa</a>

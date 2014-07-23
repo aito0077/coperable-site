@@ -1,6 +1,6 @@
 var config = require('../config'),
-  cop_api = require('../api_client/api'),
-  us = require('underscore');
+    cop_api = require('../api_client/api'),
+    us = require('underscore');
 
 
 function prepare_to_persist(req, done) {
@@ -65,11 +65,10 @@ exports.save = function(req, res, done) {
   });
 };
 
-
 exports.get = function(req, res, done) {
   var id = req.params['id'];
   console.log('id:' + id);
-  cop_api.client.get('/api/iniciativa/'+id, function(err, req, res, iniciativa) { 
+  cop_api.client.get('/api/iniciativa/'+id, function(err, req, res, iniciativa) {
     var current_stage = iniciativa.current_stage;
         iniciativa['finalizada'] = current_stage == 'FINALIZADO';
         iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
@@ -80,10 +79,6 @@ exports.get = function(req, res, done) {
 
 exports.findById = function(id, done) {
   cop_api.client.get('/api/iniciativa/'+id, function(err, req, res, iniciativa) {
-    var current_stage = iniciativa.current_stage;
-        iniciativa['finalizada'] = current_stage == 'FINALIZADO';
-        iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
-        iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
     done(err, iniciativa);
   });
 };
@@ -145,5 +140,12 @@ exports.browseByCategory = function(req, res, done) {
         
     });
      done(err, iniciativas);
+  });
+};
+
+exports.findByIdWithOwnerAndMembers = function(id, number_of_members, done) {
+  console.log('/api/iniciativa/withOwnerAndMembers/'+number_of_members+'/'+id);
+  cop_api.client.get('/api/iniciativa/withOwnerAndMembers/'+number_of_members+'/'+id, function(err, req, res, iniciativa) {
+    done(err, iniciativa);
   });
 };

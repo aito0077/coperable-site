@@ -100,8 +100,6 @@
             _.each(self.last_iniciativas.models,
               function(model) {
                 if(model && !_.isEmpty(model)) {
-                    model.updateCurrentStage();
-
                     var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
                     var $li = $('<li class="initiative"/>').append($itemTemplate);
                     $('#iniciativas_list').append($li);
@@ -130,7 +128,6 @@
       });
 
       _.each(this.iniciativas.models, function(model) {
-        model.updateCurrentStage();
         var location = model.get('location');
         var marker = new google.maps.Marker({
           title: model.get('name'),

@@ -51,31 +51,6 @@
     },
 
     /**
-     * Updates the current_stage of the model, comparing with the current date.
-     */
-    updateCurrentStage: function () {
-      var startDate = this.get('start_date'),
-          endDate = this.get('end_date'),
-          today = new Date(),
-          tomorrow = new Date();
-      today.setHours(0);
-      today.setMinutes(0);
-      today.setSeconds(0);
-      tomorrow.setHours(23);
-      tomorrow.setMinutes(59);
-      tomorrow.setSeconds(59);
-      if (moment(startDate).isAfter(tomorrow)) {
-        this.set('current_stage', 'PREPARACION');
-      } else {
-        if (moment(endDate).isBefore(today)) {
-          this.set('current_stage', 'FINALIZADO');
-        } else {
-          this.set('current_stage', 'ACTIVO');
-        }
-      }
-    },
-
-    /**
      * Returns a populated itemTemplate.
      * @returns {jQueryDomElement}
      */
@@ -124,6 +99,12 @@
       'change #email': 'set_email',
       'change #activities': 'set_activities',
       'change #topic': 'set_topics',
+      'change #twitter': 'set_network',
+      'change #facebook': 'set_network',
+      'change #youtube': 'set_network',
+      'change #flickr': 'set_network',
+      'change #linkedin': 'set_network',
+      'change #delicious': 'set_network',
       'click .ini_category': 'set_category',
       'click #submit_iniciativa': 'create_iniciativa',
       'click #submit_iniciativa_tasks': 'add_iniciativa_tasks',
@@ -191,7 +172,7 @@
         var $wrapper = $input.parent();
           
         $wrapper.prepend('<div class="prefix">'+$input.data('prefix')+'</div>');
-        $input.width($wrapper.width()-$wrapper.find('.prefix').width()-5);
+        $input.width($wrapper.width()-$wrapper.find('.prefix').width()-10);
         $wrapper.find('.prefix').click(function() {
           $(this).siblings('input').trigger('focus');
         });
@@ -489,7 +470,17 @@
       this.model.set({
         topic: $('#topic').val()
       });
-    }
+    },
+    set_network: function(event) {
+      var networks = this.model.get('networks');
+      if (!networks) {
+        networks = {};
+      }
+      var $target = $(event.target);
+      var data = {networks: {}};
+      networks[$target.attr("id")] = $target.val();
+      this.model.set('networks', networks);
+    },
   });
 
   /**

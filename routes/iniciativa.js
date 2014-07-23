@@ -1,6 +1,6 @@
 var iniciativas = require('../logic/iniciativas'),
     users = require('../logic/users'),
-    us = require('underscore');
+    _ = require('underscore');
 
 exports.create = function(req, res) {
   return res.render('iniciativa/create.html', {
@@ -17,7 +17,7 @@ exports.edit = function(req, res) {
   var iniciativa_id = req.params['id'];
   iniciativas.findById(iniciativa_id, function(err, iniciativa) {
     iniciativa.description = JSON.parse(iniciativa.description);
-    res.locals = us.extend(res.locals, {
+    res.locals = _.extend(res.locals, {
       iniciativa: iniciativa,
       title: 'Organiza'
     });
@@ -43,13 +43,13 @@ exports.success = function(req, res) {
 
     if(iniciativa.owner) {
         iniciativa.creation_date = iniciativa.creation_date ? new Date(iniciativa.creation_date).toDateString() : '';
-    users.profile(iniciativa.owner.user, function(err, user) {
+        users.profile(iniciativa.owner.user, function(err, user) {
 
-        var first_iniciativa = us.size(user.iniciativas, function(model){ return model.owner; }) == 1;
+        var first_iniciativa = _.size(user.iniciativas, function(model){ return model.owner; }) == 1;
 
         console.log("Primera iniciativa? "+first_iniciativa);
 
-        res.locals = us.extend(res.locals, {
+        res.locals = _.extend(res.locals, {
           profile: user,
           iniciativa: iniciativa,
 		finalizada: iniciativa.finalizada,
@@ -71,39 +71,31 @@ exports.success = function(req, res) {
 
 };
 
-
-
 exports.view = function(req, res) {
-  console.log('route view');
   var iniciativa_id = req.params['id'];
-  iniciativas.findById(iniciativa_id, function(err, iniciativa) {
+  iniciativas.findByIdWithOwnerAndMembers(iniciativa_id, 10, function(err, response) {
+    var iniciativa = response.iniciativa;
+    var owner = response.owner;
+    var members = response.members;
+
     try {
       iniciativa.description = JSON.parse(iniciativa.description).replace(/\"/g,"");
-    }catch(e) {console.log(e);}
+    }catch(e) {console.error(e);}
 
-    console.dir(iniciativa.owner);
-    if(iniciativa.owner) {
-        iniciativa.creation_date = iniciativa.creation_date ? new Date(iniciativa.creation_date).toDateString() : '';
-    users.profile(iniciativa.owner.user, function(err, user) {
+    iniciativa.creation_date = iniciativa.creation_date ? new Date(iniciativa.creation_date).toDateString() : '';
 
-        res.locals = us.extend(res.locals, {
-          profile: user,
-          iniciativa: iniciativa,
-		finalizada: iniciativa.finalizada,
-		activando: iniciativa.activando,
-		convocatoria: iniciativa.convocatoria,
-          layoutTitle: iniciativa.name,
-          layoutId: 'iniciativas-view',
-        });
-        return res.render('iniciativa/view.html',{
-          partials: {
-            map: 'widgets/map',
-          }
-        });
+    res.locals = _.extend(res.locals, {
+      owner: owner,
+      iniciativa: iniciativa,
+      members: members,
+      layoutTitle: iniciativa.name,
+      layoutId: 'iniciativas-view',
     });
-    } else {
-        res.send("");
-    }
+    return res.render('iniciativa/view.html',{
+      partials: {
+        map: 'widgets/map',
+      }
+    });
   });
 
 };
@@ -116,7 +108,7 @@ exports.view_slug = function(req, res) {
       iniciativa.description = JSON.parse(iniciativa.description);
     }catch(e) {console.log(e);}
 
-    res.locals = us.extend(res.locals, {
+    res.locals = _.extend(res.locals, {
       iniciativa: iniciativa,
       title: iniciativa.name
     });

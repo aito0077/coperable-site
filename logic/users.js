@@ -45,8 +45,7 @@ exports.findById = function(id, done) {
 
 exports.profile= function(user_id, done) {
   cop_api.client.get('/api/user/'+user_id, function(err, req, res, user) {
-    console.log('EXPORT.profile');
-    console.log('%j', user);
+    console.log('[users.js::profile] Retrieving userID [%s]', user_id);
     done(err, user);
   });
 };

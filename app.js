@@ -150,26 +150,29 @@ app.get(['/user/login', '/user/signup'], function(req, res, next){
 app.get('/user/login', user.login);
 
 
-function loginCustomCallback(err, user, info) {
-  if (err) { return res.redirect('/user/failure_login'); }
+function customCallbackAuthentification(strategy, req, res, next) {
+  passport.authenticate(strategy, function loginCustomCallback(err, user, info) {
+      if (err) { return res.redirect('/user/failure_login'); }
 
-  if (!user) { return res.redirect('/user/login'); }
+      if (!user) { return res.redirect('/user/login'); }
 
-  req.logIn(user, function(err) {
-    if (err) { return res.redirect('/user/failure_login'); }
-  });
+      req.logIn(user, function(err) {
+        if (err) { return res.redirect('/user/failure_login'); }
+      });
 
-  var redirectURL = '/user/success_login';
-  if (req.session.redirectURL) {
-    redirectURL = req.session.redirectURL;
-    req.session.redirectURL = null;
-  }
+      var redirectURL = '/user/success_login';
+      if (req.session.redirectURL) {
+        redirectURL = req.session.redirectURL;
+        req.session.redirectURL = null;
+      }
 
-  return res.redirect(redirectURL);
+      return res.redirect(redirectURL);
+    }
+  )(req, res, next);
 }
 
 app.post('/user/login', function(req, res, next) {
-  passport.authenticate('local', loginCustomCallback)(req, res, next);
+  customCallbackAuthentification('local', req, res, next);
 });
 
 
@@ -180,7 +183,7 @@ app.post('/user/login', function(req, res, next) {
 
     app.get('/auth/facebook', passport.authenticate('facebook'));
     app.get('/auth/facebook/callback', function(req, res, next) {
-      passport.authenticate('facebook', loginCustomCallback)(req, res, next);
+      customCallbackAuthentification('facebook', req, res, next);
     });
  */
 app.get('/auth/facebook', passport.authenticate('facebook'));
