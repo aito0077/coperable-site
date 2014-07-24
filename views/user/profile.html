@@ -74,8 +74,8 @@
     {{#profile.iniciativas}}
         <li class="initiative">
             <div class="content">
-                <div class="img" style="background-image:url({{profile_picture}});"></div>
-                <div class="title">{{title}}</div>
+                <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
+                <div class="title">{{name}}</div>
             </div>
         </li>
     {{/profile.iniciativas}}
@@ -85,14 +85,14 @@
 
     <h3>Organizó</h3>
     <ul class="list-user">
-    {{#profile.iniciativas}}
+    {{#profile.ownedIniciativas}}
         <li class="initiative">
             <div class="content">
-                <div class="img" style="background-image:url({{profile_picture}});"></div>
-                <div class="title">{{title}}</div>
+                <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
+                <div class="title">{{name}}</div>
             </div>
         </li>
-    {{/profile.iniciativas}}
+    {{/profile.ownedIniciativas}}
     </ul>
 
 <br /><br />

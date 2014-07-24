@@ -59,7 +59,23 @@
                   {{/members}}
                 </ul>
                 {{#user}}
-                  <a class="green button big block participar">Participá</a>
+                  {{#isOwner}}
+                    <a class="green button big block participar" href="#">
+                      Editar
+                    </a>
+                  {{/isOwner}}
+                  {{^isOwner}}
+                    {{#isMember}}
+                      <form method="POST" action="/api/iniciativas/{{iniciativa._id}}/{{user.id}}/quit">
+                        <input type="submit" class="green button big block participar" value="Dejar de Participar"/>
+                      </form>
+                    {{/isMember}}
+                    {{^isMember}}
+                      <form method="POST" action="/api/iniciativas/{{iniciativa._id}}/{{user.id}}">
+                        <input type="submit" class="green button big block participar" value="Participá"/>
+                      </form>
+                    {{/isMember}}
+                  {{/isOwner}}
                 {{/user}}
                 {{^user}}
                   <a class="green button big block participar" href="/user/login?returnURL=/iniciativas/{{iniciativa._id}}">
@@ -67,6 +83,10 @@
                   </a>
                 {{/user}}
                 <style type="text/css">
+                  .button.green {
+                    border: none;
+                    width: 100%;
+                  }
                   .participar {
                     -webkit-transition: background-color 0.3s linear;
                     -moz-transition: background-color 0.3s linear;
@@ -132,12 +152,12 @@
             </div>
             <div class="other">
               <div class="title">Otras iniciativas de {{owner.username}}</div>
-                {{#owner.iniciativas}}
+                {{#owner.ownedIniciativas}}
                   <div class="pic">
-                      <div class="name">{{description}}</div>
+                      <div class="name">{{name}}</div>
                       <img src="{{profile_picture}}" />
                   </div>
-                {{/owner.iniciativas}}
+                {{/owner.ownedIniciativas}}
             </div>
         </div>
         <a class="report-initiative" href="#"><i class="icon-warning-sign"></i> Denunciar iniciativa</a>

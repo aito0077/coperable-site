@@ -84,6 +84,12 @@ exports.view = function(req, res) {
 
     iniciativa.creation_date = iniciativa.creation_date ? new Date(iniciativa.creation_date).toDateString() : '';
 
+    if (res.locals.user && res.locals.user.id) {
+      res.locals.user['isOwner'] = (res.locals.user.id === iniciativa.owner.user);
+      res.locals.user['isMember'] = _.find(iniciativa.members,
+          function(member) { return member.user === res.locals.user.id}) !== undefined;
+    }
+
     res.locals = _.extend(res.locals, {
       owner: owner,
       iniciativa: iniciativa,

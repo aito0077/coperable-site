@@ -108,6 +108,7 @@ app.get('/api/iniciativas/view/:id', iniciativa.view);
 app.get('/api/iniciativas/edit', iniciativa.edit);
 app.get('/api/iniciativas/:id', iniciativas.get);
 app.post('/api/iniciativas/:id/:userId', iniciativas.participate);
+app.post('/api/iniciativas/:id/:userId/quit', iniciativas.quitIniciativa);
 app.post('/api/iniciativas', iniciativas.create);
 
 app.get('/api/iniciativas', function(req, res, next) {

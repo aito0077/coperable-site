@@ -40,12 +40,24 @@ exports.create = function(req, res, done) {
 };
 
 exports.participate = function(req, res, done) {
-    var id = req.params['id'],
-      userId = req.params['userId'];
-    cop_api.client.post('/api/iniciativa/:id/:userId', iniciativa_data, function(err, request, response, obj) {
-      res.send(obj);
-    });
-  }
+  var id = req.param('id'),
+     userId = req.param('userId');
+  cop_api.client.post('/api/iniciativa/'+id+'/'+userId, {}, function(err, request, response, obj) {
+    console.log("[iniciativas::participate] Participate response:");
+    console.dir(obj);
+    res.redirect('/iniciativas/' + id);
+  });
+};
+
+exports.quitIniciativa = function(req, res, done) {
+  var id = req.param('id'),
+     userId = req.param('userId');
+  cop_api.client.post('/api/iniciativa/'+id+'/'+userId+'/quit', {}, function(err, request, response, obj) {
+    console.log("[iniciativas::quitIniciativa] quitIniciativa response:");
+    console.dir(obj);
+    res.redirect('/iniciativas/' + id);
+  });
+};
 
 exports.findByOwner = function(req, res, done) {
     var id = req.params['userId'];
