@@ -679,8 +679,25 @@ ul.status {
 					&.next {right:25px;}
 				}
 			}
+			.cover {
+				background-size:   cover;
+				background-repeat: no-repeat;
+				width:630px;
+				position:relative;
+				border-radius:6px;
+				overflow:hidden;
+				&:before {
+					content:'';
+					width:100%;
+					height:100%;
+					position:absolute;
+					left:0;
+					top:0;
+				}
+
+			}
 			.location {
-				background:url(http://maps.googleapis.com/maps/api/staticmap?center=-34.58345,-58.405357&zoom=14&size=630x192&sensor=false&markers=color:red%7C-34.58345,-58.405357);
+				//background:url(http://maps.googleapis.com/maps/api/staticmap?center=-34.58345,-58.405357&zoom=14&size=630x192&sensor=false&markers=color:red%7C-34.58345,-58.405357);
 				width:630px;
 				height:192px;
 				position:relative;

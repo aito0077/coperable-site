@@ -6,10 +6,12 @@
         <section role="main">
           <h3>Objetivo</h3>
             <div class="objective">{{iniciativa.goal}}</div>
-            <div class="location" style="background-image: url('/static/uploads/fullsize/{{iniciativa.profile_picture}}') !important"/>
+            <div class="cover" style="background-image: url('/static/uploads/fullsize/{{iniciativa.profile_picture}}') !important;"/>
+		    <img src="/static/uploads/fullsize/{{iniciativa.profile_picture}}" style="visibility:hidden"/>
                 
             </div>
-            <div class="location">
+            <div class="location" style="background:url(http://maps.googleapis.com/maps/api/staticmap?center={{iniciativa.location.latitude}},{{iniciativa.location.longitude}}&zoom=14&size=630x192&sensor=false&markers=color:red%7C{{iniciativa.location.latitude}},{{iniciativa.location.longitude}}) !important;">
+				
               <div class="info">
                   <div>
                     <span class="when">{{iniciativa.start_date}}</span> - <span class="when">{{iniciativa.end_date}}</span>
