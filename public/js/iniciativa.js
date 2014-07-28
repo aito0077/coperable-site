@@ -212,8 +212,12 @@
          removeWithBackspace: true,
          minChars: 3
       });
+
+      var today = moment().hours(0).minutes(0).seconds(0).subtract('days', 1).toDate();
+
       $('#date_duracion_from').daterangepicker({
         format: 'DD/MM/YYYY HH:mm',
+        minDate: today,
         timePickerIncrement: 30,
         timePicker12Hour: false,
         timePicker: true,
