@@ -177,30 +177,15 @@ app.post('/user/login', function(req, res, next) {
 });
 
 
-/*
- * FIXME (Matias Niklison 23/07/2014) Aplicar el mismo tipo de redireccionamiento de local a facebook y twitter.
- * En este momento no se puede testear xq el login de facebook redirecciona a produccion.
- * Seria algo asi:
-
-    app.get('/auth/facebook', passport.authenticate('facebook'));
-    app.get('/auth/facebook/callback', function(req, res, next) {
-      customCallbackAuthentification('facebook', req, res, next);
-    });
- */
 app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/user/login'
-  })
-);
+app.get('/auth/facebook/callback', function(req, res, next) {
+  customCallbackAuthentification('facebook', req, res, next);
+});
 app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', {
-    successRedirect: '/',
-    failureRedirect: '/user/login'
-  })
-);
+app.get('/auth/twitter/callback', function(req, res, next) {
+  customCallbackAuthentification('twitter', req, res, next);
+});
+
 app.get('/user/signup', user.signup);
 app.post('/user/signup', users.do_signup, function(req, res){
   req.logout();
