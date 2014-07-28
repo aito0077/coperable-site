@@ -97,7 +97,7 @@
         background: url(/static/img/dropzone-bg.png) repeat;
         width: 280px;
         height: 150px;
-        #dropzone {
+        .dropzone-help-text {
             background: url(/static/img/pics-img.png) center 30px no-repeat;
             width: 280px;
             height: 150px;
@@ -116,6 +116,21 @@
                 }
                 .text {
                     display: none;
+                }
+            }
+        }
+        #dropzone {
+            &.with-image {
+                background-color: #000;
+                background-position: center;
+                background-repeat: no-repeat;
+                .text {
+                    display: none;
+                }
+                &.hover {
+                    .text-hover {
+                        display: none;
+                    }
                 }
             }
         }

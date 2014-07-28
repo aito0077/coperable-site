@@ -132,7 +132,6 @@
           if (!gMapsLocation) {
             return;
           }
-
           if (this.gmarker) {
             this.gmarker.setPosition(gMapsLocation.geometry.location);
             this.gmarker.setVisible(true);

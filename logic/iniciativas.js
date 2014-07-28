@@ -5,35 +5,51 @@ var config = require('../config'),
 
 function prepare_to_persist(req, done) {
   var body = req.body.model ? JSON.parse(req.body.model) : req.body,
-    activities = body.activities,
-    task = new Array();
+      activities = body.activities;
+
+  var iniciativa_data = {
+    tasks: new Array()
+  };
+  if (body._id) {
+    delete body._id;
+  } else {
+    iniciativa_data.owner = {
+      user: req.user.id,
+      name: req.user.username
+    };
+  }
+  delete body.start_date;
+  delete body.end_date;
 
   if(activities) {
     us.each(activities.split(/,/), function(tag) {
-      task.push({
+      iniciativa_data.tasks.push({
         tag: tag,
         description: tag
       });
     });
+    delete body.activities;
   }
 
-  var iniciativa_data = {};
-  us.extend(iniciativa_data, body, {
-    owner: {
-      user: req.user.id,
-      name: req.user.username
-    },
-    tasks: task
-  });
-
-  done(iniciativa_data);
+  var full_data = us.extend({}, body, iniciativa_data);
+  done(full_data);
 
 };
 
 exports.create = function(req, res, done) {
   prepare_to_persist(req, function(iniciativa_data) {
     cop_api.client.post('/api/iniciativa', iniciativa_data, function(err, request, response, obj) {
-	console.log('iniciativa creada. ' + (err? 'Error: ' + err : ''));
+	    console.log('[iniciativas::create] Iniciativa creada. ' + (err? 'Error: ' + err : ''));
+      res.send(obj);
+    });
+  });
+};
+
+exports.save = function(req, res, done) {
+  var id = req.param('id');
+  prepare_to_persist(req, function(iniciativa_data) {
+    cop_api.client.post('/api/iniciativa/' + id, iniciativa_data, function(err, request, response, obj) {
+      console.log('[iniciativas::create] Iniciativa [' + id + '] guardada. ' + (err? 'Error: ' + err : ''));
       res.send(obj);
     });
   });
@@ -65,17 +81,6 @@ exports.findByOwner = function(req, res, done) {
       res.send(obj);
     });
   }
-
-exports.save = function(req, res, done) {
-  console.log('Guardando iniciativa');
-  prepare_to_persist(req, function(iniciativa_data) {
-    console.log(iniciativa_data);
-    cop_api.client.put('/api/iniciativa/'+iniciativa_data._id, iniciativa_data, function(err, request, response, obj) {
-      console.log('Error? '+err);
-      res.send(obj);
-    });
-  });
-};
 
 exports.get = function(req, res, done) {
   var id = req.params['id'];

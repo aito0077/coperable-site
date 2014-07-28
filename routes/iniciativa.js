@@ -19,15 +19,14 @@ exports.edit = function(req, res) {
     iniciativa.description = JSON.parse(iniciativa.description);
     res.locals = _.extend(res.locals, {
       iniciativa: iniciativa,
-      title: 'Organiza'
+      jsonIniciativa: JSON.stringify(iniciativa)
     });
-    return res.render('iniciativa/edit',{
+    return res.render('iniciativa/create.html',{
+      layoutTitle: 'Empezar Iniciativa',
       partials: {
-        header: 'wrapper/header',
-        menu_site: 'wrapper/menu_site',
         widget_address: 'widgets/address',
-        footer: 'wrapper/footer'
-      }
+        head_resources: 'iniciativa/iniciativa_script_resources',
+        bottom_resources: 'iniciativa/iniciativa_css_resources'      }
     });
   });
 

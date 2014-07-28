@@ -10,14 +10,14 @@
             <div class="number">1</div>
             <div class="content">
                 <label class="control-label" for="name">Nombre de la Iniciativa</label>
-                <input type="text" name="name" id="name" required autocomplete="off" placeholder="Elige un nombre claro, explicativo y atractivo" size="65" />
+                <input type="text" name="name" id="name" required autocomplete="off" placeholder="Elige un nombre claro, explicativo y atractivo" size="65" {{#iniciativa}}value="{{iniciativa.name}}"{{/iniciativa}}/>
             </div>
         </div>
         <div class="control-group">
             <div class="number">2</div>
             <div class="content">
                 <label class="control-label" for="goal">Objetivo</label>
-                <input type="text" name="goal" id="goal" required autocomplete="off" placeholder="¿Cuál es la finalidad?" size="84" />
+                <input type="text" name="goal" id="goal" required autocomplete="off" placeholder="¿Cuál es la finalidad?" size="84" {{#iniciativa}}value="{{iniciativa.goal}}"{{/iniciativa}} />
             </div>
         </div>
 
@@ -28,10 +28,18 @@
                 <div class="controls" id="categoria">
                     <div class="btn-toolbar">
                         <div class="btn-group" data-toggle="buttons-checkbox">
-                            <button id="medio_ambiente" class="category-environment ini_category btn btn-primary inline"></button>
-                            <button id="educacion" class="category-education ini_category btn btn-primary inline"></button>
-                            <button id="arte_cultura" class="category-art ini_category btn btn-primary inline"></button>
-                            <button id="desarrollo" class="category-social ini_category btn btn-primary inline"></button>
+                            <button id="medio_ambiente"
+                                class="{{#iniciativa.categories.medio_ambiente}}active{{/iniciativa.categories.medio_ambiente}} category-environment ini_category btn btn-primary inline">
+                            </button>
+                            <button id="educacion"
+                                class="{{#iniciativa.categories.educacion}}active{{/iniciativa.categories.educacion}} category-education ini_category btn btn-primary inline">
+                            </button>
+                            <button id="arte_cultura"
+                                class="{{#iniciativa.categories.arte_cultura}}active{{/iniciativa.categories.arte_cultura}} category-art ini_category btn btn-primary inline">
+                            </button>
+                            <button id="desarrollo"
+                                class="{{#iniciativa.categories.desarrollo}}active{{/iniciativa.categories.desarrollo}} category-social ini_category btn btn-primary inline">
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -43,7 +51,7 @@
             <div class="content">
                 <label class="control-label" for="description">Agrega una descripción</label>
                 <div class="controls">
-                    <textarea id="description_red" class="input-xxlarge" autocomplete="off">Contá de que se trata tu iniciativa. Te recomendamos que primero describas lo más importante, lo que primero se preguntará un participante. Luego si querés podés contar como nace, quienes organizan y participan o lo que te paresca adecuado.</textarea autocomplete="off">
+                    <textarea id="description_red" class="input-xxlarge" autocomplete="off">{{^iniciativa}}Contá de que se trata tu iniciativa. Te recomendamos que primero describas lo más importante, lo que primero se preguntará un participante. Luego si querés podés contar como nace, quienes organizan y participan o lo que te paresca adecuado.{{/iniciativa}}{{#iniciativa}}{{iniciativa.description}}{{/iniciativa}}</textarea autocomplete="off">
                 </div>
             </div>
         </div>
@@ -54,7 +62,7 @@
                 <label for="activities">Actividades</label>
                 <div class="help-block"><small>¿Qué tipo de tareas se van a realizar en la iniciativa?</small></div>
                 <div class="controls">
-                    <input name="activities" id="activities" class="tagsinput input-xxlarge" value=""  autocomplete="off" />
+                    <input name="activities" id="activities" class="tagsinput input-xxlarge" {{#iniciativa}}value="{{#iniciativa.tasks}}{{tag}},{{/iniciativa.tasks}}"{{/iniciativa}}  autocomplete="off" />
                 </div>
             </div>
         </div>
@@ -73,10 +81,10 @@
         <div class="control-group">
             <div class="number">7</div>
             <div class="content">
-                <label for="date_duracion_from">Duración</label>
+                <label for="duration">Duración</label>
                 <div class="help-block"><small>¿Cúanto dura el encuentro?</small></div>
                 <div class="controls">
-                    <input type="text" id="date_duracion_from"></input>
+                    <input type="text" id="duration" name="duration" />
                 </div>
             </div>
         </div>
@@ -89,7 +97,7 @@
                 <div class="controls">
                     <input style="display:none;" id="profile_picture" type="file" name="files[]" multiple>
                       <div id="super-zone">
-                          <div id="dropzone">
+                          <div id="dropzone" class="dropzone-help-text">
                             <span class="text">Arrastra hasta aquí una<br>foto para la portada</span>
                             <span class="text-hover">¡Suéltala!</span>
                           </div>
@@ -118,7 +126,7 @@
             <div class="content">
                 <label class="control-label" for="email">Mail de contacto</label>
                 <div class="controls">
-                    <input type="text" name="email" id="email" autocomplete="off" size="45" />
+                    <input type="text" name="email" id="email" autocomplete="off" size="45" {{#iniciativa}}value="{{iniciativa.email}}"{{/iniciativa}} />
                     <div class="help-block"><small>Opcional. En caso de que los participantes te quieren contactar y este sea diferente al del organizador</small></div>
                 </div>
             </div>
@@ -130,23 +138,30 @@
                 <label class="control-label">Redes sociales</label>
                 <div class="controls">
                     <!-- Twitter -->
-                    <input class="social-input" data-prefix="http://twitter.com/" type="text" name="twitter" id="twitter" autocomplete="off" size="84" />
+                    <input class="social-input" data-prefix="http://twitter.com/" type="text" name="twitter" id="twitter" autocomplete="off" size="84" {{#iniciativa}}value="{{iniciativa.networks.twitter}}"{{/iniciativa}} />
                     <!-- Facebook -->
-                    <input class="social-input" data-prefix="http://facebook.com/" type="text" name="facebook" id="facebook" autocomplete="off" size="84" />
+                    <input class="social-input" data-prefix="http://facebook.com/" type="text" name="facebook" id="facebook" autocomplete="off" size="84" {{#iniciativa}}value="{{iniciativa.networks.facebook}}"{{/iniciativa}} />
                     <!-- Youtube -->
-                    <input class="social-input" data-prefix="http://youtube.com/" type="text" name="youtube" id="youtube" autocomplete="off" size="84" />
+                    <input class="social-input" data-prefix="http://youtube.com/" type="text" name="youtube" id="youtube" autocomplete="off" size="84" {{#iniciativa}}value="{{iniciativa.networks.youtube}}"{{/iniciativa}} />
                     <!-- Flickr -->
-                    <input class="social-input" data-prefix="http://flickr.com/" type="text" name="flickr" id="flickr" autocomplete="off" size="84" />
+                    <input class="social-input" data-prefix="http://flickr.com/" type="text" name="flickr" id="flickr" autocomplete="off" size="84" {{#iniciativa}}value="{{iniciativa.networks.flickr}}"{{/iniciativa}} />
                     <!-- Linkedin -->
-                    <input class="social-input" data-prefix="http://linkedin.com/" type="text" name="linkedin" id="linkedin" autocomplete="off" size="84" />
+                    <input class="social-input" data-prefix="http://linkedin.com/" type="text" name="linkedin" id="linkedin" autocomplete="off" size="84" {{#iniciativa}}value="{{iniciativa.networks.linkedin}}"{{/iniciativa}} />
                     <!-- Delicious -->
-                    <input class="social-input" data-prefix="http://delicious.com/" type="text" name="delicious" id="delicious" autocomplete="off" size="84" />
+                    <input class="social-input" data-prefix="http://delicious.com/" type="text" name="delicious" id="delicious" autocomplete="off" size="84" {{#iniciativa}}value="{{iniciativa.networks.delicious}}"{{/iniciativa}} />
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <button type="submit" id="submit_iniciativa" class="btn">Crear</button>
+            <button type="submit" id="submit_iniciativa" class="btn">
+                {{#iniciativa}}
+                    Guardar cambios
+                {{/iniciativa}}
+                {{^iniciativa}}
+                    Crear
+                {{/iniciativa}}
+            </button>
         </div>
 
     <!--/form-->

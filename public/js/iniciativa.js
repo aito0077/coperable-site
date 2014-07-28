@@ -87,18 +87,23 @@
    * Iniciativa Edit View
    */
   window.iniciativa.Edit = Backbone.View.extend({
+    DURATION_FORMAT: 'DD/MM/YYYY HH:mm',
+    DEFAULT_LOCATION: {
+      latitude: -34.615692,
+      longitude: -58.432846
+    },
     events: {
       'change #name': 'set_name',
       'change #goal': 'set_goal',
       //'change #description_red': 'set_description',
-      'change #date': 'set_date',
-      'change #duration': 'set_duration',
+      'apply.daterangepicker #duration': 'set_duration',
+      'keydown #duration': 'prevent_default',
       'change #profile_picture': 'set_profile_picture',
       'slidechange #slider': 'set_participants_amount',
-      'change #phone': 'set_phone',
       'change #email': 'set_email',
       'change #activities': 'set_activities',
       'change #topic': 'set_topics',
+      'change #addresspicker_map': 'set_address',
       'change #twitter': 'set_network',
       'change #facebook': 'set_network',
       'change #youtube': 'set_network',
@@ -107,31 +112,38 @@
       'change #delicious': 'set_network',
       'click .ini_category': 'set_category',
       'click #submit_iniciativa': 'create_iniciativa',
-      'click #submit_iniciativa_tasks': 'add_iniciativa_tasks',
-      'shown #tareas_tab': 'set_current_tab',
       'click #checkbox_participantes': 'set_participantes_ilimitados',
       'click #button_gmap': 'show_gmap'
     },
 
-    initialize: function() {
+    initialize: function(options) {
       _.bindAll(this);
 
 
       this.current_tab = 'basicos_tab';
-      this.model = new iniciativa.Model;
+
+      // we set them one by one so we don't send back to the backend more information than needed.
+      var iniciativaData = null;
+      if (options.iniciativa) {
+        iniciativaData = {
+          _id: options.iniciativa._id,
+          name: options.iniciativa.name,
+          goal: options.iniciativa.goal,
+          start_date: options.iniciativa.start_date,
+          end_date: options.iniciativa.end_date,
+          profile_picture: options.iniciativa.profile_picture,
+          participants_amount: options.iniciativa.participants_amount,
+          email: options.iniciativa.email,
+          address: options.iniciativa.address,
+          location: options.iniciativa.location,
+          categories: options.iniciativa.categories,
+          networks: options.iniciativa.networks
+        };
+      }
+      this.model = new iniciativa.Model(iniciativaData);
 
       this.setup_bindings();
       this.setup_components();
-    },
-
-    reset: function(options) {
-      this.model.set(options);
-      this.user_default = new google.maps.LatLng(options.latitud, options.longitud);
-
-       this.address.reset({
-         map_canvas: '#map_canvas',
-         user_position: this.user_default
-       });
     },
 
     setup_bindings: function() {
@@ -151,6 +163,10 @@
     setup_components: function() {
       var self = this;
 
+      if (this.model.get('profile_picture')) {
+        $('#dropzone').css('background-image', "url('/static/uploads/thumbs/"+this.model.get('profile_picture')+"')");
+        $('#dropzone').addClass("with-image");
+      }
       $('#profile_picture').fileupload({
         dropZone: $('#dropzone'),
         dataType: 'json',
@@ -158,7 +174,8 @@
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
                 self.model.set({'profile_picture': file.name});
-                $('#dropzone').css('background', "url('"+file.thumbnailUrl+"')");
+                $('#dropzone').css('background-image', "url('"+file.thumbnailUrl+"')");
+                $('#dropzone').addClass("with-image");
             });
         }
       });
@@ -182,7 +199,7 @@
         min: 1,
         max: 1000,
         step: 1,
-        value: 1,
+        value: this.model.get('participants_amount') || 1,
         orientation: 'horizontal',
         range: 'min',
         slide: function(evt, ui) {
@@ -195,6 +212,7 @@
           $(evt.target).find('.tooltip').hide();
         }
       });
+      $("#slider").find('.tooltip').html(this.model.get('participants_amount') || 1);
 
       $("#activities").tagsInput({
          //autocomplete_url: url_to_autocomplete_api,
@@ -215,12 +233,14 @@
 
       var today = moment().hours(0).minutes(0).seconds(0).subtract('days', 1).toDate();
 
-      $('#date_duracion_from').daterangepicker({
-        format: 'DD/MM/YYYY HH:mm',
+      $('#duration').daterangepicker({
+        format: this.DURATION_FORMAT,
         minDate: today,
         timePickerIncrement: 30,
         timePicker12Hour: false,
         timePicker: true,
+        startDate: this.model.get('start_date')? moment(this.model.get('start_date')) : undefined,
+        endDate: this.model.get('end_date')? moment(this.model.get('end_date')) : undefined,
         locale: {
           applyLabel: '',
           cancelLabel: '',
@@ -252,25 +272,15 @@
 
       $('#iniciativa_wizard').tab('show');
 
-      $('[name="address"]').on('change', function(){
-        self.model.set({
-          address: $('[name="address"]').val()
-        });
-      })
+      if (this.model.get('address')) {
+        $("#addresspicker_map").val(this.model.get('address'));
+      }
 
-      this.$map = $("#address_map");
-      this.$map.goMap({
-        markers: [{
-          latitude: -34.615853,
-          longitude: -58.433298,
-          draggable: true,
-          id: 'addressMarker'
-        }],
-        zoom: 13,
-        disableDoubleClickZoom: true
+      this.address = new AddressPicker({
+        initial_arker: this.model.get('location'),
+        default_location: this.DEFAULT_LOCATION,
+        map_canvas: '#map_canvas'
       });
-
-      this.address = new AddressPicker();
 
       this.address.on('direccion_change', function(direccion) {
          self.model.set({
@@ -352,10 +362,6 @@
         window.location.href = "/iniciativas/success/"+id;
     },
 
-    set_current_tab: function(e) {
-      this.current_tab = e.target.id;
-    },
-
     validate: function() {
         var check = this.model.validateAll();
 
@@ -368,10 +374,9 @@
         }
     },
 
-    add_iniciativa_tasks: function(e) {
-      if(this.validate_tasks()) {
-        this.save_iniciativa();
-      }
+    prevent_default: function(event) {
+      event.preventDefault();
+      return false;
     },
 
     validate_tasks: function() {
@@ -411,15 +416,19 @@
       });
     },
 
-    set_date: function(e) {
-      this.model.set({
-        date: e.target.value
-      });
-    },
-
     set_duration: function(e) {
+      var date_range_string = e.target.value,
+          start_date = null,
+          end_date = null;
+
+      if (date_range_string) {
+        var date_range = date_range_string.split('-');
+        start_date = moment(date_range[0].trim(), this.DURATION_FORMAT).toDate().getTime();
+        end_date = moment(date_range[1].trim(), this.DURATION_FORMAT).toDate().getTime();
+      }
       this.model.set({
-        duration: e.target.value
+        start_date_timestamp: start_date,
+        end_date_timestamp: end_date
       });
     },
 
@@ -436,15 +445,9 @@
       });
     },
 
-    set_phone: function(e) {
-      this.model.set({
-        phone: e.target.value
-      });
-    },
-
     set_email: function(e) {
       this.model.set({
-        emai: e.target.value
+        email: e.target.value
       });
     },
 
@@ -475,6 +478,11 @@
         topic: $('#topic').val()
       });
     },
+    set_address: function(e) {
+      this.model.set({
+        address: $(e.target).val()
+      });
+    },
     set_network: function(event) {
       var networks = this.model.get('networks');
       if (!networks) {
@@ -487,70 +495,7 @@
     },
   });
 
-  /**
-   * TODO Investigate what it does, document and move to util.js or something like that.
-   * It doesn't belong here (Matias Niklison 21/07/2014)
-   */
-  window.AddressPicker = Backbone.View.extend({
-
-    zoom_default: 12,
-
-    events: {
-
-    },
-
-    initialize: function() {
-      _.bindAll(this, 'reset', 'setup_binding', 'setup_component');
-
-      this.model = new Backbone.Model;
-    },
-
-    reset: function(options) {
-      this.map_canvas = options.map_canvas;
-      this.user_position = options.user_position;
-      this.setup_component();
-      this.setup_binding();
-    },
-
-    setup_binding: function() {
-      var self = this;
-      this.addresspickerMap.on("addressChanged", function(evt, address) {
-        try {
-          var direccion = address.formatted_address.replace(/Province/g, 'Provincia' );
-          self.trigger('direccion_change', direccion);
-        } catch(e) {
-        }
-        self.trigger('location_change', {
-          latitud: address.geometry.location.lat(),
-          longitud: address.geometry.location.lng()
-        });
-      });
-
-      this.addresspickerMap.on("positionChanged", function(evt, markerPosition) {
-        markerPosition.getAddress( function(address) {
-          if (address) {
-            $( "#addresspicker_map").val(address.formatted_address);
-          }
-        })
-      });
-    },
-
-    setup_component: function() {
-      this.addresspicker = $( "#addresspicker" ).addresspicker();
-      this.addresspickerMap = $( "#addresspicker_map" ).addresspicker({
-        regionBias: "ar",
-        map:      "#map_canvas",
-        typeaheaddelay: 1000,
-        mapOptions: {
-          languaje: "es",
-          zoom: 16 || this.zoom_default,
-          center: this.user_position
-        }
-      });
-    }
-  });
-
- 
+  
   window.iniciativa.OwnerBrowser = Backbone.View.extend({
     el: $('#div_iniciativas_owner'),
 

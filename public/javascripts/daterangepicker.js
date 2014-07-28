@@ -5,6 +5,8 @@
 * @copyright: Copyright (c) 2012-2014 Dan Grossman. All rights reserved.
 * @license: Licensed under Apache License v2.0. See http://www.apache.org/licenses/LICENSE-2.0
 * @website: http://www.improvely.com/
+*
+* IMPORTANT FOR COPERABLE!! It has a line added by Matias Niklison (28/07/2014) (search for Niklison on the file).
 */
 !function ($, moment) {
 
@@ -365,7 +367,7 @@
 
             this.updateView();
             this.updateCalendars();
-
+            this.updateInputText(); // Added by Matias Niklison (28/07/2014)
         },
 
         setStartDate: function(startDate) {

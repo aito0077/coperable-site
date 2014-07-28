@@ -33,21 +33,12 @@
 
 $(function(){
   AppIniEdi = new iniciativa.Edit({
-    el: $('#inciativa_editor')
+    el: $('#inciativa_editor'),
+    {{#jsonIniciativa}}
+      iniciativa: {{& jsonIniciativa }}
+    {{/jsonIniciativa}}
   });
-  AppIniEdi.reset({
-    {{#geo}}
-      latitud: {{geo.latitud}},
-      longitud: {{geo.longitud}},
-      zoom_default: 14
-    {{/geo}}
-    {{^geo}}
-      zoom_default: 12,
-      latitud: -34.615692,
-      longitud: -58.432846
-    {{/geo}}
-  });
- });
+});
 
  $(".todo li").click(function() {
    $(this).toggleClass("todo-done");
