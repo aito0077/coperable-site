@@ -156,8 +156,10 @@
               <div class="title">Otras iniciativas de {{owner.username}}</div>
                 {{#owner.ownedIniciativas}}
                   <div class="pic">
+                    <a href="/iniciativas/{{id}}">
                       <div class="name">{{name}}</div>
-                      <img src="{{profile_picture}}" />
+                      <img src="/static/uploads/thumbs/{{profile_picture}}" />
+                    </a>
                   </div>
                 {{/owner.ownedIniciativas}}
             </div>

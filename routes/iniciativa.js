@@ -77,6 +77,15 @@ exports.view = function(req, res) {
     var owner = response.owner;
     var members = response.members;
 
+    if (!iniciativa) {
+      // TODO redirect to 404 page.
+      return res.render('iniciativa/view.html',{
+      partials: {
+        map: 'widgets/map',
+      }
+    });
+    }
+
     try {
       iniciativa.description = JSON.parse(iniciativa.description).replace(/\"/g,"");
     }catch(e) {console.error(e);}

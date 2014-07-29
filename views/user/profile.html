@@ -74,8 +74,10 @@
     {{#profile.iniciativas}}
         <li class="initiative">
             <div class="content">
-                <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
-                <div class="title">{{name}}</div>
+                <a href="/iniciativas/{{id}}">
+                    <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
+                    <div class="title">{{name}}</div>
+                </a>
             </div>
         </li>
     {{/profile.iniciativas}}
@@ -88,8 +90,10 @@
     {{#profile.ownedIniciativas}}
         <li class="initiative">
             <div class="content">
-                <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
-                <div class="title">{{name}}</div>
+                <a href="/iniciativas/{{id}}">
+                    <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
+                    <div class="title">{{name}}</div>
+                </a>
             </div>
         </li>
     {{/profile.ownedIniciativas}}
