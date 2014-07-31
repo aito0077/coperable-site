@@ -5,7 +5,8 @@ var config = require('../config'),
     us = require('underscore'),
     fs = require('fs'),
     im = require('imagemagick'),
-    AWS = require('aws-sdk');
+    AWS = require('aws-sdk'),
+    uuid = require('node-uuid');
 
 AWS.config.update(config.system.AMAZON);
 var s3 = new AWS.S3();
@@ -48,53 +49,64 @@ exports.createS3Policy = function(req, res, callback ) {
 /// Post files
 exports.upload= function(req, res, callback ) {
     
+    console.log("[filehandler::upload] File uploaded:");
     console.dir(req.files);
     var fileUploaded = req.files.files[0];
-    fs.readFile(fileUploaded.path, function (err, data) {
+    var imageName = fileUploaded.name;
 
-        var imageName = fileUploaded.name;
+    /// If there's an error
+    if(!imageName){
+      console.error("[filehandler::upload] Error! A file was uploaded with no name.");
+      res.redirect("/");
+      res.end();
+      return;
+    } else {
+      /**
+       * Extension extraction method taken from:
+       * http://stackoverflow.com/a/1203361/260389
+       */
+      var extensionArray = imageName.split("."),
+      imageName = uuid.v4();
+      if( !( extensionArray.length === 1 || ( extensionArray[0] === "" && extensionArray.length === 2 ) ) ) {
+        imageName += "." + extensionArray.pop().toLowerCase();
+      }
 
-        /// If there's an error
-        if(!imageName){
-
-            console.log("There was an error");
-            res.redirect("/");
-            res.end();
-
-        } else {
-
-
-            var newPath = __dirname + "/../public/uploads/fullsize/" + imageName;
-            var thumbPath = __dirname + "/../public/uploads/thumbs/" + imageName;
-
-            fs.writeFile(newPath, data, function (err) {
-                im.crop({
-                    srcPath: newPath,
-                    dstPath: thumbPath,
-                    width:   280,
-                    height:   120,
-                    gravity: 'North'
-                }, function(err, stdout, stderr){
-                    if (err) throw err;
-                    console.log('resized image to fit within 280x120px');
-                });
-
-                var result = {
-                    "files": [{
-                        "name": imageName,
-                        "size": fileUploaded.size,
-                        "url": "/static/uploaded/fullsize/"+imageName,
-                        "thumbnailUrl": "/static/uploads/thumbs/"+imageName,
-                        "deleteUrl": "/static/uploads/fullsize/"+imageName,
-                        "deleteType": "DELETE"
-                    }]};
-
-
-                res.send(result);
-
-            });
+      var newPath = __dirname + "/../public/uploads/fullsize/" + imageName;
+      var thumbPath = __dirname + "/../public/uploads/thumbs/" + imageName;
+    }
+    fs.rename(fileUploaded.path, newPath, function (err) {
+      if(err){
+        console.error("[filehandler::upload] Error! An error ocurred while moving the file from [%s] to [%s]: %j",
+          fileUploaded.path, newPath, err);
+        res.redirect("/");
+        res.end();
+        return;
+      }
+      im.crop({
+          srcPath: newPath,
+          dstPath: thumbPath,
+          width:   280,
+          height:   120,
+          gravity: 'North'
+      }, function(err, stdout, stderr){
+        if (err) {
+          console.error("[filehandler::upload] Error! An error ocurred while cropping the file [%s]: %j",
+            newPath, err);
         }
-    });
+        var result = {
+          "files": [{
+              "name": imageName,
+              "size": fileUploaded.size,
+              "url": "/static/uploaded/fullsize/"+imageName,
+              "thumbnailUrl": "/static/uploads/thumbs/"+imageName,
+              "deleteUrl": "/static/uploads/fullsize/"+imageName,
+              "deleteType": "DELETE"
+          }]
+        };
+        console.log("[filehandler::upload] File uploaded to [%s] with thumbnail [%s]", newPath, thumbPath);
+        res.send(result);
+      });
+   });
 };
 
 

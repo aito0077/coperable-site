@@ -12,7 +12,7 @@ var config = require('./config'),
   passport = require('passport'),
   pass_autentication = require('./logic/authentication'),
   redis = require('redis'),
-  external_files = require('./logic/filehandler'),
+  filehandler = require('./logic/filehandler'),
   RedisStore = require('connect-redis')(express);
 
 var stylus = require('stylus')
@@ -200,8 +200,8 @@ app.get('/users', users.list);
 app.get('/user/:id', user.profile);
 
 
-app.post('/uploads', external_files.upload);
-app.post('/gets3credentials', external_files.createS3Policy);
+app.post('/uploads', filehandler.upload);
+app.post('/gets3credentials', filehandler.createS3Policy);
 app.get('/uploadsuccess', function(req, resp) {
   console.log('Exito en subir la imagen');
   res.send('OK');
