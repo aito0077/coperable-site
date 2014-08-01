@@ -102,7 +102,7 @@
       'slidechange #slider': 'set_participants_amount',
       'change #email': 'set_email',
       'change #activities': 'set_activities',
-      'change #topic': 'set_topics',
+      'change #topics': 'set_topics',
       'change #addresspicker_map': 'set_address',
       'change #twitter': 'set_network',
       'change #facebook': 'set_network',
@@ -222,7 +222,7 @@
          removeWithBackspace: true,
          minChars: 3
       });
-      $("#topic").tagsInput({
+      $("#topics").tagsInput({
          //autocomplete_url: url_to_autocomplete_api,
          interactive:true,
          width: '600px',
@@ -475,7 +475,7 @@
     },
     set_topics: function(e) {
       this.model.set({
-        topic: $('#topic').val()
+        topics: $('#topics').val()
       });
     },
     set_address: function(e) {

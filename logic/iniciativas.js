@@ -5,10 +5,12 @@ var config = require('../config'),
 
 function prepare_to_persist(req, done) {
   var body = req.body.model ? JSON.parse(req.body.model) : req.body,
-      activities = body.activities;
+      activities = body.activities,
+      topics = body.topics;
 
   var iniciativa_data = {
-    tasks: new Array()
+    tasks: new Array(),
+    topics: new Array()
   };
   if (body._id) {
     delete body._id;
@@ -29,6 +31,13 @@ function prepare_to_persist(req, done) {
       });
     });
     delete body.activities;
+  }
+
+  if(topics) {
+    us.each(topics.split(/,/), function(topic) {
+      iniciativa_data.topics.push(topic);
+    });
+    delete body.topics;
   }
 
   var full_data = us.extend({}, body, iniciativa_data);

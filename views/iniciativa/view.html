@@ -20,14 +20,27 @@
               </div>
             </div>
 
-            <div class="cell tags-wrapper">
-              <h3>Tareas</h3>
-                <ul class="orange tags">
-                  {{#iniciativa.tasks}}
-                    <li>{{tag}}</li>
-                  {{/iniciativa.tasks}}
-                </ul>
-            </div>
+            {{#iniciativa.tasks.length}}
+              <div class="cell tags-wrapper">
+                <h3>Tareas</h3>
+                  <ul class="orange tags">
+                    {{#iniciativa.tasks}}
+                      <li>{{tag}}</li>
+                    {{/iniciativa.tasks}}
+                  </ul>
+              </div>
+            {{/iniciativa.tasks.length}}
+
+            {{#iniciativa.topics.length}}
+              <div class="cell tags-wrapper">
+                <h3>Temática</h3>
+                  <ul class="orange tags">
+                    {{#iniciativa.topics}}
+                      <li>{{.}}</li>
+                    {{/iniciativa.topics}}
+                  </ul>
+              </div>
+            {{/iniciativa.topics.length}}
 
             <div class="cell description">
               <h3>Descripción</h3>
