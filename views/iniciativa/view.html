@@ -14,20 +14,33 @@
 				
               <div class="info">
                   <div>
-                    <span class="when">{{iniciativa.start_date}}</span> - <span class="when">{{iniciativa.end_date}}</span>
+                    Desde <span class="when">{{iniciativa.start_date}}</span> - Hasta <span class="when">{{iniciativa.end_date}}</span>
                   </div>
                   <div class="where">{{iniciativa.address}}</div>
               </div>
             </div>
 
-            <div class="cell tags-wrapper">
-              <h3>Tareas</h3>
-                <ul class="orange tags">
-                  {{#iniciativa.tasks}}
-                    <li>{{tag}}</li>
-                  {{/iniciativa.tasks}}
-                </ul>
-            </div>
+            {{#iniciativa.tasks.length}}
+              <div class="cell tags-wrapper">
+                <h3>Tareas</h3>
+                  <ul class="orange tags">
+                    {{#iniciativa.tasks}}
+                      <li>{{tag}}</li>
+                    {{/iniciativa.tasks}}
+                  </ul>
+              </div>
+            {{/iniciativa.tasks.length}}
+
+            {{#iniciativa.topics.length}}
+              <div class="cell tags-wrapper">
+                <h3>Temática</h3>
+                  <ul class="orange tags">
+                    {{#iniciativa.topics}}
+                      <li>{{.}}</li>
+                    {{/iniciativa.topics}}
+                  </ul>
+              </div>
+            {{/iniciativa.topics.length}}
 
             <div class="cell description">
               <h3>Descripción</h3>
@@ -104,8 +117,10 @@
                   $(function(){
                     var $btn = $('.participar')
                     $btn.on('click', function(){ $btn.toggleClass('participando') })
-                    var momento = moment($('.when').html()).lang('es');
-                    $('.when').html(momento.format('DD MMMM YYYY, HH:mm'));
+                    $('.when').each(function() {
+                      var momento = moment($(this).html()).lang('es');
+                      $(this).html(momento.format('DD MMMM YYYY, HH:mm'));
+                    });
                   })
                 </script>
             </div>
