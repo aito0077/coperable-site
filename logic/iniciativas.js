@@ -18,8 +18,8 @@ function prepare_to_persist(req, done) {
       name: req.user.username
     };
   }
-  delete body.start_date;
-  delete body.end_date;
+  //delete body.start_date;
+  //delete body.end_date;
 
   if(activities) {
     us.each(activities.split(/,/), function(tag) {

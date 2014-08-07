@@ -6,5 +6,50 @@
 		<p class="small">
 			Ahora a compartirla con tus amigos en las redes sociales. Invitando gente y dándola a conocer vas a convocar más participantes y sumar más energía social para tu proyecto.
 		</p>
+
 	</div>
 </div>
+<div class="container">
+	<form method="POST" action="/user/signup" class="form-vertical">
+		<input class="input-large" id="organizer_name" name="organizer_name" type="text" placeholder="Usuario" required>
+        <select>
+            <option value="ONG">ONG</option>
+            <option value="EMPRESA">Empresa</option>
+            <option value="MOVIMIENTO">Movimiento</option>
+            <option value="PERSONA">Persona</option>
+            <option value="RED">Red</option>
+            <option value="ORGANIZACION">Organización Territorial</option>
+            <option value="ESPACIO_CULTURAL">Espacio Cultural</option>
+            <option value="ESPACIO_EDUCATIVO">Espacio Educativo</option>
+            <option value="CENTRO_COMUNITARIO">Centro Comunitario</option>
+            <option value="MEDIO_COMUNICACION">Medio de comunicación</option>
+            <option value="COLECTIVO">Colectivo</option>
+            <option value="ARTISTA">Artista</option>
+            <option value="TALLERISTAS">Talleristas</option>
+            <option value="OTRO">otro</option>
+        </select>
+		<textarea id="description" name="description" placeholder="Sobre mí" style="width:100%" rows="4"></textarea>
+
+        <div class="control-group">
+            <div class="number">9</div>
+            <div class="content">
+                <label for="picture">Imagen Perfil</label>
+                <div class="controls">
+                    <input style="display:none;" id="profile_picture" type="file" name="files[]" multiple>
+                      <div id="super-zone">
+                          <div id="dropzone" class="dropzone-help-text">
+                            <span class="text">Arrastra hasta aquí una<br>foto para la portada</span>
+                            <span class="text-hover">¡Suéltala!</span>
+                          </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+
+
+
+		<button type="submit" class="btn">Registrarme</button>
+	</form>
+</div>
+
+
