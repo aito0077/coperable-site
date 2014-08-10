@@ -148,7 +148,7 @@
 
     render_map: function() {
         this.map.setCenter(this.initialLocation);
-        this.traer_iniciativas();
+        this.traer_iniciativas('all');
     },
 
     detect_geolocation: function() {
