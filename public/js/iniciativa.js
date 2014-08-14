@@ -609,6 +609,112 @@
 
 
 
+window.iniciativa.ListManager = Backbone.View.extend({
+
+    el: null,
+    $templates: null,
+
+    ARTE_CULTURA: 'arte_cultura',
+    DESARROLLO: 'desarrollo',
+    EDUCACION: 'educacion',
+    MEDIO_AMBIENTE: 'medio_ambiente',
+
+    markers: new Array(),
+
+    events: {
+      'click #browser_all': 'browse_iniciativas',
+      'click #browser_me': 'browse_iniciativas',
+      'click #browser_ac': 'browse_iniciativas',
+      'click #browser_ed': 'browse_iniciativas',
+      'click #browser_ds': 'browse_iniciativas'
+    },
+
+    /**
+     * Constructor.
+     * @param options.el {jQueryDomElement | string} Element or css selector for the view container.
+     * @param options.$template {jQueryDomElement | string} Element or css selector for the templates.
+     */
+    initialize: function(options) {
+      this.el = options.el;
+      this.$templates = options.$templates;
+
+      _.bindAll(this, 'traer_last_iniciativas');
+
+      this.model = new iniciativa.Model;
+      this.iniciativas = new iniciativa.Collection;
+      this.$templates = options.$templates;
+
+      this.setup_component();
+      this.setup_binding();
+
+    },
+
+    reset: function(options) {
+    },
+
+    setup_binding: function() {
+    },
+
+    setup_component: function() {
+      this.itemTemplate = _.template(_.unescape(this.$templates.find(".item-template").html()));
+
+    },
+
+    traer_iniciativas: function(category) {
+      var self = this;
+      this.iniciativas.fetch({
+        data: $.param({
+          category: category
+        }),
+        success: function(iniciativas, response, options) {
+	        if(!_.isEmpty(iniciativas.models)) {
+            
+            $('#iniciativas-list').html('');
+            _.each(iniciativas.models,
+              function(model) {
+                if(model && !_.isEmpty(model)) {
+                    var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
+                    var $li = $('<li class="initiative"/>').append($itemTemplate);
+                    $('#iniciativas_list').append($li);
+                }
+              }
+            );
+	        }
+          }
+        });
+    },
+
+
+
+    browse_iniciativas: function(e) {
+      var category = null;
+      $('.category_tab').removeClass('selected');
+      $('#'+e.target.id).addClass('selected');
+      switch(e.target.id) {
+        case 'browser_all':
+          category = null;
+          break;
+        case 'browser_me':
+          category = this.MEDIO_AMBIENTE;
+          break;
+        case 'browser_ac':
+          category = this.ARTE_CULTURA;
+          break;
+        case 'browser_ed':
+          category = this.EDUCACION;
+          break;
+        case 'browser_ds':
+          category = this.DESARROLLO;
+          break;
+        default:
+          break;
+      }
+      this.traer_iniciativas(category);
+    }
+  });
+
+
+
 // Esta función habría que reemplazarla por una más funcional a los filtros
 
 $(document).ready(function($) {

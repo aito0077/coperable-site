@@ -1,3 +1,4 @@
+<div id="list_manager">
 <div class="clearfix tematica-filtro-contaier row">
   <div data-icon="" class="span2">Temáticas</div>
   <div class="span10">
@@ -82,4 +83,17 @@
     </div>
   {{/iniciativas}}
 </div>
+<div id="list-templates" style="display: none;">
+    {{> iniciativaItemTemplate }}
+</div>
+</div>
+<script>
+  $(function(){
+    list_manager = new iniciativa.ListManager({
+      el: $('#list_manager'),
+      $templates: $('#list-templates')
+    });
+  });
+</script>
+
 <script type='text/javascript' src='/static/js/_list.js'></script>
