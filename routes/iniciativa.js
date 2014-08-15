@@ -149,7 +149,8 @@ exports.list = function(req, res) {
         layoutId: 'iniciativas-index',
         iniciativas: iniciativas,
         partials: {
-          list: 'iniciativa/_list'
+          list: 'iniciativa/_list',
+	   iniciativaItemTemplate: "templates/iniciativaItemListTemplate.html"
         }
       })
     }

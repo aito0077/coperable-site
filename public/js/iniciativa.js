@@ -62,6 +62,7 @@
           profile_picture: '',
           address: '',
           goal: '',
+          participants_amount: 0,
           date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
         },
         this.toJSON())));
@@ -604,9 +605,6 @@
   	  $("#div_participantes-"+model.get('_id')).html(participantes + ' participantes');
     }
   });
-})();
-
-
 
 
 window.iniciativa.ListManager = Backbone.View.extend({
@@ -638,11 +636,10 @@ window.iniciativa.ListManager = Backbone.View.extend({
       this.el = options.el;
       this.$templates = options.$templates;
 
-      _.bindAll(this, 'traer_last_iniciativas');
+      _.bindAll(this, 'traer_iniciativas');
 
       this.model = new iniciativa.Model;
       this.iniciativas = new iniciativa.Collection;
-      this.$templates = options.$templates;
 
       this.setup_component();
       this.setup_binding();
@@ -650,13 +647,15 @@ window.iniciativa.ListManager = Backbone.View.extend({
     },
 
     reset: function(options) {
+
     },
 
     setup_binding: function() {
+
     },
 
     setup_component: function() {
-      this.itemTemplate = _.template(_.unescape(this.$templates.find(".item-template").html()));
+      this.itemTemplate = _.template(_.unescape(this.$templates.find(".iniciativas-list-item").html()));
 
     },
 
@@ -669,13 +668,13 @@ window.iniciativa.ListManager = Backbone.View.extend({
         success: function(iniciativas, response, options) {
 	        if(!_.isEmpty(iniciativas.models)) {
             
-            $('#iniciativas-list').html('');
+            $('.iniciativas-list').html('');
             _.each(iniciativas.models,
               function(model) {
                 if(model && !_.isEmpty(model)) {
                     var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
                     var $li = $('<li class="initiative"/>').append($itemTemplate);
-                    $('#iniciativas_list').append($li);
+                    $('.iniciativas-list').append($li);
                 }
               }
             );
@@ -712,6 +711,13 @@ window.iniciativa.ListManager = Backbone.View.extend({
       this.traer_iniciativas(category);
     }
   });
+
+
+
+})();
+
+
+
 
 
 
