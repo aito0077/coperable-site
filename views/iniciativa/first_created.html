@@ -1,37 +1,49 @@
 <div id="initiativeSuccess">
 	<div class="text-center">
 		<img src="/static/img/success-icon.png" alt="" class="checkmark" />
-	    <h3>¡Muy bueno! Creaste una nueva iniciativa.</h3>
-	    <a class="link" href="http://coperable.com.ar/iniciativas/{{iniciativa._id}}">http://coperable.com.ar/iniciativas/{{iniciativa._id}}</a>
-		<p class="small">
-			Ahora a compartirla con tus amigos en las redes sociales. Invitando gente y dándola a conocer vas a convocar más participantes y sumar más energía social para tu proyecto.
+	    <h3>¡Muy bueno! Creaste tu primer iniciativa.</h3>
+
+		<p class="medium">
+			Como organizador, necesitamos que completes algunos datos.
 		</p>
 
 	</div>
 </div>
-<div class="container">
-	<form method="POST" action="/user/signup" class="form-vertical">
-		<input class="input-large" id="organizer_name" name="organizer_name" type="text" placeholder="Usuario" required>
-        <select>
-            <option value="ONG">ONG</option>
-            <option value="EMPRESA">Empresa</option>
-            <option value="MOVIMIENTO">Movimiento</option>
-            <option value="PERSONA">Persona</option>
-            <option value="RED">Red</option>
-            <option value="ORGANIZACION">Organización Territorial</option>
-            <option value="ESPACIO_CULTURAL">Espacio Cultural</option>
-            <option value="ESPACIO_EDUCATIVO">Espacio Educativo</option>
-            <option value="CENTRO_COMUNITARIO">Centro Comunitario</option>
-            <option value="MEDIO_COMUNICACION">Medio de comunicación</option>
-            <option value="COLECTIVO">Colectivo</option>
-            <option value="ARTISTA">Artista</option>
-            <option value="TALLERISTAS">Talleristas</option>
-            <option value="OTRO">otro</option>
-        </select>
-		<textarea id="description" name="description" placeholder="Sobre mí" style="width:100%" rows="4"></textarea>
+<br/>
+<div id="inciativa_editor" class="container">
+	<form method="POST" action="/user/organizer/signup" class="form-vertical">
+        <div class="control-group">
+            <div class="content">
+                <input class="input-large" id="organizer_name" name="organizer_name" type="text" placeholder="Nombre Organizador" required>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="content">
+                <select name="organizer_type" class="input-large">
+                    <option value="ONG">Ong</option>
+                    <option value="EMPRESA">Empresa</option>
+                    <option value="MOVIMIENTO">Movimiento</option>
+                    <option value="PERSONA">Persona</option>
+                    <option value="RED">Red</option>
+                    <option value="ORGANIZACION">Organización Territorial</option>
+                    <option value="ESPACIO_CULTURAL">Espacio Cultural</option>
+                    <option value="ESPACIO_EDUCATIVO">Espacio Educativo</option>
+                    <option value="CENTRO_COMUNITARIO">Centro Comunitario</option>
+                    <option value="MEDIO_COMUNICACION">Medio de comunicación</option>
+                    <option value="COLECTIVO">Colectivo</option>
+                    <option value="ARTISTA">Artista</option>
+                    <option value="TALLERISTAS">Talleristas</option>
+                    <option value="OTRO">otro</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="content">
+                <textarea id="description" name="organizer_description" placeholder="Acerca del Organizador" style="width:100%" rows="4"></textarea>
+            </div>
+        </div>
 
         <div class="control-group">
-            <div class="number">9</div>
             <div class="content">
                 <label for="picture">Imagen Perfil</label>
                 <div class="controls">
@@ -48,7 +60,10 @@
 
 
 
-		<button type="submit" class="btn">Registrarme</button>
+	    <a class="link" href="http://coperable.com.ar/iniciativas/{{iniciativa._id}}">
+            <span class="btn">Actualizar!</span>
+        </a>
+		<!--button type="submit" class="btn">Actualizar!</button-->
 	</form>
 </div>
 
