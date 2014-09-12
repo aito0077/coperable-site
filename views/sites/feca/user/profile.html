@@ -1,0 +1,91 @@
+{{#profile}}
+	<div class="first_field">
+		<img src="/static/img/users/{{profile.picture}}" class="user-face" />
+		<div class="user-info">
+			<div class="user-name">{{profile.username}}</div>
+            <div class="user-about">{{profile.about}}</div>
+
+            <ul class="social">
+                {{#profile.networks.twitter.has}}
+    				<li>
+                    <a href="{{profile.networks.twitter}}">
+                        <img src="/static/img/twitter-circle.png">
+                    </a>
+                </li>
+    			{{/profile.networks.twitter.has}}
+                
+                {{#profile.networks.facebook.has}}
+                    <li>
+                    <a href="{{profile.networks.facebook}}">
+                        <img src="/static/img/facebook-circle.png">
+                    </a>
+                </li>
+                {{/profile.networks.facebook.has}}
+                
+                {{#profile.networks.youtube.has}}
+                    <li>
+                    <a href="{{profile.networks.youtube}}">
+                        <img src="/static/img/youtube-circle.png">
+                    </a>
+                </li>
+                {{/profile.networks.youtube.has}}
+                
+                {{#profile.networks.flickr.has}}
+                    <li>
+                    <a href="{{profile.networks.flickr}}">
+                        <img src="/static/img/flickr-circle.png">
+                    </a>
+                </li>
+                {{/profile.networks.flickr.has}}
+                
+                {{#profile.networks.linkedin.has}}
+                    <li>
+                    <a href="{{profile.networks.linkedin}}">
+                        <img src="/static/img/linkedin-circle.png">
+                    </a>
+                </li>
+                {{/profile.networks.linkedin.has}}
+                
+                {{#profile.networks.delicious.has}}
+                    <li>
+                    <a href="{{profile.networks.delicious}}">
+                        <img src="/static/img/delicious-circle.png">
+                    </a>
+                </li>
+                {{/profile.networks.delicious.has}}
+            </ul>
+        </div>
+	</div>
+    <br /><br />
+    <h3>Participó en</h3>
+    <ul class="list-user">
+    {{#profile.iniciativas}}
+        <li class="initiative">
+            <div class="content">
+                <a href="/iniciativas/{{id}}">
+                    <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
+                    <div class="title">{{name}}</div>
+                </a>
+            </div>
+        </li>
+    {{/profile.iniciativas}}
+    </ul>
+    
+    <br /><br />
+
+    <h3>Organizó</h3>
+    <ul class="list-user">
+    {{#profile.ownedIniciativas}}
+        <li class="initiative">
+            <div class="content">
+                <a href="/iniciativas/{{id}}">
+                    <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
+                    <div class="title">{{name}}</div>
+                </a>
+            </div>
+        </li>
+    {{/profile.ownedIniciativas}}
+    </ul>
+
+<br /><br />
+{{/profile}}

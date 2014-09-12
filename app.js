@@ -64,6 +64,12 @@ function ensureAuthenticated(req, res, next) {
   next('route');
 }
 
+function getSubdomain(h) {
+  var parts = h.split(".");
+    if(parts.length == 2) return "www";
+    return parts[0];
+}
+
 /**
  * Load user information;then go to the next
  * matching route.
@@ -164,6 +170,26 @@ app.get(['/user/login', '/user/signup'], function(req, res, next){
 app.get('/user/login', user.login);
 
 
+app.get('/feca/user/success_login', function(req, res, next) {
+  res.redirect('/feca');
+});
+
+app.get('/feca/user/failure_login', function(req, res, next) {
+  res.redirect('/feca/user/login');
+  //res.send(403, 'El usuario no se encuentra.');
+});
+
+
+app.get(['/feca/user/login', '/user/signup'], function(req, res, next){
+  if(req.isAuthenticated()) {
+    res.send({'result':'Ya estás logueado!'});
+  }
+  next('route')
+});
+app.get('/feca/user/login', feca.login);
+
+
+
 function customCallbackAuthentification(strategy, req, res, next) {
   passport.authenticate(strategy, function loginCustomCallback(err, user, info) {
       if (err) { return res.redirect('/user/failure_login'); }
@@ -185,9 +211,37 @@ function customCallbackAuthentification(strategy, req, res, next) {
   )(req, res, next);
 }
 
+function customFecaCallbackAuthentification(strategy, req, res, next) {
+  passport.authenticate(strategy, function loginCustomCallback(err, user, info) {
+      if (err) { return res.redirect('/feca/user/failure_login'); }
+
+      if (!user) { return res.redirect('/feca/user/login'); }
+
+      req.logIn(user, function(err) {
+        if (err) { return res.redirect('/feca/user/failure_login'); }
+      });
+
+      var redirectURL = '/feca/user/success_login';
+      if (req.session.redirectURL) {
+        redirectURL = req.session.redirectURL;
+        req.session.redirectURL = null;
+      }
+
+      return res.redirect(redirectURL);
+    }
+  )(req, res, next);
+}
+
+
+
 app.post('/user/login', function(req, res, next) {
   customCallbackAuthentification('local', req, res, next);
 });
+
+app.post('/feca/user/login', function(req, res, next) {
+  customFecaCallbackAuthentification('local', req, res, next);
+});
+
 
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
@@ -212,6 +266,8 @@ app.get('/user/logout', function(req, res){
 app.get('/users', users.list);
 
 app.get('/user/:id', user.profile);
+
+app.get('/feca/user/:id', feca.profile);
 
 
 app.post('/uploads', filehandler.upload);

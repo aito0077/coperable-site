@@ -177,4 +177,35 @@ exports.list = function(req, res) {
   });
 };
 
+exports.profile = function(req, res) {
+  var user_id = req.params['id'];
+  users.profile(user_id, function(err, user) {
+
+    if(!user.picture) {
+        user.picture = 'user-12-mq.png';
+    }
+    res.locals = _.extend(res.locals, {
+      profile: user,
+      title: 'Perfil'
+    });
+    return res.render(feca_path+'user/profile.html',{
+        layout: 'sites/feca/layout.html',
+		layoutTitle: 'Perfil',
+		layoutId: 'user-login'
+	});
+
+  });
+
+};
+
+exports.login = function(req, res) {
+  req.session.redirectURL = req.query.returnURL;
+  return res.render(feca_path+'user/login.html', {
+    layout: 'sites/feca/layout.html',
+    layoutTitle: 'Login',
+    layoutId: 'user-login'
+  })
+};
+
+
 
