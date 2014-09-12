@@ -26,9 +26,11 @@
             return value && value.length > 0 ? {isValid: true} : {isValid: false, message: "Tenes que ingresar descripcion"};
         };
 
+        /*
         this.validators.profile_picture = function (value) {
             return value && value.length > 0 ? {isValid: true} : {isValid: false, message: "Tenes que ingresar imagen"};
         };
+        */
 
         this.validators.address = function (value) {
             return value && value.length > 0 ? {isValid: true} : {isValid: false, message: "Tenes que ingresar direccion"};
@@ -345,7 +347,8 @@
     save_iniciativa: function() {
       var self = this;
       this.model.set({
-        description: JSON.stringify($('#description_red').getCode())
+        description: JSON.stringify($('#description_red').getCode()),
+        feca: true
       });
 
       if(this.validate()) {

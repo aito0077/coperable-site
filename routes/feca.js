@@ -23,6 +23,7 @@ exports.index = function(req, res) {
 exports.create = function(req, res) {
   return res.render(feca_path+'iniciativa/create.html', {
     layoutTitle: 'Empezar Iniciativa',
+    layout: 'sites/feca/layout.html',
     partials: {
         widget_address: 'widgets/address',
         head_resources: 'iniciativa/iniciativa_script_resources',
@@ -40,6 +41,7 @@ exports.edit = function(req, res) {
       jsonIniciativa: JSON.stringify(iniciativa)
     });
     return res.render(feca_path+'iniciativa/create.html',{
+        layout: 'sites/feca/layout.html',
       layoutTitle: 'Empezar Iniciativa',
       partials: {
         widget_address: 'widgets/address',
@@ -76,6 +78,7 @@ exports.success = function(req, res) {
           layoutId: 'iniciativas-view',
         });
         return res.render(true || first_iniciativa ? feca_path+'iniciativa/first_created.html' : feca_path+'iniciativa/created_success.html',{
+        layout: 'sites/feca/layout.html',
           partials: {
             map: 'widgets/map',
           }
@@ -124,6 +127,7 @@ exports.view = function(req, res) {
       layoutId: 'iniciativas-view',
     });
     return res.render(feca_path+'iniciativa/view.html',{
+        layout: 'sites/feca/layout.html',
       partials: {
         map: 'widgets/map',
       }
@@ -145,6 +149,7 @@ exports.view_slug = function(req, res) {
       title: iniciativa.name
     });
     return res.render(feca_path+'iniciativa/view.html',{
+        layout: 'sites/feca/layout.html',
       partials: {
         map: 'widgets/map'
       }
@@ -159,6 +164,7 @@ exports.list = function(req, res) {
       return res.send(iniciativas)
     } else {
       return res.render(feca_path+'iniciativa/index.html', {
+        layout: 'sites/feca/layout.html',
         layoutTitle: 'Iniciativas',
         layoutId: 'iniciativas-index',
         iniciativas: iniciativas,

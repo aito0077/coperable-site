@@ -1,5 +1,5 @@
 <div id="inciativa_editor" class="container">
-    <h3 class="pagetitle">Organizar Iniciativa</h3>
+    <h3 class="pagetitle">Organizar Evento</h3>
     <!--form action=""-->
         <input type="hidden" name="latitude" id="latitude"/>
         <input type="hidden" name="longitude" id="longitude"/>
@@ -9,7 +9,7 @@
         <div class="control-group">
             <div class="number">1</div>
             <div class="content">
-                <label class="control-label" for="name">Nombre de la Iniciativa</label>
+                <label class="control-label" for="name">Nombre del Evento </label>
                 <input type="text" name="name" id="name" required autocomplete="off" placeholder="Elige un nombre claro, explicativo y atractivo" size="65" {{#iniciativa}}value="{{iniciativa.name}}"{{/iniciativa}}/>
             </div>
         </div>
@@ -26,7 +26,7 @@
             <div class="content">
                 <label class="control-label" for="description">Agrega una descripción</label>
                 <div class="controls">
-                    <textarea id="description_red" class="input-xxlarge" autocomplete="off">{{^iniciativa}}Contá de que se trata tu iniciativa. Te recomendamos que primero describas lo más importante, lo que primero se preguntará un participante. Luego si querés podés contar como nace, quienes organizan y participan o lo que te paresca adecuado.{{/iniciativa}}{{#iniciativa}}{{iniciativa.description}}{{/iniciativa}}</textarea autocomplete="off">
+                    <textarea id="description_red" class="input-xxlarge" autocomplete="off">{{^iniciativa}}Contá de que se trata tu evento. Te recomendamos que primero describas lo más importante, lo que primero se preguntará un participante. Luego si querés podés contar como nace, quienes organizan y participan o lo que te paresca adecuado.{{/iniciativa}}{{#iniciativa}}{{iniciativa.description}}{{/iniciativa}}</textarea autocomplete="off">
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="number">4</div>
             <div class="content">
                 <label for="activities">Actividades</label>
-                <div class="help-block"><small>¿Qué tipo de tareas se van a realizar en la iniciativa?</small></div>
+                <div class="help-block"><small>¿Qué tipo de tareas se van a realizar en el evento?</small></div>
                 <div class="controls">
                     <input name="activities" id="activities" class="tagsinput input-xxlarge" {{#iniciativa}}value="{{#iniciativa.tasks}}{{tag}},{{/iniciativa.tasks}}"{{/iniciativa}}  autocomplete="off" />
                 </div>
