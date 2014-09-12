@@ -5,6 +5,9 @@ exports.profile = function(req, res) {
   var user_id = req.params['id'];
   users.profile(user_id, function(err, user) {
 
+    if(!user.picture) {
+        user.picture = 'user-12-mq.png';
+    }
     res.locals = us.extend(res.locals, {
       profile: user,
       title: 'Perfil'

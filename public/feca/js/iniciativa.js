@@ -102,6 +102,7 @@
       'change #profile_picture': 'set_profile_picture',
       'slidechange #slider': 'set_participants_amount',
       'change #email': 'set_email',
+      'change #phone': 'set_phone',
       'change #activities': 'set_activities',
       'change #topics': 'set_topics',
       'change #addresspicker_map': 'set_address',
@@ -135,6 +136,7 @@
           profile_picture: options.iniciativa.profile_picture,
           participants_amount: options.iniciativa.participants_amount,
           email: options.iniciativa.email,
+          phone: options.iniciativa.phone,
           address: options.iniciativa.address,
           location: options.iniciativa.location,
           categories: options.iniciativa.categories,
@@ -451,6 +453,13 @@
         email: e.target.value
       });
     },
+
+    set_phone: function(e) {
+      this.model.set({
+        phone: e.target.value
+      });
+    },
+
 
     set_category: function(e) {
       var value_map = this.model.get('categories') || {};

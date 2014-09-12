@@ -3,6 +3,7 @@ var config = require('./config'),
   routes = require('./routes'),
   user = require('./routes/user'),
   home = require('./routes/home'),
+  feca = require('./routes/feca'),
   iniciativa = require('./routes/iniciativa'),
   development = require('./routes/development'),
   iniciativas = require('./logic/iniciativas'),
@@ -82,6 +83,8 @@ app.get('/*/create', ensureAuthenticated);
 
 app.get('/', home.index);
 
+app.get('/feca', feca.index);
+
 
 app.all( '*', function( req, res, next ) {
   res.header( 'Access-Control-Allow-Origin', '*' );
@@ -92,6 +95,17 @@ app.all( '*', function( req, res, next ) {
   }
   next();
 });
+
+
+app.get('/feca/iniciativas', feca.list);
+app.get('/feca/iniciativas/create', feca.create);
+app.post('/feca/iniciativas/:id', iniciativas.save);
+app.post('/feca/iniciativas', iniciativas.create);
+app.get('/feca/iniciativas/name/:slug', feca.view_slug);
+app.get('/feca/iniciativas/:id', feca.view);
+app.get('/feca/iniciativas/success/:id', feca.success);
+app.get('/feca/iniciativas/:id/edit', feca.edit);
+
 
 
 app.get('/iniciativas', iniciativa.list);

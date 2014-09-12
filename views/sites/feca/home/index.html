@@ -1,0 +1,50 @@
+<h1 class="main-title">HACE ZOOM AL CIRCUITO INDEPENDIENTE! </h1>
+<p >#COLABORACIÓN #CULTURA #CONFIANZA #CREACIÓN COLECTIVA #REDES
+#AUTOGESTIÓN #CIRCUITO CULTURAL #PRODUCCIÓN INDEPENDIENTE #ENCUENTRO
+#MÚSICA #LITERATURA #ARTES VISUALES #AUDIOVISUAL #ESCÉNICAS
+</p>
+
+<div class="main-video">
+    <img src="/static/feca/img/feca_main.jpg"/>
+</div>
+<div class="highlight text-center">
+</div>
+
+
+<div class="ultimas-iniciativas">
+  <h3>Próximos <span class="weak">eventos</span></h3>
+</div>
+
+<div id="map_browser" class="ultimas-iniciativas-mapa">
+  <div class="ultimas-iniciativas-mapa-wrapper">
+    <div id="map_canvas" style="width:100%; height:100%"></div>
+  </div>
+</div>
+<div style="clear:both"></div>
+<div id="lastInitiatives">
+    <h2>Iniciativas más próximas a activarse</h2>
+    <ul class="list" id="iniciativas_list">
+    </ul>
+</div>
+<div id="map-browser-templates" style="display: none;">
+    {{> iniciativaItemTemplate }}
+</div>
+<script>
+  $(function(){
+    map_browser = new iniciativa.MapBrowser({
+      el: $('#map_browser'),
+      $templates: $('#map-browser-templates')
+    });
+    {{#geo}}
+	    map_browser.reset({
+        user_location: {
+          latitud: {{geo.latitud}},
+          longitud: {{geo.longitud}}
+        }
+      });
+    {{/geo}}
+    map_browser.traer_iniciativas('all');
+    map_browser.traer_last_iniciativas();
+  });
+</script>
+
