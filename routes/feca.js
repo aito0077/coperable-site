@@ -9,13 +9,14 @@ exports.index = function(req, res) {
             (req.cookies ? req.cookies.geo : undefined);
 
   return res.render('sites/feca/home/index.html', {
-    layoutTitle: 'Feca - Organizá y participa de iniciativas comunitarias y colaborativas',
+    layoutTitle: 'Feca - Festival de Cultura Autogestionada',
     layout: 'sites/feca/layout.html',
     javascripts: ['map-browser.js'],
     partials: {
       iniciativaItemTemplate: "templates/iniciativaItemTemplate.html"
     },
     user: req.user,
+    is_feca: req.user ? req.user.is_feca : false,
     geo: geo
   });
 };
@@ -26,8 +27,8 @@ exports.create = function(req, res) {
     layout: 'sites/feca/layout.html',
     partials: {
         widget_address: 'widgets/address',
-        head_resources: 'iniciativa/iniciativa_script_resources',
-        bottom_resources: 'iniciativa/iniciativa_css_resources'
+        head_resources: feca_path+'iniciativa/iniciativa_script_resources',
+        bottom_resources: feca_path+'iniciativa/iniciativa_css_resources'
     }
   })
 };
@@ -45,8 +46,8 @@ exports.edit = function(req, res) {
       layoutTitle: 'Empezar Iniciativa',
       partials: {
         widget_address: 'widgets/address',
-        head_resources: 'iniciativa/iniciativa_script_resources',
-        bottom_resources: 'iniciativa/iniciativa_css_resources'      }
+        head_resources: feca_path+'iniciativa/iniciativa_script_resources',
+        bottom_resources: feca_path+'iniciativa/iniciativa_css_resources'      }
     });
   });
 
@@ -77,7 +78,7 @@ exports.success = function(req, res) {
           layoutTitle: iniciativa.name,
           layoutId: 'iniciativas-view',
         });
-        return res.render(true || first_iniciativa ? feca_path+'iniciativa/first_created.html' : feca_path+'iniciativa/created_success.html',{
+        return res.render(false && first_iniciativa ? feca_path+'iniciativa/first_created.html' : feca_path+'iniciativa/created_success.html',{
         layout: 'sites/feca/layout.html',
           partials: {
             map: 'widgets/map',

@@ -10,7 +10,8 @@ var config = require('../config'),
 passport.serializeUser(function(user, done) {
   var session_user = {
     id: user._id,
-    username: user.first_name
+    username: user.first_name,
+    is_feca: user.feca ? true : false
   };
   done(null, session_user);
 });

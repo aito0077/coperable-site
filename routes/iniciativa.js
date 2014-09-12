@@ -57,7 +57,7 @@ exports.success = function(req, res) {
           layoutTitle: iniciativa.name,
           layoutId: 'iniciativas-view',
         });
-        return res.render(true || first_iniciativa ? 'iniciativa/first_created.html' : 'iniciativa/created_success.html',{
+        return res.render(first_iniciativa ? 'iniciativa/first_created.html' : 'iniciativa/created_success.html',{
           partials: {
             map: 'widgets/map',
           }

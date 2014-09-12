@@ -49,6 +49,9 @@
         <nav>
           <ul>
             <li><a href="/iniciativas">Eventos</a></li>
+            {{#is_feca}}
+		    <li><a href="/iniciativas/create">Crear Evento</a></li>
+            {{/is_feca}}
             {{#user}}
               <li><a href="/user/{{user.id}}">{{user.username}}</a></li>
               <li><a href="/user/logout">Salir</a></li>

@@ -114,7 +114,6 @@
       'change #flickr': 'set_network',
       'change #linkedin': 'set_network',
       'change #delicious': 'set_network',
-      'click .ini_category': 'set_category',
       'click #submit_iniciativa': 'create_iniciativa',
       'click #checkbox_participantes': 'set_participantes_ilimitados',
       'click #button_gmap': 'show_gmap'
@@ -348,7 +347,13 @@
       var self = this;
       this.model.set({
         description: JSON.stringify($('#description_red').getCode()),
-        feca: true
+        feca: true,
+        categories: {
+		medio_ambiente: false,
+		educacion: false,
+		desarrollo: false, 
+		arte_cultura: true
+	}
       });
 
       if(this.validate()) {
@@ -365,7 +370,9 @@
     },
 
     after_save: function(id) {
-        window.location.href = "/iniciativas/success/"+id;
+	if(id) {
+		window.location.href = "/iniciativas/success/"+id;
+	} 
     },
 
     validate: function() {
@@ -463,23 +470,6 @@
       });
     },
 
-
-    set_category: function(e) {
-      var value_map = this.model.get('categories') || {};
-      value_map[e.target.id] = value_map[e.target.id] ? false : true;
-        
-      this.model.set({
-        categories: value_map
-      });
-
-      _.each(_.keys(value_map), function(cat) {
-        if(value_map[cat]) {
-          $('#'+cat).addClass('active');
-        } else {
-          $('#'+cat).removeClass('active');
-        }
-      });
-    },
 
     set_activities: function(e) {
       this.model.set({
@@ -729,24 +719,3 @@ window.iniciativa.ListManager = Backbone.View.extend({
 
 })();
 
-
-
-
-
-
-// Esta función habría que reemplazarla por una más funcional a los filtros
-
-$(document).ready(function($) {
-  var filter_texts = {
-      browser_all : '',
-      browser_me  : 'Buscamos promover dinámicas, espacios e iniciativas que aporten a la ecología o conciencia de la misma dentro de su propia comunidad: desarrollo y consumo de productos locales, microemprendimientos, cooperativismo, trabajo artesanal, mercados comunales, encuentros culturales, cine debate, iniciativas que mejores y concienticen sobre el medio ambiente como huertas urbanas o compostaje comunitario o talleres sobre ecología.',
-      browser_ac  : 'Festivales culturales, Talleres y clases gratuitas. Muestras de arte, Shows y Recitales gratuitos, Ferias municipales, Eventos y actividades en el espacio público, Encuentros abiertos y participativos, Actividades con fines sociales, Convocatorias de espacios a artistas, Actividades en centros culturales, Convocatoria a formar grupos de afinidad sobre temas artístico-culturales.',
-      browser_ed  : 'Iniciativas de educación alternativa, Talleres abiertos y gratuitos, internambio de saberes y habilidades, encuentros de aprendizaje horizontal,  espacios de apoyo escolar, formación y capacitación gratuita.',
-      browser_ds  : 'Entendemos el desarrollo social como el desarrollo del capital humano y social, reforzando y vínculos y enfocado en el desarrollo comunitario local.<br />Creemos que el desarrollo debe girar en torno a las personas, buscado incentivar y preferenciar el contacto humano cara a cara a través de ambientes favorables tanto al desarrollo del potencial de cada individuo como la convivencia solidaria.'
-    }
-
-  $('.ultimas-iniciativas-filtro .category_tab').click(function() {
-    $(this).addClass('selected').siblings('.category_tab').removeClass('selected');
-    $('.filtro-desc').html(filter_texts[$(this).attr('id')])
-  })
-});

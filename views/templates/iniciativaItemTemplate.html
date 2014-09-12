@@ -1,5 +1,5 @@
 <div class="item-template">
-  <li data-category="<%= main_category %>" class="initiative">
+  <div data-category="<%= main_category %>" class="initiative initiative-item">
     <div data-label="<%= main_category %>" class="pic">
       <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">
         <img class="replace-src" data-src="/static/uploads/thumbs/<%= profile_picture %>" width="100%"/>
@@ -15,7 +15,7 @@
     <div class="bottom">
       <div class="wrapper">
         <ul class="status <%= current_stage %>">
-          <li>Convocatoria <div class="icon"></div></li>
+          <li>Preparación <div class="icon"></div></li>
           <li>Activando<div class="icon"></div></li>
           <li>Finalizada<div class="icon"></div></li>
         </ul>
@@ -25,5 +25,5 @@
         <div class="text"><%= members.length %></div>
       </div>
     </div>
-  </li>
+  </div>
 </div>

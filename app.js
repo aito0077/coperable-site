@@ -78,6 +78,7 @@ function loadUserInformation(req, res, next) {
   var geo = (req.session ? req.session.geo : false) || (req.cookies ? req.cookies.geo : undefined);
   res.locals = {
     user: req.user,
+    is_feca: req.user ? req.user.is_feca : false,
     geo: geo
   };
 
@@ -171,11 +172,11 @@ app.get('/user/login', user.login);
 
 
 app.get('/feca/user/success_login', function(req, res, next) {
-  res.redirect('/feca');
+  res.redirect('/');
 });
 
 app.get('/feca/user/failure_login', function(req, res, next) {
-  res.redirect('/feca/user/login');
+  res.redirect('/user/login');
   //res.send(403, 'El usuario no se encuentra.');
 });
 
@@ -213,15 +214,15 @@ function customCallbackAuthentification(strategy, req, res, next) {
 
 function customFecaCallbackAuthentification(strategy, req, res, next) {
   passport.authenticate(strategy, function loginCustomCallback(err, user, info) {
-      if (err) { return res.redirect('/feca/user/failure_login'); }
+      if (err) { return res.redirect('/user/failure_login'); }
 
-      if (!user) { return res.redirect('/feca/user/login'); }
+      if (!user) { return res.redirect('/user/login'); }
 
       req.logIn(user, function(err) {
-        if (err) { return res.redirect('/feca/user/failure_login'); }
+        if (err) { return res.redirect('/user/failure_login'); }
       });
 
-      var redirectURL = '/feca/user/success_login';
+      var redirectURL = '/user/success_login';
       if (req.session.redirectURL) {
         redirectURL = req.session.redirectURL;
         req.session.redirectURL = null;
@@ -263,6 +264,12 @@ app.get('/user/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
+
+app.get('/feca/user/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 app.get('/users', users.list);
 
 app.get('/user/:id', user.profile);
@@ -271,6 +278,7 @@ app.get('/feca/user/:id', feca.profile);
 
 
 app.post('/uploads', filehandler.upload);
+app.post('/feca/uploads', filehandler.upload);
 app.post('/gets3credentials', filehandler.createS3Policy);
 app.get('/uploadsuccess', function(req, resp) {
   console.log('Exito en subir la imagen');
