@@ -69,7 +69,6 @@ exports.participate = function(req, res, done) {
      userId = req.param('userId');
   cop_api.client.post('/api/iniciativa/'+id+'/'+userId, {}, function(err, request, response, obj) {
     console.log("[iniciativas::participate] Participate response:");
-    console.dir(obj);
     res.redirect('/iniciativas/' + id);
   });
 };
@@ -79,7 +78,6 @@ exports.quitIniciativa = function(req, res, done) {
      userId = req.param('userId');
   cop_api.client.post('/api/iniciativa/'+id+'/'+userId+'/quit', {}, function(err, request, response, obj) {
     console.log("[iniciativas::quitIniciativa] quitIniciativa response:");
-    console.dir(obj);
     res.redirect('/iniciativas/' + id);
   });
 };
@@ -122,6 +120,23 @@ exports.findByName = function(name, done) {
   });
 };
 
+exports.findByQuery = function(req, res, done) {
+    console.log('find by query');
+  var query = req.body.model ? JSON.parse(req.body.model) : req.body;
+  cop_api.client.post('/api/iniciativa/search', query, 
+    function(err, request, response, iniciativas) {
+        us.each(iniciativas, function(iniciativa) {
+            var current_stage = iniciativa.current_stage;
+                iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+                iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+                iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+            
+        });
+        res.send(iniciativas);
+    }
+  );
+};
+
 
 
 exports.listLast = function(req, res, done) {
@@ -140,8 +155,6 @@ exports.listLast = function(req, res, done) {
 
 exports.list = function(req, res, done) {
   cop_api.client.get('/api/iniciativa', function(err, request, response, iniciativas) {
-    console.log("Iniciativas: ");
-    console.dir(iniciativas);
     us.each(iniciativas, function(iniciativa) {
         var current_stage = iniciativa.current_stage;
             iniciativa['finalizada'] = current_stage == 'FINALIZADO';

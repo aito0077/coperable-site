@@ -12,19 +12,10 @@
     $templates: null,
     zoom_default: 12,
 
-    ARTE_CULTURA: 'arte_cultura',
-    DESARROLLO: 'desarrollo',
-    EDUCACION: 'educacion',
-    MEDIO_AMBIENTE: 'medio_ambiente',
-
     markers: new Array(),
 
     events: {
-      'click #browser_all': 'browse_iniciativas',
-      'click #browser_me': 'browse_iniciativas',
-      'click #browser_ac': 'browse_iniciativas',
-      'click #browser_ed': 'browse_iniciativas',
-      'click #browser_ds': 'browse_iniciativas'
+
     },
 
     /**
@@ -77,6 +68,27 @@
 
     traer_iniciativas: function(category) {
       var self = this;
+
+       $.ajax({
+            url: '/api/iniciativas/search',
+            type: 'POST',
+            success: function(response) {
+                self.iniciativas = new iniciativa.Collection(response);
+                self.marcar_iniciativas();
+            },
+            error: function(err) {
+                console.log(err);
+            },
+            data: {
+                feca: true
+            },
+            dataType: 'json',
+            cache: false
+        }, 'json');
+
+
+    /*
+
       this.iniciativas.fetch({
         data: $.param({
           category: category
@@ -85,12 +97,47 @@
           self.marcar_iniciativas();
         }
       });
+
+    */
+
     },
 
     traer_last_iniciativas: function() {
       var self = this;
+       $.ajax({
+            url: '/api/iniciativas/search',
+            type: 'POST',
+            success: function(response) {
+                self.last_iniciativas = new iniciativa.Collection(response);
+                if(!_.isEmpty(self.last_iniciativas.models)) {
+                _.each(self.last_iniciativas.models,
+                  function(model) {
+                    if(model && !_.isEmpty(model)) {
+                        var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
+                        var $li = $('<li class="initiative"/>').append($itemTemplate);
+                        $('#iniciativas_list').append($li);
+                    }
+                  });
+                }
+
+            },
+            error: function(err) {
+                console.log(err);
+            },
+            data: {
+                feca: true
+            },
+            dataType: 'json',
+            cache: false
+        }, 'json');
+
+
+
+
+        /*
       this.last_iniciativas.fetch({
         data: $.param({
+            feca: true,
             last: true,
             latitude: this.user_default.lat(),
             longitude: this.user_default.lng()
@@ -109,6 +156,7 @@
 	        }
         }
       });
+        */
     },
 
     clear_markers: function() {
@@ -127,6 +175,7 @@
         maxWidth: 280
       });
 
+    console.log('marcar_iniciativas');
       _.each(this.iniciativas.models, function(model) {
         var location = model.get('location');
         var marker = new google.maps.Marker({
@@ -148,7 +197,7 @@
 
     render_map: function() {
         this.map.setCenter(this.initialLocation);
-        this.traer_iniciativas('all');
+        this.traer_iniciativas();
     },
 
     detect_geolocation: function() {
@@ -193,7 +242,7 @@
         default:
           break;
       }
-      this.traer_iniciativas(category);
+      this.traer_iniciativas();
     }
   });
 })(jQuery, window, document);

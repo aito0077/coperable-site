@@ -557,6 +557,24 @@
 
     traer_iniciativas: function(userId) {
       var self = this;
+
+       $.ajax({
+            url: '/api/iniciativas/search',
+            type: 'POST',
+            success: function(response) {
+                console.dir(response);
+            },
+            error: function(err) {
+                console.log(err);
+            },
+            data: {
+                feca: true
+            },
+            dataType: 'json',
+            cache: false
+        }, 'json');
+
+
       this.iniciativas.fetch({
         data: $.param({
           userId: userId
@@ -661,7 +679,7 @@ window.iniciativa.ListManager = Backbone.View.extend({
 
     },
 
-    traer_iniciativas: function(category) {
+    traer_iniciativas: function() {
       var self = this;
       this.iniciativas.fetch({
         data: $.param({
@@ -711,7 +729,7 @@ window.iniciativa.ListManager = Backbone.View.extend({
         default:
           break;
       }
-      this.traer_iniciativas(category);
+      //this.traer_iniciativas(category);
     }
   });
 
