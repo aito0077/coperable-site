@@ -137,6 +137,21 @@ exports.findByQuery = function(req, res, done) {
   );
 };
 
+exports.listQuery = function(query, done) {
+  cop_api.client.post('/api/iniciativa/search', query, 
+    function(err, request, response, iniciativas) {
+        us.each(iniciativas, function(iniciativa) {
+            var current_stage = iniciativa.current_stage;
+                iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+                iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+                iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+        });
+        done(err, iniciativas);
+    }
+  );
+
+};
+
 
 
 exports.listLast = function(req, res, done) {

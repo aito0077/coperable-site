@@ -64,6 +64,7 @@
           profile_picture: '',
           address: '',
           goal: '',
+          current_stage: '',
           participants_amount: 0,
           date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
         },
@@ -104,6 +105,7 @@
       'change #profile_picture': 'set_profile_picture',
       'slidechange #slider': 'set_participants_amount',
       'change #email': 'set_email',
+      'change #entrada': 'set_entrada',
       'change #phone': 'set_phone',
       'change #activities': 'set_activities',
       'change #topics': 'set_topics',
@@ -137,6 +139,7 @@
           profile_picture: options.iniciativa.profile_picture,
           participants_amount: options.iniciativa.participants_amount,
           email: options.iniciativa.email,
+          entrada: options.iniciativa.entrada,
           phone: options.iniciativa.phone,
           address: options.iniciativa.address,
           location: options.iniciativa.location,
@@ -464,6 +467,12 @@
       });
     },
 
+    set_entrada: function(e) {
+      this.model.set({
+        entrada: e.target.value
+      });
+    },
+
     set_phone: function(e) {
       this.model.set({
         phone: e.target.value
@@ -562,10 +571,8 @@
             url: '/api/iniciativas/search',
             type: 'POST',
             success: function(response) {
-                console.dir(response);
             },
             error: function(err) {
-                console.log(err);
             },
             data: {
                 feca: true

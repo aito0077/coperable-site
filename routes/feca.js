@@ -9,7 +9,7 @@ exports.index = function(req, res) {
             (req.cookies ? req.cookies.geo : undefined);
 
   return res.render('sites/feca/home/index.html', {
-    layoutTitle: 'Feca - Festival de Cultura Autogestionada',
+    layoutTitle: 'FCA - Festival de Cultura Autogestionada',
     layout: 'sites/feca/layout.html',
     javascripts: ['map-browser.js'],
     partials: {
@@ -160,7 +160,7 @@ exports.view_slug = function(req, res) {
 };
 
 exports.list = function(req, res) {
-  iniciativas.list(req, res, function(err, iniciativas){
+  iniciativas.listQuery({feca: true}, function(err, iniciativas){
     if( req.xhr ) {
       return res.send(iniciativas)
     } else {
@@ -170,8 +170,8 @@ exports.list = function(req, res) {
         layoutId: 'iniciativas-index',
         iniciativas: iniciativas,
         partials: {
-          list: 'iniciativa/_list',
-	   iniciativaItemTemplate: "templates/iniciativaItemListTemplate.html"
+            list: feca_path+'iniciativa/_list',
+            iniciativaItemTemplate: "templates/iniciativaItemListTemplate.html"
         }
       })
     }
@@ -183,7 +183,11 @@ exports.profile = function(req, res) {
   users.profile(user_id, function(err, user) {
 
     if(!user.picture) {
-        user.picture = 'user-12-mq.png';
+        if(!user.feca_data.picture) {
+            user.picture = 'user-12-mq.png';
+        } else {
+            user.picture = user.feca_data.picture;
+        }
     }
     res.locals = _.extend(res.locals, {
       profile: user,

@@ -1,9 +1,12 @@
 {{#profile}}
 	<div class="first_field">
-		<img src="/static/img/users/{{profile.picture}}" class="user-face" />
+		<img src="{{profile.picture}}" class="user-face" />
 		<div class="user-info">
-			<div class="user-name">{{profile.username}}</div>
-            <div class="user-about">{{profile.about}}</div>
+			<div class="user-name">{{profile.first_name}}</div>
+            <div class="user-about">{{profile.feca_data.tipo_sala}}</div>
+            <div class="user-about">{{profile.feca_data.actividades}}</div>
+            <div class="user-about">Capacidad: {{profile.feca_data.capacidad}}</div>
+            <div class="user-about">Direccion: <b>{{profile.feca_data.direccion}}</b></div>
 
             <ul class="social">
                 {{#profile.networks.twitter.has}}
@@ -57,7 +60,7 @@
         </div>
 	</div>
     <br /><br />
-    <h3>Participó en</h3>
+    <!--h3>Participó en</h3>
     <ul class="list-user">
     {{#profile.iniciativas}}
         <li class="initiative">
@@ -71,9 +74,9 @@
     {{/profile.iniciativas}}
     </ul>
     
-    <br /><br />
+    <br /--><br />
 
-    <h3>Organizó</h3>
+    <h3>Eventos</h3>
     <ul class="list-user">
     {{#profile.ownedIniciativas}}
         <li class="initiative">

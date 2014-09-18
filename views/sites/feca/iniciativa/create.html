@@ -70,7 +70,7 @@
                 <label for="picture">Imagen de Portada</label>
                 <div class="help-block"><small>Una imagen vale más que mil palabras. Elegí una que la represente.</small></div>
                 <div class="controls">
-                    <input style="display:none;" id="profile_picture" type="file" name="files[]" multiple>
+                    <input id="profile_picture" type="file" name="files[]" multiple/>
                       <div id="super-zone">
                           <div id="dropzone" class="dropzone-help-text">
                             <span class="text">Arrastra hasta aquí una<br>foto para la portada</span>
@@ -107,8 +107,19 @@
             </div>
         </div>
 
-         <div class="control-group">
+        <div class="control-group">
             <div class="number">12</div>
+            <div class="content">
+                <label class="control-label" for="entrada">Valor Entrada $</label>
+                <div class="controls">
+                    <input type="text" name="entrada" id="entrada" autocomplete="off" size="45" {{#iniciativa}}value="{{iniciativa.entrada}}"{{/iniciativa}} />
+                    <div class="help-block"><small>Opcional. En caso de que el ingreso al evento tenga un costo. </small></div>
+                </div>
+            </div>
+        </div>
+
+         <div class="control-group">
+            <div class="number">13</div>
             <div class="content">
                 <label class="control-label" for="email">Tel&eacute;fono</label>
                 <div class="controls">
@@ -119,7 +130,7 @@
         </div>
   
         <div class="control-group">
-            <div class="number">13</div>
+            <div class="number">14</div>
             <div class="content">
                 <label class="control-label">Redes sociales</label>
                 <div class="controls">
