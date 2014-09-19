@@ -1,0 +1,25 @@
+<div class="iniciativas-list-item-wrapper">
+      <div class="iniciativas-list-item category-environment stage-<%=current_stage%>" id="iniciativas-list-item-<%=_id%>">
+        <div class="thumb">
+	  <div class="label" id="div_categoria"></div>
+         <img src="/static/uploads/thumbs/<%=profile_picture%>" width="100%"/>
+          <!--div class="iniciativas-list-item-map" style="width: 100%;height: 130px;"></div-->
+        </div>
+        <div class="wrapper">
+			  <h4 class="title">
+			    <a href="/iniciativas/<%=_id%>"> <%=name%></a>
+			  </h4>
+		
+	 <p class="address ellipsis" data-icon="">Organizador: <%=owner.name%></p>
+          <div class="start-date ellipsis" data-icon=""><%=start_date%></div>
+          <p class="address ellipsis" data-icon=""><%=address%></p>
+        </div>
+        <div class="actions wrapper" >
+          <a href="/iniciativas/<%=_id%>" rel="/iniciativas/<%=_id%>" class="btn btn-success boton-participar">Participá</a>
+          <div class="text" id="div_participantes-<%=_id%>"></div>
+        </div>
+	<div class="row">
+		<div style="position:absolute; left:40%" id="div_social_network-<%=_id%>"></div>
+	</div>
+      </div>
+</div>

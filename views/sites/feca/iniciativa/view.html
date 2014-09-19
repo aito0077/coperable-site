@@ -2,7 +2,7 @@
 <div id="initiativePage">
   <div id="initiativeContent">
         <h1 class="title">{{iniciativa.name}}</h1>
-        <div class="info">Por <a class="name" href="/user/{{iniciativa.owner.user}}">{{iniciativa.owner.name}}</a> en <a href="#" data-category="environment">{{iniciativa.main_category}}</a></div>
+        <div class="info">En <a class="name" href="/user/{{iniciativa.owner.user}}">{{iniciativa.owner.name}}</a> </div>
         <section role="main">
           <!--h3>Objetivo</h3-->
             <div class="objective">{{iniciativa.goal}}</div>
@@ -19,17 +19,27 @@
                   <div class="where">{{iniciativa.address}}</div>
               </div>
             </div>
+            <div class="cell content-wrapper">
 
-            {{#iniciativa.tasks.length}}
-              <div class="cell tags-wrapper">
-                <h3>Tareas</h3>
-                  <ul class="orange tags">
-                    {{#iniciativa.tasks}}
-                      <li>{{tag}}</li>
-                    {{/iniciativa.tasks}}
-                  </ul>
-              </div>
-            {{/iniciativa.tasks.length}}
+            {{#iniciativa.entrada}}
+                <div class="cell">
+                    <h3 class="center"> Precio Entrada: <span class="entrada">$&nbsp;{{iniciativa.entrada}}</span> </h3>
+                </div>
+            {{/iniciativa.entrada}}
+
+                {{#iniciativa.tasks.length}}
+                  <div class="cell tags-wrapper">
+                    <h3>Tareas</h3>
+                      <ul class="orange tags">
+                        {{#iniciativa.tasks}}
+                          <li>{{tag}}</li>
+                        {{/iniciativa.tasks}}
+                      </ul>
+                  </div>
+                {{/iniciativa.tasks.length}}
+
+
+            </div>
 
             {{#iniciativa.topics.length}}
               <div class="cell tags-wrapper">
@@ -58,11 +68,6 @@
     </div>
     <div id="initiativeSidebar">
         <div class="wrapper">
-            <ul class="status {{iniciativa.current_stage}}">
-              <li>Convocatoria <div class="icon"></div></li>
-              <li>Activando<div class="icon"></div></li>
-              <li>Finalizada<div class="icon"></div></li>
-            </ul>
             <div class="participants">
               <div class="info">
                   <span class="num">{{iniciativa.members.length}}</span> Participantes<br />

@@ -1,0 +1,28 @@
+<div class="item-template">
+  <div data-category="<%= main_category %>" class="initiative initiative-item">
+    <div >
+      <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">
+        <img class="replace-src" data-src="/static/uploads/thumbs/<%= profile_picture %>" width="100%"/>
+      </a>
+    </div>
+    <div class="wrapper">
+      <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa">
+        <h4><%= name %></h4>
+      </a>
+      <div class="place" data-icon=""><%= address %></div>
+      <div class="schedule" data-icon=""><%= date_f %></div>
+    </div>
+    <div class="bottom">
+      <div class="wrapper">
+      </div>
+      <div class="actions wrapper">
+        <% if(current_stage == 'ACTIVO') { %>
+        <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button red">Participá&nbsp;&nbsp;&nbsp;HOY!</a>
+        <% } else { %>
+        <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>
+        <% } %>
+        <div class="text"><%= members.length %></div>
+      </div>
+    </div>
+  </div>
+</div>

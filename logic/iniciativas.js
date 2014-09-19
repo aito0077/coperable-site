@@ -182,7 +182,6 @@ exports.list = function(req, res, done) {
 };
 
 exports.browseByCategory = function(req, res, done) {
-
   var category= req.query['category'];
   console.log('Buscando por categoria: '+category);
   cop_api.client.get('/api/iniciativa/category/'+category, function(err, request, response, iniciativas) {
@@ -196,6 +195,37 @@ exports.browseByCategory = function(req, res, done) {
      done(err, iniciativas);
   });
 };
+
+/*
+exports.getIniciativasTags = function(req, res, done) {
+  var query = req.body.model ? JSON.parse(req.body.model) : req.body;
+  cop_api.client.post('/api/tags', query. function(err, request, response, tags) {
+     done(err, tags);
+  });
+};
+
+
+exports.browseByTagsAndTopics = function(req, res, done) {
+
+};
+
+exports.browseByTagsAndTopics = function(req, res, done) {
+  var category= req.query['category'];
+  console.log('Buscando por categoria: '+category);
+  cop_api.client.get('/api/iniciativa/category/'+category, function(err, request, response, iniciativas) {
+    us.each(iniciativas, function(iniciativa) {
+        var current_stage = iniciativa.current_stage;
+            iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+            iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+            iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+        
+    });
+     done(err, iniciativas);
+  });
+};
+
+*/
+
 
 exports.findByIdWithOwnerAndMembers = function(id, number_of_members, done) {
   console.log('/api/iniciativa/withOwnerAndMembers/'+number_of_members+'/'+id);

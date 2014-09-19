@@ -11,9 +11,10 @@ exports.index = function(req, res) {
   return res.render('sites/feca/home/index.html', {
     layoutTitle: 'FCA - Festival de Cultura Autogestionada',
     layout: 'sites/feca/layout.html',
+    layoutId: 'home-index',
     javascripts: ['map-browser.js'],
     partials: {
-      iniciativaItemTemplate: "templates/iniciativaItemTemplate.html"
+      iniciativaItemTemplate: feca_path+"templates/iniciativaItemTemplate.html"
     },
     user: req.user,
     is_feca: req.user ? req.user.is_feca : false,
