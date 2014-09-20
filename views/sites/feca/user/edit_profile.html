@@ -152,12 +152,8 @@
         });
 
         addresspickerMap.on("addressChanged", function(evt, address) {
-          console.log('Address Changed');
-          console.dir(address);
         });
         addresspickerMap.on("positionChanged", function(evt, markerPosition) {
-          console.log('Position Changed');
-          console.dir(markerPosition);
           markerPosition.getAddress( function(address) {
             if (address) {
               $( "#addresspicker_map").val(address.formatted_address);
@@ -179,16 +175,11 @@
          AWSSecretKeyId: 'qRQGVyx9D6qIx1n79ngqOGALwdOCBxkJa/GDFjxc'
         });
 
-    console.log("2");
     window.imagePreviewView = new ImagePreviewView({model: window.defaultMyImage});
-    console.log("3");
     window.imageFileView = new ImageFileView({model: window.defaultMyImage});
-    console.log("4");
 
     window.App = new window.ImageRouter();
-    console.log("5");
     Backbone.history.start();
-    console.log("6");
   });
 
     </script>

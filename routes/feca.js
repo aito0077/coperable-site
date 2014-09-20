@@ -167,21 +167,24 @@ exports.view_slug = function(req, res) {
 };
 
 exports.list = function(req, res) {
-  iniciativas.listQuery({feca: true}, function(err, iniciativas){
-    if( req.xhr ) {
-      return res.send(iniciativas)
-    } else {
-      return res.render(feca_path+'iniciativa/index.html', {
-        layout: 'sites/feca/layout.html',
-        layoutTitle: 'Iniciativas',
-        layoutId: 'iniciativas-index',
-        iniciativas: iniciativas,
-        partials: {
-            list: feca_path+'iniciativa/_list',
-            iniciativaItemTemplate: "templates/iniciativaItemListTemplate.html"
+  iniciativas.getTags({feca: true}, function(err, tags) {
+      iniciativas.listQuery({feca: true}, function(err, iniciativas){
+        if( req.xhr ) {
+          return res.send(iniciativas)
+        } else {
+          return res.render(feca_path+'iniciativa/index.html', {
+            layout: 'sites/feca/layout.html',
+            layoutTitle: 'Iniciativas',
+            layoutId: 'iniciativas-index',
+            iniciativas: iniciativas,
+            tags: tags,
+            partials: {
+                list: feca_path+'iniciativa/_list',
+                iniciativaItemTemplate: feca_path+"templates/iniciativaItemTemplate.html"
+            }
+          })
         }
-      })
-    }
+    });
   });
 };
 

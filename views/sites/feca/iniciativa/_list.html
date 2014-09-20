@@ -1,11 +1,27 @@
 <div id="list_manager">
 <div class="clearfix tematica-filtro-contaier row">
-  <div data-icon="" class="span2">Temáticas</div>
-  <div class="span10">
+<br/>
+  <div>
+      <ul class="green tags topics_filter">
+      {{#tags.topics}}
+        <li class="topic" id="{{.}}">{{.}}</li>
+      {{/tags.topics}}
+      </ul>
+    <br/>
+      <ul class="orange tags tasks_filter">
+      {{#tags.tasks}}
+        <li class="task" id="{{.}}">{{.}}</li>
+      {{/tags.tasks}}
+      </ul>
+    <br/>
+        <div class="pull-right">
+            <span class="block red participar search_filter">Buscar</span>
+        </div>
   </div>
+
 </div>
 
-<div class="iniciativas-list">
+<div id="iniciativas-list">
   {{#iniciativas}}
     <div class="iniciativas-list-item-wrapper">
       <div class="iniciativas-list-item category-environment stage-{{current_stage}}" id="iniciativas-list-item-{{_id}}">
