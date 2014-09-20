@@ -184,7 +184,7 @@ exports.profile = function(req, res) {
   users.profile(user_id, function(err, user) {
 
     if(!user.picture) {
-        if(!user.feca_data.picture) {
+        if(!user.feca_data || !user.feca_data.picture) {
             user.picture = 'user-12-mq.png';
         } else {
             user.picture = user.feca_data.picture;
