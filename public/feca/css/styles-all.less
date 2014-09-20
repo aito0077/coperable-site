@@ -56,6 +56,21 @@ a {
 	text-transform: none;
 	-webkit-font-smoothing: antialiased;
 }
+.search_filter {
+	height:36px;
+	padding:0 20px;
+	line-height:36px;
+	color:#FFF;
+	font-weight:bold;
+	text-align:center;
+	border-radius:3px;
+	display:inline-block;
+    cursor:pointer;
+	&.green {background:#00BE94;}
+	&.red {background:#C32C2C;}
+	&.block {display:block;}
+	&.big {font-size:18px;height:46px;line-height:46px;}
+}
 .button {
 	height:36px;
 	padding:0 20px;
@@ -109,9 +124,22 @@ a {
 		border-radius:3px;
 		background:#C0C0C0;
 		margin-right:6px;
+        cursor:pointer;
 	}
 	&.orange li {
 		background:#FB9030;
+
+	}
+	&.green li {
+		background:#00BE94;
+	}
+	&.green li.chosen {
+		color:#00BE94;
+		background:#FFFFF0;
+	}
+	&.orange li.chosen {
+		color:#FB9030;
+		background:#FFFCCC;
 	}
 }
 

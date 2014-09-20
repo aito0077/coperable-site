@@ -15,7 +15,9 @@
     markers: new Array(),
 
     events: {
-
+        'click .topic': 'change_topic',
+        'click .task': 'change_task',
+        'click .search_filter': 'do_filter'
     },
 
     /**
@@ -27,7 +29,7 @@
       this.el = options.el;
       this.$templates = options.$templates;
 
-      _.bindAll(this, 'traer_last_iniciativas');
+      _.bindAll(this, 'traer_last_iniciativas', 'do_filter');
 
       this.model = new iniciativa.Model;
       this.iniciativas = new iniciativa.Collection;
@@ -77,7 +79,6 @@
                 self.marcar_iniciativas();
             },
             error: function(err) {
-                console.log(err);
             },
             data: {
                 feca: true
@@ -122,7 +123,6 @@
 
             },
             error: function(err) {
-                console.log(err);
             },
             data: {
                 feca: true
@@ -175,7 +175,6 @@
         maxWidth: 280
       });
 
-    console.log('marcar_iniciativas');
       _.each(this.iniciativas.models, function(model) {
         var location = model.get('location');
         var marker = new google.maps.Marker({
@@ -219,30 +218,113 @@
       }
     },
 
-    browse_iniciativas: function(e) {
-      var category = null;
-      $('.category_tab').removeClass('selected');
-      $('#'+e.target.id).addClass('selected');
-      switch(e.target.id) {
-        case 'browser_all':
-          category = null;
-          break;
-        case 'browser_me':
-          category = this.MEDIO_AMBIENTE;
-          break;
-        case 'browser_ac':
-          category = this.ARTE_CULTURA;
-          break;
-        case 'browser_ed':
-          category = this.EDUCACION;
-          break;
-        case 'browser_ds':
-          category = this.DESARROLLO;
-          break;
-        default:
-          break;
-      }
-      this.traer_iniciativas();
+    change_task: function(e) {    
+        var elem = $(e.target);
+        if(elem.hasClass('chosen')) {
+            elem.removeClass('chosen'); 
+        } else {
+            elem.addClass('chosen'); 
+        }
+    },
+
+    change_topic: function(e) {    
+        var elem = $(e.target);
+        if(elem.hasClass('chosen')) {
+            elem.removeClass('chosen'); 
+        } else {
+            elem.addClass('chosen'); 
+        }
+    },
+
+    do_filter: function() {
+        var self = this;
+        var tasks_query = this.build_tasks_query();
+        var topics_query = this.build_topics_query();
+        var object_query = {
+            feca: true
+        };
+        if(tasks_query) {
+            object_query['tasks'] = tasks_query;
+        }
+        if(topics_query) {
+            object_query['topics'] = topics_query;
+        }
+      $.ajax({
+            url: '/api/iniciativas/search',
+            type: 'POST',
+            success: function(response) {
+                self.iniciativas = new iniciativa.Collection(response);
+                self.marcar_iniciativas();
+                self.last_iniciativas = new iniciativa.Collection(response);
+                $('#iniciativas_list').html('');
+
+                if(!_.isEmpty(self.last_iniciativas.models)) {
+                _.each(self.last_iniciativas.models,
+                  function(model) {
+                    if(model && !_.isEmpty(model)) {
+                        var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
+                        var $li = $('<li class="initiative"/>').append($itemTemplate);
+                        $('#iniciativas_list').append($li);
+                    }
+                  });
+                }
+
+
+            },
+            error: function(err) {
+            },
+            data: object_query,
+            dataType: 'json',
+            cache: false
+        }, 'json');
+
+    },
+
+    build_topics_query: function() {
+        //tasks: {$all: [{"$elemMatch": {tag: 'wqw'}}]}
+
+        var object_query = null;
+        
+        var elems = $('.topic'),
+            values = new Array();
+        _.each(elems, function(elem) {
+            if($(elem).hasClass('chosen')) {
+                values.push(elem.id);
+            }
+        });
+
+        if(!_.isEmpty(values)) {
+            object_query = {
+                $all: values
+            };
+        }
+
+        return object_query;
+        
+    },
+
+    build_tasks_query: function() {
+        //topics:  {$all : ['ewew']},
+        var object_query = null;
+        var elems = $('.task'),
+            values = new Array();
+        _.each(elems, function(elem) {
+            if($(elem).hasClass('chosen')) {
+                values.push({"$elemMatch": {tag: elem.id}});
+            }
+        });
+
+        if(!_.isEmpty(values)) {
+            object_query = {
+                $all: values
+            };
+        }
+
+        return object_query;
+ 
+ 
     }
+
   });
+
 })(jQuery, window, document);

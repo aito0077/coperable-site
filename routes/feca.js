@@ -8,18 +8,24 @@ exports.index = function(req, res) {
   var geo = (req.session ? req.session.geo : false) ||
             (req.cookies ? req.cookies.geo : undefined);
 
-  return res.render('sites/feca/home/index.html', {
-    layoutTitle: 'FCA - Festival de Cultura Autogestionada',
-    layout: 'sites/feca/layout.html',
-    layoutId: 'home-index',
-    javascripts: ['map-browser.js'],
-    partials: {
-      iniciativaItemTemplate: feca_path+"templates/iniciativaItemTemplate.html"
-    },
-    user: req.user,
-    is_feca: req.user ? req.user.is_feca : false,
-    geo: geo
-  });
+  iniciativas.getTags({feca: true}, function(err, tags) {
+
+      return res.render('sites/feca/home/index.html', {
+        layoutTitle: 'FCA - Festival de Cultura Autogestionada',
+        layout: 'sites/feca/layout.html',
+        layoutId: 'home-index',
+        javascripts: ['map-browser.js'],
+        partials: {
+          iniciativaItemTemplate: feca_path+"templates/iniciativaItemTemplate.html"
+        },
+        user: req.user,
+        is_feca: req.user ? req.user.is_feca : false,
+        geo: geo,
+        tags: tags
+      });
+
+    });
+
 };
 
 exports.create = function(req, res) {

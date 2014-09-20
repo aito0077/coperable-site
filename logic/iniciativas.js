@@ -196,8 +196,15 @@ exports.browseByCategory = function(req, res, done) {
   });
 };
 
+exports.getTags = function(query, done) {
+  cop_api.client.post('/api/tags', query, function(err, request, response, tags) {
+     done(err, tags);
+  });
+};
 /*
-exports.getIniciativasTags = function(req, res, done) {
+
+
+exports.getTags = function(req, res, done) {
   var query = req.body.model ? JSON.parse(req.body.model) : req.body;
   cop_api.client.post('/api/tags', query. function(err, request, response, tags) {
      done(err, tags);
