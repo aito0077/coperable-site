@@ -215,6 +215,7 @@ exports.profile = function(req, res) {
 
 exports.login = function(req, res) {
   req.session.redirectURL = req.query.returnURL;
+  req.session.site = 'FECA';
   return res.render(feca_path+'user/login.html', {
     layout: 'sites/feca/layout.html',
     layoutTitle: 'Login',

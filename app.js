@@ -246,15 +246,12 @@ app.post('/feca/user/login', function(req, res, next) {
 
 app.get('/feca/auth/facebook', passport.authenticate('facebook'));
 app.get('/feca/auth/facebook/callback', function(req, res, next) {
-  customCallbackAuthentification('facebook', req, res, next);
+  customFecaCallbackAuthentification('facebook', req, res, next);
 });
 app.get('/feca/auth/twitter', passport.authenticate('twitter'));
 app.get('/feca/auth/twitter/callback', function(req, res, next) {
-  customCallbackAuthentification('twitter', req, res, next);
+  customFecaCallbackAuthentification('twitter', req, res, next);
 });
-
-
-
 
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
