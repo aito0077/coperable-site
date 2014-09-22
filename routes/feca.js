@@ -223,5 +223,14 @@ exports.login = function(req, res) {
   })
 };
 
+exports.signup = function(req, res) {
+  req.session.site = 'FECA';
+  return res.render(feca_path+'user/signup.html', {
+    layout: 'sites/feca/layout.html',
+    layoutTitle: 'Registrate',
+    layoutId: 'user-signup'
+  })
+};
+
 
 

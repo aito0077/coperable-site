@@ -182,7 +182,7 @@ app.get('/feca/user/failure_login', function(req, res, next) {
 });
 
 
-app.get(['/feca/user/login', '/user/signup'], function(req, res, next){
+app.get(['/feca/user/login', '/feca/user/signup'], function(req, res, next){
   if(req.isAuthenticated()) {
     res.send({'result':'Ya estás logueado!'});
   }
@@ -190,6 +190,11 @@ app.get(['/feca/user/login', '/user/signup'], function(req, res, next){
 });
 app.get('/feca/user/login', feca.login);
 
+app.get('/feca/user/signup', feca.signup);
+app.post('/feca/user/signup', users.do_signup, function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 
 function customCallbackAuthentification(strategy, req, res, next) {
