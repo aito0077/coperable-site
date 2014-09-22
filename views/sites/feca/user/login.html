@@ -1,10 +1,19 @@
 <div class="container">
 	<div class="header">
-		<h2>Iniciar sesión como Espacio</h2>
+		<h2>Iniciar sesión</h2>
 		<div>Para poder proseguir, debes loguearte</div>
 	</div>
 	<div class="login-wrapper">
-		<div >
+		<div class="left-content">
+			<div class="title">A través de tus <b>redes sociales</b></div>
+			<a href="/auth/facebook">
+				<img src="/static/img/social-btn-facebook.png" />
+			</a>
+			<a href="/auth/twitter">
+				<img src="/static/img/social-btn-twitter.png" />
+			</a>
+		</div>
+		<div class="right-content">
 			<div class="title">Con tu cuenta de Espacio</div>
 			<form class="form-vertical" action="/user/login" method="post">
 				<input type="hidden" name="is_feca"/>
@@ -12,6 +21,7 @@
 				<input type="password" required="" name="password" id="password" placeholder="Contraseña" />
 				<button class="btn" type="submit">Confirmar</button>
 			</form>
+			<p class="legend">Si no tienes cuenta te puedes registrar <b><a href="/user/signup">acá</a></b></p>
 		</div>
 	</div>
 </div>
