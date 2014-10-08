@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="header">
+		<h2>Regístrate</h2>
+	</div>
+	<form method="POST" action="/user/signup" class="form-vertical">
+		<input type="hidden" name="latitude" id="latitude"/>
+		<input type="hidden" name="longitude" id="longitude"/>
+		<input class="input-large" id="username" name="username" type="text" placeholder="Usuario" required>
+		<input class="input-large" id="password" name="password" type="password" placeholder="Contraseña" required>
+		<input class="input-large" id="confirm-password" type="password" placeholder="Confirmar Contraseña" required>
+		<div class="grid">
+			<div class="col-6">
+				<input class="input-large" id="first_name" name="first_name" type="text" placeholder="Nombre" required>
+			</div>
+			<div class="col-6">
+				<input class="input-large" id="last_name" name="last_name" type="text" placeholder="Apellido" required>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="col-6">
+				<input class="input-large" id="email" name="email" type="email" placeholder="Email" required>
+			</div>
+			<div class="col-6">
+				<input class="input-large" id="address" name="address" type="text" style="width:100%" placeholder="Dirección">
+			</div>
+		</div>
+		<textarea id="about" name="about" placeholder="Sobre mí" style="width:100%" rows="4"></textarea>
+		<button type="submit" class="btn">Registrarme</button>
+	</form>
+</div>
