@@ -6,6 +6,6 @@ exports.system = {
     TWITTER_CONSUMER_SECRET: 'xAa5CxnPBtrXeitcr4rBHXTqus4zAHmfRSbYp0UfJTs',
     AMAZON: 'fakeID',
     API_URL: process.env.API_URL || 'http://127.0.0.1:3001',
-    DOMAIN_BASE: 'http://fca.coperable.org'
+    DOMAIN_BASE: 'http://coperable.org'
     //DOMAIN_BASE: 'http://127.0.0.1:3000'
 }

@@ -2,6 +2,9 @@
   /**
    * Widget that initializes a map browser, to browse throu the latest iniciativas.
    */
+    window.yesterday = new Date().setDate(new Date().getDate() - 1);
+
+
   if(typeof(window.iniciativa) == 'undefined') {
     window.iniciativa = {};
   }
@@ -81,25 +84,14 @@
             error: function(err) {
             },
             data: {
-                feca: true
+                feca: true,
+                end_date: { $gt: yesterday }
             },
             dataType: 'json',
             cache: false
         }, 'json');
 
 
-    /*
-
-      this.iniciativas.fetch({
-        data: $.param({
-          category: category
-        }),
-        success: function(iniciativas, response, options) {
-          self.marcar_iniciativas();
-        }
-      });
-
-    */
 
     },
 
@@ -125,38 +117,13 @@
             error: function(err) {
             },
             data: {
-                feca: true
+                feca: true,
+                end_date: { $gt: yesterday }
             },
             dataType: 'json',
             cache: false
         }, 'json');
 
-
-
-
-        /*
-      this.last_iniciativas.fetch({
-        data: $.param({
-            feca: true,
-            last: true,
-            latitude: this.user_default.lat(),
-            longitude: this.user_default.lng()
-        }),
-        success: function(last_iniciativas, response, options) {
-	        if(!_.isEmpty(self.last_iniciativas.models)) {
-            _.each(self.last_iniciativas.models,
-              function(model) {
-                if(model && !_.isEmpty(model)) {
-                    var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
-                    var $li = $('<li class="initiative"/>').append($itemTemplate);
-                    $('#iniciativas_list').append($li);
-                }
-              }
-            );
-	        }
-        }
-      });
-        */
     },
 
     clear_markers: function() {
@@ -175,8 +142,12 @@
         maxWidth: 280
       });
 
+	var map_unique = {};
       _.each(this.iniciativas.models, function(model) {
         var location = model.get('location');
+	var code =  location.latitude+'-'+location.longitude;
+	if(!map_unique[code]) {
+	map_unique[code] = true;
         var marker = new google.maps.Marker({
           title: model.get('name'),
           position: new google.maps.LatLng(location.latitude,location.longitude),
@@ -191,6 +162,7 @@
           infowindow.open(self.map, marker);
         });
         self.markers.push(marker);
+	}
       });
     },
 
@@ -241,7 +213,8 @@
         var tasks_query = this.build_tasks_query();
         var topics_query = this.build_topics_query();
         var object_query = {
-            feca: true
+            feca: true,
+            end_date: { $gt: yesterday }
         };
         if(tasks_query) {
             object_query['tasks'] = tasks_query;
