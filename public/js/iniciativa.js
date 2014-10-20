@@ -62,6 +62,7 @@
           profile_picture: '',
           address: '',
           goal: '',
+          current_stage: '',
           participants_amount: 0,
           date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
         },
@@ -171,6 +172,7 @@
       $('#profile_picture').fileupload({
         dropZone: $('#dropzone'),
         dataType: 'json',
+        clickable: true,
         url: '/uploads',
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
@@ -360,7 +362,9 @@
     },
 
     after_save: function(id) {
-        window.location.href = "/iniciativas/success/"+id;
+        if(id) {
+            window.location.href = "/iniciativas/success/"+id;
+        }
     },
 
     validate: function() {
@@ -716,11 +720,6 @@ window.iniciativa.ListManager = Backbone.View.extend({
 
 
 })();
-
-
-
-
-
 
 // Esta función habría que reemplazarla por una más funcional a los filtros
 
