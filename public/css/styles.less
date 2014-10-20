@@ -15,6 +15,7 @@
 @import 'iniciativa/_list.less';
 @import 'user/signup.less';
 @import 'user/profile.less';
+@import 'cop-filters.less';
 
 .category-environment {
         color: #388D47 !important;
@@ -56,6 +57,15 @@
 
 .pagetitle {
     margin: 40px 0 35px;
+}
+.page-heading {
+    .pagetitle {
+        margin-bottom: 0;
+    }
+    .pageleadtext {
+        font-size: 15px;
+        color: #7C7C7C;
+    }
 }
 
 #inciativa_editor {
@@ -137,5 +147,156 @@
     }
     #slider {
         width: 425px;
+    }
+}
+
+
+.tiles-list {
+    .clearfix;
+    margin-right: -8px;
+    margin-top: 50px;
+    li {
+        text-align: center;
+        color: #9C9C9C;
+        float: left;
+        margin: 0 8px 8px 0;
+        width: 229px;
+        height: 200px;
+        background: #FFF;
+        box-shadow: 0 1px 1px rgba(0,0,0,.3);
+        position: relative;
+        padding: 17px 20px 20px;
+        .content-default {
+            .transition(all .6s);
+            opacity: 1;
+            .title {
+                color: #00BE94;
+                font-size: 20px;
+                font-weight: bold;
+            }
+            .country {
+                font-weight: bold;
+                margin-top: 10px;
+                font-size: 14px;
+            }
+            .q {
+                font-size: 12px;
+            }
+        }
+        .content-hover {
+            .transition(all .6s);
+            opacity: 0;
+            text-align: left;
+            position: absolute;
+            top: 12px;
+            left: 20px;
+            right: 20px;
+            .title {
+                color: #00BE94;
+                font-size: 15px;
+                font-weight: bold;
+            }
+            p {
+                font-size: 13px;
+                color: #515151;
+                line-height: 17px;
+            }
+        }
+        .btn {
+            background: #00BE94;
+            position: absolute;
+            bottom: 20px;
+            width: 189px;
+            left: 20px;
+            height: 46px;
+            line-height: 40px;
+            font-weight: bold;
+            color: #FFF;
+            font-size: 16px;
+            display: block;
+        }
+        &:hover {
+            .content-default {
+                opacity: 0;
+            }
+            .content-hover {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.filters-default {
+    .clearfix;
+    position: relative;
+    margin-bottom: 10px;
+    &:before {
+        content: '';
+        position: absolute;
+        border-bottom: 2px solid #D8D8D8;
+        bottom: 0;
+        left: 0;
+        width: 75%;
+    }
+    ul {
+        .clearfix;
+        z-index: 1;
+        position: relative;
+        li {
+            padding: 0 25px;
+            cursor: pointer;
+            height: 45px;
+            line-height: 45px;
+            border-bottom: 2px solid #D8D8D8;
+            color: #7C7C7C;
+            float: left;
+            font-size: 13px;
+            font-weight: bold;
+            &.map-bt {
+                background: url(/static/img/map-icon.png) 20px 0 no-repeat;
+                padding-left: 45px;
+            }
+            &.grid-bt {
+                background: url(/static/img/grid-icon.png) 20px 0 no-repeat;
+                padding-left: 45px;
+            }
+            &.selected {
+                background-color: #9D2EA7;
+                border-bottom-color: #9D2EA7;
+                color: #FFF;
+                background-position: 20px -45px;
+                cursor: default;
+            }
+        }
+    }
+}
+
+#community {
+    .first_field {
+        padding: 16px 30px;
+        position: relative;
+        margin-bottom: 30px;
+        h1 {
+            font-size: 32px;
+        }
+        .description {
+            width: 730px;
+            font-size: 13px;
+            line-height: 20px;
+        }
+        .moderators {
+            font-weight: bold;
+            font-size: 13px;
+            margin-top: 20px;
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            a {
+                color: #00BE94;
+            }
+        }
+    }
+    .lists-wrapper {
+        margin-top: 20px;
     }
 }

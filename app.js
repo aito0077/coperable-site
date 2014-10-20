@@ -5,6 +5,7 @@ var config = require('./config'),
   home = require('./routes/home'),
   feca = require('./routes/feca'),
   iniciativa = require('./routes/iniciativa'),
+  comunidades = require('./routes/comunidades'),
   development = require('./routes/development'),
   iniciativas = require('./logic/iniciativas'),
   users = require('./logic/users'),
@@ -196,6 +197,9 @@ app.post('/feca/user/signup', users.do_signup, function(req, res){
   res.redirect('/');
 });
 
+app.get('/comunidades', comunidades.index);
+app.get('/comunidades/view', comunidades.view);
+app.get('/comunidades/extra', comunidades.extra);
 
 function customCallbackAuthentification(strategy, req, res, next) {
   passport.authenticate(strategy, function loginCustomCallback(err, user, info) {

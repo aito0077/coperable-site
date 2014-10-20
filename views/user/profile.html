@@ -58,31 +58,93 @@
 	</div>
     <br /><br />
     <h3>Participó en</h3>
-    <ul class="list-user">
-    {{#profile.iniciativas}}
-        <li class="initiative">
-            <div class="content">
-                <a href="/iniciativas/{{id}}">
-                    <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
-                    <div class="title">{{name}}</div>
-                </a>
-            </div>
-        </li>
-    {{/profile.iniciativas}}
-    </ul>
-    
+    <!--<ul class="list-user">-->
+    <div id="lastInitiatives">
+        <ul class="list" id="iniciativas_list">
+        {{#profile.iniciativas}}
+            <!--
+            <li class="initiative">
+                <div class="content">
+                    <a href="/iniciativas/{{id}}">
+                        <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
+                        <div class="title">{{name}}</div>
+                    </a>
+                </div>
+            </li>
+            -->
+            <li class="initiative">
+                <div class="initiative initiative-item" data-category="{{main_category}}">
+                    <div class="pic" data-label="{{main_category}}">
+                      <a rel="address:/iniciativa" href="/iniciativas/{{_id}}">
+                        <img width="100%" data-src="/static/uploads/thumbs/{{profile_picture}}" class="replace-src" src="/static/uploads/thumbs/{{profile_picture}}">
+                      </a>
+                    </div>
+                    <div class="wrapper">
+                      <a rel="address:/iniciativa" href="/iniciativas/544147d237640b7778ed7f0e">
+                        <h4>{{name}}</h4>
+                      </a>
+                      <div data-icon="" class="place">{{address}}</div>
+                      <div data-icon="" class="schedule">{{date_f}}</div>
+                    </div>
+                <div class="bottom">
+                  <div class="wrapper">
+                    <ul class="status {{current_stage}}">
+                      <li>Preparación <div class="icon"></div></li>
+                      <li>Activando<div class="icon"></div></li>
+                      <li>Finalizada<div class="icon"></div></li>
+                    </ul>
+                  </div>
+                  <div class="actions wrapper">
+                    <a class="button green" rel="address:/iniciativa" href="/iniciativas/{{id}}">Participá</a>
+                    <div class="text">{{participants_amount}}</div>
+                  </div>
+                </div>
+              </div>
+            </li>
+        {{/profile.iniciativas}}
+        </ul>
+    </div>
     <br /><br />
 
     <h3>Organizó</h3>
     <ul class="list-user">
     {{#profile.ownedIniciativas}}
-        <li class="initiative">
+        <!--<li class="initiative">
             <div class="content">
                 <a href="/iniciativas/{{id}}">
                     <div class="img" style="background-image:url('/static/uploads/fullsize/{{profile_picture}}');"></div>
                     <div class="title">{{name}}</div>
                 </a>
             </div>
+        </li>-->
+        <li class="initiative">
+            <div class="initiative initiative-item" data-category="{{main_category}}">
+                <div class="pic" data-label="{{main_category}}">
+                  <a rel="address:/iniciativa" href="/iniciativas/{{_id}}">
+                    <img width="100%" data-src="/static/uploads/thumbs/{{profile_picture}}" class="replace-src" src="/static/uploads/thumbs/{{profile_picture}}">
+                  </a>
+                </div>
+                <div class="wrapper">
+                  <a rel="address:/iniciativa" href="/iniciativas/544147d237640b7778ed7f0e">
+                    <h4>{{name}}</h4>
+                  </a>
+                  <div data-icon="" class="place">{{address}}</div>
+                  <div data-icon="" class="schedule">{{date_f}}</div>
+                </div>
+            <div class="bottom">
+              <div class="wrapper">
+                <ul class="status {{current_stage}}">
+                  <li>Preparación <div class="icon"></div></li>
+                  <li>Activando<div class="icon"></div></li>
+                  <li>Finalizada<div class="icon"></div></li>
+                </ul>
+              </div>
+              <div class="actions wrapper">
+                <a class="button green" rel="address:/iniciativa" href="/iniciativas/{{id}}">Participá</a>
+                <div class="text">{{participants_amount}}</div>
+              </div>
+            </div>
+          </div>
         </li>
     {{/profile.ownedIniciativas}}
     </ul>
