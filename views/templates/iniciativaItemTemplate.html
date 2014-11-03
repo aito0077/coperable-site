@@ -21,7 +21,11 @@
         </ul>
       </div>
       <div class="actions wrapper">
-        <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>
+        <% if(current_stage == 'ACTIVO') { %>
+            <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button red">Participá&nbsp;&nbsp;&nbsp;HOY!</a>
+        <% } else { %>
+            <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa" class="button green">Participá</a>
+        <% } %>
         <div class="text"><%= members.length %></div>
       </div>
     </div>

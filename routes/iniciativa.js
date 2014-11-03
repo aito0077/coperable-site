@@ -1,16 +1,20 @@
 var iniciativas = require('../logic/iniciativas'),
     users = require('../logic/users'),
+    comunidades = require('../logic/comunidades'),
     _ = require('underscore');
 
 exports.create = function(req, res) {
-  return res.render('iniciativa/create.html', {
-    layoutTitle: 'Empezar Iniciativa',
-    partials: {
-        widget_address: 'widgets/address',
-        head_resources: 'iniciativa/iniciativa_script_resources',
-        bottom_resources: 'iniciativa/iniciativa_css_resources'
-    }
-  })
+    comunidades.list(req, res, function(err, comunidades) {
+        return res.render('iniciativa/create.html', {
+            layoutTitle: 'Empezar Iniciativa',
+            comunidades: comunidades,
+            partials: {
+                widget_address: 'widgets/address',
+                head_resources: 'iniciativa/iniciativa_script_resources',
+                bottom_resources: 'iniciativa/iniciativa_css_resources'
+            }
+        });
+    });
 };
 
 exports.edit = function(req, res) {

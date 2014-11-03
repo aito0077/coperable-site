@@ -1,0 +1,22 @@
+<div class="page-heading">
+	<h1 class="pagetitle">Comunidades</h1>
+	<p class="pageleadtext">
+		Este es un texto que describe las zonas. Este es un texto que describe las zonas. 
+	</p>
+</div>
+<ul class="tiles-list">
+  {{#comunidades}}
+	<li>
+		<div class="content-default">
+			<div class="title">{{name}}</div>
+			<div class="country">{{country}}</div>
+			<div class="q"><span class="num">{{iniciativas_amount}}</span> iniciativas</div>
+		</div>
+		<div class="content-hover">
+			<div class="title">{{name}}</div>
+			<p>{{description}}</p>
+		</div>
+		<a href="/comunidades/{{_id}}" class="btn">Ver iniciativas</a>
+	</li>
+  {{/comunidades}}
+</ul>

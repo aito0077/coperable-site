@@ -383,14 +383,14 @@ ul.status {
 			pointer-events:none;
 		}
 	}
-	ul.list {
-		.clearfix;
-		margin-top: 20px;
-		li.initiative {
-			float:left;
-			box-shadow:0 1px 1px rgba(0,0,0,.3);
-			margin:0 10px 15px 0;
-		}
+}
+ul.list {
+	.clearfix;
+	margin-top: 20px;
+	li.initiative {
+		float:left;
+		box-shadow:0 1px 1px rgba(0,0,0,.3);
+		margin:0 10px 15px 0;
 	}
 }
 
@@ -471,7 +471,7 @@ ul.status {
 		.pic:after {content:''}
 	}
 
-
+	
 	.bottom {
 		box-shadow:inset 0 1px 1px rgba(0,0,0,.05);
 		border-top:1px solid #DDD;
@@ -496,7 +496,15 @@ ul.status {
 		}
 	}
 }
-
+.initiative.sm  .initiative-item {
+	.bottom {
+		height: 70px;
+		.actions {
+			border: none !important;
+			padding-top: 15px;
+		}
+	}
+}
 
 .ultimas-iniciativas-filtro {
 	border-bottom: 2px solid #D8D8D8;

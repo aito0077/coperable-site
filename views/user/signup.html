@@ -1,30 +1,64 @@
-<div class="container">
+<div id="user_signup" class="container">
 	<div class="header">
 		<h2>Regístrate</h2>
 	</div>
-	<form method="POST" action="/user/signup" class="form-vertical">
+	<!--form method="POST" action="/user/signup" class="form-vertical dropzone"-->
+    <div class="form-vertical">
 		<input type="hidden" name="latitude" id="latitude"/>
 		<input type="hidden" name="longitude" id="longitude"/>
-		<input class="input-large" id="username" name="username" type="text" placeholder="Usuario" required>
-		<input class="input-large" id="password" name="password" type="password" placeholder="Contraseña" required>
-		<input class="input-large" id="confirm-password" type="password" placeholder="Confirmar Contraseña" required>
 		<div class="grid">
 			<div class="col-6">
-				<input class="input-large" id="first_name" name="first_name" type="text" placeholder="Nombre" required>
+                <input class="input-large" id="username" name="username" {{#usuario}}value="{{usuario.username}}"{{/usuario}} type="text" placeholder="Usuario" required>
+                <input class="input-large" id="password" name="password" {{#usuario}}value="{{usuario.password}}"{{/usuario}} type="password" placeholder="Contraseña" required>
+                <input class="input-large" id="confirm-password" type="password" placeholder="Confirmar Contraseña" required>
 			</div>
 			<div class="col-6">
-				<input class="input-large" id="last_name" name="last_name" type="text" placeholder="Apellido" required>
+                      <div id="super-zone">
+                          <div id="dropzone_user" class="dropzone-help-text">
+                            <span class="text">Arrastra hasta aquí una<br>foto</span>
+                            <span class="text-hover">¡Suéltala!</span>
+                          </div>
+                      </div>
+                    <input id="profile_picture_user" type="file" name="files[]" multiple/>
 			</div>
 		</div>
 		<div class="grid">
 			<div class="col-6">
-				<input class="input-large" id="email" name="email" type="email" placeholder="Email" required>
+				<input class="input-large" id="first_name" name="first_name" {{#usuario}}value="{{usuario.first_name}}"{{/usuario}} type="text" placeholder="Nombre" required>
 			</div>
 			<div class="col-6">
-				<input class="input-large" id="address" name="address" type="text" style="width:100%" placeholder="Dirección">
+				<input class="input-large" id="last_name" name="last_name" {{#usuario}}value="{{usuario.last_name}}"{{/usuario}} type="text" placeholder="Apellido" required>
 			</div>
 		</div>
-		<textarea id="about" name="about" placeholder="Sobre mí" style="width:100%" rows="4"></textarea>
-		<button type="submit" class="btn">Registrarme</button>
-	</form>
+		<div class="grid">
+			<div class="col-6">
+				<input class="input-large" id="email" name="email" {{#usuario}}value="{{usuario.email}}"{{/usuario}} type="email" placeholder="Email" required>
+			</div>
+			<div class="col-6">
+				<input class="input-large" id="address" name="address" {{#usuario}}value="{{usuario.address}}"{{/usuario}} type="text" style="width:100%" placeholder="Dirección">
+			</div>
+		</div>
+		<textarea id="about" name="about" placeholder="Sobre mí" style="width:100%" rows="4">{{#usuario}}{{usuario.about}}{{/usuario}}</textarea>
+		<button id="submit_usuario" type="button" class="btn save">
+                {{#usuario}}
+                    Guardar cambios
+                {{/usuario}}
+                {{^usuario}}
+                    Registrarme
+                {{/usuario}}
+
+        </button>
+	</div>
 </div>
+<script>
+    $(function(){
+        var manager = new usuario.Edit({
+            {{#jsonUsuario}}
+              usuario: {{& jsonUsuario }},
+            {{/jsonUsuario}}
+            el: $('#user_signup')
+        });
+    });
+
+</script>
+

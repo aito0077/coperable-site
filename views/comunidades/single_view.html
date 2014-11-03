@@ -1,0 +1,63 @@
+<div id="community">
+	<div class="first_field">
+		<h1>
+			{{comunidad.name}}
+		</h1>
+		<p class="description">
+            {{comunidad.description}}
+		</p>
+		<div class="moderators">
+			Moderadores: {{#moderators}} <a href="#{{user}}">{{user}}</a> {{/moderators}}
+		</div>
+	</div>
+	
+	<h3>Iniciativas</h3>
+	<div class="filters-default" data-target="#communityLists">
+		<ul class="pull-left">
+			<li class="selected">Próximas iniciativas</li>
+			<li>Organizadores</li>
+			<li>Participantes</li>
+		</ul>
+		<ul class="pull-right">
+			<li class="selected map-bt">Mapa</li>
+			<li class="grid-bt">Grilla</li>
+		</ul>
+	</div>
+	<div class="cop-filters">
+		<ul class="filter-menu">
+			<li><span class="option-label">Fecha</span></li>
+			<li><span class="option-label">Categoría</span></li>
+			<li><span class="option-label">Comunidades</span></li>
+			<li><span class="option-label">Etiqueta</span></li>
+			<li><span class="option-label">País</span></li>
+		</ul>
+	</div>
+	<div class="lists-wrapper" id="communityLists">
+		<ul class="list">
+            {{#iniciativas}}
+		    <li class="initiative sm">
+				<div class="initiative initiative-item">
+					<div class="pic">
+						<a rel="address:/iniciativa" href="/iniciativas/{{_id}}">
+							<img width="100%" data-src="/static/uploads/thumbs/{{profile_picture}}" class="replace-src" src="/static/uploads/thumbs/{{profile_picture}}">
+						</a>
+					</div>
+					<div class="wrapper">
+						<a rel="address:/iniciativa" href="/iniciativas/{{_id}}">
+							<h4>{{name}}</h4>
+						</a>
+						<p>{{description}}</p>
+					</div>
+					<div class="bottom">
+						<div class="actions wrapper">
+							<a class="button green" rel="address:/iniciativa" href="/iniciativas/{{_id}}">Ver iniciativas</a>
+							<div class="text">{{pariticipants_amount}} participando</div>
+						</div>
+					</div>
+				</div>
+			</li>
+            {{/iniciativas}}
+		</ul>
+	</div>
+</div>
+

@@ -17,7 +17,7 @@
             <div class="number">2</div>
             <div class="content">
                 <label class="control-label" for="goal">Objetivo</label>
-                <input type="text" name="goal" id="goal" required autocomplete="off" placeholder="¿Cuál es la finalidad?" size="84" {{#iniciativa}}value="{{iniciativa.goal}}"{{/iniciativa}} />
+                <input type="text" name="goal" id="goal" autocomplete="off" placeholder="¿Cuál es la finalidad?" size="84" {{#iniciativa}}value="{{iniciativa.goal}}"{{/iniciativa}} />
             </div>
         </div>
 
@@ -84,7 +84,7 @@
                 <label for="duration">Duración</label>
                 <div class="help-block"><small>¿Cúanto dura el encuentro?</small></div>
                 <div class="controls">
-                    <input type="text" id="duration" name="duration" />
+                    <input type="text" id="duration" class="input-xxlarge" name="duration"/>
                 </div>
             </div>
         </div>
@@ -95,7 +95,7 @@
                 <label for="picture">Imagen de Portada</label>
                 <div class="help-block"><small>Una imagen vale más que mil palabras. Elegí una que la represente.</small></div>
                 <div class="controls">
-                    <input style="display:none;" id="profile_picture" type="file" name="files[]" multiple>
+                    <input id="profile_picture" type="file" name="files[]" multiple>
                       <div id="super-zone">
                           <div id="dropzone" class="dropzone-help-text">
                             <span class="text">Arrastra hasta aquí una<br>foto para la portada</span>
@@ -152,6 +152,27 @@
                 </div>
             </div>
         </div>
+
+        <div class="control-group">
+            <div class="number">13</div>
+            <div class="content">
+                <label class="control-label">Comunidades</label>
+                <div class="controls" id="comunidades">
+                    <div class="btn-toolbar">
+                        <div class="btn-group" data-toggle="buttons-checkbox">
+                            {{#comunidades}}
+                            <button id="{{_id}}" name="{{name}}" class="comunidad_selector btn btn-primary inline">
+                                <b>{{name}}</b>
+                            </button>
+                            {{/comunidades}}
+                        </div>
+                    </div>
+ 
+                </div>
+            </div>
+        </div>
+
+
 
         <div class="row">
             <button type="submit" id="submit_iniciativa" class="btn">

@@ -18,9 +18,11 @@
             return value && value.length > 0 ? {isValid: true} : {isValid: false, message: "Tenes que ingresar nombre"};
         };
 
+        /*
         this.validators.goal = function (value) {
             return value && value.length > 0 ? {isValid: true} : {isValid: false, message: "Tenes que ingresar objetivo "};
         };
+        */
 
         this.validators.description = function (value) {
             return value && value.length > 0 ? {isValid: true} : {isValid: false, message: "Tenes que ingresar descripcion"};
@@ -62,6 +64,7 @@
           profile_picture: '',
           address: '',
           goal: '',
+          current_stage: '',
           participants_amount: 0,
           date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
         },
@@ -112,6 +115,7 @@
       'change #linkedin': 'set_network',
       'change #delicious': 'set_network',
       'click .ini_category': 'set_category',
+      'click .comunidad_selector': 'set_comunidad',
       'click #submit_iniciativa': 'create_iniciativa',
       'click #checkbox_participantes': 'set_participantes_ilimitados',
       'click #button_gmap': 'show_gmap'
@@ -171,6 +175,7 @@
       $('#profile_picture').fileupload({
         dropZone: $('#dropzone'),
         dataType: 'json',
+        clickable: true,
         url: '/uploads',
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
@@ -182,6 +187,8 @@
       });
 
       $('.ini_category').button();
+
+      $('.comunidad_selector').button();
 
       $('.social-input').each(function() {
         var $input = $(this);
@@ -360,7 +367,9 @@
     },
 
     after_save: function(id) {
-        window.location.href = "/iniciativas/success/"+id;
+        if(id) {
+            window.location.href = "/iniciativas/success/"+id;
+        }
     },
 
     validate: function() {
@@ -468,6 +477,37 @@
         }
       });
     },
+
+    set_comunidad: function(e) {
+      var value_map = {},
+          update_comunidades = [],
+          comunidades = this.model.get('comunidades') || [];
+      _.each(comunidades, function(com) {
+          value_map[com._id] = com;
+      });
+      value_map[e.target.id] = value_map[e.target.id] ? false : {
+        _id: e.target.id,
+        name: e.target.name
+      };
+
+      _.each(_.keys(value_map), function(name) {
+        if(value_map[name]) {
+          $('#'+name).addClass('active');
+          update_comunidades.push(value_map[name]);
+        } else {
+          $('#'+name).removeClass('active');
+        }
+      });
+
+      this.model.set({
+        comunidades: update_comunidades
+      });
+
+    console.dir(update_comunidades);
+
+    },
+
+
 
     set_activities: function(e) {
       this.model.set({
@@ -655,7 +695,7 @@ window.iniciativa.ListManager = Backbone.View.extend({
     },
 
     setup_component: function() {
-      this.itemTemplate = _.template(_.unescape(this.$templates.find(".iniciativas-list-item").html()));
+      this.itemTemplate = _.template(_.unescape(this.$templates.find(".item-template").html()));
 
     },
 
@@ -666,16 +706,15 @@ window.iniciativa.ListManager = Backbone.View.extend({
           category: category
         }),
         success: function(iniciativas, response, options) {
+            console.dir(iniciativas.models);
 	        if(!_.isEmpty(iniciativas.models)) {
             
-            $('.iniciativas-list').html('');
+            $('#iniciativas-list').html('');
             _.each(iniciativas.models,
               function(model) {
                 if(model && !_.isEmpty(model)) {
                     var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
-                    //var $li = $('<li class="initiative"/>').append($itemTemplate);
-                    //$('.iniciativas-list').append($li);
-                    $('.iniciativas-list').append($itemTemplate);
+                    $('#iniciativas-list').append($itemTemplate);
                 }
               }
             );
@@ -716,11 +755,6 @@ window.iniciativa.ListManager = Backbone.View.extend({
 
 
 })();
-
-
-
-
-
 
 // Esta función habría que reemplazarla por una más funcional a los filtros
 

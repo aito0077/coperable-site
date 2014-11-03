@@ -1,22 +1,64 @@
 #user-signup {
-  .container {
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    .header {
-        padding-top: 30px;
-        font-size: 14px;
-        color: #676973;
-        margin-bottom: 20px;
-        h2 {
+    .container {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        .header {
+            padding-top: 30px;
+            font-size: 14px;
             color: #676973;
-            font-size: 22px;
-            line-height: 25px;
+            margin-bottom: 20px;
+            h2 {
+                color: #676973;
+                font-size: 22px;
+                line-height: 25px;
+            }
+        }
+        form {
+            width: 450px;
+            margin: 0 auto;
         }
     }
-    form {
-    	width: 450px;
-    	margin: 0 auto;
+    #super-zone {
+        background: url(/static/img/dropzone-bg.png) repeat;
+        width: 280px;
+        height: 150px;
+        .dropzone-help-text {
+            background: url(/static/img/pics-img.png) center 30px no-repeat;
+            width: 280px;
+            height: 150px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,.5);
+            text-align: center;
+            color: #FFF;
+            font-size: 12px;
+            padding-top: 95px;
+            .text-hover {
+                display: none;
+            }
+            &.hover {
+                background-image: url(/static/img/upload-img.png);
+                .text-hover {
+                    display: inline;
+                }
+                .text {
+                    display: none;
+                }
+            }
+        }
+        #dropzone {
+            &.with-image {
+                background-color: #000;
+                background-position: center;
+                background-repeat: no-repeat;
+                .text {
+                    display: none;
+                }
+                &.hover {
+                    .text-hover {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
-  }
 }

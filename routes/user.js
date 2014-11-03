@@ -1,5 +1,5 @@
 var users = require('../logic/users'),
-  us = require('underscore');
+  _ = require('underscore');
 
 exports.profile = function(req, res) {
   var user_id = req.params['id'];
@@ -8,10 +8,16 @@ exports.profile = function(req, res) {
     if(!user.picture) {
         user.picture = 'user-12-mq.png';
     }
-    res.locals = us.extend(res.locals, {
+    res.locals = _.extend(res.locals, {
       profile: user,
       title: 'Perfil'
     });
+
+    if (res.locals.user && res.locals.user.id) {
+      res.locals.user['isOwner'] = (res.locals.user.id === user._id);
+    }
+
+
     return res.render('user/profile.html',{
 		layoutTitle: 'Perfil',
 		layoutId: 'user-login'
@@ -30,11 +36,14 @@ exports.login = function(req, res) {
 };
 
 exports.signup = function(req, res) {
-  var s3Credentials = {};
-  return res.render('user/signup.html', {
-    layoutTitle: 'Registrate',
-    layoutId: 'user-signup'
-  })
+    var s3Credentials = {};
+    return res.render('user/signup.html', {
+        layoutTitle: 'Registrate',
+        layoutId: 'user-signup',
+        partials: {
+            head_resources: 'user/user_script_resources'
+        }
+    })
 };
 
 exports.set_localization = function(req, res, done) {
@@ -58,4 +67,23 @@ exports.set_localization = function(req, res, done) {
   }
   res.send('ok');
 };
+
+exports.edit = function(req, res) {
+  var user_id = req.params['id'];
+  users.profile(user_id, function(err, user) {
+    res.locals = _.extend(res.locals, {
+      usuario: user,
+      jsonUsuario: JSON.stringify(user)
+    });
+    return res.render('user/signup.html',{
+        layoutTitle: 'Editar Perfil',
+        partials: {
+            head_resources: 'user/user_script_resources'
+        }
+    });
+  });
+
+};
+
+
 
