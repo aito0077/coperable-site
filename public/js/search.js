@@ -8,7 +8,8 @@ window.SearchController = Backbone.View.extend({
     markers: new Array(),
 
     events: {
-      'change #search_text': 'do_search'
+      'change #search_text': 'do_search',
+      'click .filter-options li': 'set_sub_filter'
     },
 
     initialize: function(options) {
@@ -27,6 +28,12 @@ window.SearchController = Backbone.View.extend({
 
     reset: function(options) {
 
+    },
+
+    set_sub_filter: function(e) {
+        var sub_filter_value = $(e.target).data('option'),
+            main_filter_value = $(e.target.parentNode).data('filter-name');
+        console.log(main_filter_value + ' > '+sub_filter_value);
     },
 
     do_search:  function() {
@@ -60,6 +67,45 @@ window.SearchController = Backbone.View.extend({
 
 
     },
+
+    do_search_by_filters:  function() {
+        var self = this;
+        $.ajax({
+            url: '/api/search/iniciativas',
+            type: 'POST',
+            success: function(response) {
+                var results = response.hits;
+                $('.list').html('');
+                var total = results.total;
+                
+                _.each(results.hits, function(hit) {
+                    var model = new iniciativa.Model(_.extend(hit._source, {_id: hit._id}));
+                    if(model && !_.isEmpty(model)) {
+                        var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
+                        $('.list').append($itemTemplate);
+                    }
+                });
+            },
+            data: {
+                filters: {
+                    category: self.filters['category'],
+                    date: self.filters['date'],
+                    comunidad: self.filters['comunidad'],
+                    tag: self.filters['tag']
+                }
+            },
+            error: function() {
+
+            },
+            dataType: 'json',
+            cache: false,
+            contentType: false
+        }, 'json');
+
+
+    },
+
+
 
     setup_binding: function() {
 
