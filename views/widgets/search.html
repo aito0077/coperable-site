@@ -1,0 +1,83 @@
+<div id="search_controller">
+	<h3>Iniciativas</h3>
+    <div class="cop-filters">
+      <ul class="filter-menu">
+        <li data-option="1" data-target="date"><span class="option-label">Fecha</span></li>
+        <li data-option="1" data-target="cat"><span class="option-label">Categoría</span></li>
+        <li data-option="1" data-target="com"><span class="option-label">Comunidades</span></li>
+        <li data-option="1" data-target="label"><span class="option-label">Etiqueta</span></li>
+        <li data-option="1" data-target="country"><span class="option-label">País</span></li>
+        <li style="background: none; float: right !important;" class="pull-right"><input type="text" id="search_text" placeholder="Buscar..."/></li>
+      </ul>
+      <div class="filter-options-wrapper">
+        <ul data-filter-name="date" class="filter-options">
+          <li data-option="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
+          {{#summary.histogram.buckets}}
+              <li data-option="2"><span class="name">{{key_as_string}}</span> <span class="num">{{doc_count}}</span></li>
+          {{/summary.histogram.buckets}}
+        </ul>
+        <ul data-filter-name="cat" class="filter-options">
+          <li data-option="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
+          {{#summary.main_categories.buckets}}
+              <li data-option="2"><span class="name">{{key}}</span> <span class="num">{{doc_count}}</span></li>
+          {{/summary.main_categories.buckets}}
+        </ul>
+        <ul data-filter-name="com" class="filter-options">
+          <li data-option="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
+          <li data-option="2"><span class="name">Opción</span> <span class="num">25</span></li>
+        </ul>
+        <ul data-filter-name="label" class="filter-options">
+          <li data-option="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
+          {{#summary.topics.buckets}}
+              <li data-option="2"><span class="name">{{key}}</span> <span class="num">{{doc_count}}</span></li>
+          {{/summary.topics.buckets}}
+        </ul>
+        <ul data-filter-name="country" class="filter-options">
+          <li data-option="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
+          <li data-option="2"><span class="name">Opción</span> <span class="num">25</span></li>
+        </ul>
+      </div>
+
+	<div class="lists-wrapper" id="communityLists">
+        <div class="filters-default" target="#communityLists">
+            <ul class="pull-right">
+                <li class="selected map-bt">Mapa</li>
+                <li class="grid-bt">Grilla</li>
+            </ul>
+        </div>
+
+		<ul class="list">
+            <!-- here! -->
+		</ul>
+	</div>
+
+</div>
+<div id="templates" style="display: none;">
+<div class="result-item-iniciativa">
+    <li class="initiative sm">
+        <div class="initiative initiative-item">
+            <div class="pic">
+                <a rel="address:/iniciativa" href="/iniciativas/<%=_id %>">
+                    <img width="100%" data-src="/static/uploads/thumbs/<%=profile_picture%>" class="replace-src" src="/static/uploads/thumbs/<%=profile_picture%>">
+                </a>
+            </div>
+            <div class="wrapper">
+                <a rel="address:/iniciativa" href="/iniciativas/<%=_id%>">
+                    <h4><%=name%></h4>
+                </a>
+                <p><%=description%></p>
+            </div>
+            <div class="bottom">
+                <div class="actions wrapper">
+                    <a class="button green" rel="address:/iniciativa" href="/iniciativas/<%=_id%>">Ver iniciativas</a>
+                    <!--div class="text">--participants_amount-- participando</div-->
+                </div>
+            </div>
+        </div>
+    </li>
+</div>
+</div>
+
+
+<script type='text/javascript' src='/static/js/_list.js'></script>
+<script type='text/javascript' src='/static/js/search.js'></script>

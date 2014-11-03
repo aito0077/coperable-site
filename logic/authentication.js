@@ -25,8 +25,6 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   },
   function(username, password, done) {
-    console.log('autenticando localmente');
-    console.log('Username: '+username+' - password: '+password);
     users.authenticate(username, password, function(err, user) {
       if (err) { return done(err); }
       if (us.isEmpty(user)) {
@@ -70,7 +68,6 @@ var oauthenticate_create = function(accessToken, refreshToken, given_profile, do
 	user_data['username'] = user_data['first_name'];
       user_data['authenticate_with'] = given_profile.provider;
       user_data[given_profile.provider+'_id'] = given_profile.id;
-		console.dir(user_data);
 
       cop_api.client.put('/api/usuario', user_data, function(err, req, res, user) {
 	console.log(err);

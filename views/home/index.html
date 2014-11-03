@@ -1,18 +1,18 @@
-<h1 class="main-title">Un Mapa Colaborativo para compartir iniciativas abiertas y participar en encuentros positivos para la comunidad. Sumate! </h1>
 
-<div class="box-wrapper">
-  <div class="box-participa">
-    <h2>Participá</h2>
-    <p>En iniciativas abiertas y gratuítas cerca de tu casa.</p><a href="/iniciativas">Sumate</a>
-  </div>
-  <div class="box-organiza">
-    <h2>Organizá</h2>
-    <p>Difundí y sumá participantes a tu iniciativa.</p><a href="/iniciativas/create">Organizar</a>
-  </div>
-</div>
+<div class="main-feature">
+    <div class="main-info">
+        <h1 class="main-title">Un Mapa Colaborativo para compartir iniciativas abiertas y participar en encuentros positivos para la comunidad. Sumate! </h1>
+        <div class="box-wrapper-info">
+          <div class="box-participa-info">
+            <a href="/iniciativas">Sumate</a>
+          </div>
+          <div class="box-organiza-info">
+            <a href="/iniciativas/create">Organizar</a>
+          </div>
+        </div>
+    </div>
 
-<div class="main-video">
-  <iframe src="http://player.vimeo.com/video/65076873" width="100%" height="308" frameborder="0" webkitAllowFullScreen="webkitAllowFullScreen" mozallowfullscreen="mozallowfullscreen" allowFullScreen="allowFullScreen"></iframe>
+    <img src="/static/img/home_background.jpg"/>
 </div>
 <div class="highlight text-center">
   Coperable es un proyecto autogestionado y colaborativo. Si te interesa colaborar o sumar apoyo escribinos a <a href="mailto:hola@lapapasustentable.com.ar">hola@lapapasustentable.com.ar</a>
@@ -20,7 +20,7 @@
 
 
 <div class="ultimas-iniciativas">
-  <h3>Últimas <span class="weak">iniciativas</span></h3>
+  <h3>Mapa <span class="weak">Iniciativas cercanas donde participar</span></h3>
 </div>
 
 <div id="map_browser" class="ultimas-iniciativas-mapa">
@@ -37,42 +37,47 @@
 </div>
 <div style="clear:both"></div>
 <div id="lastInitiatives">
-    <h2>Iniciativas más próximas a activarse</h2>
-    <div class="cop-filters">
-      <ul class="filter-menu">
-        <li data-option="1" data-target="date"><span class="option-label">Fecha</span></li>
-        <li data-option="1" data-target="cat"><span class="option-label">Categoría</span></li>
-        <li data-option="1" data-target="com"><span class="option-label">Comunidades</span></li>
-        <li data-option="1" data-target="label"><span class="option-label">Etiqueta</span></li>
-        <li data-option="1" data-target="country"><span class="option-label">País</span></li>
-      </ul>
-      <div class="filter-options-wrapper">
-        <ul data-filter-name="date" class="filter-options">
-          <li data-option="1"><span class="name">Todo</span> <span class="num">25</span></li>
-          <li data-option="2"><span class="name">El último año</span> <span class="num">25</span></li>
-          <li data-option="3"><span class="name">El último mes</span> <span class="num">25</span></li>
-          <li data-option="4"><span class="name">La última semana</span> <span class="num">25</span></li>
-        </ul>
-        <ul data-filter-name="cat" class="filter-options">
-          <li data-option="1"><span class="name">Todo</span> <span class="num">25</span></li>
-          <li data-option="2"><span class="name">Medio Ambiente</span> <span class="num">25</span></li>
-          <li data-option="3"><span class="name">Arte y cultura</span> <span class="num">25</span></li>
-          <li data-option="4"><span class="name">Educación</span> <span class="num">25</span></li>
-          <li data-option="5"><span class="name">Desarrollo social</span> <span class="num">25</span></li>
-        </ul>
-        <ul data-filter-name="com" class="filter-options">
-          <li data-option="1"><span class="name">Todo</span> <span class="num">25</span></li>
-          <li data-option="2"><span class="name">Opción</span> <span class="num">25</span></li>
-        </ul>
-        <ul data-filter-name="label" class="filter-options">
-          <li data-option="1"><span class="name">Todo</span> <span class="num">25</span></li>
-          <li data-option="2"><span class="name">Opción</span> <span class="num">25</span></li>
-        </ul>
-        <ul data-filter-name="country" class="filter-options">
-          <li data-option="1"><span class="name">Todo</span> <span class="num">25</span></li>
-          <li data-option="2"><span class="name">Opción</span> <span class="num">25</span></li>
-        </ul>
-      </div>
+    <h2>Iniciativas</h2>
+    <div>
+        <div class="cop-filters" class="pull-left">
+          <ul class="filter-menu">
+            <li data-option="1" data-target="date"><span class="option-label">Fecha</span></li>
+            <li data-option="1" data-target="cat"><span class="option-label">Categoría</span></li>
+            <li data-option="1" data-target="com"><span class="option-label">Comunidades</span></li>
+            <li data-option="1" data-target="label"><span class="option-label">Etiqueta</span></li>
+            <li data-option="1" data-target="country"><span class="option-label">País</span></li>
+          </ul>
+          <div class="filter-options-wrapper">
+            <ul data-filter-name="date" class="filter-options">
+              <li data-option="1"><span class="name">Todo</span> <span class="num">25</span></li>
+              <li data-option="2"><span class="name">El último año</span> <span class="num">25</span></li>
+              <li data-option="3"><span class="name">El último mes</span> <span class="num">25</span></li>
+              <li data-option="4"><span class="name">La última semana</span> <span class="num">25</span></li>
+            </ul>
+            <ul data-filter-name="cat" class="filter-options">
+              <li data-option="1"><span class="name">Todo</span> <span class="num">25</span></li>
+              <li data-option="2"><span class="name">Medio Ambiente</span> <span class="num">25</span></li>
+              <li data-option="3"><span class="name">Arte y cultura</span> <span class="num">25</span></li>
+              <li data-option="4"><span class="name">Educación</span> <span class="num">25</span></li>
+              <li data-option="5"><span class="name">Desarrollo social</span> <span class="num">25</span></li>
+            </ul>
+            <ul data-filter-name="com" class="filter-options">
+              <li data-option="1"><span class="name">Todo</span> <span class="num">25</span></li>
+              <li data-option="2"><span class="name">Opción</span> <span class="num">25</span></li>
+            </ul>
+            <ul data-filter-name="label" class="filter-options">
+              <li data-option="1"><span class="name">Todo</span> <span class="num">25</span></li>
+              <li data-option="2"><span class="name">Opción</span> <span class="num">25</span></li>
+            </ul>
+            <ul data-filter-name="country" class="filter-options">
+              <li data-option="1"><span class="name">Todo</span> <span class="num">25</span></li>
+              <li data-option="2"><span class="name">Opción</span> <span class="num">25</span></li>
+            </ul>
+          </div>
+            <div class="pull-right">
+                <input type="text"/>
+            </div>
+        </div>
     </div>
     <ul class="list" id="iniciativas_list">
     </ul>
@@ -80,6 +85,13 @@
 <div id="map-browser-templates" style="display: none;">
     {{> iniciativaItemTemplate }}
 </div>
+
+<div style="clear:both"><span class="pull-right"><a href="/iniciativas"> Ver más > </span></div>
+<div class="row collaborators">
+    <h2>Colaboran y Apoyan</h2>
+    <img src="/static/img/logos_support.png"/>
+</div>
+
 <script>
   $(function(){
     map_browser = new iniciativa.MapBrowser({

@@ -155,8 +155,8 @@ exports.listQuery = function(query, done) {
 
 
 exports.listLast = function(req, res, done) {
-  console.log('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude);
-  cop_api.client.get('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude,
+  console.log('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude+'?limit='+req.query.limit);
+  cop_api.client.get('/api/iniciativa/last/'+req.query.latitude+'/'+req.query.longitude+'?limit='+req.query.limit,
     function(err, request, response, iniciativas) {
       us.each(iniciativas, function(iniciativa) {
           var current_stage = iniciativa.current_stage;

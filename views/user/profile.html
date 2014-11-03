@@ -1,6 +1,13 @@
 {{#profile}}
+    {{#user.isOwner}}
+	<div class="row">
+        <span class="btn pull-right" style="background: red"><a href="/user/{{user.id}}/edit">Modificar</a></span>
+    </div>
+    {{/user.isOwner}}
+<h1>{{isOwner}}</h1>
+    
 	<div class="first_field">
-		<img src="/static/img/users/{{profile.picture}}" class="user-face" />
+        <img src="/static/uploads/fullsize/{{profile.picture}}" class="user-face" />
 		<div class="user-info">
 			<div class="user-name">{{profile.username}}</div>
             <div class="user-about">{{profile.about}}</div>

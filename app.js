@@ -5,9 +5,12 @@ var config = require('./config'),
   home = require('./routes/home'),
   feca = require('./routes/feca'),
   iniciativa = require('./routes/iniciativa'),
-  comunidades = require('./routes/comunidades'),
+  comunidad = require('./routes/comunidades'),
   development = require('./routes/development'),
+  site = require('./routes/site'),
   iniciativas = require('./logic/iniciativas'),
+  comunidades = require('./logic/comunidades'),
+  search = require('./logic/search'),
   users = require('./logic/users'),
   http = require('http'),
   path = require('path'),
@@ -17,8 +20,8 @@ var config = require('./config'),
   filehandler = require('./logic/filehandler'),
   RedisStore = require('connect-redis')(express);
 
-var stylus = require('stylus')
-var nib = require('nib')
+var stylus = require('stylus');
+var nib = require('nib');
 
 var rClient = redis.createClient();
 var sessionStore = new RedisStore({client:rClient});
@@ -133,6 +136,13 @@ app.post('/api/iniciativas/:id/:userId/quit', iniciativas.quitIniciativa);
 app.post('/api/iniciativas/search', iniciativas.findByQuery);
 app.post('/api/iniciativas', iniciativas.create);
 
+app.put('/api/usuarios/:id', users.save);
+app.post('/api/usuarios', users.create);
+app.get('/user/:id/edit', user.edit);
+
+app.get('/api/search/iniciativas/summary', search.iniciativas_summary);
+app.get('/api/search/iniciativas', search.search_iniciativas);
+
 app.get('/api/iniciativas', function(req, res, next) {
   if(req.query.category) {
     iniciativas.browseByCategory(req, res, function(err, iniciativas) {
@@ -197,9 +207,9 @@ app.post('/feca/user/signup', users.do_signup, function(req, res){
   res.redirect('/');
 });
 
-app.get('/comunidades', comunidades.index);
-app.get('/comunidades/view', comunidades.view);
-app.get('/comunidades/extra', comunidades.extra);
+app.get('/comunidades', comunidad.index);
+app.get('/comunidades/extra', comunidad.extra);
+app.get('/comunidades/:id', comunidad.view);
 
 function customCallbackAuthentification(strategy, req, res, next) {
   passport.authenticate(strategy, function loginCustomCallback(err, user, info) {
@@ -273,6 +283,9 @@ app.get('/auth/twitter/callback', function(req, res, next) {
 });
 
 app.get('/user/signup', user.signup);
+app.post('/user/uploads', filehandler.upload_profile);
+
+
 app.post('/user/signup', users.do_signup, function(req, res){
   req.logout();
   res.redirect('/');
@@ -308,6 +321,12 @@ app.get('/uploadsuccess', function(req, resp) {
 app.get('/development/', development.index);
 app.get('/development/doc', development.doc);
 app.get('/development/control', development.control);
+
+app.get('/site/about', site.about);
+app.get('/site/networks', site.networks);
+app.get('/site/practices', site.practices);
+app.get('/site/open', site.open_share);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

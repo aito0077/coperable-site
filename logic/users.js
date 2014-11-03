@@ -51,9 +51,6 @@ exports.profile= function(user_id, done) {
 };
 
 exports.list = function(req, res){
-
-//'http://localhost:8090/save?TYPE=USER' -d '{ "email" : "maxi", "password":"nabo" }'
-
   var http = require('http');
   var options = {
     hostname: 'localhost',
@@ -85,3 +82,22 @@ exports.list = function(req, res){
   rest_req.end();
 
 };
+
+exports.create = function(req, res, done) {
+    var usuario_data = req.body.model ? JSON.parse(req.body.model) : req.body;
+    cop_api.client.post('/api/usuario', usuario_data, function(err, request, response, obj) {
+        console.log('[usuarios::create] Usuario creado. ' + (err? 'Error: ' + err : ''));
+        res.send(obj);
+    });
+};
+
+exports.save = function(req, res, done) {
+    var id = req.param('id'),
+        usuario_data = req.body.model ? JSON.parse(req.body.model) : req.body;
+    cop_api.client.post('/api/usuario/' + id, usuario_data, function(err, request, response, obj) {
+      console.log('[usuarios::create] Usuario [' + id + '] guardado. ' + (err? 'Error: ' + err : ''));
+      res.send(obj);
+    });
+};
+
+

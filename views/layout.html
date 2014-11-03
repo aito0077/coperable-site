@@ -45,13 +45,14 @@
   <header>
     <div class="content-wrapper">
       <div>
-        <div class="logo"><a href="/"><img src="/static/img/logo-1.png"/></a></div>
+        <div class="logo"><a href="/"><img src="/static/img/Logo-web-gris.png"/></a></div>
       </div>
       <div>
         <nav>
           <ul>
             <li><a href="/iniciativas">Iniciativas</a></li>
-            <li><a href="/iniciativas/create">Organizá</a></li>
+            <li><a href="/iniciativas/create">Organiza</a></li>
+            <li><a href="/comunidades">Comunidades</a></li>
             {{#user}}
               <li><a href="/user/{{user.id}}">{{user.username}}</a></li>
               <li><a href="/user/logout">Salir</a></li>
@@ -69,6 +70,32 @@
     {{{ yield }}}
   </div>
 
+    <div style="clear:both"><span class="pull-right"></div>
+    <footer>
+        <div class="row">
+            <div class="span4">
+                <h4>Coperable</h4>
+                <ul>
+                    <li><a href="/site/about">Sobre Coperable</a></li>
+                    <li><a href="/site/networks">Nuestra Red</a></li>
+                    <li><a href="/site/practices">Buenas Practicas</a></li>
+                    <li><a href="/site/open">Abierto y Colaborativo</a></li>
+                </ul>
+            </div>
+            <div class="span5">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="">Implementacion a medida</a></li>
+                </ul>
+            </div>
+            <div class="span3">
+                <h4>Conectate</h4>
+                <ul>
+                    <li><a href="">facebook.com/coperable</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
   {{>bottom_resources}}
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
