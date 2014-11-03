@@ -146,9 +146,38 @@ exports.list = function(req, res) {
 
     });
     search.iniciativas_summary(req, res, function(result) {
+        var date_buckets = result.aggregations.histogram.buckets,
+            periods = [],
+            months = {
+                '1':    'Enero', 
+                '2':    'Febrero', 
+                '3':    'Marzo', 
+                '4':    'Abril', 
+                '5':    'Mayo', 
+                '6':    'Junio', 
+                '7':    'Julio',
+                '8':    'Agosto', 
+                '9':    'Septiembre', 
+                '10':    'Octubre', 
+                '11':    'Noviembre', 
+                '12':    'Diciembre'
+            };
+
+        _.each(date_buckets, function(bucket) {
+            periods.push(_.extend(bucket, {month: months[bucket.key_as_string]}));
+        });
+
+
         return res.render('iniciativa/index.html', {
+
             summary: result.aggregations,
             hits: result.hits,
+            periods: periods,
+            search_options: {
+                text: true,
+                map: true,
+                grid: true,
+            },
             partials: {
                 search_control: 'widgets/search.html'
             }

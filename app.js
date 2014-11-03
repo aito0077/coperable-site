@@ -326,6 +326,11 @@ app.get('/site/about', site.about);
 app.get('/site/networks', site.networks);
 app.get('/site/practices', site.practices);
 app.get('/site/open', site.open_share);
+app.get('/site/implementation', site.implementation);
+app.get('/site/social_analytic', site.social_analytic);
+app.get('/site/workshops', site.workshops);
+app.get('/site/rse', site.rse);
+
 
 
 http.createServer(app).listen(app.get('port'), function(){
