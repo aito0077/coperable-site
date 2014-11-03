@@ -1,5 +1,6 @@
 var iniciativas = require('../logic/iniciativas'),
     users = require('../logic/users'),
+    search = require('../logic/search'),
     comunidades = require('../logic/comunidades'),
     _ = require('underscore');
 
@@ -140,10 +141,23 @@ exports.view_slug = function(req, res) {
 };
 
 
-
-
-
 exports.list = function(req, res) {
+    res.locals = _.extend(res.locals, {
+
+    });
+    search.iniciativas_summary(req, res, function(result) {
+        return res.render('iniciativa/index.html', {
+            summary: result.aggregations,
+            hits: result.hits,
+            partials: {
+                search_control: 'widgets/search.html'
+            }
+        });
+    });
+
+};
+
+exports.__list = function(req, res) {
   iniciativas.list(req, res, function(err, iniciativas){
     if( req.xhr ) {
       return res.send(iniciativas)
@@ -154,7 +168,7 @@ exports.list = function(req, res) {
         iniciativas: iniciativas,
         partials: {
           list: 'iniciativa/_list',
-	   iniciativaItemTemplate: "templates/iniciativaItemListTemplate.html"
+          iniciativaItemTemplate: "templates/iniciativaItemListTemplate.html"
         }
       })
     }
