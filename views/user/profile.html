@@ -1,10 +1,9 @@
 {{#profile}}
 	<div class="first_field">
-        <img src="/static/uploads/fullsize/{{profile.picture}}" class="user-face" />
+		<img src="/static/uploads/fullsize/{{profile.picture}}" class="user-face" />
 		<div class="user-info">
-			<div class="user-name">{{profile.username}}
-             </div>
-            <div class="user-about">{{profile.about}}</div>
+			<div class="user-name">{{profile.username}} </div>
+			<div class="user-about">{{profile.about}}</div>
 
             <ul class="social">
                 {{#profile.networks.twitter.has}}
@@ -112,7 +111,8 @@
     <br /><br />
 
     <h3>Organizó</h3>
-    <ul class="list-user">
+    <div id="ownedInitiatives">
+    <ul class="list">
     {{#profile.ownedIniciativas}}
         <!--<li class="initiative">
             <div class="content">
@@ -153,6 +153,7 @@
         </li>
     {{/profile.ownedIniciativas}}
     </ul>
+	</div>
 
 <br /><br />
 {{/profile}}
