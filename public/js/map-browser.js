@@ -177,7 +177,7 @@
       $('#'+e.target.id).addClass('selected');
       switch(e.target.id) {
         case 'browser_all':
-          category = null;
+          category = 'all';
           break;
         case 'browser_me':
           category = this.MEDIO_AMBIENTE;
