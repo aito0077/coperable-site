@@ -54,9 +54,9 @@ exports.view = function(req, res) {
         }
 
         res.locals = _.extend(res.locals, {
-            comunidad: comunidad,
+            comunidad: comunidad.comunidad,
             moderators: comunidad.moderators || [],
-            members: comunidad.members || [],
+            members: comunidad.miembros || [],
             participants: comunidad.participants || [],
             iniciativas: comunidad.iniciativas || [],
             layoutTitle: comunidad.name,

@@ -11,29 +11,18 @@
 		</div>
 	</div>
 	
-	<h3>Iniciativas</h3>
 	<div class="filters-default" data-target="#communityLists">
 		<ul class="pull-left">
-			<li class="selected">Próximas iniciativas</li>
-			<li>Organizadores</li>
-			<li>Participantes</li>
+			<li class="iniciativas-bt selected">Iniciativas</li>
+			<li class="organizadores-bt">Organizadores</li>
 		</ul>
 		<ul class="pull-right">
-			<li class="selected map-bt">Mapa</li>
-			<li class="grid-bt">Grilla</li>
-		</ul>
-	</div>
-	<div class="cop-filters">
-		<ul class="filter-menu">
-			<li><span class="option-label">Fecha</span></li>
-			<li><span class="option-label">Categoría</span></li>
-			<li><span class="option-label">Comunidades</span></li>
-			<li><span class="option-label">Etiqueta</span></li>
-			<li><span class="option-label">País</span></li>
+			<li class="selected grid-bt">Grilla</li>
+			<li class="map-bt">Mapa</li>
 		</ul>
 	</div>
 	<div class="lists-wrapper" id="communityLists">
-		<ul class="list">
+		<ul class="list iniciativas-ul">
             {{#iniciativas}}
 		    <li class="initiative sm">
 				<div class="initiative initiative-item">
@@ -50,7 +39,7 @@
 					</div>
 					<div class="bottom">
 						<div class="actions wrapper">
-							<a class="button green" rel="address:/iniciativa" href="/iniciativas/{{_id}}">Ver iniciativas</a>
+							<a class="button green" rel="address:/iniciativa" href="/iniciativas/{{_id}}">Ver</a>
 							<div class="text">{{pariticipants_amount}} participando</div>
 						</div>
 					</div>
@@ -58,6 +47,41 @@
 			</li>
             {{/iniciativas}}
 		</ul>
+
+		<ul class="list organizadores-ul" style="display:none">
+            {{#members}}
+		    <li class="initiative sm user">
+				<div class="initiative initiative-item">
+					<div class="pic">
+						<a rel="address:/iniciativa" href="/user/{{_id}}">
+							<img width="100%" data-src="/static/uploads/thumbs/{{picture}}" class="replace-src" src="/static/uploads/thumbs/{{picture}}">
+						</a>
+					</div>
+					<div class="wrapper">
+						<a rel="address:/user" href="/user/{{_id}}">
+							<h4>{{first_name}} {{last_name}}</h4>
+						</a>
+						<p>{{about}}</p>
+					</div>
+				</div>
+			</li>
+            {{/members}}
+		</ul>
 	</div>
+	<div class="map-wrapper" id="communityMap" style="display:hidden">
+
+	</div>
+
+
+
 </div>
+
+<script type='text/javascript' src='/static/js/comunidades.js'></script>
+<script>
+  $(function(){
+    list_manager = new comunidad.ListManager({
+      el: $('#community')
+    });
+  });
+</script>
 
