@@ -100,13 +100,14 @@
             margin-right: 0;
         }
     }
-    .comunidad_selector {
+    ._comunidad_selector {
         width: 170px;
         height: 51px;
         margin-right: 4px;
         color: #000;
         background-repeat: none !important;
         background-color: transparent !important;
+        white-space: normal;
         .transition(none);
         &.active {
             background-color: #2B44FF !important;
@@ -115,6 +116,36 @@
         &:last-child {
             margin-right: 0;
         }
+    }
+    .comunidad_selector {
+        width: 170px;
+        height: auto;
+        border-radius: 3px 3px 3px 3px;
+        margin-right: 4px;
+        color: #FFF;
+        background: none repeat scroll 0 0 #C0C0C0;
+        white-space: normal;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 30px;
+        margin-top: 6px;
+        margin-right: 6px;
+        padding: 0 10px;
+        float: left;
+
+        .transition(none);
+        &.active {
+            background-color: #1A89CC !important;
+            color: #FFF;
+        }
+    }
+    .comunidades:after {
+        clear: both;
+        content: "";
+        display: block;
+        font-size: 0;
+        height: 0;
+        visibility: hidden;
     }
 
     #description_red {

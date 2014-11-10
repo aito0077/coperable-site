@@ -157,7 +157,8 @@
             <div class="number">13</div>
             <div class="content">
                 <label class="control-label">Comunidades</label>
-                <div class="controls" id="comunidades">
+                <div class="help-block"><small>Agregemos el siguiente texto explicativo "Las comunidades funcionan como Redes de afinidad para unir iniciativas, organizadores y participantes. El objetivo es generar un espacio común, potenciando su difusión, visibilizando sus iniciativas en el territorio y aumentando la participación.</small></div>
+                <!--div class="controls" id="comunidades">
                     <div class="btn-toolbar">
                         <div class="btn-group" data-toggle="buttons-checkbox">
                             {{#comunidades}}
@@ -168,6 +169,18 @@
                         </div>
                     </div>
  
+                </div-->
+                <div>
+                  <ul class="comunidades">
+                  {{#comunidades}}
+                    <li> 
+                        <button id="{{_id}}" name="{{name}}" class="comunidad_selector btn btn-primary inline">
+                            <b>{{name}}</b>
+                        </button>
+                    </li>
+                  {{/comunidades}}
+                  </ul>
+
                 </div>
             </div>
         </div>
