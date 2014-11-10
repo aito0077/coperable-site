@@ -173,10 +173,8 @@
                 <div>
                   <ul class="comunidades">
                   {{#comunidades}}
-                    <li> 
-                        <button id="{{_id}}" name="{{name}}" class="comunidad_selector btn btn-primary inline">
-                            <b>{{name}}</b>
-                        </button>
+                    <li id="{{_id}}" name="{{name}}" class="comunidad_selector btn btn-primary inline">
+                        {{name}}
                     </li>
                   {{/comunidades}}
                   </ul>
