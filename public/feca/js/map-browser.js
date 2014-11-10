@@ -84,8 +84,8 @@
             error: function(err) {
             },
             data: {
-                feca: true,
-                end_date: { $gt: yesterday }
+                feca: true
+//                end_date: { $gt: yesterday }
             },
             dataType: 'json',
             cache: false
@@ -117,8 +117,8 @@
             error: function(err) {
             },
             data: {
-                feca: true,
-                end_date: { $gt: yesterday }
+                feca: true
+                //end_date: { $gt: yesterday }
             },
             dataType: 'json',
             cache: false
@@ -213,8 +213,8 @@
         var tasks_query = this.build_tasks_query();
         var topics_query = this.build_topics_query();
         var object_query = {
-            feca: true,
-            end_date: { $gt: yesterday }
+            feca: true
+            //end_date: { $gt: yesterday }
         };
         if(tasks_query) {
             object_query['tasks'] = tasks_query;
