@@ -1,91 +1,69 @@
 <div id="list_manager">
-<div class="clearfix tematica-filtro-contaier row">
-  <div data-icon="" class="span2">Temáticas</div>
-  <div class="span10">
-  </div>
-</div>
-
-<ul class="clearfix ultimas-iniciativas-filtro">
-  <li id="browser_all" data-icon="" class="selected category_tab">Ver todas</li>
-  <li id="browser_me" class="category_tab" data-icon="">Medio ambiente</li>
-  <li id="browser_ac" class="category_tab" data-icon="">Arte y cultura</li>
-  <li id="browser_ed" class="category_tab" data-icon="">Educación</li>
-  <li id="browser_ds" class="category_tab" data-icon="">Desarrollo social</li>
-</ul>
-<div class="filtro-desc"></div>
-
-<div class="iniciativas-list">
-  {{#iniciativas}}
-    <div class="iniciativas-list-item-wrapper">
-      <div class="iniciativas-list-item category-environment stage-{{current_stage}}" id="iniciativas-list-item-{{_id}}">
-        <div class="thumb">
-	  <div class="label" id="div_categoria"></div>
-         <img src="/static/uploads/thumbs/{{profile_picture}}" width="100%"/>
-          <!--div class="iniciativas-list-item-map" style="width: 100%;height: 130px;"></div-->
-        </div>
-        <div class="wrapper">
-			  <h4 class="title">
-			    <a href="/iniciativas/{{_id}}"> {{name}}</a>
-			  </h4>
-		
-	 <p class="address ellipsis" data-icon="">Organizador: {{owner.name}}</p>
-          <div class="start-date ellipsis" data-icon="">{{start_date}}</div>
-          <p class="address ellipsis" data-icon="">{{address}}</p>
-        </div>
-        <ul class="stages wrapper">
-            
-          <li class="convocatoria {{#convocatoria}}actual{{/convocatoria}}">Convocatoria<div class="icon"></div></li>
-          <li class="activando {{#activando}}actual{{/activando}}">Activando<div class="icon"></div></li>
-          <li class="finalizada {{#finalizada}}actual{{/finalizada}}">Finalizada<div class="icon"></div></li>
-        </ul>
-        <div class="actions wrapper" {{#finalizada}}style="display:none"{{/finalizada}}>
-          <a href="/iniciativas/{{_id}}" rel="/iniciativas/{{_id}}" class="btn btn-success boton-participar">Participá</a>
-          <div class="text" id="div_participantes-{{_id}}"></div>
-        </div>
-	<div class="row">
-		<div style="position:absolute; left:40%" id="div_social_network-{{_id}}"></div>
-	</div>
+    <div class="clearfix tematica-filtro-contaier row">
+      <div data-icon="" class="span2">Temáticas</div>
+      <div class="span10">
       </div>
-      <script type="text/javascript">
-        $(function(){
-
-          var $item = $("#iniciativas-list-item-{{_id}}");
-          var $date = $item.find('.start-date');
-            var momento = moment($date.html()).lang('es');
-          $date.html(momento.fromNow()+' ('+momento.format('DD MMMM')+')');
-
-	 /* Matias Niklison: Creo que esto no se usa
-    var categoria = (
-      {{categories.arte_cultura}}? 
-        'Arte y cultura' : 
-        (
-          {{categories.desarrollo}}?
-            'Desarrollo' :
-            (
-              {{categories.educacion}}?
-                'Educacion' :
-                (
-                  {{categories.medio_ambiente}}?
-                    'Medio ambiente' :
-                    'Otra categoría'
-                )
-            )
-        )
-      );
-	  $("#div_categoria").html(categoria);*/
-
-
-	  var participantes='0';
-	  {{#pariticipants_amount}} participantes={{pariticipants_amount}} {{/pariticipants_amount}}
-	  $("#div_participantes-{{_id}}").html(participantes + ' participantes');
-	})
-      </script>
     </div>
-  {{/iniciativas}}
-</div>
-<div id="list-templates" style="display: none;">
-    {{> iniciativaItemTemplate }}
-</div>
+
+    <ul class="clearfix ultimas-iniciativas-filtro">
+      <li id="browser_all" data-icon="" class="selected category_tab">Ver todas</li>
+      <li id="browser_me" class="category_tab" data-icon="">Medio ambiente</li>
+      <li id="browser_ac" class="category_tab" data-icon="">Arte y cultura</li>
+      <li id="browser_ed" class="category_tab" data-icon="">Educación</li>
+      <li id="browser_ds" class="category_tab" data-icon="">Desarrollo social</li>
+    </ul>
+    <div class="filtro-desc"></div>
+
+    <div class="iniciativas-list">
+      {{#iniciativas}}
+        <div class="iniciativas-list-item-wrapper">
+            <div class="iniciativas-list-item category-environment stage-{{current_stage}}" id="iniciativas-list-item-{{_id}}">
+                <div class="thumb">
+                    <div class="label" id="div_categoria"></div>
+                    <img src="/static/uploads/thumbs/{{profile_picture}}" width="100%"/>
+                </div>
+                <div class="wrapper">
+                    <h4 class="title">
+                        <a href="/iniciativas/{{_id}}"> {{name}}</a>
+                    </h4>
+
+                    <p class="address ellipsis" data-icon="">Organizador: {{owner.name}}</p>
+                    <div class="start-date ellipsis" data-icon="">{{start_date}}</div>
+                    <p class="address ellipsis" data-icon="">{{address}}</p>
+                </div>
+                <ul class="stages wrapper">
+
+                    <li class="convocatoria {{#convocatoria}}actual{{/convocatoria}}">Convocatoria<div class="icon"></div></li>
+                    <li class="activando {{#activando}}actual{{/activando}}">Activando<div class="icon"></div></li>
+                    <li class="finalizada {{#finalizada}}actual{{/finalizada}}">Finalizada<div class="icon"></div></li>
+                </ul>
+                <div class="actions wrapper" {{#finalizada}}style="display:none"{{/finalizada}}>
+                    <a href="/iniciativas/{{_id}}" rel="/iniciativas/{{_id}}" class="btn btn-success boton-participar">Participá</a>
+                    <div class="text" id="div_participantes-{{_id}}"></div>
+                </div>
+                <div class="row">
+                    <div style="position:absolute; left:40%" id="div_social_network-{{_id}}"></div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(function(){
+
+                    var $item = $("#iniciativas-list-item-{{_id}}");
+                    var $date = $item.find('.start-date');
+                    var momento = moment($date.html()).lang('es');
+                    $date.html(momento.fromNow()+' ('+momento.format('DD MMMM')+')');
+
+                    var participantes='0';
+                    {{#pariticipants_amount}} participantes={{pariticipants_amount}} {{/pariticipants_amount}}
+                    $("#div_participantes-{{_id}}").html(participantes + ' participantes');
+                })
+            </script>
+        </div>
+      {{/iniciativas}}
+    </div>
+    <div id="list-templates" style="display: none;">
+        {{> iniciativaItemTemplate }}
+    </div>
 </div>
 <script>
   $(function(){

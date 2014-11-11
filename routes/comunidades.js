@@ -1,6 +1,9 @@
 var comunidades = require('../logic/comunidades'),
     search = require('../logic/search'),
+    moment = require('moment'),
     _ = require('underscore');
+
+    moment.locale("es");
 
 exports.index = function(req, res) {
     res.locals = _.extend(res.locals, {
@@ -52,13 +55,20 @@ exports.view = function(req, res) {
         if (res.locals.user && res.locals.user.id) {
             res.locals.user['isModerator'] = _.find(comunidad.moderators, function(moderator) { return moderator.user === res.locals.user.id}) !== undefined;
         }
+        
+        var iniciativas = comunidad.iniciativas;
+        _.each(iniciativas, function(iniciativa) {
+            iniciativa.from_date = moment(iniciativa.start_date).format('DD MMMM');
+            iniciativa.start_date_f = moment(iniciativa.start_date).format('dddd, DD MMMM, hh:mm');
+moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+        });
 
         res.locals = _.extend(res.locals, {
             comunidad: comunidad.comunidad,
             moderators: comunidad.moderators || [],
             members: comunidad.miembros || [],
             participants: comunidad.participants || [],
-            iniciativas: comunidad.iniciativas || [],
+            iniciativas: iniciativas || [],
             layoutTitle: comunidad.name,
             layoutId: 'comunidades-view',
         });

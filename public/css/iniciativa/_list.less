@@ -128,7 +128,128 @@
     }
   }
 }
-
+.comunidad-list-item {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0,0,0,.3);
+  color: #959595;
+  font-weight: bold;
+  font-size: 12px;
+  overflow: hidden;
+  background: #FFF;
+  .wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  [data-icon] {
+    padding-left:25px;
+    &:before {
+      top:-3px;
+      font-size:20px;
+      color:#ACACAC;
+    }
+  }
+  .title {
+    height: 20px;
+    margin-bottom: 0;
+  }
+  .address {
+    margin-bottom: 12px;
+  }
+  .start-date {
+    margin-bottom: 20px;
+    &.started {
+      font-weight:bold;
+      color:#C32C2C;
+    }
+  }
+  .thumb {
+    position: relative;
+    img {
+      width: 100%;
+    }
+  }
+  .iniciativas-list-item-map {
+    width: 100%;
+    height: 130px;
+  }
+  .label {
+    background:#EB3130;
+    z-index: 1000;
+    position: absolute;
+    color: #FFF;
+    font-size: 14px;
+    height: 26px;
+    line-height: 26px;
+    left: 0;
+    top: 12px;
+    text-transform: uppercase;
+    padding: 0 15px 0 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
+    border-radius: 0 3px 3px 0;
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 36px;
+      font-size: 18px;
+      color: #FFF;
+      text-align: center;
+      font-family: 'icomoon';
+    }
+  }
+  &[data-category='medio_ambiente'] {
+    .label {
+      background:#388D47;
+      &:before { content:'' }
+    }
+  }
+  &.category-art {
+    .label {
+      background:#EB3130;
+      &:before { content:'' }
+    }
+  }
+  &.category-education {
+    .label {
+      background:#37A2df;
+      &:before { content:'' }
+    }
+  }
+  &.category-social {
+    .label {
+      background:#E17a36;
+      &:before { content:'' }
+    }
+  }
+  .stages,
+  .actions {
+    border-top: 1px solid #DDD;
+    background: #F7F7F7;
+  }
+  .actions {
+    .clearfix;
+    padding: 13px 15px;
+    line-height: 36px;
+    .boton-participar, .text {
+      font-size: 110%;
+      float: right;
+      margin-left: 15px;
+    }
+    .boton-participar {
+      line-height: 1.8em;
+      color: white;
+      font-weight: bold;
+      background: @verde;
+    }
+    .text {
+      line-height: 2.7em;
+    }
+  }
+}
 .image_network{
    width: 32px;
    height:32px;
