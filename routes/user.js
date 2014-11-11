@@ -77,6 +77,7 @@ exports.edit = function(req, res) {
     });
     return res.render('user/signup.html',{
         layoutTitle: 'Editar Perfil',
+        layoutId: 'user-signup',
         partials: {
             head_resources: 'user/user_script_resources'
         }
