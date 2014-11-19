@@ -142,6 +142,7 @@ app.get('/user/:id/edit', user.edit);
 
 app.get('/api/search/iniciativas/summary', search.iniciativas_summary);
 app.get('/api/search/iniciativas', search.search_iniciativas);
+app.get('/api/search/term/iniciativas', search.search_iniciativas_by_term);
 
 app.get('/api/iniciativas', function(req, res, next) {
   if(req.query.category) {

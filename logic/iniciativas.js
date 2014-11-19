@@ -137,6 +137,24 @@ exports.findByQuery = function(req, res, done) {
   );
 };
 
+exports.findByTerms = function(req, res, done) {
+  var query = req.body.model ? JSON.parse(req.body.model) : req.body;
+  cop_api.client.post('/api/iniciativa/search-term', query, 
+    function(err, request, response, iniciativas) {
+        us.each(iniciativas, function(iniciativa) {
+            var current_stage = iniciativa.current_stage;
+                iniciativa['finalizada'] = current_stage == 'FINALIZADO';
+                iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
+                iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+            
+        });
+        res.send(iniciativas);
+    }
+  );
+};
+
+
+
 exports.listQuery = function(query, done) {
   cop_api.client.post('/api/iniciativa/search', query, 
     function(err, request, response, iniciativas) {

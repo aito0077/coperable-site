@@ -16,4 +16,11 @@ exports.search_iniciativas = function(req, res, done) {
   });
 };
 
+exports.search_iniciativas_by_term  = function(req, res, done) {
+    console.log(req.query.q);
+  cop_api.client.get('/api/iniciativa/search-term?term='+req.query.term+'&value='+req.query.value, function(err, request, response, results) {
+    res.send(results);
+  });
+};
+
 

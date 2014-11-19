@@ -2,22 +2,22 @@
 	<h3>Iniciativas</h3>
     <div class="cop-filters">
           <ul class="filter-menu">
-            <li data-option="date" data-target="date"><span class="option-label">Fecha</span></li>
+            <!--li data-option="date" data-target="date"><span class="option-label">Fecha</span></li-->
             <li data-option="category" data-target="cat"><span class="option-label">Categoría</span></li>
             <li data-option="comunidad" data-target="com"><span class="option-label">Comunidades</span></li>
-            <li data-option="tag" data-target="label"><span class="option-label">Etiqueta</span></li>
+            <li data-option="tag" data-target="tag"><span class="option-label">Etiqueta</span></li>
             <!--li data-option="1" data-target="country"><span class="option-label">País</span></li-->
             {{#search_options.text}}
             <li style="background: none; float: right !important;" class="pull-right"><input type="text" id="search_text" placeholder="Buscar..."/></li>
             {{/search_options.text}}
           </ul>
           <div class="filter-options-wrapper">
-            <ul data-filter-name="date" class="filter-options">
+            <!--ul data-filter-name="date" class="filter-options">
               <li data="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
               {{#periods}}
                   <li data-option="{{key}}"><span class="name">{{month}}</span> <span class="num">{{doc_count}}</span></li>
               {{/periods}}
-            </ul>
+            </ul-->
             <ul data-filter-name="cat" class="filter-options">
               <li data-option="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
               {{#summary.main_categories.buckets}}
@@ -30,7 +30,7 @@
                   <li data-option="{{key}}"><span class="name">{{key}}</span> <span class="num">{{doc_count}}</span></li>
               {{/summary.comunidades.buckets}}
             </ul>
-            <ul data-filter-name="label" class="filter-options">
+            <ul data-filter-name="tag" class="filter-options">
               <li data-option="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
               {{#summary.topics.buckets}}
                   <li data-option="{{key}}"><span class="name">{{key}}</span> <span class="num">{{doc_count}}</span></li>

@@ -9,7 +9,7 @@ window.SearchController = Backbone.View.extend({
 
     events: {
       'change #search_text': 'do_search',
-      'click .filter-options li': 'set_sub_filter'
+      'click .filter-options li span': 'set_sub_filter'
     },
 
     initialize: function(options) {
@@ -31,9 +31,9 @@ window.SearchController = Backbone.View.extend({
     },
 
     set_sub_filter: function(e) {
-        var sub_filter_value = $(e.target).data('option'),
-            main_filter_value = $(e.target.parentNode).data('filter-name');
-        console.log(main_filter_value + ' > '+sub_filter_value);
+        var sub_filter_value = $(e.target.parentNode).data('option'),
+            main_filter_value = $(e.target.parentNode.parentNode).data('filter-name');
+        this.do_search_by_filters(main_filter_value, sub_filter_value);
     },
 
     do_search:  function() {
@@ -68,11 +68,17 @@ window.SearchController = Backbone.View.extend({
 
     },
 
-    do_search_by_filters:  function() {
+    do_search_by_filters:  function(term, value) {
+        var terms_map = {
+            'com': 'comunidades.name',
+            'cat': 'main_category',
+            'tag': 'topics',
+            'date': 'start_date'
+        };
         var self = this;
         $.ajax({
-            url: '/api/search/iniciativas',
-            type: 'POST',
+            url: '/api/search/term/iniciativas',
+            type: 'GET',
             success: function(response) {
                 var results = response.hits;
                 $('.list').html('');
@@ -87,12 +93,16 @@ window.SearchController = Backbone.View.extend({
                 });
             },
             data: {
+                term: terms_map[term],
+                value: value
+                /*
                 filters: {
                     category: self.filters['category'],
                     date: self.filters['date'],
                     comunidad: self.filters['comunidad'],
                     tag: self.filters['tag']
                 }
+                */
             },
             error: function() {
 
