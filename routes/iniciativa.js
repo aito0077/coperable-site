@@ -168,19 +168,22 @@ exports.list = function(req, res) {
         });
 
 
-        return res.render('iniciativa/index.html', {
+        iniciativas.list(req, res, function(err, iniciativas_result){
+            return res.render('iniciativa/index.html', {
 
-            summary: result.aggregations,
-            hits: result.hits,
-            periods: periods,
-            search_options: {
-                text: true,
-                map: true,
-                grid: true,
-            },
-            partials: {
-                search_control: 'widgets/search.html'
-            }
+                summary: result.aggregations,
+                hits: result.hits,
+                periods: periods,
+                iniciativas: iniciativas_result,
+                search_options: {
+                    text: true,
+                    map: true,
+                    grid: true,
+                },
+                partials: {
+                    search_control: 'widgets/search.html'
+                }
+            });
         });
     });
 
