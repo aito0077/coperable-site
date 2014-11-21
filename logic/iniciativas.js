@@ -64,6 +64,20 @@ exports.save = function(req, res, done) {
   });
 };
 
+exports.remove = function(req, res, done) {
+    var id = req.param('id');
+    cop_api.client.del('/api/iniciativa/' + id, function(err, request, response) {
+        console.log('[iniciativas::remove] Iniciativa [' + id + '] eliminada. ' + (err? 'Error: ' + err : ''));
+        if(err) {
+            res.send({success: false, message: err});
+        } else {
+            res.send({success: true});
+        }
+    });
+};
+
+
+
 exports.participate = function(req, res, done) {
   var id = req.param('id'),
      userId = req.param('userId');

@@ -117,8 +117,6 @@ app.get('/feca/iniciativas/:id', feca.view);
 app.get('/feca/iniciativas/success/:id', feca.success);
 app.get('/feca/iniciativas/:id/edit', feca.edit);
 
-
-
 app.get('/iniciativas', iniciativa.list);
 app.get('/iniciativas/create', iniciativa.create);
 app.post('/iniciativas/:id', iniciativas.save);
@@ -131,6 +129,7 @@ app.get('/iniciativas/:id/edit', iniciativa.edit);
 app.get('/api/iniciativas/user/:userId', iniciativas.findByOwner);
 app.get('/api/iniciativas/:id', iniciativas.get);
 app.put('/api/iniciativas/:id', iniciativas.save);
+app.del('/api/iniciativas/:id', iniciativas.remove);
 app.post('/api/iniciativas/:id/:userId', iniciativas.participate);
 app.post('/api/iniciativas/:id/:userId/quit', iniciativas.quitIniciativa);
 app.post('/api/iniciativas/search', iniciativas.findByQuery);
