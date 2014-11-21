@@ -344,32 +344,51 @@
 	  },
 
     create_iniciativa: function(e) {
-      this.save_iniciativa();
+        var self = this;
+        console.log('create');
+        var run_save = _.debounce(function() {
+            console.log('debounce');
+            self.save_iniciativa();
+        }, 500, true);
+        run_save();
     },
 
     save_iniciativa: function() {
-      var self = this;
-      this.model.set({
-        description: JSON.stringify($('#description_red').getCode())
-      });
 
-      if(this.validate()) {
-        this.model.save(null, 
-          {
-            success: function() {
-                self.after_save(self.model.get('_id'));
-            },
-            error: function() {
-            }
-          }
-        );
-      }
+        console.log('save');
+        var self = this;
+        this.model.set({
+            description: JSON.stringify($('#description_red').getCode())
+        });
+
+        if(true || this.validate()) {
+            $('#submit_iniciativa').hide();
+            $('#progress').show();
+            console.log("mandamos");
+            this.model.save(null, {
+                success: function() {
+
+                    self.after_save(self.model.get('_id'));
+                },
+                error: function() {
+                    $('#progress').hide();
+                    $("#submit_iniciativa").show();
+                }
+            });
+        }
     },
 
     after_save: function(id) {
         if(id) {
-            window.location.href = "/iniciativas/success/"+id;
+            try {
+                window.location.href = "/iniciativas/success/"+id;
+            } catch(err) {
+
+            }
+            $("#ref_success").attr("href", "/iniciativas/success/"+id);
         }
+        $('#progress').hide();
+        $("#btn_success").show();
     },
 
     validate: function() {
