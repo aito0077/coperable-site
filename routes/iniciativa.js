@@ -146,7 +146,7 @@ exports.list = function(req, res) {
 
     });
     search.iniciativas_summary(req, res, function(result) {
-        var date_buckets = result.aggregations.histogram.buckets,
+        var date_buckets = [],//result.aggregations.histogram.buckets,
             periods = [],
             months = {
                 '1':    'Enero', 

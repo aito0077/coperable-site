@@ -10,7 +10,7 @@
 
     el: null,
     $templates: null,
-    zoom_default: 12,
+    zoom_default: 8,
 
     ARTE_CULTURA: 'arte_cultura',
     DESARROLLO: 'desarrollo',
@@ -36,7 +36,7 @@
       this.el = options.el;
       this.$templates = options.$templates;
 
-      _.bindAll(this, 'traer_last_iniciativas');
+      _.bindAll(this, 'traer_last_iniciativas', 'instantiate_map');
 
       this.model = new iniciativa.Model;
       this.iniciativas = new iniciativa.Collection;
@@ -44,7 +44,7 @@
       this.buenos_aires = new google.maps.LatLng(-34.615692,-58.432846);
       this.user_default = this.buenos_aires;
       this.browserSupportGeolocation =  navigator.geolocation ? true : false;
-
+	this.detect_geolocation();
       this.setup_component();
       this.setup_binding();
     },
@@ -65,14 +65,18 @@
 
     setup_component: function() {
       this.itemTemplate = _.template(_.unescape(this.$templates.find(".item-template").html()));
+    },
 
+
+    instantiate_map: function(new_location) {
       var myOptions = {
         zoom: 12,
-        center:  this.user_default,
+        center:  new_location || this.user_default,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
 
       this.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	this.traer_iniciativas('all');
     },
 
     traer_iniciativas: function(category) {
@@ -153,20 +157,24 @@
     },
 
     detect_geolocation: function() {
+	var self = this;
       if(this.browserSupportGeolocation) {
         try {
           navigator.geolocation.getCurrentPosition(function(position) {
             var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+		self.instantiate_map(initialLocation);
             $.get(
-              '/user/geolocalization/'+initialLocation.lat()+'/'+initialLocation.lng(),
+              'http://coperable.org/user/geolocalization/'+initialLocation.lat()+'/'+initialLocation.lng(),
             {},
             function(responseText) {
             });
           },
           function() {
-            handleNoGeolocation(browserSupportFlag);
+            //handleNoGeolocation(browserSupportFlag);
+		self.instantiate_map();
           });
         } catch(positionError) {
+		self.instantiate_map();
         }
       }
     },
