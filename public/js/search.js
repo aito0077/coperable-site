@@ -133,7 +133,6 @@ window.SearchController = Backbone.View.extend({
           category: category
         }),
         success: function(iniciativas, response, options) {
-            console.dir(iniciativas.models);
 	        if(!_.isEmpty(iniciativas.models)) {
             
             $('#iniciativas-list').html('');

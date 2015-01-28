@@ -97,7 +97,6 @@
             about: options.usuario.about
         };
       }
-        console.dir(usuarioData);
       this.model = new usuario.Model(usuarioData);
 
       this.setup_bindings();
@@ -128,7 +127,6 @@
             });
         },
         init: function() {
-            console.log("Iniciado");
         }
       });
 

@@ -345,9 +345,7 @@
 
     create_iniciativa: function(e) {
         var self = this;
-        console.log('create');
         var run_save = _.debounce(function() {
-            console.log('debounce');
             self.save_iniciativa();
         }, 500, true);
         run_save();
@@ -355,7 +353,6 @@
 
     save_iniciativa: function() {
 
-        console.log('save');
         var self = this;
         this.model.set({
             description: JSON.stringify($('#description_red').getCode())
@@ -364,7 +361,6 @@
         if(true || this.validate()) {
             $('#submit_iniciativa').hide();
             $('#progress').show();
-            console.log("mandamos");
             this.model.save(null, {
                 success: function() {
 
@@ -522,7 +518,6 @@
         comunidades: update_comunidades
       });
 
-    console.dir(update_comunidades);
 
     },
 
@@ -725,7 +720,6 @@ window.iniciativa.ListManager = Backbone.View.extend({
           category: category
         }),
         success: function(iniciativas, response, options) {
-            console.dir(iniciativas.models);
 	        if(!_.isEmpty(iniciativas.models)) {
             
             $('#iniciativas-list').html('');

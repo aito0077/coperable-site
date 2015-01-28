@@ -33,20 +33,21 @@
      * @param options.$template {jQueryDomElement | string} Element or css selector for the templates.
      */
     initialize: function(options) {
-      this.el = options.el;
-      this.$templates = options.$templates;
+        this.el = options.el;
+        this.$templates = options.$templates;
 
-      _.bindAll(this, 'traer_last_iniciativas', 'instantiate_map');
+        _.bindAll(this, 'traer_last_iniciativas', 'instantiate_map');
 
-      this.model = new iniciativa.Model;
-      this.iniciativas = new iniciativa.Collection;
-      this.last_iniciativas = new iniciativa.Collection;
-      this.buenos_aires = new google.maps.LatLng(-34.615692,-58.432846);
-      this.user_default = this.buenos_aires;
-      this.browserSupportGeolocation =  navigator.geolocation ? true : false;
-	this.detect_geolocation();
-      this.setup_component();
-      this.setup_binding();
+        this.model = new iniciativa.Model;
+        this.iniciativas = new iniciativa.Collection;
+        this.last_iniciativas = new iniciativa.Collection;
+        this.buenos_aires = new google.maps.LatLng(-34.615692,-58.432846);
+        this.latinoamerica = new google.maps.LatLng(-21.616579,-60.849613);
+        this.user_default = this.latinoamerica;
+        this.browserSupportGeolocation =  navigator.geolocation ? true : false;
+        this.detect_geolocation();
+        this.setup_component();
+        this.setup_binding();
     },
 
     reset: function(options) {
@@ -70,7 +71,7 @@
 
     instantiate_map: function(new_location) {
       var myOptions = {
-        zoom: 12,
+        zoom: new_location ?  12 : 3,
         center:  new_location || this.user_default,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
@@ -157,26 +158,39 @@
     },
 
     detect_geolocation: function() {
-	var self = this;
-      if(this.browserSupportGeolocation) {
-        try {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-		self.instantiate_map(initialLocation);
-            $.get(
-              'http://coperable.org/user/geolocalization/'+initialLocation.lat()+'/'+initialLocation.lng(),
-            {},
-            function(responseText) {
-            });
-          },
-          function() {
-            //handleNoGeolocation(browserSupportFlag);
-		self.instantiate_map();
-          });
-        } catch(positionError) {
-		self.instantiate_map();
+        var self = this;
+        if(this.browserSupportGeolocation) {
+            var loaded = false;
+            try {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+                    self.instantiate_map(initialLocation);
+                    $.get(
+                        'http://coperable.org/user/geolocalization/'+initialLocation.lat()+'/'+initialLocation.lng(),
+                        {},
+                        function(responseText) {
+                            loaded = true;
+                        }
+                    );
+                },
+                function(data) {
+                    loaded = true;
+                    self.instantiate_map();
+                });
+            } catch(positionError) {
+                self.instantiate_map();
+            }
+
+
+            var t = setTimeout(function () {
+                if(!loaded) {
+                    self.instantiate_map();
+                }
+            }, 3000);
+
+        } else {
+            self.instantiate_map();
         }
-      }
     },
 
     browse_iniciativas: function(e) {

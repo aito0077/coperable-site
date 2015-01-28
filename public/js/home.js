@@ -56,7 +56,6 @@ $(function(){
                     set_default_location();
                 });
             } catch(positionError) {
-                console.dir(positionError);
             }
         },
 
