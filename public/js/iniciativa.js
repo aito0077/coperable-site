@@ -358,7 +358,7 @@
             description: JSON.stringify($('#description_red').getCode())
         });
 
-        if(true || this.validate()) {
+        if(this.validate()) {
             $('#submit_iniciativa').hide();
             $('#progress').show();
             this.model.save(null, {
