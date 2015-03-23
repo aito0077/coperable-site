@@ -18,7 +18,9 @@ var config = require('./config'),
   pass_autentication = require('./logic/authentication'),
   redis = require('redis'),
   filehandler = require('./logic/filehandler'),
-  RedisStore = require('connect-redis')(express);
+  RedisStore = require('connect-redis')(express),
+  app = express();
+    
 
 var stylus = require('stylus');
 var nib = require('nib');
@@ -26,7 +28,6 @@ var nib = require('nib');
 var rClient = redis.createClient();
 var sessionStore = new RedisStore({client:rClient});
 
-var app = express();
 
 app.engine('html', require('hogan-express'));
 app.set('layout', 'layout.html');
@@ -57,15 +58,20 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+var sites = require('./sites/index')(express, passport, app, iniciativas, users);
+
+
 /**
  * Ensure user authentification. If it's not logged in, redirect him there; else, go to the next
  * matching route.
  */
 function ensureAuthenticated(req, res, next) {
-  if(!req.isAuthenticated()) {
-    res.redirect('/user/login');
-  }
-  next('route');
+    if(!req.isAuthenticated()) {
+        res.redirect('/user/login');
+        return;
+    }
+    //setCrossOrigin(req, res, next);
+    next('route');
 }
 
 function getSubdomain(h) {
@@ -79,33 +85,38 @@ function getSubdomain(h) {
  * matching route.
  */
 function loadUserInformation(req, res, next) {
-  var geo = (req.session ? req.session.geo : false) || (req.cookies ? req.cookies.geo : undefined);
-  res.locals = {
-    user: req.user,
-    is_feca: req.user ? req.user.is_feca : false,
-    geo: geo
-  };
+    var geo = (req.session ? req.session.geo : false) || (req.cookies ? req.cookies.geo : undefined);
+    res.locals = {
+        user: req.user,
+        is_feca: req.user ? req.user.is_feca : false,
+        geo: geo
+    };
 
-  next('route');
+    //setCrossOrigin(req, res, next);
+    next('route');
 }
 
 app.get('*', loadUserInformation);
 app.get('/*/create', ensureAuthenticated);
+app.post('*', ensureAuthenticated);
 
 app.get('/', home.index);
 
 app.get('/feca', feca.index);
 
 
-app.all( '*', function( req, res, next ) {
+app.all( '*', setCrossOrigin);
+
+function setCrossOrigin(req, res, next) {
   res.header( 'Access-Control-Allow-Origin', '*' );
   res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
   res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
   if( 'OPTIONS' == req.method ) {
     res.send( 203, 'OK' );
+    return;
   }
   next();
-});
+};
 
 
 app.get('/feca/iniciativas', feca.list);
@@ -310,6 +321,7 @@ app.get('/feca/user/:id', feca.profile);
 
 app.post('/uploads', filehandler.upload);
 app.post('/feca/uploads', filehandler.upload);
+app.post('/*/uploads', filehandler.upload);
 app.post('/gets3credentials', filehandler.createS3Policy);
 app.get('/uploadsuccess', function(req, resp) {
   console.log('Exito en subir la imagen');

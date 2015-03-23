@@ -49,6 +49,7 @@ exports.createS3Policy = function(req, res, callback ) {
 exports.upload= function(req, res, callback ) {
     
     console.log("[filehandler::upload] File uploaded:");
+        console.dir(req);
     var fileUploaded = req.files.files[0];
     var imageName = fileUploaded.name;
 

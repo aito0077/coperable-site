@@ -29,6 +29,8 @@
     "imagemagick": "*",
     "nib": "~1.0.1",
     "node-uuid" : "1.4.0",
-    "express-subdomain": "1.0.1"
+    "express-subdomain": "1.0.1",
+    "express-jwt": "*",
+    "jsonwebtoken": "*"
   }
 }

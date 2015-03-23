@@ -1,0 +1,141 @@
+
+// Libs
+@import '/static/lib/lesshat/lesshat.less';
+
+// Global Files
+@import 'globals.less';
+@import 'layout.less';
+
+// Partials
+@import 'iniciativa/_list.less';
+
+// View Specific
+@import 'home/index.less';
+@import 'user/login.less';
+@import 'iniciativa/_list.less';
+@import 'user/signup.less';
+@import 'user/profile.less';
+
+.category-environment {
+        color: #388D47 !important;
+        border-color: #388D47 !important;
+        background: #FFF !important;
+        &.active{
+            color: #FFF !important;
+            background: #388D47 !important ;
+        }
+}
+.category-art {
+  background:#!important;
+    color: #EB3130 !important;
+    border-color: #EB3130 !important;
+    background: #FFF !important;
+    &.active{
+        color: #FFF !important;
+        background: #EB3130 !important ;
+    }
+}
+.category-education {
+    color: #37A2df !important;
+    border-color: #37A2df !important;
+    background: #FFF !important;
+    &.active{
+        color: #FFF !important;
+        background: #37A2df !important ;
+    }
+}
+.category-social {
+    color: #E17a36 !important;
+    border-color: #E17a36 !important;
+    background: #FFF !important;
+    &.active{
+        color: #FFF !important;
+        background: #E17a36 !important ;
+    }
+}
+
+.pagetitle {
+    margin: 40px 0 35px;
+}
+
+#inciativa_editor {
+    width: 800px;
+    margin: 0 auto 50px;
+    .control-group {
+        margin-bottom: 15px;
+    }
+    .ini_category {
+        width: 170px;
+        height: 51px;
+        margin-right: 4px;
+        background-repeat: none !important;
+        background-color: transparent !important;
+        .transition(none);
+        &.active {
+            background-position: 0 -51px !important;
+        }
+        &#medio_ambiente {
+            background-image: url(/static/img/cat-bt-env.png) !important;
+        }
+        &#educacion {
+            background-image: url(/static/img/cat-bt-edu.png) !important;
+        }
+        &#arte_cultura {
+            background-image: url(/static/img/cat-bt-art.png) !important;
+        }
+        &#desarrollo {
+            background-image: url(/static/img/cat-bt-soc.png) !important;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+    #description_red {
+        width: 100%;
+    }
+    #super-zone {
+        background: url(/static/img/dropzone-bg.png) repeat;
+        width: 280px;
+        height: 150px;
+        .dropzone-help-text {
+            background: url(/static/img/pics-img.png) center 30px no-repeat;
+            width: 280px;
+            height: 150px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,.5);
+            text-align: center;
+            color: #FFF;
+            font-size: 12px;
+            padding-top: 95px;
+            .text-hover {
+                display: none;
+            }
+            &.hover {
+                background-image: url(/static/img/upload-img.png);
+                .text-hover {
+                    display: inline;
+                }
+                .text {
+                    display: none;
+                }
+            }
+        }
+        #dropzone {
+            &.with-image {
+                background-color: #000;
+                background-position: center;
+                background-repeat: no-repeat;
+                .text {
+                    display: none;
+                }
+                &.hover {
+                    .text-hover {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+    #slider {
+        width: 425px;
+    }
+}
