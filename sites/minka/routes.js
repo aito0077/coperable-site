@@ -8,7 +8,7 @@ exports.index = function(req, res) {
   var geo = (req.session ? req.session.geo : false) ||
             (req.cookies ? req.cookies.geo : undefined);
 
-      return res.render('sites/minka/home/index.html', {
+      return res.render('sites/minka/index-ang.html', {
         layoutTitle: 'MINKA - Semana Colaborativa',
         layout: 'sites/minka/index-ang.html',
         layoutId: 'home-index',
