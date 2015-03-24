@@ -16,30 +16,62 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 .controller('iniciativa-edit', ['$scope','$http', 'Iniciativa', function($scope, $http, Iniciativa) {
 
     $scope.iniciativa = new Iniciativa();
+    $scope.persisted = false;
 
     $scope.geo = {};
     $scope.saving = false;
-
-    $scope.validate = function() {
-        return true; 
-    };
+    $scope.hasError = false;
 
     $scope.prepareModel = function() {
-        $scope.iniciativa.slug = $scope.iniciativa.name.replace(/\s+/g, '_');
-        $scope.iniciativa.longitiude = $scope.geo.longitud;
-        $scope.iniciativa.latitud = $scope.geo.latitud;
+        $scope.iniciativa.minka = true;
+        if($scope.iniciativa.name) {
+            $scope.iniciativa.slug = $scope.iniciativa.name.replace(/\s+/g, '_');
+        }
+        $scope.iniciativa.longitude = $scope.geo.longitude;
+        $scope.iniciativa.latitude = $scope.geo.latitude;
         $scope.iniciativa.address = $scope.geo.direccion;
         $scope.iniciativa.direccion = $scope.geo.direccion;
-        $scope.iniciativa.locality = $scope.geo.locality;
+        if($scope.geo) {
+            $scope.iniciativa.location = $scope.geo;
+            $scope.iniciativa.locality = $scope.geo.locality;
+            if($scope.geo.locality) {
+                $scope.iniciativa.country = $scope.geo.locality.country;
+                $scope.iniciativa.city = $scope.geo.locality.city;
+            }
+        }
+
+        $scope.iniciativa.hour = $('#hour').val();
+
+        var start_date = $scope.iniciativa.fecha+" "+$scope.iniciativa.hour;
+        var time_stamp = moment(start_date, 'DD-MM-YYYY hh:mmA');
+
+        $scope.iniciativa.start_date_timestamp = time_stamp.toDate().getTime();
+        $scope.iniciativa.end_date_timestamp = time_stamp.add(1, 'days').toDate().getTime();
+
+        $scope.iniciativa.goal = '';
+        $scope.iniciativa.duration = '';
+        $scope.iniciativa.participants_amount =  '0';
+        $scope.iniciativa.main_category ='arte_cultura';
+        $scope.iniciativa.categories = {
+            medio_ambiente: false,
+            educacion: false,
+            desarrollo: false,
+            arte_cultura: true
+        };
+        $scope.iniciativa.activities = '';
+        $scope.iniciativa.topics = '';
+
     };
 
-    $scope.save = function() {
+    $scope.save = function(isValid) {
         $scope.saving = true;
+        $scope.hasError = !isValid;
         $scope.prepareModel();
-        if($scope.validate()) {
-            $scope.iniciativa.$save(function() {
-                $location.path('/');
+        if(isValid) {
+            $scope.iniciativa.$save(function(data) {
                 $scope.saving = false;
+                console.dir(data);
+                $scope.persisted = true;
             });
 
         }
@@ -48,7 +80,7 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
     $scope.setup_components = function() {
 
         var default_options = {
-            format: 'd-m-YYYY',
+            format: 'd-m-y',
             placeholder: 'Día Evento',
             minYear: 2015,
             maxYear: 2015,
@@ -72,6 +104,11 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 
 
         $("#fecha" ).dateDropper(default_options);
+
+        $('#hour').timepicker({
+            show2400: true
+        });
+
 
         var position = null;
         if ($scope.initial_marker) {
@@ -118,8 +155,8 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
                 $scope.geo.direccion = address.formatted_address.replace(/Province/g, 'Provincia' );
 
             } catch(e) { }
-                $scope.geo.latitud =  address.geometry.location.lat(),
-                $scope.geo.longitud = address.geometry.location.lng()
+                $scope.geo.latitude =  address.geometry.location.lat(),
+                $scope.geo.longitude = address.geometry.location.lng()
         });
 
         $scope.addresspickerMap.on("positionChanged", function(evt, markerPosition) {
@@ -134,6 +171,22 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 
     $scope.setup_components();
 
+    $scope.default_values = {
+        goal:  '',
+        duration:  '',
+        participants_amount:   '0',
+        main_category: 'arte_cultura',
+        categories: {
+            medio_ambiente: false,
+            educacion: false,
+            desarrollo: false,
+            arte_cultura: true,
+        },
+        activities: [],
+        topics: [],
+
+
+    };
 
 
 }])
@@ -146,69 +199,3 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 
 }]);
 
-/*
-    name:  String,
-    slug:  String,
-    code:  String,
-    goal:  String,
-    duration:  String,
-    description:   String,
-    address:   String,
-    profile_picture:   String,
-    participants_amount:   String,
-    phone:   String,
-    email:   String,
-    entrada:   String,
-    main_category: String,
-    categories: {
-        medio_ambiente: {type: Boolean, default: false},
-        educacion: {type: Boolean, default: false},
-        desarrollo: {type: Boolean, default: false},
-        arte_cultura: {type: Boolean, default: false},
-    },
-    owner: {
-        user: String,
-        name: String
-    },
-    comunidades: [{
-        _id: String,
-        name: String,
-        since: { type: Date, default: Date.now }
-    }],
-
-    tasks: [{
-        tag: String,
-        description: String
-    }],
-    topics: [String],
-    public: { type: Boolean, default: false},
-    feca: { type: Boolean, default: false},
-    stages: [{
-        stage: String,
-        description: String,
-        start_date: { type: Date, default: Date.now, es_type:'date'},
-        finish_date: { type: Date, default: Date.now, es_type:'date'}
-    }],
-    current_stage: String,
-    version: Number,
-    location: {
-        latitude: {type: Number, default: 0},
-        longitude: {type: Number, default: 0}
-    },
-    coords: [Number, Number],
-    networks: {
-        twitter: String,
-        facebook: String,
-        youtube: String,
-        flickr: String,
-        linkedin: String,
-        delicious: String,
-        vimeo: String
-    },
-    date: { type: Date, default: Date.now, es_type:'date' },
-    start_date: { type: Date, default: Date.now, es_type:'date' },
-    end_date: { type: Date, default: Date.now, es_type:'date' },
-    creation_date: { type: Date, default: Date.now, es_type:'date' },
-    modification_date: { type: Date, default: Date.now, es_type:'date' }
-
-*/

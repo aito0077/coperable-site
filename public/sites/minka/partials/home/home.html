@@ -19,22 +19,36 @@
             <h2 class="section-title"><span>Listo para compartir?</span></h2>
             <p>Del 11 al 17 de mayo, ciudades de todo el mundo celebrarán la Semana de la economía colaborativa: siete días para celebrar, practicar y difundir la cultura del compartir</p>
             <div class="main-action row">
-              <div class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-2"><a ng-href="/iniciativa/edit" class="smooth-scroll btn btn-lg btn-block btn-danger">Mapea Tu Actividad!</a></div>
-              <div class="col-md-3 col-sm-4"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-default">Participa!</a></div>
+              <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4"><a ng-href="/iniciativa/edit" class="smooth-scroll btn btn-lg btn-block btn-danger" ng-show="is_logged()">Mapea Tu Actividad!</a></div>
+              <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4"><span ng-click="show_login()" class="smooth-scroll btn btn-lg btn-block btn-danger" ng-show="!is_logged() && !login_form_show">Mapea Tu Actividad!</span></div>
+
+                
+                <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2" ng-show="login_form_show">
+                    <div class="row text-center">
+                        <h3>Ingresa con tu red social</h3>
+                    </div>
+                    <div class="row text-center">
+                        <a href="/auth/facebook" target="_self" class="btn btn-default col-md-4 col-md-offset-1"><i class="fa fa-2x fa-facebook"></i></a>
+                        <a href="/auth/twitter" target="_self" class="btn btn-primary col-md-4 col-md-offset-2"><i class="fa fa-2x fa-twitter"></i></a>
+                    </div>
+                </div>
+
+              <!--div class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-2"><a ng-href="/iniciativa/edit" class="smooth-scroll btn btn-lg btn-block btn-danger">Mapea Tu Actividad!</a></div>
+              <div class="col-md-3 col-sm-4"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-default">Participa!</a></div-->
             </div>
           </div>
         </section>
 
-        <section id="mapa" class="section section-center section-hilite section-mapa">
+        <!--section id="mapa" class="section section-center section-hilite section-mapa">
             <div class="container">
                 <h2 class="section-title"><span>Lugares</span></h2>
                 <div class="row" style="height:400px;">
                     <div id="map_canvas" style="width:100%; height:100%"></div>
                 </div>
             </div>
-        </section>
+        </section-->
 
-        <section id="agenda" class="section section-agenda">
+        <!--section id="agenda" class="section section-agenda">
           <div class="container">
             <h2 class="section-title"><span>Agenda</span></h2>
             <ul id="filters">
@@ -52,14 +66,6 @@
             </ul>
 
             <div class="agenda-isotope row">
-              <!--article class="post col-md-3 col-sm-6 agenda-item branding photography web">
-                <div class="entry-thumbnail">
-                  <a href="#" class="hover-effect" data-toggle="modal" data-target="#project-modal">
-                    <img src="http://placehold.it/400x300" alt="" />
-                    <span class="overlay"><i class="fa fa-plus"></i></span>
-                  </a>
-                </div>
-              </article-->
               <article class="post col-md-3 col-sm-6 agenda-item motion graphic" ng-repeat="iniciativa in iniciativas">
                 <div class="entry-thumbnail">
                   <a href="#" class="hover-effect" data-toggle="modal" data-target="#project-modal">
@@ -71,7 +77,7 @@
             </div>
 
           </div>
-        </section>
+        </section-->
 
         <!-- Project Modal -->
         <div class="modal fade" id="project-modal" tabindex="-1" role="dialog" aria-labelledby="project-modal-label" aria-hidden="true">
@@ -120,7 +126,7 @@
           </div>
         </div>
 
-        <section id="testimonials" class="section section-center section-hilite section-testimonial">
+        <!--section id="testimonials" class="section section-center section-hilite section-testimonial">
           <div class="container">
             <h2 class="section-title"><span>What our clients say?</span></h2>
             <i class="fa fa-quote-left fa-3x"></i>
@@ -206,4 +212,4 @@
               </div>
             </div>
           </div>
-        </section>
+        </section-->

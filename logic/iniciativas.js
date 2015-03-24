@@ -7,6 +7,7 @@ function prepare_to_persist(req, done) {
   var body = req.body.model ? JSON.parse(req.body.model) : req.body,
       activities = body.activities,
       topics = body.topics;
+console.dir(body);
 
   var iniciativa_data = {
     tasks: new Array(),
@@ -41,12 +42,15 @@ function prepare_to_persist(req, done) {
   }
 
   var full_data = us.extend({}, body, iniciativa_data);
+    console.dir(body);
   done(full_data);
 
 };
 
 exports.create = function(req, res, done) {
+    console.log('create');
   prepare_to_persist(req, function(iniciativa_data) {
+    console.dir(iniciativa_data);
     cop_api.client.post('/api/iniciativa', iniciativa_data, function(err, request, response, obj) {
 	    console.log('[iniciativas::create] Iniciativa creada. ' + (err? 'Error: ' + err : ''));
       res.send(obj);
@@ -55,6 +59,7 @@ exports.create = function(req, res, done) {
 };
 
 exports.save = function(req, res, done) {
+    console.log('save');
   var id = req.param('id');
   prepare_to_persist(req, function(iniciativa_data) {
     cop_api.client.post('/api/iniciativa/' + id, iniciativa_data, function(err, request, response, obj) {

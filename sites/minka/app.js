@@ -44,6 +44,9 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
       res.redirect('/');
     });
 */
+    app.get('/minka/auth/facebook/callback', function(req, res, next) {
+      customMinkaCallbackAuthentification('facebook', req, res, next);
+    });
 
     function customMinkaCallbackAuthentification(strategy, req, res, next) {
       passport.authenticate(strategy, function loginCustomCallback(err, user, info) {
@@ -55,7 +58,7 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
             if (err) { return res.redirect('/user/failure_login'); }
           });
 
-          var redirectURL = '/user/success_login';
+          var redirectURL = '/';
           if (req.session.redirectURL) {
             redirectURL = req.session.redirectURL;
             req.session.redirectURL = null;
@@ -72,7 +75,8 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
       customMinkaCallbackAuthentification('local', req, res, next);
     });
 
-    app.get('/minka/auth/facebook', passport.authenticate('facebook'));
+    app.get('/minka/auth/facebook', passport.authenticate('facebook', { callbackURL: '/auth/facebook/callback' }));
+    //app.get('/minka/auth/facebook', passport.authenticate('facebook'));
     app.get('/minka/auth/facebook/callback', function(req, res, next) {
       customMinkaCallbackAuthentification('facebook', req, res, next);
     });
@@ -92,4 +96,6 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
 */
 
     app.get('/minka/*', minka.index);
+
 }
+

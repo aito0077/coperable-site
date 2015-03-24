@@ -1,5 +1,6 @@
 var config = require('./config'),
   express = require('express'),
+  bodyParser = require('body-parser'),
   routes = require('./routes'),
   user = require('./routes/user'),
   home = require('./routes/home'),
@@ -45,8 +46,11 @@ app.configure(function(){
   app.use(express.session({
     store: sessionStore,
     key: 'jsessionid',
-    secret: 'bl33dingumñoño'}
+    secret: 'bl33dingumñoño',
+    cookie:{ domain: '.coperable.dev' }
+    }
   ));
+    app.use(bodyParser());
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(express.methodOverride());
@@ -98,7 +102,7 @@ function loadUserInformation(req, res, next) {
 
 app.get('*', loadUserInformation);
 app.get('/*/create', ensureAuthenticated);
-app.post('*', ensureAuthenticated);
+//app.post('*', ensureAuthenticated);
 
 app.get('/', home.index);
 
@@ -123,6 +127,7 @@ app.get('/feca/iniciativas', feca.list);
 app.get('/feca/iniciativas/create', feca.create);
 app.post('/feca/iniciativas/:id', iniciativas.save);
 app.post('/feca/iniciativas', iniciativas.create);
+
 app.get('/feca/iniciativas/name/:slug', feca.view_slug);
 app.get('/feca/iniciativas/:id', feca.view);
 app.get('/feca/iniciativas/success/:id', feca.success);
@@ -132,6 +137,7 @@ app.get('/iniciativas', iniciativa.list);
 app.get('/iniciativas/create', iniciativa.create);
 app.post('/iniciativas/:id', iniciativas.save);
 app.post('/iniciativas', iniciativas.create);
+app.post('/minka/iniciativas', iniciativas.create);
 app.get('/iniciativas/name/:slug', iniciativa.view_slug);
 app.get('/iniciativas/:id', iniciativa.view);
 app.get('/iniciativas/success/:id', iniciativa.success);
@@ -284,7 +290,9 @@ app.get('/feca/auth/twitter/callback', function(req, res, next) {
 });
 
 
-app.get('/auth/facebook', passport.authenticate('facebook'));
+//app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook', passport.authenticate('facebook', { callbackURL: '/auth/facebook/callback' }));
+
 app.get('/auth/facebook/callback', function(req, res, next) {
   customCallbackAuthentification('facebook', req, res, next);
 });

@@ -7,7 +7,17 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
     });
 }])
 .controller('HomeController', ['$scope','$http', function($scope, $http) {
+    
+    $scope.login_form_show = false;
 
+    $scope.is_logged = function() {
+        return window.user_id;
+    };
+
+    $scope.show_login = function() {
+        $scope.login_form_show = true;
+    };
+/*
     $scope.user_default = new google.maps.LatLng(-34.615692,-58.432846);
 
     $scope.iniciativas = [];
@@ -64,6 +74,7 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
 
     $scope.setup_components();
 
+    */
 }]);
 
 
