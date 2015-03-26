@@ -7904,3 +7904,16 @@ img {
 #super-zone #dropzone.with-image.hover .text-hover {
   display: none;
 }
+.form-signup {
+  padding: 20px;
+  border: 1px solid black;
+  background: #eeeeee;
+  min-height: 400px;
+}
+.form-login {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 20px;
+  min-height: 400px;
+}

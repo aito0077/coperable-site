@@ -12,7 +12,10 @@ cop_api.client.put('/api/usuario', user_data, function(err, req, res, obj) { con
 exports.do_signup = function(req, res, done) {
   var user_data = us.extend({}, req.body);
 
-  cop_api.client.put('/api/usuario', user_data, function(err, req, res, obj) {
+    if(!user_data.first_name) {
+        user_data.first_name = user_data.username;
+    }
+  cop_api.client.post('/api/usuario', user_data, function(err, req, res, obj) {
     console.log('[users.js] Executed PUT to /api/usuario. Response: %j', obj);
     console.log('%d -> %j', res.statusCode, res.headers);
     done();
