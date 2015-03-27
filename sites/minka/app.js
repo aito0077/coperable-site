@@ -45,6 +45,7 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
     });
 
 
+/*
     app.get('/minka/auth/facebook', passport.authenticate('facebook', { callbackURL: '/auth/facebook/callback' }));
 
     app.get('/minka/auth/facebook/callback', function(req, res, next) {
@@ -54,6 +55,28 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
     app.get('/minka/auth/twitter/callback', function(req, res, next) {
       customMinkaCallbackAuthentification('twitter', req, res, next);
     });
+
+*/
+
+	app.get('/minka/auth/facebook', function(req, res, next) {
+  if(!req.session) req.session = {};
+  req.session.subdomain = (req.subdomains.length && req.subdomains[0]) || '';
+	console.log('AITO MIKA DEBUG domain: '+req.session.subdomain);
+  next();
+}, passport.authenticate('facebook'));
+
+    app.get('/minka/auth/facebook/callback', function(req, res, next) {
+      customMinkaCallbackAuthentification('facebook', req, res, next);
+    });
+
+
+
+
+    app.get('/minka/auth/twitter', passport.authenticate('twitter', { callbackURL: 'http://minka.coperable.org/auth/twitter/callback' }));
+    app.get('/minka/auth/twitter/callback', function(req, res, next) {
+      customMinkaCallbackAuthentification('twitter', req, res, next);
+    });
+
 
 
     app.get('/minka/user/logout', function(req, res){

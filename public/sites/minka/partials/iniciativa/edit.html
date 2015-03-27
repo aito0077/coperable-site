@@ -43,19 +43,20 @@
                     <form name="actividadForm" role="form"  ng-submit="save(actividadForm.$valid)" novalidate>
                         <div class="row">
                             <h3 class="section-title"><span>Actividad</span></h3>
+			     <p ng-show="hasError" class="help-block text-error" style="color: red">Faltan ingresar datos</p>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="sr-only">Nombre Iniciativa</label>
-                                    <input name="name" type="text" class="form-control" placeholder="Nombre"  ng-model="iniciativa.name" required>
-                                     <p ng-show="hasError && actividadForm.name.$invalid" class="help-block text-error">El nombre es requerido.</p>
+                                    <label class="sr-only">Nombre Actividad</label>
+                                    <input name="name" type="text" class="form-control" placeholder="Nombre Actividad"  ng-model="iniciativa.name" required>
+                                     <p ng-show="hasError && actividadForm.name.$invalid" class="help-block text-error" style="color: red">El nombre es requerido.</p>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-6">
                                         <label class="sr-only">Desde</label>
                                         <input name="fecha" id="fecha" type="text" placeholder="Día Evento" class="form-control" ng-model="iniciativa.fecha" required>
-                                         <p ng-show="hasError && actividadForm.fecha.$invalid" class="help-block">La fecha es requerida.</p>
+                                         <p ng-show="hasError && actividadForm.fecha.$invalid" class="help-block"  style="color: red">La fecha es requerida.</p>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6">
                                         <label class="sr-only">Hora</label>
@@ -68,7 +69,7 @@
                                 <div class="form-group">
                                     <label class="sr-only">Description</label>
                                     <textarea name="descripcion" class="form-control" placeholder="Descripción" style="height: 100px" rows="6" required ></textarea>
-                                    <p ng-show="hasError && actividadForm.descricion.$invalid" class="help-block">La descripcion es requerida.</p>
+                                    <p ng-show="hasError && actividadForm.descripcion.$invalid" class="help-block"  style="color: red">La descripcion es requerida.</p>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +89,7 @@
                                         <label class="sr-only">Dirección</label>
                                         <div class="controls">
                                             <input type="text" name="address" placeholder="Dirección" id="addresspicker_map" class="form-control" autocomplete="off" required/>
-                                            <p ng-show="hasError && actividadForm.address.$invalid" class="help-block">Debe ingresar una dirección.</p>
+                                            <p ng-show="hasError && actividadForm.address.$invalid" class="help-block"  style="color: red">Debe ingresar una dirección.</p>
                                             <div style="width:100%;height:200px;margin-top:20px">
                                                 <div id="map_canvas" style="width:100%; height:100%"></div>
                                                 <div id="location" class=""></div>
@@ -122,17 +123,20 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="sr-only">Nombre</label>
-                                    <input type="text" class="form-control" placeholder="Nombre Organización"  ng-model="iniciativa.organization" required>
+                                    <input type="text" name="organizacion" class="form-control" placeholder="Nombre Organización"  ng-model="iniciativa.organization" required>
+                                    <p ng-show="hasError && actividadForm.organizacion.$invalid" class="help-block"  style="color: red">Debe ingresar el nombre de la organización.</p>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="sr-only">Persona de Contacto</label>
-                                    <input type="text" class="form-control" placeholder="Persona de Contacto"  ng-model="iniciativa.contact" required>
+                                    <input type="text" name="contact" class="form-control" placeholder="Persona de Contacto"  ng-model="iniciativa.contact" required>
+                                    <p ng-show="hasError && actividadForm.contact.$invalid" class="help-block"  style="color: red">La persona de contacto es requerida.</p>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only">Persona de Contacto</label>
-                                    <input type="email" class="form-control" placeholder="Email Contacto"  ng-model="iniciativa.email" required>
+                                    <input type="email" class="form-control" name="email" placeholder="Email Contacto"  ng-model="iniciativa.email" required>
+                                    <p ng-show="hasError && actividadForm.email.$invalid" class="help-block"  style="color: red">Un correo de contacto.</p>
                                 </div>
                             </div>
 

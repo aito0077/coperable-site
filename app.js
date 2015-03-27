@@ -47,7 +47,7 @@ app.configure(function(){
     store: sessionStore,
     key: 'jsessionid',
     secret: 'bl33dingumñoño',
-    cookie:{ domain: '.coperable.dev' }
+    cookie:{ domain: '.coperable.org' }
     }
   ));
     app.use(bodyParser());
@@ -242,9 +242,11 @@ function customCallbackAuthentification(strategy, req, res, next) {
       if (req.session.redirectURL) {
         redirectURL = req.session.redirectURL;
         req.session.redirectURL = null;
-      }
-
       return res.redirect(redirectURL);
+      } else {
+	redirectSubdomain(req, res);
+	}
+
     }
   )(req, res, next);
 }
@@ -283,20 +285,22 @@ app.post('/feca/user/login', function(req, res, next) {
 app.get('/feca/auth/facebook', passport.authenticate('facebook'));
 app.get('/feca/auth/facebook/callback', function(req, res, next) {
   customFecaCallbackAuthentification('facebook', req, res, next);
-});
+}, redirectSubdomain );
 app.get('/feca/auth/twitter', passport.authenticate('twitter'));
 app.get('/feca/auth/twitter/callback', function(req, res, next) {
   customFecaCallbackAuthentification('twitter', req, res, next);
 });
 
 
-//app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/auth/facebook', passport.authenticate('facebook', { callbackURL: '/auth/facebook/callback' }));
+app.get('/auth/facebook', saveSubdomain, passport.authenticate('facebook'));
+
+//app.get('/auth/facebook', passport.authenticate('facebook', { callbackURL: '/auth/facebook/callback' }));
 
 app.get('/auth/facebook/callback', function(req, res, next) {
   customCallbackAuthentification('facebook', req, res, next);
 });
-app.get('/auth/twitter', passport.authenticate('twitter'));
+//app.get('/auth/twitter', passport.authenticate('twitter'));
+app.get('/auth/twitter', passport.authenticate('twitter', { callbackURL: 'http://coperable.org/auth/twitter/callback' }));
 app.get('/auth/twitter/callback', function(req, res, next) {
   customCallbackAuthentification('twitter', req, res, next);
 });
@@ -350,6 +354,22 @@ app.get('/site/implementation', site.implementation);
 app.get('/site/social_analytic', site.social_analytic);
 app.get('/site/workshops', site.workshops);
 app.get('/site/rse', site.rse);
+
+
+function saveSubdomain(req, res, next) {
+  if(!req.session) req.session = {};
+  req.session.subdomain = (req.subdomains.length && req.subdomains[0]) || '';
+  next();
+};
+
+function redirectSubdomain (req, res) {
+	var domain = 'coperable.org';
+	console.dir(req.session);
+  if (req.session.subdomain !== '') {
+	domain = (req.session.subdomain || 'minka') + '.' + domain;
+	res.redirect('http://' + domain );
+  }
+};
 
 
 

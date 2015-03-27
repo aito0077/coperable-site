@@ -81,6 +81,7 @@
             <div class="row">
 
               <aside class="widget col-sm-6">
+                <h5 class="widget-title">Una iniciativa</h5>
                     <img src="/static/sites/minka/images/logo-minka.png"/>
               </aside>
 
@@ -172,6 +173,8 @@
     <script type="text/javascript" src="/static/sites/minka/modules/user/user.js"></script>
     <script type="text/javascript" src="/static/sites/minka/app.js"></script>
 
+    <script type="text/javascript" src="/static/bower_components/modernizr/modernizr.js"></script>
+
     <script>
     {{#user}}
         window.user_id = '{{user.id}}';
@@ -179,7 +182,25 @@
     {{^user}}
         window.user_id = false;
     {{/user}}
+
+
+	if (window.location.hash && window.location.hash === "#_=_") {
+  // If you are not using Modernizr, then the alternative is:
+  //   `if (window.history && history.pushState) {`
+  if (Modernizr.history) {
+    window.history.pushState("", document.title, window.location.pathname);
+  } else {
+    var scroll = {
+      top: document.body.scrollTop,
+      left: document.body.scrollLeft
+    };
+    window.location.hash = "";
+    document.body.scrollTop = scroll.top;
+    document.body.scrollLeft = scroll.left;
+  }
+}
     </script>
+
 
   </body>
 </html>

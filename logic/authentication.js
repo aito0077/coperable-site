@@ -80,7 +80,6 @@ var oauthenticate_create = function(accessToken, refreshToken, given_profile, do
 };
 
 
-/*
 passport.use(new FacebookStrategy({
     clientID: config.system.FACEBOOK_APP_ID,
     clientSecret: config.system.FACEBOOK_APP_SECRET,
@@ -88,16 +87,19 @@ passport.use(new FacebookStrategy({
   },
   oauthenticate_create
 ));
-*/
+
+/*
 passport.use(new FacebookStrategy({
     clientID: config.system.FACEBOOK_APP_ID,
     clientSecret: config.system.FACEBOOK_APP_SECRET
   },
   oauthenticate_create
 ));
+*/
 
 
 
+/*
 passport.use(new TwitterStrategy({
     consumerKey: config.system.TWITTER_CONSUMER_KEY,
     consumerSecret: config.system.TWITTER_CONSUMER_SECRET,
@@ -105,8 +107,14 @@ passport.use(new TwitterStrategy({
   },
   oauthenticate_create
 ));
+*/
 
-
+passport.use(new TwitterStrategy({
+    consumerKey: config.system.TWITTER_CONSUMER_KEY,
+    consumerSecret: config.system.TWITTER_CONSUMER_SECRET
+  },
+  oauthenticate_create
+));
 
 /*TWITTER
 
