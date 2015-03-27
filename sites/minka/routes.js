@@ -21,12 +21,12 @@ exports.index = function(req, res) {
 };
 
 exports.login = function(req, res) {
-    console.log('In login');
     if(req.session) {
         req.session.redirectURL = req.query ? req.query.returnURL : '/';
         console.log('Redirect To? '+req.session.redirectURL);
         req.session.site = 'MINKA';
     }
+
     return res.render(minka_path+'login.html', {
         layout: 'sites/minka/login.html',
         layoutTitle: 'Login',

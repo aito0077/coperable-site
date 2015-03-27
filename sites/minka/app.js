@@ -2,7 +2,9 @@ exports = module.exports = createMinkaApp;
 
 function createMinkaApp(express, passport, app, iniciativas, users) {
 
-    var minka = require('./routes');
+    var minka = require('./routes'),
+        minka_path = "sites/minka/",
+        _ = require('underscore');
 
     app.get('/minka', minka.index);
 
@@ -18,17 +20,23 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
 
     function customMinkaCallbackAuthentification(strategy, req, res, next) {
         passport.authenticate(strategy, function loginCustomCallback(err, user, info) {
-            console.log('Error: '+err);
-            console.log('User: '+user);
-            if (err || !user) { return res.redirect('/user/login'); }
+            if (err || !user) {
+                //return res.redirect('/user/login'); 
+                return res.render(minka_path+'login.html', {
+                    layout: 'sites/minka/login.html',
+                    layoutTitle: 'Login',
+                    message: err || 'Usuario o Password incorrecto',
+                    layoutId: 'user-login'
+                })
 
-            console.log('No error con ususario ');
+            }
 
             req.logIn(user, function(err) {
                 if (err) { return res.redirect('/iniciativa/create'); }
             });
 
             var redirectURL = '/';
+            console.dir(req.session);
             if (req.session && req.session.redirectURL) {
                 redirectURL = req.session.redirectURL;
                 req.session.redirectURL = null;
@@ -61,9 +69,9 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
         res.redirect('/');
     });
 
-    app.post('/minka/user/signup', users.do_signup, function(req, res){
-        req.logout();
-        res.redirect('/');
+    app.post('/minka/user/signup', users.do_signup, function(req, res, next){
+        customMinkaCallbackAuthentification('local', req, res, next);
+        //res.redirect('/');
     });
 
 
