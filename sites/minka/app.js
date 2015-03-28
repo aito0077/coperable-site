@@ -15,9 +15,6 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
 
     app.get('/minka/user/login', minka.login);
 
-    app.get('/minka/auth/facebook/callback', function(req, res, next) {
-        customMinkaCallbackAuthentification('facebook', req, res, next);
-    });
 
     function customMinkaCallbackAuthentification(strategy, req, res, next) {
         passport.authenticate(strategy, function loginCustomCallback(err, user, info) {
@@ -67,16 +64,22 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
 
 */
 
-	app.get('/minka/auth/facebook', function(req, res, next) {
-  if(!req.session) req.session = {};
-  req.session.subdomain = (req.subdomains.length && req.subdomains[0]) || '';
-	console.log('AITO MIKA DEBUG domain: '+req.session.subdomain);
-  next();
-}, passport.authenticate('facebook'));
-
+/*
     app.get('/minka/auth/facebook/callback', function(req, res, next) {
-      customMinkaCallbackAuthentification('facebook', req, res, next);
+        customMinkaCallbackAuthentification('facebook', req, res, next);
     });
+*/
+
+	app.get('/minka/auth/facebook', function(req, res, next) {
+		if(!req.session) req.session = {};
+		req.session.subdomain = (req.subdomains.length && req.subdomains[0]) || '';
+		console.log('AITO MIKA DEBUG domain: '+req.session.subdomain);
+		next();
+	}, passport.authenticate('facebook'));
+
+	app.get('/minka/auth/facebook/callback', function(req, res, next) {
+		customMinkaCallbackAuthentification('facebook', req, res, next);
+	});
 
 
 

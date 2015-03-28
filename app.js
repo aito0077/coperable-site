@@ -370,7 +370,10 @@ function redirectSubdomain (req, res) {
   if (req.session.subdomain !== '') {
 	domain = (req.session.subdomain || 'minka') + '.' + domain;
 	res.redirect('http://' + domain );
-  }
+  } else {
+	  res.redirect('/');
+
+	}
 };
 
 

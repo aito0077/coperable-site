@@ -83,7 +83,7 @@ var oauthenticate_create = function(accessToken, refreshToken, given_profile, do
 passport.use(new FacebookStrategy({
     clientID: config.system.FACEBOOK_APP_ID,
     clientSecret: config.system.FACEBOOK_APP_SECRET,
-    callbackURL: config.system.DOMAIN_BASE+"/auth/facebook/callback"
+    callbackURL: "http://"+config.system.DOMAIN_BASE+"/auth/facebook/callback"
   },
   oauthenticate_create
 ));
