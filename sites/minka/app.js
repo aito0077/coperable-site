@@ -4,6 +4,7 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
 
     var minka = require('./routes'),
         minka_path = "sites/minka/",
+        config = require('../../config'),
         _ = require('underscore');
 
     app.get('/minka', minka.index);
@@ -80,7 +81,7 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
 
 
 
-    app.get('/minka/auth/twitter', passport.authenticate('twitter', { callbackURL: 'http://minka.coperable.org/auth/twitter/callback' }));
+    app.get('/minka/auth/twitter', passport.authenticate('twitter', { callbackURL: 'http://minka.'+config.system.DOMAIN_BASE+'/auth/twitter/callback' }));
     app.get('/minka/auth/twitter/callback', function(req, res, next) {
       customMinkaCallbackAuthentification('twitter', req, res, next);
     });

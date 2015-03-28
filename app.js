@@ -47,7 +47,7 @@ app.configure(function(){
     store: sessionStore,
     key: 'jsessionid',
     secret: 'bl33dingumñoño',
-    cookie:{ domain: '.coperable.org' }
+    cookie:{ domain: '.'+config.system.DOMAIN_BASE }
     }
   ));
     app.use(bodyParser());
@@ -106,7 +106,6 @@ app.get('/*/create', ensureAuthenticated);
 
 app.get('/', home.index);
 
-app.get('/feca', feca.index);
 
 
 app.all( '*', setCrossOrigin);
@@ -122,16 +121,6 @@ function setCrossOrigin(req, res, next) {
   next();
 };
 
-
-app.get('/feca/iniciativas', feca.list);
-app.get('/feca/iniciativas/create', feca.create);
-app.post('/feca/iniciativas/:id', iniciativas.save);
-app.post('/feca/iniciativas', iniciativas.create);
-
-app.get('/feca/iniciativas/name/:slug', feca.view_slug);
-app.get('/feca/iniciativas/:id', feca.view);
-app.get('/feca/iniciativas/success/:id', feca.success);
-app.get('/feca/iniciativas/:id/edit', feca.edit);
 
 app.get('/iniciativas', iniciativa.list);
 app.get('/iniciativas/create', iniciativa.create);
@@ -199,31 +188,6 @@ app.get(['/user/login', '/user/signup'], function(req, res, next){
 });
 app.get('/user/login', user.login);
 
-
-app.get('/feca/user/success_login', function(req, res, next) {
-  res.redirect('/');
-});
-
-app.get('/feca/user/failure_login', function(req, res, next) {
-  res.redirect('/user/login');
-  //res.send(403, 'El usuario no se encuentra.');
-});
-
-
-app.get(['/feca/user/login', '/feca/user/signup'], function(req, res, next){
-  if(req.isAuthenticated()) {
-    res.send({'result':'Ya estás logueado!'});
-  }
-  next('route')
-});
-app.get('/feca/user/login', feca.login);
-
-app.get('/feca/user/signup', feca.signup);
-app.post('/feca/user/signup', users.do_signup, function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
 app.get('/comunidades', comunidad.index);
 app.get('/comunidades/extra', comunidad.extra);
 app.get('/comunidades/:id', comunidad.view);
@@ -278,19 +242,6 @@ app.post('/user/login', function(req, res, next) {
   customCallbackAuthentification('local', req, res, next);
 });
 
-app.post('/feca/user/login', function(req, res, next) {
-  customFecaCallbackAuthentification('local', req, res, next);
-});
-
-app.get('/feca/auth/facebook', passport.authenticate('facebook'));
-app.get('/feca/auth/facebook/callback', function(req, res, next) {
-  customFecaCallbackAuthentification('facebook', req, res, next);
-}, redirectSubdomain );
-app.get('/feca/auth/twitter', passport.authenticate('twitter'));
-app.get('/feca/auth/twitter/callback', function(req, res, next) {
-  customFecaCallbackAuthentification('twitter', req, res, next);
-});
-
 
 app.get('/auth/facebook', saveSubdomain, passport.authenticate('facebook'));
 
@@ -300,7 +251,7 @@ app.get('/auth/facebook/callback', function(req, res, next) {
   customCallbackAuthentification('facebook', req, res, next);
 });
 //app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/twitter', passport.authenticate('twitter', { callbackURL: 'http://coperable.org/auth/twitter/callback' }));
+app.get('/auth/twitter', passport.authenticate('twitter', { callbackURL: 'http://'+config.system.DOMAIN_BASE+'/auth/twitter/callback' }));
 app.get('/auth/twitter/callback', function(req, res, next) {
   customCallbackAuthentification('twitter', req, res, next);
 });
@@ -319,20 +270,13 @@ app.get('/user/logout', function(req, res){
   res.redirect('/');
 });
 
-app.get('/feca/user/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
 app.get('/users', users.list);
 
 app.get('/user/:id', user.profile);
 
-app.get('/feca/user/:id', feca.profile);
 
 
 app.post('/uploads', filehandler.upload);
-app.post('/feca/uploads', filehandler.upload);
 app.post('/*/uploads', filehandler.upload);
 app.post('/gets3credentials', filehandler.createS3Policy);
 app.get('/uploadsuccess', function(req, resp) {
@@ -356,14 +300,72 @@ app.get('/site/workshops', site.workshops);
 app.get('/site/rse', site.rse);
 
 
+
+
+app.get('/feca', feca.index);
+app.post('/feca/user/login', function(req, res, next) {
+  customFecaCallbackAuthentification('local', req, res, next);
+});
+app.get('/feca/auth/facebook', passport.authenticate('facebook'));
+app.get('/feca/auth/facebook/callback', function(req, res, next) {
+  customFecaCallbackAuthentification('facebook', req, res, next);
+}, redirectSubdomain );
+
+app.get('/feca/auth/twitter', passport.authenticate('twitter'));
+app.get('/feca/auth/twitter/callback', function(req, res, next) {
+  customFecaCallbackAuthentification('twitter', req, res, next);
+});
+app.get('/feca/user/logout', function(req, res){
+
+app.get('/feca/user/:id', feca.profile);
+app.post('/feca/uploads', filehandler.upload);
+  req.logout();
+  res.redirect('/');
+});
+
+app.get('/feca/iniciativas', feca.list);
+app.get('/feca/iniciativas/create', feca.create);
+app.post('/feca/iniciativas/:id', iniciativas.save);
+app.post('/feca/iniciativas', iniciativas.create);
+
+app.get('/feca/iniciativas/name/:slug', feca.view_slug);
+app.get('/feca/iniciativas/:id', feca.view);
+app.get('/feca/iniciativas/success/:id', feca.success);
+app.get('/feca/iniciativas/:id/edit', feca.edit);
+
+app.get('/feca/user/success_login', function(req, res, next) {
+  res.redirect('/');
+});
+
+app.get('/feca/user/failure_login', function(req, res, next) {
+  res.redirect('/user/login');
+});
+
+app.get(['/feca/user/login', '/feca/user/signup'], function(req, res, next){
+  if(req.isAuthenticated()) {
+    res.send({'result':'Ya estás logueado!'});
+  }
+  next('route')
+});
+app.get('/feca/user/login', feca.login);
+
+app.get('/feca/user/signup', feca.signup);
+app.post('/feca/user/signup', users.do_signup, function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+
+
 function saveSubdomain(req, res, next) {
-  if(!req.session) req.session = {};
-  req.session.subdomain = (req.subdomains.length && req.subdomains[0]) || '';
-  next();
+    if(!req.session) req.session = {};
+    req.session.subdomain = (req.subdomains.length && req.subdomains[0]) ?  req.subdomains[0] : '';
+    console.log('AITO: DEBUG: SUBDOMAIN: '+req.session.subdomain);
+    next();
 };
 
 function redirectSubdomain (req, res) {
-	var domain = 'coperable.org';
+	var domain = config.system.DOMAIN_BASE;
 	console.dir(req.session);
   if (req.session.subdomain !== '') {
 	domain = (req.session.subdomain || 'minka') + '.' + domain;

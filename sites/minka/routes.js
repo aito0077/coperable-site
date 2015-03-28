@@ -4,6 +4,7 @@ var _ = require('underscore'),
     minka_path = "sites/minka/";
 
 exports.index = function(req, res) {
+    console.log('AITO: DEBUG: MINKA hostname: '+req.headers.host);
 
   var geo = (req.session ? req.session.geo : false) ||
             (req.cookies ? req.cookies.geo : undefined);
