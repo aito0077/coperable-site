@@ -69,7 +69,8 @@ var oauthenticate_create = function(accessToken, refreshToken, given_profile, do
       user_data['authenticate_with'] = given_profile.provider;
       user_data[given_profile.provider+'_id'] = given_profile.id;
 
-      cop_api.client.put('/api/usuario', user_data, function(err, req, res, user) {
+      //cop_api.client.put('/api/usuario', user_data, function(err, req, res, user) {
+      cop_api.client.post('/api/usuario', user_data, function(err, req, res, user) {
 	console.log(err);
         done(null, user);
       });
