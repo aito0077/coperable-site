@@ -33,13 +33,14 @@ function createMinkaApp(express, passport, app, iniciativas, users) {
                 if (err) { return res.redirect('/iniciativa/create'); }
             });
 
-            var redirectURL = '/';
+            var redirectURL = '/iniciativa/edit';
             console.dir(req.session);
             if (req.session && req.session.redirectURL) {
                 redirectURL = req.session.redirectURL;
                 req.session.redirectURL = null;
             }
 
+		console.log('REDIRECT UTL: '+redirectURL);
             return res.redirect(redirectURL);
         })(req, res, next);
     }

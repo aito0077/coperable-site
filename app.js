@@ -205,6 +205,7 @@ function customCallbackAuthentification(strategy, req, res, next) {
       var redirectURL = '/user/success_login';
       if (req.session.redirectURL) {
         redirectURL = req.session.redirectURL;
+	console.log('REDIRECT UTL: '+redirectURL);
         req.session.redirectURL = null;
       return res.redirect(redirectURL);
       } else {
@@ -369,6 +370,10 @@ function redirectSubdomain (req, res) {
 	console.dir(req.session);
   if (req.session.subdomain !== '') {
 	domain = (req.session.subdomain || 'minka') + '.' + domain;
+	if(domain.indexOf('minka') > -1) {
+		domain = domain + '/iniciativa/edit';	
+	}	
+	console.log("REDIRECT TO: "+domain);
 	res.redirect('http://' + domain );
   } else {
 	  res.redirect('/');
