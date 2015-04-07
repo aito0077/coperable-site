@@ -4,7 +4,6 @@ var _ = require('underscore'),
     minka_path = "sites/minka/";
 
 exports.index = function(req, res) {
-    console.log('AITO: DEBUG: MINKA hostname: '+req.headers.host);
 
   var geo = (req.session ? req.session.geo : false) ||
             (req.cookies ? req.cookies.geo : undefined);
@@ -14,6 +13,7 @@ exports.index = function(req, res) {
         layout: 'sites/minka/index-ang.html',
         layoutId: 'home-index',
         user: req.user,
+        minka_admin: req.user &&  (""+req.user.id == '53b4592f7e0c217564000006'),
         is_minka: req.user ? req.user.is_minka : false,
         geo: geo
       });

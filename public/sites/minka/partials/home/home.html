@@ -72,102 +72,59 @@
                 </div>
 
 
-
-
-                    <!--div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <h3>Ingresa con tu red social</h3>
-                            <div class="row text-center">
-                                <a href="/auth/facebook" target="_self" class="btn btn-default col-md-4 col-md-offset-1"><i class="fa fa-2x fa-facebook"></i></a>
-                                <a href="/auth/twitter" target="_self" class="btn btn-primary col-md-4 col-md-offset-2"><i class="fa fa-2x fa-twitter"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2 form-login">
-                            <h3>Ingresar</h3>
-                            <form action="/user/login" method="post">
-                                <div class="row text-center">
-                                    <div class="form-group">
-                                        <input name="username" type="text" class="form-control" placeholder="Nombre Usuario" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="password" type="password" class="form-control" placeholder="Password" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-default">Ingresar</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-md-4 col-sm-4 form-signup">
-                            <h3>O Registrarte</h3>
-                            <form action="/user/signup" method="post">
-                                <div class="row text-center">
-                                    <div class="form-group">
-                                        <input name="username" type="text" class="form-control" placeholder="Nombre Usuario" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="email" type="text" class="form-control" placeholder="Email" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="password" type="password" class="form-control" placeholder="Password"  required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="repassword" type="password" class="form-control" placeholder="Repite Password"  required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Registrarse</button>
-     
-                                </div>
-                            </form>
-                        </div>
-
-
-
-                    </div-->
                 </div>
 
-              <!--div class="col-md-3 col-md-offset-3 col-sm-4 col-sm-offset-2"><a ng-href="/iniciativa/edit" class="smooth-scroll btn btn-lg btn-block btn-danger">Mapea Tu Actividad!</a></div>
-              <div class="col-md-3 col-sm-4"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-default">Participa!</a></div-->
             </div>
           </div>
         </section>
 
-        <!--section id="mapa" class="section section-center section-hilite section-mapa">
+        <section id="mapa" class="section section-center section-hilite section-mapa">
             <div class="container">
                 <h2 class="section-title"><span>Lugares</span></h2>
-                <div class="row" style="height:400px;">
+                <div class="row" style="height:500px;">
                     <div id="map_canvas" style="width:100%; height:100%"></div>
                 </div>
             </div>
-        </section-->
+        </section>
 
-        <!--section id="agenda" class="section section-agenda">
+        <section id="agenda" class="section section-agenda">
           <div class="container">
             <h2 class="section-title"><span>Agenda</span></h2>
-            <ul id="filters">
-              <li><a href="#" data-filter="*">All</a></li>
-              <li>/</li>
-              <li><a href="#" data-filter=".web">Web Design</a></li>
-              <li>/</li>
-              <li><a href="#" data-filter=".graphic">Graphic Design</a></li>
-              <li>/</li>
-              <li><a href="#" data-filter=".photography">Photography</a></li>
-              <li>/</li>
-              <li><a href="#" data-filter=".motion">Motion Graphics</a></li>
-              <li>/</li>
-              <li><a href="#" data-filter=".branding">Branding</a></li>
-            </ul>
+            <div class="row">
+                <div class="col-md-6 block-center">
+                    <h4>Días</h4>
+                    <ul id="filters" class="nav nav-pills">
+
+                      <li><a href="#" ng-click="select_day('all')">Cualquiera</a></li>
+                      <li ng-repeat="day in day_filters" ng-class="{selected: day_active == day.time}"><a href="#"  ng-click="select_day(day.time)">{{day.time | moment: 'dddd D'}}</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 block-center" style="background-color:">
+                    <h4 style="color: #EF4832">Países</h4>
+                    <ul id="countries" class="nav nav-pills">
+
+                      <li><a href="#"  ng-click="select_country('all')">Todos</a></li>
+                      <li ng-repeat="country in countries" ng-class="{selected: country_key == country_active}" ><a href="#" ng-click="select_country(country.key)">{{country.key}}</a></li>
+                    </ul>
+                </div>
+            </div>
+
 
             <div class="agenda-isotope row">
-              <article class="post col-md-3 col-sm-6 agenda-item motion graphic" ng-repeat="iniciativa in iniciativas">
+              <article class="post col-md-3 col-sm-6 agenda-item {{hit._source.country | lowercase }} day{{hit._source.start_date | moment: 'DD'}} isotope-item" ng-repeat="hit in hits">
                 <div class="entry-thumbnail">
-                  <a href="#" class="hover-effect" data-toggle="modal" data-target="#project-modal">
-                    <img src="http://placehold.it/400x300" alt="" />
+                  <a href="#" class="hover-effect" ng-click="select(hit)" data-toggle="modal" data-target="#project-modal">
+                    <img ng-if="hit._source.profile_picture" ng-src="/static/uploads/thumbs/{{hit._source.profile_picture}}" alt="" />
+                    <img ng-if="!hit._source.profile_picture" ng-src="/static/uploads/thumbs/{{hit._source.profile_picture}}" alt="" />
                     <span class="overlay"><i class="fa fa-plus"></i></span>
+                    <h4>{{hit._source.name}}</h4>
                   </a>
                 </div>
               </article>
             </div>
 
           </div>
-        </section-->
+        </section>
 
         <!-- Project Modal -->
         <div class="modal fade" id="project-modal" tabindex="-1" role="dialog" aria-labelledby="project-modal-label" aria-hidden="true">
@@ -176,37 +133,37 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="project-modal-label">Project title</h4>
+                <h4 class="modal-title" id="project-modal-label">{{selected.name}}</h4>
               </div>
               <div class="modal-body">
                 <article class="single-project">
                   <div class="project-thumbnail">
                     <div id="project-thumbnail-carousel-1" class="carousel slide" data-ride="carousel">
                       <div class="carousel-inner">
-                        <div class="item active"><img src="http://placehold.it/800x600" /></div>
-                        <div class="item"><img src="http://placehold.it/800x600" /></div>
-                        <div class="item"><img src="http://placehold.it/800x600" /></div>
+                        <div class="item active"><img ng-src="/static/uploads/fullsize/{{selected.profile_picture}}" /></div>
+                        <div class="item">
+                            <img src="http://maps.googleapis.com/maps/api/staticmap?center={{selected.location.latitude}},{{selected.location.longitude}}&zoom=14&size=800x420&sensor=false&markers=color:red%7C{{selected.location.latitude}},{{selected.location.longitude}}" />
+                        </div>
                       </div>
                       <ol class="carousel-indicators">
                         <li data-target="#project-thumbnail-carousel-1" data-slide-to="0" class="active"></li>
-                        <li data-target="#project-thumbnail-carousel-1" data-slide-to="1"></li>
-                        <li data-target="#project-thumbnail-carousel-1" data-slide-to="2"></li>
                       </ol>
-                      <a class="left carousel-control" href="#project-thumbnail-carousel-1" data-slide="prev"><span class="fa fa-chevron-left"></span></a>
-                      <a class="right carousel-control" href="#project-thumbnail-carousel-1" data-slide="next"><span class="fa fa-chevron-right"></span></a>
+                      <span class="right carousel-control" href="#project-thumbnail-carousel-1" data-slide="next"><span class="fa fa-chevron-right"></span></span>
+                      <span class="left carousel-control" href="#project-thumbnail-carousel-1" data-slide="prev"><span class="fa fa-chevron-left"></span></span>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4">
-                      <button type="button" class="btn btn-block btn-primary">Launch Project</button>
+                    <div class="col-md-6">
+                        <span class="btn btn-block btn-primary">Participá</span>
                       <ul class="list-unstyled project-info">
-                        <li><strong>Type</strong> <span class="pull-right">Web Design</span></li>
-                        <li><strong>Client</strong> <span class="pull-right">Google</span></li>
-                        <li><strong>Year</strong> <span class="pull-right">2014</span></li>
+                        <li><strong>Fecha</strong> <span class="pull-right">{{selected.start_date | moment: 'dddd DD [de] MMMM LT'}}</span></li>
+                        <li><strong>Ubicación</strong> <span class="pull-right">{{selected.address}}</span></li>
+                        <li><strong>Organización</strong> <span class="pull-right">{{selected.organization}}</span></li>
+                        <li ng-show="class_name()"><span ng-click="edit()" class="pull-left btn btn-default">Editar</span></li>
                       </ul>
                     </div>
-                    <div class="col-md-8">
-                      <p>Suspendisse varius nisl nunc. Aenean in dictum nibh. Nullam congue facilisis purus porta ullamcorper. Aenean in consequat sapien. Cras orci augue, ultricies at luctus congue, dapibus sed magna. Vivamus consequat commodo pharetra. Maecenas sed tincidunt mi, quis accumsan nisi. Praesent ac porttitor massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur in bibendum tellus, vitae imperdiet mauris.</p>
+                    <div class="col-md-6">
+                      <p>{{selected.description}}</p>
                     </div>
                   </div>
                 </article>
@@ -216,90 +173,3 @@
           </div>
         </div>
 
-        <!--section id="testimonials" class="section section-center section-hilite section-testimonial">
-          <div class="container">
-            <h2 class="section-title"><span>What our clients say?</span></h2>
-            <i class="fa fa-quote-left fa-3x"></i>
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="item active">
-                  <blockquote>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                  </blockquote>
-                </div>
-                <div class="item">
-                  <blockquote>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                  </blockquote>
-                </div>
-                <div class="item">
-                  <blockquote>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                  </blockquote>
-                </div>
-              </div>
-
-              <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"><img src="http://placehold.it/64x64" width="64" height="64" alt="" class="img-circle"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"><img src="http://placehold.it/64x64" width="64" height="64" alt="" class="img-circle"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"><img src="http://placehold.it/64x64" width="64" height="64" alt="" class="img-circle"></li>
-              </ol>
-            </div>
-
-          </div>
-        </section>
-
-        <section id="blog" class="section section-blog">
-          <div class="container">
-            <h2 class="section-title"><span>Nuestro Blog</span></h2>
-            <div class="row">
-              <div class="col-md-6">
-                <article class="hentry post">
-                  <div class="row">
-                    <div class="entry-thumbnail col-lg-4 col-md-5 col-sm-4">
-                      <a href="#" class="hover-effect">
-                        <img src="http://placehold.it/165x165" alt="" />
-                        <span class="overlay"><i class="fa fa-plus"></i></span>
-                      </a>
-                    </div>
-                    <div class="col-lg-8 col-md-7 col-sm-8">
-                      <header class="entry-header">
-                        <h2 class="entry-title"><a href="#">Sample blog title</a></h2>
-                        <div class="entry-meta">By <a href="#">Jackie Lord</a> in <a href="#">Category</a></div>
-                      </header>
-                      <div class="entry-content">
-                        <p>Pellentesque eleifend amet scelerisque convallis. Aenean eget metus non erat suscipit accumsan.</p>
-                        <a href="#" class="more"><span class="btn btn-primary">Continue Reading</span></a>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              </div>
-              <div class="col-md-6">
-                <article class="hentry post">
-                  <div class="row">
-                    <div class="entry-thumbnail col-lg-4 col-md-5 col-sm-4">
-                      <a href="#" class="hover-effect">
-                        <img src="http://placehold.it/165x165" alt="" />
-                        <span class="overlay"><i class="fa fa-plus"></i></span>
-                      </a>
-                    </div>
-                    <div class="col-lg-8 col-md-7 col-sm-8">
-                      <header class="entry-header">
-                        <h2 class="entry-title"><a href="#">Sample blog title</a></h2>
-                        <div class="entry-meta">By <a href="#">Jackie Lord</a> in <a href="#">Category</a></div>
-                      </header>
-                      <div class="entry-content">
-                        <p>Pellentesque eleifend amet scelerisque convallis. Aenean eget metus non erat suscipit accumsan.</p>
-                        <a href="#" class="more"><span class="btn btn-primary">Continue Reading</span></a>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-        </section-->

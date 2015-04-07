@@ -1,19 +1,26 @@
 angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 
 .config(['$routeProvider', '$stateProvider', function($routeProvider, $stateProvider) {
-    $routeProvider.when('/iniciativa/edit', {
+    $routeProvider
+    .when('/iniciativa/edit', {
         templateUrl: '/static/sites/minka/partials/iniciativa/edit.html',
         controller: 'iniciativa-edit'
-    }).when('/iniciativas', {
+    })
+    .when('/iniciativa/edit/:id', {
+        templateUrl: '/static/sites/minka/partials/iniciativa/edit.html',
+        controller: 'iniciativa-edit'
+    })
+    .when('/iniciativas', {
         templateUrl: '/static/sites/minka/partials/iniciativa/list.html',
         controller: 'iniciativa-list'
-    }).when('/iniciativa/view', {
+    })
+    .when('/iniciativa/view', {
         templateUrl: '/static/sites/minka/partials/iniciativa/view.html',
         controller: 'iniciativa-view'
     });
 
 }])
-.controller('iniciativa-edit', ['$scope','$http', 'Iniciativa', function($scope, $http, Iniciativa) {
+.controller('iniciativa-edit', ['$scope','$http', '$routeParams', '$location', '$anchorScroll', '$timeout', 'Iniciativa', function($scope, $http, $routeParams, $location, $anchorScroll, $timeout, Iniciativa) {
 
     $scope.iniciativa = new Iniciativa();
     $scope.persisted = false;
@@ -22,6 +29,7 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
     $scope.saving = false;
     $scope.hasError = false;
 
+ 
     $scope.prepareModel = function() {
         $scope.iniciativa.minka = true;
         if($scope.iniciativa.name) {
@@ -70,11 +78,20 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
         if(isValid) {
             $scope.iniciativa.$save(function(data) {
                 $scope.saving = false;
-                console.dir(data);
                 $scope.persisted = true;
+            
+                $location.hash('page');
+                $anchorScroll();
             });
 
         }
+    };
+
+
+    $scope.doRemove = function() {
+        $scope.iniciativa.$remove(function() {
+            $location.path('/home');
+        });
     };
 
     $scope.setup_components = function() {
@@ -169,7 +186,6 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 
     };
 
-    $scope.setup_components();
 
     $scope.default_values = {
         goal:  '',
@@ -187,6 +203,55 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 
 
     };
+
+
+   $scope.is_new = (typeof($routeParams.id) === 'undefined');
+
+    if(!$scope.is_new) {
+        $scope.iniciativa = Iniciativa.get({
+            id: $routeParams.id
+        }, function(data) {
+
+            $scope.initial_marker  =  {};
+            $scope.initial_marker['latitude']  = data.location.latitude;
+            $scope.initial_marker['longitude']  = data.location.longitude;
+
+            //$scope.initial_marker  =  data.location;
+            $scope.geo = $scope.iniciativa.location;
+            $scope.geo.longitude = $scope.iniciativa.longitude;
+            $scope.geo.latitude = $scope.iniciativa.latitude;
+            $scope.geo.direccion = $scope.iniciativa.address;
+            $scope.iniciativa.direccion = $scope.iniciativa.address;
+            $scope.geo.locality = $scope.iniciativa.locality;
+
+            if($scope.geo.locality) {
+                $scope.geo.locality.country = $scope.iniciativa.country;
+                $scope.geo.locality.city = $scope.iniciativa.city;
+
+            }
+            $scope.iniciativa.fecha =  moment($scope.iniciativa.start_date).format('DD-MM-YYYY');
+            $scope.iniciativa.hour =  moment($scope.iniciativa.start_date).format('hh:mmA');
+
+            $('#hour').val($scope.iniciativa.hour);
+
+            $('#dropzone').css('background-image', "url('/static/uploads/thumbs/"+$scope.iniciativa.profile_picture+"')");
+            $('#dropzone').addClass("with-image");
+            
+            $timeout(function () {
+                $scope.setup_components();
+            });
+        });
+    } else {
+        $scope.setup_components();
+    }
+
+
+
+
+
+    $location.hash('page');
+    $anchorScroll();
+
 
 
 }])

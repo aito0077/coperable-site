@@ -60,7 +60,8 @@ exports.create = function(req, res, done) {
 
 exports.save = function(req, res, done) {
     console.log('save');
-  var id = req.param('id');
+  var id = req.param('id') || req.params[0];
+console.log('ID: '+id);
   prepare_to_persist(req, function(iniciativa_data) {
     cop_api.client.post('/api/iniciativa/' + id, iniciativa_data, function(err, request, response, obj) {
       console.log('[iniciativas::create] Iniciativa [' + id + '] guardada. ' + (err? 'Error: ' + err : ''));
@@ -70,7 +71,7 @@ exports.save = function(req, res, done) {
 };
 
 exports.remove = function(req, res, done) {
-    var id = req.param('id');
+    var id = req.param('id') || req.params[0];
     cop_api.client.del('/api/iniciativa/' + id, function(err, request, response) {
         console.log('[iniciativas::remove] Iniciativa [' + id + '] eliminada. ' + (err? 'Error: ' + err : ''));
         if(err) {
@@ -109,13 +110,15 @@ exports.findByOwner = function(req, res, done) {
   }
 
 exports.get = function(req, res, done) {
-  var id = req.params['id'];
+    console.dir(req.params);
+  var id = req.param('id') || req.params[0];
   console.log('id:' + id);
-  cop_api.client.get('/api/iniciativa/'+id, function(err, req, res, iniciativa) {
+  cop_api.client.get('/api/iniciativa/'+id, function(err, rreq, rres, iniciativa) {
     var current_stage = iniciativa.current_stage;
         iniciativa['finalizada'] = current_stage == 'FINALIZADO';
         iniciativa['activando'] = iniciativa['finalizada'] || current_stage == 'ACTIVO';
         iniciativa['convocatoria'] = iniciativa['activando'] || current_stage == 'PREPARACION';
+        console.dir(iniciativa);
      res.send(iniciativa);
   });
 };

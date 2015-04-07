@@ -132,14 +132,15 @@ app.get('/iniciativas/:id', iniciativa.view);
 app.get('/iniciativas/success/:id', iniciativa.success);
 app.get('/iniciativas/:id/edit', iniciativa.edit);
 
-app.get('/api/iniciativas/user/:userId', iniciativas.findByOwner);
-app.get('/api/iniciativas/:id', iniciativas.get);
-app.put('/api/iniciativas/:id', iniciativas.save);
-app.del('/api/iniciativas/:id', iniciativas.remove);
-app.post('/api/iniciativas/:id/:userId', iniciativas.participate);
-app.post('/api/iniciativas/:id/:userId/quit', iniciativas.quitIniciativa);
-app.post('/api/iniciativas/search', iniciativas.findByQuery);
-app.post('/api/iniciativas', iniciativas.create);
+app.get('*/api/iniciativas/user/:userId', iniciativas.findByOwner);
+app.get('*/api/iniciativas/:id', iniciativas.get);
+app.put('*/api/iniciativas/:id', iniciativas.save);
+app.post('*/api/iniciativas/:id', iniciativas.save);
+app.del('*/api/iniciativas/:id', iniciativas.remove);
+app.post('*/api/iniciativas/:id/:userId', iniciativas.participate);
+app.post('*/api/iniciativas/:id/:userId/quit', iniciativas.quitIniciativa);
+app.post('*/api/iniciativas/search', iniciativas.findByQuery);
+app.post('*/api/iniciativas', iniciativas.create);
 
 app.put('/api/usuarios/:id', users.save);
 app.post('/api/usuarios', users.create);

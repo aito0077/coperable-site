@@ -57,15 +57,15 @@
             
                 </h1>
             </div>
-            <!--div class="collapse navbar-collapse" id="navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="navbar-collapse-1">
               <ul id="navigation" class="nav navbar-nav navbar-right">
                 <li class="active"><a href="/home" class="current">Home</a></li>
                 <li><a href="#mapa">Mapa</a></li>
                 <li><a href="#agenda">Agenda</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#blog">Blog</a></li>
+                <!--li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#blog">Blog</a></li-->
               </ul>
-            </div-->
+            </div>
           </div>
         </nav>
       </header>
@@ -179,6 +179,9 @@
     {{#user}}
         window.user_id = '{{user.id}}';
     {{/user}}
+    {{#minka_admin}}
+        window.bleeding = true;
+    {{/minka_admin}}
     {{^user}}
         window.user_id = false;
     {{/user}}

@@ -88,7 +88,7 @@
                                     <div class="content">
                                         <label class="sr-only">Dirección</label>
                                         <div class="controls">
-                                            <input type="text" name="address" placeholder="Dirección" id="addresspicker_map" class="form-control" autocomplete="off" required/>
+                                            <input type="text" name="address" ng-model="iniciativa.direccion" placeholder="Dirección" id="addresspicker_map" class="form-control" autocomplete="off" required/>
                                             <p ng-show="hasError && actividadForm.address.$invalid" class="help-block"  style="color: red">Debe ingresar una dirección.</p>
                                             <div style="width:100%;height:200px;margin-top:20px">
                                                 <div id="map_canvas" style="width:100%; height:100%"></div>
@@ -153,6 +153,8 @@
 
                         <button type="submit" class="btn-save-iniciativa btn btn-default" ng-show="!saving" >Guardar</button>
                         <span class="btn-saving btn btn-default" ng-show="saving">Guardar</span>
+
+                        <span class="btn-delete-iniciativa btn btn-primary" ng-show="!saving && !is_new"  ng-really-message="Desea eliminar la iniciativa?" ng-really-click="doRemove()" style="cursor:hand">Eliminar</span>
                     </form>
                 </div>
             </div>

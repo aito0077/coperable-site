@@ -3,6 +3,7 @@ angular.module('minkaApp', [
     'ngRoute',
     'ngResource',
     'ui.router',
+    'elasticsearch',
     'minkaApp.services',
     'minkaApp.iniciativa',
     'minkaApp.user',
@@ -33,9 +34,28 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 
 
 }])
+.filter('moment', function() {
+    return function(dateString, format) {
+        return moment(dateString).format(format);
+    };
+})
+.directive('ngReallyClick', [function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('click', function() {
+                var message = attrs.ngReallyMessage;
+                if (message && confirm(message)) {
+                    scope.$apply(attrs.ngReallyClick);
+                }
+            });
+        }
+    }
+}])
 .run(function($rootScope, $window) {
     console.log('Minka!');
 
     $rootScope.user_id = $window.user_id;
 
 });
+
