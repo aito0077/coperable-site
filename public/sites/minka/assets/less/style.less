@@ -148,6 +148,14 @@
 				display: inline-block;
 				margin: 0 5px;
 				color: @gray-lighter;
+                .selector:hover {
+                    background-color: #333333;
+                    color: #FFFFFF;
+                }
+                .selector.active {
+                    background-color: #333333;
+                    color: #FFFFFF;
+                }
 			}
 		}
 		#countries {
@@ -161,11 +169,11 @@
                 display: inline-block;
                 margin: 0 5px;
                 color: #EF4832;
-                a:hover {
+                .selector:hover {
                     background-color: #EF4832;
                     color: #FFFFFF;
                 }
-                .selected {
+                .selector.active {
                     background-color: #EF4832;
                     color: #FFFFFF;
                 }
@@ -931,4 +939,20 @@ ul.list {
 			margin:15px 0;
 		}
 	}
+}
+span.selector {
+    padding: 10px 15px;
+    color: #333333;
+    text-decoration: none;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    font-family: 'Roboto',Arial,sans-serif;
+    color: #333333;
+    line-height: 20px;
+    text-align: center;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 15px;
+    cursor: pointer;
 }

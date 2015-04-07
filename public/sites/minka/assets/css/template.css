@@ -7353,6 +7353,14 @@ img {
   margin: 0 5px;
   color: #eeeeee;
 }
+.section.section-agenda #filters li .selector:hover {
+  background-color: #333333;
+  color: #FFFFFF;
+}
+.section.section-agenda #filters li .selector.active {
+  background-color: #333333;
+  color: #FFFFFF;
+}
 .section.section-agenda #countries {
   list-style-type: none;
   margin: 0 0 10px;
@@ -7365,11 +7373,11 @@ img {
   margin: 0 5px;
   color: #EF4832;
 }
-.section.section-agenda #countries li a:hover {
+.section.section-agenda #countries li .selector:hover {
   background-color: #EF4832;
   color: #FFFFFF;
 }
-.section.section-agenda #countries li .selected {
+.section.section-agenda #countries li .selector.active {
   background-color: #EF4832;
   color: #FFFFFF;
 }
@@ -8082,4 +8090,19 @@ ul.list li.initiative {
 }
 .initiative.initiative-item .bottom ul.status {
   margin: 15px 0;
+}
+span.selector {
+  padding: 10px 15px;
+  text-decoration: none;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #333333;
+  line-height: 20px;
+  text-align: center;
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 15px;
+  cursor: pointer;
 }

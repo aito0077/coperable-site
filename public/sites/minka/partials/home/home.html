@@ -95,16 +95,16 @@
                     <h4>Días</h4>
                     <ul id="filters" class="nav nav-pills">
 
-                      <li><a href="#" ng-click="select_day('all')">Cualquiera</a></li>
-                      <li ng-repeat="day in day_filters" ng-class="{selected: day_active == day.time}"><a href="#"  ng-click="select_day(day.time)">{{day.time | moment: 'dddd D'}}</a></li>
+                      <li><span href="#" ng-click="select_day('all')" class="selector">Cualquiera</span></li>
+                      <li ng-repeat="day in day_filters" ng-class="{selected: day_active == day.time}"><span ng-click="select_day(day.time)" class="selector">{{day.time | moment: 'dddd D'}}</span></li>
                     </ul>
                 </div>
                 <div class="col-md-6 block-center" style="background-color:">
                     <h4 style="color: #EF4832">Países</h4>
                     <ul id="countries" class="nav nav-pills">
 
-                      <li><a href="#"  ng-click="select_country('all')">Todos</a></li>
-                      <li ng-repeat="country in countries" ng-class="{selected: country_key == country_active}" ><a href="#" ng-click="select_country(country.key)">{{country.key}}</a></li>
+                      <li><span class="selector" ng-click="select_country('all')">Todos</span></li>
+                      <li ng-repeat="country in countries" ng-class="{selected: country_key == country_active}" ><span class="selector" ng-click="select_country(country.key)">{{country.key}}</span></li>
                     </ul>
                 </div>
             </div>
