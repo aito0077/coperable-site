@@ -113,12 +113,12 @@
             <div class="agenda-isotope row">
               <article class="post col-md-3 col-sm-6 agenda-item {{hit._source.country | lowercase }} day{{hit._source.start_date | moment: 'DD'}} isotope-item" ng-repeat="hit in hits">
                 <div class="entry-thumbnail">
-                  <a href="#" class="hover-effect" ng-click="select(hit)" data-toggle="modal" data-target="#project-modal">
+                  <span href="#" class="hover-effect" ng-click="select(hit)" data-toggle="modal" data-target="#project-modal">
                     <img ng-if="hit._source.profile_picture" ng-src="/static/uploads/thumbs/{{hit._source.profile_picture}}" alt="" />
                     <img ng-if="!hit._source.profile_picture" ng-src="/static/uploads/thumbs/{{hit._source.profile_picture}}" alt="" />
                     <span class="overlay"><i class="fa fa-plus"></i></span>
                     <h4>{{hit._source.name}}</h4>
-                  </a>
+                  </span>
                 </div>
               </article>
             </div>
