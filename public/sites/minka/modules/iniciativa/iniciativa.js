@@ -212,9 +212,11 @@ angular.module('minkaApp.iniciativa', ['ngRoute','ui.router','ngResource'])
             id: $routeParams.id
         }, function(data) {
 
-            $scope.initial_marker  =  {};
-            $scope.initial_marker['latitude']  = data.location.latitude;
-            $scope.initial_marker['longitude']  = data.location.longitude;
+		if(data.location) {
+		    $scope.initial_marker  =  {};
+		    $scope.initial_marker['latitude']  = data.location.latitude;
+		    $scope.initial_marker['longitude']  = data.location.longitude;
+		}
 
             //$scope.initial_marker  =  data.location;
             $scope.geo = $scope.iniciativa.location;
