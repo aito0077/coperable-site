@@ -21,7 +21,7 @@
             <ul data-filter-name="cat" class="filter-options">
               <li data-option="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
               {{#summary.main_categories.buckets}}
-                  <li data-option="{{key}}"><span class="name">{{key}}</span> <span class="num">{{doc_count}}</span></li>
+                  <li data-option="{{key}}"><span class="name">{{name}}</span> <span class="num">{{doc_count}}</span></li>
               {{/summary.main_categories.buckets}}
             </ul>
             <ul data-filter-name="com" class="filter-options">
@@ -32,9 +32,9 @@
             </ul>
             <ul data-filter-name="tag" class="filter-options">
               <li data-option="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
-              {{#summary.topics.buckets}}
+              {{#terms}}
                   <li data-option="{{key}}"><span class="name">{{key}}</span> <span class="num">{{doc_count}}</span></li>
-              {{/summary.topics.buckets}}
+              {{/terms}}
             </ul>
             <!--ul data-filter-name="country" class="filter-options">
               <li data-option="1"><span class="name">Todo</span> <span class="num">{{hits.total}}</span></li>
