@@ -47,7 +47,7 @@ window.SearchController = Backbone.View.extend({
                 var total = results.total;
                 
                 _.each(results.hits, function(hit) {
-                    var model = new iniciativa.Model(_.extend(hit._source, {_id: hit._id}));
+                    var model = new iniciativa.Model(_.extend({description: ''}, hit._source, {_id: hit._id}));
                     if(model && !_.isEmpty(model)) {
                         var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
                         $('.list').append($itemTemplate);
@@ -85,7 +85,7 @@ window.SearchController = Backbone.View.extend({
                 var total = results.total;
                 
                 _.each(results.hits, function(hit) {
-                    var model = new iniciativa.Model(_.extend(hit._source, {_id: hit._id}));
+                    var model = new iniciativa.Model(_.extend({description: ' '}, hit._source, {_id: hit._id}));
                     if(model && !_.isEmpty(model)) {
                         var $itemTemplate = model.populateItemTemplate(self.itemTemplate);
                         $('.list').append($itemTemplate);
