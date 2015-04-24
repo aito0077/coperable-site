@@ -7346,7 +7346,7 @@ img {
   margin: 0 0 10px;
   border: 1px solid #a1a1a1;
   padding: 10px 10px;
-  border-radius: 25px;
+  /*border-radius: 25px;*/
 }
 .section.section-agenda #filters li {
   display: inline-block;
@@ -7364,6 +7364,13 @@ img {
   background-color: #333333;
   color: #FFFFFF;
 }
+
+.section.section-agenda #filters li .selector.selected {
+  background-color: #EF4832;
+  color: #FFFFFF;
+}
+
+
 .section.section-agenda #countries {
   list-style-type: none;
   margin: 0 0 10px;
@@ -7384,6 +7391,12 @@ img {
   background-color: #EF4832;
   color: #FFFFFF;
 }
+
+.section.section-agenda #countries li .selector.selected {
+  background-color: #EF4832;
+  color: #FFFFFF;
+}
+
 .section.section-agenda .agenda-isotope {
   margin-bottom: 30px;
 }
@@ -8113,4 +8126,11 @@ span.selector {
   padding-left: 10px;
   padding-right: 15px;
   cursor: pointer;
+}
+.center-pills {
+    display: flex;
+    justify-content: center;
+}
+.selector.country-name{
+    text-transform:capitalize;
 }

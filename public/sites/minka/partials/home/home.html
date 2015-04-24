@@ -91,20 +91,22 @@
           <div class="container">
             <h2 class="section-title"><span>Agenda</span></h2>
             <div class="row">
-                <div class="col-md-6 block-center">
-                    <h4>Días</h4>
-                    <ul id="filters" class="nav nav-pills">
+                <div class="col-md-12 block-center">
+                    <ul id="filters" class="nav nav-pills center-pills">
 
-                      <li><span href="#" ng-click="select_day('all')" class="selector">Cualquiera</span></li>
-                      <li ng-repeat="day in day_filters" ng-class="{selected: day_active == day.time}"><span ng-click="select_day(day.time)" class="selector">{{day.time | moment: 'dddd D'}}</span></li>
+                      <li><span href="#" ng-click="select_day('all')" class="selector"><b>Todos</b></span></li>
+
+                      <li ng-repeat="day in day_filters"><span ng-click="select_day(day.time)" class="selector {{isDayActive(day)}}">{{day.time | moment: 'dddd D'}}</span></li>
                     </ul>
                 </div>
-                <div class="col-md-6 block-center" style="background-color:">
+            </div>
+            <div class="row">
+                <div class="col-md-12 block-center text-center">
                     <h4 style="color: #EF4832">Países</h4>
-                    <ul id="countries" class="nav nav-pills">
+                    <ul id="countries" class="nav nav-pills center-pills">
 
-                      <li><span class="selector" ng-click="select_country('all')">Todos</span></li>
-                      <li ng-repeat="country in countries" ng-class="{selected: country_key == country_active}" ><span class="selector" ng-click="select_country(country.key)">{{country.key}}</span></li>
+                      <li><span class="selector" ng-click="select_country('all')"><b>Todos</b></span></li>
+                      <li ng-repeat="country in countries" ><span class="selector country-name {{isCountryActive(country.key)}}" ng-click="select_country(country.key)">{{country.key}}</span></li>
                     </ul>
                 </div>
             </div>
@@ -114,8 +116,8 @@
               <article class="post col-md-3 col-sm-6 agenda-item {{hit._source.country | lowercase }} day{{hit._source.start_date | moment: 'DD'}} isotope-item" ng-repeat="hit in hits">
                 <div class="entry-thumbnail">
                   <span href="#" class="hover-effect" ng-click="select(hit)" data-toggle="modal" data-target="#project-modal">
-                    <img ng-if="hit._source.profile_picture" ng-src="/static/uploads/thumbs/{{hit._source.profile_picture}}" alt="" />
-                    <img ng-if="!hit._source.profile_picture" ng-src="/static/uploads/thumbs/{{hit._source.profile_picture}}" alt="" />
+                    <img ng-if="hit._source.profile_picture" ng-src="http://minka.coperable.org/static/uploads/thumbs/{{hit._source.profile_picture}}" alt="" />
+                    <img ng-if="!hit._source.profile_picture" ng-src="http://minka.coperable.org/static/uploads/thumbs/{{hit._source.profile_picture}}" alt="" />
                     <span class="overlay"><i class="fa fa-plus"></i></span>
                     <h4>{{hit._source.name}}</h4>
                   </span>

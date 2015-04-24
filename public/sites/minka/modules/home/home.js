@@ -127,7 +127,7 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
             $scope.day_active = '';
         } else {
             $scope.day_selected = ".day"+moment(day).add(1, 'd').format('DD');
-            $scope.day_active = day.time;
+            $scope.day_active = day;
         }
         $('.agenda-isotope').isotope({ filter: $scope.day_selected+$scope.country_selected});
         return true;
@@ -145,6 +145,13 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
         return true;
     };
 
+    $scope.isCountryActive = function(country_key) {
+        return (country_key == $scope.country_active ? 'active' : '');
+    };
+
+    $scope.isDayActive = function(day_selected) {
+        return (day_selected.time == $scope.day_active ? 'active' : '');
+    };
      
     $scope.setup_components = function() {
 
