@@ -7389,6 +7389,7 @@ img {
 }
 .section.section-agenda .agenda-isotope .agenda-item {
   margin: 0 0 30px;
+	min-height: 120px;
 }
 .section.section-agenda .agenda-isotope .col-lg-3,
 .section.section-agenda .agenda-isotope .col-md-3,

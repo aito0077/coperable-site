@@ -110,6 +110,7 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
 
     $scope.$watch('hits', function() {
         if($scope.hits && $scope.hits.length > 0) {
+		console.dir($scope.hits);
             $timeout(function () {
                 $('.agenda-isotope').isotope({
                     itemSelector : '.agenda-item',
@@ -161,6 +162,7 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
     $scope.do_search = function() {
         client.search({
             index: 'iniciativas',
+            size: 150,
             body: {
                 query: {
                     bool: {
@@ -203,7 +205,9 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
 
     };
 
-    $scope.do_search();
+	if(window.bleeding) {
+	    $scope.do_search();
+	}
 
     $scope.edit = function() {
         $('#project-modal').modal('hide');
