@@ -73,7 +73,7 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
         
             model['_id'] = hit._id;
 
-            var momento = moment(model.start_date).lang('es'),
+            var momento = moment(model.start_date).locale('es'),
                 location = model.location,
                 marker = new google.maps.Marker({
                     title: model.name,
@@ -110,7 +110,6 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
 
     $scope.$watch('hits', function() {
         if($scope.hits && $scope.hits.length > 0) {
-		console.dir($scope.hits);
             $timeout(function () {
                 $('.agenda-isotope').isotope({
                     itemSelector : '.agenda-item',
