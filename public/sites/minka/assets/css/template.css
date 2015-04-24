@@ -7388,8 +7388,13 @@ img {
   margin-bottom: 30px;
 }
 .section.section-agenda .agenda-isotope .agenda-item {
-  margin: 0 0 30px;
-	min-height: 120px;
+    margin: 0 0 30px;
+    min-height: 150px;
+}
+.section.section-agenda .agenda-isotope .agenda-item .entry-thumbnail{
+    list-style-type: none;
+    border: 1px solid #a1a1a1;
+    min-height: 250px;
 }
 .section.section-agenda .agenda-isotope .col-lg-3,
 .section.section-agenda .agenda-isotope .col-md-3,
