@@ -32,6 +32,7 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
     
     $locationProvider.html5Mode(true);
 
+    moment.locale('es');
 
 }])
 .filter('moment', function() {
