@@ -1,0 +1,181 @@
+                <section id="carousel-1" class="carousel slide section-slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="item active" style="background: url(/static/sites/chascomus/images/slider_1.jpg);">
+                            <div class="container slider-text vcenter text-center">
+                                <h3 class="vcenter">Una iniciativa para facilitar la articulación de las organizaciones sociales y culturales de Chascomús, con el fin de fomentar el apoyo, compartir e intercambiar experiencias y recursos</h3>
+                            </div>
+                        </div>
+                        <div class="item" style="background: url(/static/sites/chascomus/images/bg-2.jpg);">
+                            <div class="container slider-text vcenter text-center">
+                                <h3>Tercer texto</h3>
+                            </div>
+                        </div>
+                        <div class="item" style="background: url(/static/sites/chascomus/images/bg-3.jpg);">
+                            <div class="container slider-text vcenter text-center">
+                                <h3>Una iniciativa para facilitar la articulación de las organizaciones sociales y culturales de Chascomús, con el fin de fomentar el apoyo, compartir e intercambiar experiencias y recursos</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-1" data-slide="prev"><span class="fa fa-chevron-left"></span></a>
+                    <a class="right carousel-control" href="#carousel-1" data-slide="next"><span class="fa fa-chevron-right"></span></a>
+                </section>
+
+                <section class="section section-center section-cta">
+                    <div class="container">
+                        <!--h2 class="section-title"><span>Ready to Start?</span></h2-->
+                        <h3>Una iniciativa para facilitar la articulación de las organizaciones sociales y culturales de Chascomús, con el fin de fomentar el apoyo, compartir e intercambiar experiencias y recursos</h3>
+                        <div class="main-action row">
+                            <div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2"><a ng-href="/iniciativas/edit" class="smooth-scroll btn btn-lg btn-block btn-danger">Publicá una actividad</a></div>
+                            <div class="col-md-4 col-sm-4"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-default">Mirá la agenda</a></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="features" class="section section-center section-hilite section-features">
+                    <div class="container">
+                        <div class="section-title"><h2><span>Agenda</span></h2><h3>actividades de la red</h3></div>
+
+                        <div class="row">
+
+                            <div ng-repeat="hit in hits" data-category="medio_ambiente" class="item-template col-md-4">
+
+                                <div class="initiative initiative-item">
+                                    <div data-label="{{hit._source.start_date | moment: 'D [de] MMMM'}}" class="pic">
+                                        <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
+                                            <img class="replace-src" src="http://chascomus.dev/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
+                                        </a>
+                                    </div>
+                                    <div class="subtext">
+                                        <h4>{{hit._source.owner.name}}</h4>
+                                    </div>
+                                    <div class="wrapper">
+                                        <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
+                                            <h4>{{hit._source.name}}</h4>
+                                        </a>
+                                        <div>{{hit._source.start_date | moment: 'L LT'}}</div>
+                                    </div>
+                                    <div class="bottom">
+                                        <div class="actions wrapper">
+                                            <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa" class="btn-alternate btn">Ver</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div >
+                                <a href="/iniciativas" class="btn-default col-md-offset-10 btn col-md-2">Ver más <i class="fa fa-chevron-right"></i> </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section id="team" class="section section-center section-hilite section-team">
+                    <div class="container">
+                        <div class="section-title"><h2><span>Organizaciones</span></h2><h3>colaborando en Chascomus en Red</h3></div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-4 col-xs-6">
+                                <img src="http://placehold.it/300x300">
+                                <h5>Rihanna</h5>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6">
+                                <img src="http://placehold.it/300x300">
+                                <h5>Marry</h5>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6">
+                                <img src="http://placehold.it/300x300">
+                                <h5>Ronaldo</h5>
+                            </div>
+                    
+                            <div class="col-md-2 col-sm-4 col-xs-6">
+                                <img src="http://placehold.it/300x300">
+                                <h5>Jackie Lord</h5>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6">
+                                <img src="http://placehold.it/300x300">
+                                <h5>David Beckham</h5>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6">
+                                <img src="http://placehold.it/300x300">
+                                <h5>John Doe</h5>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+        <!--section id="blog" class="section section-blog">
+          <div class="container">
+            <h2 class="section-title"><span>Our Blog</span></h2>
+            <div class="row">
+              <div class="col-md-6">
+                <article class="hentry post">
+                  <div class="row">
+                    <div class="entry-thumbnail col-lg-4 col-md-5 col-sm-4">
+                      <a href="#" class="hover-effect">
+                        <img src="http://placehold.it/165x165" alt="" />
+                        <span class="overlay"><i class="fa fa-plus"></i></span>
+                      </a>
+                    </div>
+                    <div class="col-lg-8 col-md-7 col-sm-8">
+                      <header class="entry-header">
+                        <h2 class="entry-title"><a href="#">Sample blog title</a></h2>
+                        <div class="entry-meta">By <a href="#">Jackie Lord</a> in <a href="#">Category</a></div>
+                      </header>
+                      <div class="entry-content">
+                        <p>Pellentesque eleifend amet scelerisque convallis. Aenean eget metus non erat suscipit accumsan.</p>
+                        <a href="#" class="more"><span class="btn btn-primary">Continue Reading</span></a>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col-md-6">
+                <article class="hentry post">
+                  <div class="row">
+                    <div class="entry-thumbnail col-lg-4 col-md-5 col-sm-4">
+                      <a href="#" class="hover-effect">
+                        <img src="http://placehold.it/165x165" alt="" />
+                        <span class="overlay"><i class="fa fa-plus"></i></span>
+                      </a>
+                    </div>
+                    <div class="col-lg-8 col-md-7 col-sm-8">
+                      <header class="entry-header">
+                        <h2 class="entry-title"><a href="#">Sample blog title</a></h2>
+                        <div class="entry-meta">By <a href="#">Jackie Lord</a> in <a href="#">Category</a></div>
+                      </header>
+                      <div class="entry-content">
+                        <p>Pellentesque eleifend amet scelerisque convallis. Aenean eget metus non erat suscipit accumsan.</p>
+                        <a href="#" class="more"><span class="btn btn-primary">Continue Reading</span></a>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section-->
+
+        <section id="clients" class="section section-our-clients">
+          <div class="container">
+            <h2 class="section-title"><span>Apoyan</span></h2>
+            <div class="row">
+              <div class="col-md-4 col-sm-4 col-xs-6 vcenter">
+                <a href="#">
+                    <img src="/static/sites/chascomus/images/logo-presidencia-de-la-nacion-footer.png"/>
+                </a>
+              </div>
+              <div class="col-md-4 col-sm-4 col-xs-6 vcenter">
+                <a href="#">
+                    <img src="/static/sites/chascomus/images/logo_minka.png"/>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+

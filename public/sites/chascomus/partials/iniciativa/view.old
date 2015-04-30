@@ -1,0 +1,32 @@
+    <article class="single-project">
+    <div class="project-thumbnail">
+    <div id="project-thumbnail-carousel-1" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+    <div class="item active"><img src="/static/uploads/fullsize/{{selected.profile_picture}}" /></div>
+    <div class="item">
+    <img src="http://maps.googleapis.com/maps/api/staticmap?center={{selected.location.latitude}},{{selected.location.longitude}}&zoom=14&size=800x420&sensor=false&markers=color:red%7C{{selected.location.latitude}},{{selected.location.longitude}}" />
+    </div>
+    </div>
+    <ol class="carousel-indicators">
+    <li data-target="#project-thumbnail-carousel-1" data-slide-to="0" class="active"></li>
+    </ol>
+    <span class="right carousel-control" href="#project-thumbnail-carousel-1" data-slide="next"><span class="fa fa-chevron-right"></span></span>
+    <span class="left carousel-control" href="#project-thumbnail-carousel-1" data-slide="prev"><span class="fa fa-chevron-left"></span></span>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md-4">
+    <span class="btn btn-block btn-primary">Participá</span>
+    <ul class="list-unstyled project-info">
+    <li><strong>Fecha</strong> <span class="pull-right">{{selected.start_date | moment: 'dddd DD [de] MMMM LT'}}</span></li>
+    <li><strong>Ubicación</strong> <span class="pull-right">{{selected.address}}</span></li>
+    <li><strong>Organización</strong> <span class="pull-right">{{selected.organization}}</span></li>
+    <li><span class="pull-left btn btn-default">Editar</span></li>
+    </ul>
+    </div>
+    <div class="col-md-8">
+    <p>{{selected.description}}</p>
+    </div>
+    </div>
+    </article>
+

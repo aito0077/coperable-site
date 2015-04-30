@@ -1,0 +1,158 @@
+
+<div id="inciativa_editor" class="container">
+    <div class="form-horizontal">
+
+    <h3 class="pagetitle">Organizar Iniciativa</h3>
+
+    <input type="hidden" name="latitude" id="latitude"/>
+    <input type="hidden" name="longitude" id="longitude"/>
+    <input type="hidden" name="slug" id="slug"/>
+    <input type="hidden" name="description" id="description"/>
+
+        <div class="form-group">
+            <div class="content">
+                <label class="control-label" for="name">1 - Nombre de la Iniciativa</label>
+                <input class="form-control input-lg" type="text" name="name" id="name" required autocomplete="off" placeholder="Elige un nombre claro, explicativo y atractivo" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="content">
+                <label class="control-label" for="goal">2 - Objetivo</label>
+                <input class="form-control input-lg" type="text" name="goal" id="goal" autocomplete="off" placeholder="¿Cuál es la finalidad?" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="content">
+                <label class="control-label" for="categoria">3 - Categorías</label>
+                <div class="controls" id="categoria">
+                    <div class="btn-toolbar">
+                        <div class="btn-group" data-toggle="buttons-checkbox">
+                            <button id="medio_ambiente" class="active category-environment ini_category btn btn-primary inline">
+                            </button>
+                            <button id="educacion" class="active category-education ini_category btn btn-primary inline">
+                            </button>
+                            <button id="arte_cultura" class="active category-art ini_category btn btn-primary inline">
+                            </button>
+                            <button id="desarrollo" class="active category-social ini_category btn btn-primary inline">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="content">
+                <label class="control-label" for="description">4 - Agrega una descripción</label>
+                <div class="controls">
+                    <textarea id="description_red" class="input-xxlarge" autocomplete="off"></textarea autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="content">
+                <label for="activities">5 - Actividades</label>
+                <div class="help-block"><small>¿Qué tipo de tareas se van a realizar en la iniciativa?</small></div>
+                <div class="controls">
+                    <input class="form-control input-lg" name="activities" id="activities" class="tagsinput input-xxlarge" autocomplete="off" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="content">
+                <label for="topics">6 - Temática</label>
+                <div class="help-block"><small>Agrega palabras claves que ayuden a encontrar e identificarla</small></div>
+                <div class="controls">
+                    <input class="form-control input-lg" name="topics" id="topics" class="tagsinput input-xxlarge" value=""  autocomplete="off" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="content">
+                <label for="duration">7 - Duración</label>
+                <div class="help-block"><small>¿Cúanto dura el encuentro?</small></div>
+                <div class="controls">
+                    <input class="form-control input-lg" type="text" id="duration" class="input-xxlarge" name="duration"/>
+                </div>
+            </div>
+        </div>
+<!--ADDRESS-->
+        <div class="form-group">
+            <div class="content">
+                <label for="picture">8 - Imagen de Portada</label>
+                <div class="help-block"><small>Una imagen vale más que mil palabras. Elegí una que la represente.</small></div>
+                <div class="controls">
+                    <input class="form-control input-lg" id="profile_picture" type="file" name="files[]" multiple>
+                      <div id="super-zone">
+                          <div id="dropzone" class="dropzone-help-text">
+                            <span class="text">Arrastra hasta aquí una<br>foto para la portada</span>
+                            <span class="text-hover">¡Suéltala!</span>
+                          </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="content">
+                <label class="control-label" for="participants_amount">9 - Cantidad de Participantes</label>
+                <div id="slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                    <div class="min">1</div>
+                    <div class="max">1000</div>
+                    <div id="slider_range" class="ui-slider-range ui-widget-header ui-slider-range-min"></div>
+                    <a id="slider-handle" class="ui-slider-handle ui-state-default ui-corner-all" href="#">
+                        <div class="tooltip">1</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+          
+        <div class="form-group">
+            <div class="content">
+                <label class="control-label" for="email">10 - Mail de contacto</label>
+                <div class="controls">
+                    <input class="form-control input-lg" type="text" name="email" id="email" autocomplete="off" />
+                    <div class="help-block"><small>Opcional. En caso de que los participantes te quieren contactar y este sea diferente al del organizador</small></div>
+                </div>
+            </div>
+        </div>
+          
+        <div class="form-group">
+            <div class="content">
+                <label class="control-label">11 - Redes sociales</label>
+                <div class="controls">
+                    <div class="input-group">
+                        <span class="input-group-addon">t</span>
+                        <input class="form-control input-lg social-input" data-prefix="http://twitter.com/" type="text" name="twitter" id="twitter" placeholder="twitter" autocomplete="off" />
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">f</span>
+                        <input class="form-control input-lg social-input" data-prefix="http://facebook.com/" type="text" name="facebook" id="facebook" autocomplete="off" placeholder="facebook"/>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">y</span>
+                        <input class="form-control input-lg social-input" data-prefix="http://youtube.com/" type="text" name="youtube" id="youtube" placeholder="youtube" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <button type="submit" id="submit_iniciativa" class="btn">
+                    Guardar 
+            </button>
+            <button id="progress" type="submit" class="btn" style="display:none"> Procesando... </button>
+            <a id="ref_success" href="/"> <button id="btn_success" class="btn btn-success" type="submit" style="display:none"> Continuar! </button></a>
+        </div>
+
+    <!--/form-->
+    </div>
+</div>
+
+
+
