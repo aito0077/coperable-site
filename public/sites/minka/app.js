@@ -38,12 +38,15 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 }])
 .filter('moment', function() {
     return function(dateString, format) {
-        return moment(dateString).add(3, 'hour').locale('es').format(format);
+        //return moment(dateString).add(2, 'hour').locale('es').format(format);
         //return moment(dateString).locale('es').format(format);
+        return moment(dateString).locale('es').format(format);
+
     };
 })
 .filter('moment_plus', function() {
     return function(dateString, format) {
+        //return moment(dateString).locale('es').format(format);
         return moment(dateString).add(3, 'hour').locale('es').format(format);
     };
 })

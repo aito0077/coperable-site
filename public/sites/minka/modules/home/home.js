@@ -126,6 +126,8 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
             $scope.day_selected = ''; 
             $scope.day_active = '';
         } else {
+            //$scope.day_selected = ".day"+moment(day).format('DD');
+            //$scope.day_selected = ".day"+moment(day).add(2, 'hour').format('DD');
             $scope.day_selected = ".day"+moment(day).add(3, 'hour').format('DD');
             //$scope.day_selected = ".day"+moment(day).format('DD');
             $scope.day_active = day;
@@ -197,7 +199,8 @@ angular.module('minkaApp.home', ['ngRoute','ui.router','ngResource'])
                             interval: "day"
                         }
                     }
-                }
+                },
+                "sort": { "start_date": { "order": "asc" }}
             }
         }).then(function (resp) {
 
