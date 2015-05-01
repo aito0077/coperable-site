@@ -6,6 +6,13 @@ angular.module('chascomusApp.services',['ngResource', 'elasticsearch'])
             }
         });
     }])
+    .factory('Usuario',['$resource', function($resource){
+        return $resource('/api/usuarios/:id', { id:'@_id' }, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    }])
     .factory('client',['esFactory', function(esFactory){
         return esFactory({
             hosts: [

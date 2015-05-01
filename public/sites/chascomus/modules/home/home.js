@@ -80,7 +80,11 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
             body: {
                 query: {
                     bool: {
-                        must: { match: { "minka": true}},
+                        must: { 
+                            match: { 
+                                "minka": true
+                            }
+                        }
                     }
                 },
                 aggs: {

@@ -10,6 +10,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{layoutTitle}}</title>
         <link href="/static/sites/chascomus/assets/css/template.css" rel="stylesheet">
+        <link href="/static/bower_components/datedropper/datedropper.css" rel="stylesheet">
+        <link href="/static/bower_components/jt.timepicker/jquery.timepicker.css" rel="stylesheet">
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -27,7 +30,7 @@
                         <div class="row">
                             <div class="pull-right social-links col-sm-6">
                             {{^user}}
-                                <span>Ingres&aacute;: </span>
+                                <a href="/user/login" target="_self"><span><b>Ingres&aacute;</b> </span></a>
                                 <a href="/auth/facebook" target="_self"><i class="fa fa-facebook"></i></a>
                                 <span>|</span>
                                 <a href="/auth/twitter" target="_self"><i class="fa fa-twitter"></i></a>

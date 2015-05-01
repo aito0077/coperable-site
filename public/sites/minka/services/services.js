@@ -9,7 +9,7 @@ angular.module('minkaApp.services',['ngResource', 'elasticsearch'])
     .factory('client',['esFactory', function(esFactory){
         return esFactory({
             hosts: [
-               'http://minka.coperable.org:81'
+               'http://minka.coperable.dev/ses'
             ],
             requestTimeout: 30000 ,
             apiVersion: '1.4'

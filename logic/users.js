@@ -46,12 +46,25 @@ exports.findById = function(id, done) {
   });
 };
 
-exports.profile= function(user_id, done) {
+exports.profile = function(user_id, done) {
   cop_api.client.get('/api/user/'+user_id, function(err, req, res, user) {
     console.log('[users.js::profile] Retrieving userID [%s]', user_id);
     done(err, user);
   });
 };
+
+
+exports.get = function(req, res, done) {
+    var id = req.param('id') || req.params[0];
+    console.log('id:' + id);
+    cop_api.client.get('/api/user/'+id, function(err, rreq, rres, user_data) {
+        res.send(user_data);
+    });
+};
+
+
+
+
 
 exports.list = function(req, res){
   var http = require('http');

@@ -1,9 +1,10 @@
 <section class="section">
+<div class="container">
 <div id="initiativePage" class="row">
     <div id="initiativeContent" class="col-md-9 col-sm-12">
         <h1 class="title">{{iniciativa.name}}</h1>
         <div class="info">
-            Por <a class="name" href="/user/{{iniciativa.owner.user}}">{{iniciativa.owner.name}}</a> en <a href="#" data-category="environment">{{iniciativa.main_category}}</a>
+            Por <a class="name" href="/users/{{iniciativa.owner.user}}">{{iniciativa.owner.name}}</a> en <a href="#" data-category="environment">{{iniciativa.main_category}}</a>
         </div>
         <section role="main">
             <h3>Objetivo</h3>
@@ -122,7 +123,7 @@
                 <div class="title">Sobre el organizador</div>
                     <div class="info">
                         <img src="{{iniciativa.owner.picture_thumb}}" />
-                        <a href="/user/{{iniciativa.owner.user}}" class="name">{{iniciativa.owner.name}}</a>
+                        <a href="/users/{{iniciativa.owner.user}}" class="name">{{iniciativa.owner.name}}</a>
                         <div class="place">{{user.location}}</div>
                     </div>
                     <div class="description">
@@ -142,4 +143,5 @@
                 </div>
             </div>
             <div id="fb-root"></div>
+</div>
 </section>

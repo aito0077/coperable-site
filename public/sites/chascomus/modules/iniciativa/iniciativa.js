@@ -20,18 +20,26 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
     });
 
 }])
-.controller('iniciativa-edit', ['$scope','$http', '$routeParams', '$location', '$anchorScroll', '$timeout', 'Iniciativa', function($scope, $http, $routeParams, $location, $anchorScroll, $timeout, Iniciativa) {
+.controller('iniciativa-edit', ['$scope','$http', '$routeParams', '$location', '$anchorScroll', '$timeout', '$rootScope', 'Iniciativa', 'Usuario', function($scope, $http, $routeParams, $location, $anchorScroll, $timeout, $rootScope, Iniciativa, Usuario) {
+
+    $scope.first_time = false;
 
     $scope.iniciativa = new Iniciativa();
+    $scope.organization = Usuario.get({
+        id: $rootScope.user_id
+    }, function(data) {
+
+        $scope.first_time = data.ownedIniciativas && data.ownedIniciativas.length > 1 ? false : true;
+    });
+
     $scope.persisted = false;
 
     $scope.geo = {};
     $scope.saving = false;
     $scope.hasError = false;
 
- 
     $scope.prepareModel = function() {
-        $scope.iniciativa.chascomus = true;
+        $scope.iniciativa.implementation = 'chascomus';
         if($scope.iniciativa.name) {
             $scope.iniciativa.slug = $scope.iniciativa.name.replace(/\s+/g, '_');
         }
@@ -83,7 +91,11 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
                 $location.hash('page');
                 $anchorScroll();
             });
-
+            if($scope.first_time) {
+                $scope.organization.$save(function(data) {
+                    $scope.first_time = false;
+                });
+            }
         }
     };
 
@@ -118,6 +130,22 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
             });
             }
         });
+
+        $('#profile_picture_ngo').fileupload({
+            dropZone: $('#dropzone-ngo'),
+            dataType: 'json',
+            clickable: true,
+            url: '/uploads',
+            done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $scope.iniciativa.profile_picture = file.name;
+                $('#dropzone-ngo').css('background-image', "url('"+file.thumbnailUrl+"')");
+                $('#dropzone-ngo').addClass("with-image");
+            });
+            }
+        });
+
+
 
 
         $("#fecha" ).dateDropper(default_options);
@@ -374,7 +402,6 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 
 }])
 .controller('iniciativa-view', ['$scope','$http', '$routeParams', '$sce', 'Iniciativa', function($scope, $http, $routeParams, $sce, Iniciativa) {
-    console.log('iniciativa view');
     $scope.iniciativa = Iniciativa.get({
         id: $routeParams.id
     }, function(data) {

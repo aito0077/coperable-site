@@ -30,9 +30,11 @@ function createChascomusApp(express, passport, app, iniciativas, users) {
             req.logIn(user, function(err) {
                 if (err) { return res.redirect('/iniciativa/create'); }
             });
+            console.dir(req.user);
 
-            var redirectURL = '/iniciativa/edit';
+            var redirectURL = '/';
             if (req.session && req.session.redirectURL) {
+                console.log('REDIRECCIONAR A: '+req.session.redirectURL);
                 redirectURL = req.session.redirectURL;
                 req.session.redirectURL = null;
             }
@@ -68,7 +70,6 @@ function createChascomusApp(express, passport, app, iniciativas, users) {
 
     app.post('/chascomus/user/signup', users.do_signup, function(req, res, next){
         customChascomusCallbackAuthentification('local', req, res, next);
-        //res.redirect('/');
     });
 
     app.get('/chascomus/*', chascomus.index);

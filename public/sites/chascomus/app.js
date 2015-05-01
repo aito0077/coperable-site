@@ -29,6 +29,10 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
         templateUrl: '/static/sites/chascomus/partials/iniciativa/view.html',
         controller: 'iniciativa-view'
     })
+    .when('/users/:id', {
+        templateUrl: '/static/sites/chascomus/partials/user/profile.html',
+        controller: 'user-view'
+    })
     .otherwise({redirectTo: '/home'});
     
     $locationProvider.html5Mode(true);
@@ -58,6 +62,7 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 .run(function($rootScope, $window) {
 
     $rootScope.user_id = $window.user_id;
+    //$rootScope.user_id = '53c91943cc04da7b1d000006';
 
 });
 

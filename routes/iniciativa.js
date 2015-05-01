@@ -146,8 +146,7 @@ exports.list = function(req, res) {
 
     });
     search.iniciativas_summary(req, res, function(result) {
-        var date_buckets = [],
-            terms = [],
+        var terms = [],
             periods = [],
             months = {
                 '1':    'Enero', 
@@ -164,20 +163,25 @@ exports.list = function(req, res) {
                 '12':    'Diciembre'
             };
 
-        _.each(date_buckets, function(bucket) {
-            periods.push(_.extend(bucket, {month: months[bucket.key_as_string]}));
-        });
+        console.dir(result.aggregations.comunidades);
+        if(result.aggregations) {
+            _.each(result.aggregations.histogram.buckets, function(bucket) {
+                periods.push(_.extend(bucket, {month: months[bucket.key_as_string]}));
+            });
 
-        _.each(result.aggregations.main_categories.buckets, function(bucket) {
-            var key_name = (bucket.key || '').replace(/_/g," ");
-            bucket['name'] = key_name.charAt(0).toUpperCase() + key_name.slice(1); 
-        });
+            _.each(result.aggregations.main_categories.buckets, function(bucket) {
+                var key_name = (bucket.key || '').replace(/_/g," ");
+                bucket['name'] = key_name.charAt(0).toUpperCase() + key_name.slice(1); 
+            });
+        }
 
-        _.each(result.aggregations.topics.buckets, function(bucket) {
-            if(terms.length < 9) {
-                terms.push(bucket);
-            }
-        });
+        if(result.aggregations) {
+            _.each(result.aggregations.topics.buckets, function(bucket) {
+                if(terms.length < 9) {
+                    terms.push(bucket);
+                }
+            });
+        }
 
         iniciativas.list(req, res, function(err, iniciativas_result){
             return res.render('iniciativa/index.html', {
