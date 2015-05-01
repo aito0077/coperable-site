@@ -1,0 +1,200 @@
+    <section  ng-show="persisted" class="section section-center section-iniciativa">
+        <div class="container">
+            <div class="main-action row">
+                <p class="text-center">
+                    Gracias por ingresar tu actividad, en algunos días publicaremos el mapa y la agenda con todas las actividades. 
+                </p>
+                <p>
+                    Para estar al tanto de las novedades y seguir apoyano la Semana de la economía colaborativa sigue la página de facebook y comparte las publicaciones 
+                </p>
+            </div>
+
+            <div class="main-action row">
+                <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4"><a ng-href="/" class="smooth-scroll btn btn-lg btn-block btn-default">Volver</a></div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <form name="actividadForm" role="form"  ng-submit="save(actividadForm.$valid)" novalidate>
+
+        <section class="section section-center section-organization-form">
+            <div class="container">
+                <h3 class="section-title"><span>Organización</span></h3>
+                <h5>Por única vez, necesitamos que completes los datos de la organización</h5>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="sr-only">Nombre</label>
+                            <input type="text" name="organization_name" class="form-control" placeholder="Nombre Organización"  ng-model="organization.organization_name" required>
+                            <p ng-show="hasError && actividadForm.organization_name.$invalid" class="help-block"  style="color: red">Debe ingresar el nombre de la organización.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="sr-only">Email de Contacto</label>
+                            <input type="email" class="form-control" name="contact_email" placeholder="Email Contacto"  ng-model="organization.contact_email" required>
+                            <p ng-show="hasError && actividadForm.contact_email.$invalid" class="help-block"  style="color: red">Un correo de contacto.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="picture">Imagen Perfil Organización</label>
+                        </div>
+                        <div class="form-group">
+                            <input id="profile_picture_ngo" type="file" name="files[]" multiple class="block-center"> 
+                              <div id="super-zone-ngo" >
+                                  <div id="dropzone-ngo" class="dropzone-help-text">
+                                    <span class="text">Arrastra hasta aquí una<br>foto para el perfil</span>
+                                    <span class="text-hover">¡Suéltala!</span>
+                                  </div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Descripción de la Organización</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only">Descripción</label>
+                            <textarea class="form-control organization_description" name="about" placeholder="Descripción" rows="8" ng-model="organization.about"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="sr-only">Página Web</label>
+                            <input type="text" name="website" class="form-control" placeholder="Página Web"  ng-model="organization.website">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only">Facebook</label>
+                            <input type="text" name="facebook" class="form-control" placeholder="Facebook"  ng-model="organization.facebook">
+                        </div>
+
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="sr-only">Twitter</label>
+                            <input type="text" name="twitter" class="form-control" placeholder="Twitter"  ng-model="organization.twitter">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only">Youtube</label>
+                            <input type="text" name="youtube" class="form-control" placeholder="Youtube"  ng-model="organization.youtube">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </section>
+
+
+
+
+    <section ng-show="!persisted" id="iniciativa" class="section section-center section-hilite section-iniciativa">
+        <div class="container">
+                <h3 class="section-title"><span>Actividad</span></h3>
+
+                <div class="main-action">
+                        <div class="row">
+                             <p ng-show="hasError" class="help-block text-error" style="color: red">Faltan ingresar datos</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="sr-only">Nombre Actividad</label>
+                                    <input name="name" type="text" class="form-control" placeholder="Nombre Actividad"  ng-model="iniciativa.name" required>
+                                     <p ng-show="hasError && actividadForm.name.$invalid" class="help-block text-error" style="color: red">El nombre es requerido.</p>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        <label class="sr-only">Desde</label>
+                                        <input name="fecha" id="fecha" type="text" placeholder="Día Evento" class="form-control" ng-model="iniciativa.fecha" required>
+                                         <p ng-show="hasError && actividadForm.fecha.$invalid" class="help-block"  style="color: red">La fecha es requerida.</p>
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        <label class="sr-only">Hora</label>
+
+                                        <input name="hora" type="text" class="form-control" placeholder="Hora"  ng-model="iniciativa.hour" id="hour">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="sr-only">Description</label>
+                                    <textarea name="descripcion" ng-model="iniciativa.description" class="form-control" placeholder="Descripción" style="height: 100px" rows="6" required ></textarea>
+                                    <p ng-show="hasError && actividadForm.descripcion.$invalid" class="help-block"  style="color: red">La descripcion es requerida.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!--div class="form-group">
+                                    <label class="sr-only">Pais</label>
+                                    <input type="text" class="form-control" placeholder="Pais" ng-model="iniciativa.country">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Ciudad</label>
+                                    <input type="text" class="form-control" placeholder="Ciudad" ng-model="iniciativa.city">
+                                </div-->
+
+                                <div class="form-group">
+                                    <div class="content">
+                                        <label class="sr-only">Dirección</label>
+                                        <div class="controls">
+                                            <input type="text" name="address" ng-model="iniciativa.direccion" placeholder="Dirección" id="addresspicker_map" class="form-control" autocomplete="off" required/>
+                                            <p ng-show="hasError && actividadForm.address.$invalid" class="help-block"  style="color: red">Debe ingresar una dirección.</p>
+                                            <div style="width:100%;height:200px;margin-top:20px">
+                                                <div id="map_canvas" style="width:100%; height:100%"></div>
+                                                <div id="location" class=""></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="picture">Imagen de Portada</label>
+                                </div>
+                                <div class="form-group">
+                                    <input id="profile_picture" type="file" name="files[]" multiple class="block-center"> 
+                                      <div id="super-zone" >
+                                          <div id="dropzone" class="dropzone-help-text">
+                                            <span class="text">Arrastra hasta aquí una<br>foto para la portada</span>
+                                            <span class="text-hover">¡Suéltala!</span>
+                                          </div>
+                                      </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+
+                <section id="iniciativa" class="section section-center section-iniciativa">
+                    <div class="container">
+
+                        <div class="row">
+                            <button type="submit" class="btn-save-iniciativa btn btn-default" ng-show="!saving" >Guardar</button>
+                            <span class="btn-saving btn btn-default" ng-show="saving">Guardar</span>
+                            <span class="btn-delete-iniciativa btn btn-primary" ng-show="!saving && !is_new"  ng-really-message="Desea eliminar la iniciativa?" ng-really-click="doRemove()" style="cursor:hand">Eliminar</span>
+
+                        </div>
+                    </div>
+                </section>
+
+            </form>

@@ -21,7 +21,7 @@ var config = require('./config'),
   filehandler = require('./logic/filehandler'),
   RedisStore = require('connect-redis')(express),
   app = express();
-    
+   
 
 var stylus = require('stylus');
 var nib = require('nib');
@@ -34,36 +34,35 @@ app.engine('html', require('hogan-express'));
 app.set('layout', 'layout.html');
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  app.set('view options', { layout: false });
-    //  app.set('view engine', 'jade');
-  app.set('views', __dirname + '/views');
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.cookieParser());
-  app.use(express.urlencoded());
-  app.use(express.multipart());
-  app.use(express.session({
-    store: sessionStore,
-    key: 'jsessionid',
-    secret: 'bl33dingumñoño',
-    cookie:{ domain: '.'+config.system.DOMAIN_BASE }
-    }
-  ));
+    app.set('port', process.env.PORT || 3000);
+    app.set('view options', { layout: false });
+    app.set('views', __dirname + '/views');
+    app.use(express.favicon());
+    app.use(express.logger('dev'));
+    app.use(express.cookieParser());
+    app.use(express.urlencoded());
+    app.use(express.multipart());
+    app.use(express.session({
+        store: sessionStore,
+        key: 'jsessionid',
+        secret: 'bl33dingumñoño',
+        cookie:{ 
+            domain: '.'+config.system.DOMAIN_BASE 
+        }
+    }));
     app.use(bodyParser());
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use('/static', express.static(path.join(__dirname, 'public')));
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(express.methodOverride());
+    app.use(app.router);
+    app.use('/static', express.static(path.join(__dirname, 'public')));
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 });
 
 var sites = require('./sites/index')(express, passport, app, iniciativas, users);
-
 
 /**
  * Ensure user authentification. If it's not logged in, redirect him there; else, go to the next
@@ -74,7 +73,6 @@ function ensureAuthenticated(req, res, next) {
         res.redirect('/user/login');
         return;
     }
-    //setCrossOrigin(req, res, next);
     next('route');
 }
 
@@ -127,6 +125,8 @@ app.get('/iniciativas/create', iniciativa.create);
 app.post('/iniciativas/:id', iniciativas.save);
 app.post('/iniciativas', iniciativas.create);
 app.post('/minka/iniciativas', iniciativas.create);
+app.post('/chascomus/iniciativas', iniciativas.create);
+
 app.get('/iniciativas/name/:slug', iniciativa.view_slug);
 app.get('/iniciativas/:id', iniciativa.view);
 app.get('/iniciativas/success/:id', iniciativa.success);
@@ -142,6 +142,8 @@ app.post('*/api/iniciativas/:id/:userId/quit', iniciativas.quitIniciativa);
 app.post('*/api/iniciativas/search', iniciativas.findByQuery);
 app.post('*/api/iniciativas', iniciativas.create);
 
+
+app.get('/api/usuarios/:id', users.get);
 app.put('/api/usuarios/:id', users.save);
 app.post('/api/usuarios', users.create);
 app.get('/user/:id/edit', user.edit);
@@ -194,27 +196,30 @@ app.get('/comunidades/extra', comunidad.extra);
 app.get('/comunidades/:id', comunidad.view);
 
 function customCallbackAuthentification(strategy, req, res, next) {
-  passport.authenticate(strategy, function loginCustomCallback(err, user, info) {
-      if (err) { return res.redirect('/user/failure_login'); }
+    passport.authenticate(strategy, function loginCustomCallback(err, user, info) {
+        if (err) {
+            return res.redirect('/user/failure_login');
+        }
 
-      if (!user) { return res.redirect('/user/login'); }
+        if (!user) {
+            return res.redirect('/user/login');
+        }
 
-      req.logIn(user, function(err) {
-        if (err) { return res.redirect('/user/failure_login'); }
-      });
+        req.logIn(user, function(err) {
+            if (err) { return res.redirect('/user/failure_login'); }
+        });
 
-      var redirectURL = '/user/success_login';
-      if (req.session.redirectURL) {
-        redirectURL = req.session.redirectURL;
-	console.log('REDIRECT UTL: '+redirectURL);
-        req.session.redirectURL = null;
-      return res.redirect(redirectURL);
-      } else {
-	redirectSubdomain(req, res);
-	}
+        var redirectURL = '/user/success_login';
+        if (req.session.redirectURL) {
+            redirectURL = req.session.redirectURL;
+            console.log('REDIRECT UTL: '+redirectURL);
+            req.session.redirectURL = null;
+            return res.redirect(redirectURL);
+        } else {
+            redirectSubdomain(req, res);
+        }
 
-    }
-  )(req, res, next);
+    })(req, res, next);
 }
 
 function customFecaCallbackAuthentification(strategy, req, res, next) {
@@ -372,8 +377,8 @@ function redirectSubdomain (req, res) {
   if (req.session.subdomain !== '') {
 	domain = (req.session.subdomain || 'minka') + '.' + domain;
 	if(domain.indexOf('minka') > -1) {
-		domain = domain + '/iniciativa/edit';	
-	}	
+		domain = domain + '/iniciativa/edit';
+	}
 	console.log("REDIRECT TO: "+domain);
 	res.redirect('http://' + domain );
   } else {

@@ -146,8 +146,7 @@ exports.list = function(req, res) {
 
     });
     search.iniciativas_summary(req, res, function(result) {
-        var date_buckets = [],
-            terms = [],
+        var terms = [],
             periods = [],
             months = {
                 '1':    'Enero', 
@@ -164,9 +163,11 @@ exports.list = function(req, res) {
                 '12':    'Diciembre'
             };
 
-        _.each(date_buckets, function(bucket) {
-            periods.push(_.extend(bucket, {month: months[bucket.key_as_string]}));
-        });
+        console.dir(result.aggregations.comunidades);
+        if(result.aggregations) {
+            _.each(result.aggregations.histogram.buckets, function(bucket) {
+                periods.push(_.extend(bucket, {month: months[bucket.key_as_string]}));
+            });
 
 	if(result.aggregations) {
 		_.each(result.aggregations.main_categories.buckets, function(bucket) {

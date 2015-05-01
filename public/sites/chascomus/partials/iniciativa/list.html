@@ -1,0 +1,63 @@
+        <section id="portfolio" class="section section-portfolio">
+          <div class="container">
+            <h2 class="section-title"><span>Agenda Común</span></h2>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                      <input type="text" class="form-control" placeholder="Buscar..."/>
+                </div>
+            </div>
+
+            <ul id="filters">
+              <li><a href="#" data-filter="*">All</a></li>
+              <li>/</li>
+              <li><a href="#" data-filter=".web">Web Design</a></li>
+              <li>/</li>
+              <li><a href="#" data-filter=".graphic">Graphic Design</a></li>
+              <li>/</li>
+              <li><a href="#" data-filter=".photography">Photography</a></li>
+              <li>/</li>
+              <li><a href="#" data-filter=".motion">Motion Graphics</a></li>
+              <li>/</li>
+              <li><a href="#" data-filter=".branding">Branding</a></li>
+            </ul>
+
+            <div class="portfolio-isotope row">
+
+                <article ng-repeat="hit in hits" class="item-template col-md-4 col-sm-6 portfolio-item post ">
+
+                    <div class="initiative initiative-item">
+                        <div data-label="{{hit._source.start_date | moment: 'D [de] MMMM'}}" class="pic">
+                            <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
+                                <img class="replace-src" src="http://chascomus.dev/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
+                            </a>
+                        </div>
+                        <div class="subtext">
+                            <a ng-href="/users/{{hit._source.owner.user}}"> <h4>{{hit._source.owner.name}}</h4></a>
+                        </div>
+                        <div class="wrapper">
+                            <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
+                                <h4>{{hit._source.name}}</h4>
+                            </a>
+                            <div>{{hit._source.start_date | moment: 'L LT'}}</div>
+                        </div>
+                        <div class="bottom">
+                            <div class="actions wrapper">
+                                <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa" class="btn-alternate btn">Ver</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </article>
+
+
+
+            </div>
+
+
+
+
+          </div>
+        </section>
+
+
