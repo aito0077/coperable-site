@@ -23,7 +23,10 @@
                 <section class="section section-center section-cta">
                     <div class="container">
                         <div class="main-action row">
-                            <div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2"><a ng-href="/iniciativas/edit" class="smooth-scroll btn btn-lg btn-block btn-danger">Publicá una actividad</a></div>
+                            <div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2">
+                                <a  ng-show="is_logged()" ng-href="/iniciativas/edit" class="smooth-scroll btn btn-lg btn-block btn-danger">Publicá una actividad</a>
+                                <a  ng-show="!is_logged()" href="/user/login" target="_self" class="smooth-scroll btn btn-lg btn-block btn-danger">Publicá una actividad</a>
+                            </div>
                             <div class="col-md-4 col-sm-4"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-default">Mirá la agenda</a></div>
                         </div>
                     </div>
