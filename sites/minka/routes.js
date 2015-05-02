@@ -13,7 +13,7 @@ exports.index = function(req, res) {
         layout: 'sites/minka/index-ang.html',
         layoutId: 'home-index',
         user: req.user,
-        minka_admin: req.user &&  (""+req.user.id == '53b4592f7e0c217564000006'),
+        minka_admin: req.user &&  (_.contains(['53fb54b71c6a96ae6beb937e', '551aa75cfdab4aaa778d6e99', '53b46479a7bb8d516500000d', '53b4592f7e0c217564000006'], ""+req.user.id)),
         is_minka: req.user ? req.user.is_minka : false,
         geo: geo
       });

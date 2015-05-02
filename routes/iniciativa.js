@@ -169,19 +169,18 @@ exports.list = function(req, res) {
                 periods.push(_.extend(bucket, {month: months[bucket.key_as_string]}));
             });
 
-            _.each(result.aggregations.main_categories.buckets, function(bucket) {
-                var key_name = (bucket.key || '').replace(/_/g," ");
-                bucket['name'] = key_name.charAt(0).toUpperCase() + key_name.slice(1); 
-            });
-        }
+	if(result.aggregations) {
+		_.each(result.aggregations.main_categories.buckets, function(bucket) {
+		    var key_name = (bucket.key || '').replace(/_/g," ");
+		    bucket['name'] = key_name.charAt(0).toUpperCase() + key_name.slice(1); 
+		});
 
-        if(result.aggregations) {
-            _.each(result.aggregations.topics.buckets, function(bucket) {
-                if(terms.length < 9) {
-                    terms.push(bucket);
-                }
-            });
-        }
+		_.each(result.aggregations.topics.buckets, function(bucket) {
+		    if(terms.length < 9) {
+			terms.push(bucket);
+		    }
+		});
+	}
 
         iniciativas.list(req, res, function(err, iniciativas_result){
             return res.render('iniciativa/index.html', {
