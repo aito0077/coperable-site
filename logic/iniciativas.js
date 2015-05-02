@@ -17,8 +17,8 @@ console.dir(body);
     delete body._id;
   } else {
     iniciativa_data.owner = {
-      user: req.user.id,
-      name: req.user.username
+      user: req.user ? req.user.id : body.user_id,
+      name: req.user ? req.user.username : body.user_name
     };
   }
   //delete body.start_date;

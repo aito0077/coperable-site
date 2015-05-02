@@ -29,6 +29,10 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
         templateUrl: '/static/sites/chascomus/partials/iniciativa/view.html',
         controller: 'iniciativa-view'
     })
+    .when('/info/enred', {
+        templateUrl: '/static/sites/chascomus/partials/static/red.html',
+        controller: 'static-controller'
+    })
     .when('/users/:id', {
         templateUrl: '/static/sites/chascomus/partials/user/profile.html',
         controller: 'user-view'
@@ -59,7 +63,10 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
         }
     }
 }])
-.run(function($rootScope, $window) {
+.controller('static-controller', ['$scope','$http', '$timeout', '$location', function($scope, $http, $timeout, $location) {
+
+}])
+ .run(function($rootScope, $window) {
 
     $rootScope.user_id = $window.user_id;
     //$rootScope.user_id = '53c91943cc04da7b1d000006';
