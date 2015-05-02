@@ -56,7 +56,7 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.organization = Usuario.get({
         id: $rootScope.user_id
     }, function(data) {
-        $scope.first_time = data.ownedIniciativas && data.ownedIniciativas.length > 1 ? false : true;
+        $scope.first_time = data.ownedIniciativas && data.ownedIniciativas.length > 1 && data.implementation == 'chascomus' ? false : true;
     });
 
     $scope.show_organization_form = function() {
