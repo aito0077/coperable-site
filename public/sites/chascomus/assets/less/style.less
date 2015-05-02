@@ -142,11 +142,66 @@
 			margin: 0 0 30px;
 
 			li {
+                span.selector {
+                    text-transform: capitalize;
+                }
 				display: inline-block;
 				margin: 0 5px;
 				color: @gray-lighter;
 			}
 		}
+
+        #topics {
+            list-style-type: none;
+            margin: 0 0 10px;
+
+            border: 1px solid #a1a1a1;
+            padding: 10px 10px; 
+            border-radius: 25px;
+            li {
+                display: inline-block;
+                margin: 0 5px;
+                color: #EF4832;
+                span.selector {
+                    text-transform: capitalize;
+                }
+                .selector:hover {
+                    background-color: #EF4832;
+                    color: #FFFFFF;
+                }
+                span.selector.active {
+                    background-color: #EF4832;
+                    color: #FFFFFF;
+                }
+            }
+        }
+        #categories {
+            list-style-type: none;
+            margin: 0 0 10px;
+
+            border: 1px solid #a1a1a1;
+            padding: 10px 10px; 
+            border-radius: 25px;
+
+            li {
+                display: inline-block;
+                margin: 0 5px;
+                color: @gray-lighter;
+                span.selector {
+                    text-transform: capitalize;
+                }
+                .selector:hover {
+                    background-color: #EF4832;
+                    color: #FFFFFF;
+                }
+                span.selector.active {
+                    background-color: #EF4832;
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+
 
 		.portfolio-isotope {
 			margin-bottom: 30px;
@@ -219,7 +274,6 @@
         .vcenter {
             display: inline-block;
             vertical-align: middle;
-            float: none;
         }
 
 		a {
@@ -1168,7 +1222,6 @@
 }
 
 .slider-text {
-    background-color:rgba(238,63,34,0.5);
     height: 340px;
     padding-top: 120px;
     vertical-align: middle;
@@ -1179,7 +1232,8 @@
         float: none;
     }
     h3 {
-
+        background-color:rgba(238,63,34,0.5);
+        margin: 20px;
     }
 }
 
@@ -1276,4 +1330,21 @@
             }
         }
     }
+}
+
+
+span.selector {
+    padding: 10px 15px;
+    color: #333333;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    font-family: 'Roboto',Arial,sans-serif;
+    color: #333333;
+    line-height: 20px;
+    text-align: center;
+    font-size: 14px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 15px;
+    cursor: pointer;
 }

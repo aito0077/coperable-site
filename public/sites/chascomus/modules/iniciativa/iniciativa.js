@@ -328,25 +328,12 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
             });
         });
     } else {
-        $scope.iniciativa.categories = {
-            medio_ambiente: false,
-            educacion: false,
-            desarrollo: false,
-            arte_cultura: false,
-            bienestar: false, 
-            deporte: false
-        };
+
         $scope.setup_components();
     }
 
-
-
-
-
     $location.hash('page');
     $anchorScroll();
-
-
 
 }])
 .controller('iniciativa-list', ['$scope','$http', 'client', function($scope, $http, client) {
@@ -354,22 +341,22 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.iniciativas = [];
     $scope.hits = [];
     $scope.day_filters = [];
-    $scope.countries = [];
+    $scope.topics = [];
 
     $scope.do_search = function() {
         client.search({
             index: 'iniciativas',
-            size: 6,
+            size: 999,
             body: {
                 query: {
                     bool: {
-                        must: { match: { "minka": true}},
+                        must: { match: { "implementation": 'chascomus'}},
                     }
                 },
                 aggs: {
-                    countries: {
+                    topics: {
                         terms: {
-                            field: "country"
+                            field: "topics"
                         }
                     },
                     history: {
@@ -387,21 +374,85 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
                             interval: "day"
                         }
                     }
-                }
+                },
+                "sort": { "start_date": { "order": "asc" }}
             }
         }).then(function (resp) {
 
             $scope.hits = resp.hits.hits;
             $scope.day_filters = resp.facets.histo1.entries;
-            $scope.countries = resp.aggregations.countries.buckets;
+            $scope.topics = resp.aggregations.topics.buckets;
             $scope.iniciativas = resp.hits.hits;
-
         });
 
 
     };
 
     $scope.do_search();
+
+    $scope.categories = ['medio_ambiente', 'arte_cultura', 'educacion', 'deporte', 'desarrollo', 'bienestar'];
+
+    $scope.split_filters = function(model) {
+        var filters = '';
+        _.each(model.topics, function(topic) {
+            filters = filters + ' '+topic;
+        });
+        _.each($scope.categories, function(cat) {
+            if(model.categories[cat]) {
+                filters = filters + ' '+cat;
+            }
+        });
+        return filters;
+    };
+
+    $scope.display_category = function(cat) {
+        return cat.replace(/_/g, ' ');
+    };
+
+    $scope.category_selected = ''; 
+    $scope.category_active = '';
+    $scope.topic_selected = ''; 
+    $scope.topic_active = '';
+
+    $scope.select_category = function(category){
+        console.log(category);
+        if(category == 'all') {
+            $scope.category_selected = ''; 
+            $scope.category_active = '';
+        } else {
+            $scope.category_selected = '.'+category;
+            $scope.category_active = category;
+        }
+        console.log($scope.category_selected+$scope.topic_selected);
+        $('.portfolio-isotope').isotope({ filter: $scope.category_selected+$scope.topic_selected});
+        return true;
+    };
+
+    $scope.isCategoryActive = function(category_key) {
+        return (category_key == $scope.category_active ? 'active' : '');
+    };
+
+    $scope.select_topic = function(topic){
+        console.log(topic);
+        if(topic == 'all') {
+            $scope.topic_selected = ''; 
+            $scope.topic_active = '';
+        } else {
+            $scope.topic_selected = '.'+topic;
+            $scope.topic_active = topic;
+        }
+        console.log($scope.category_selected+$scope.topic_selected);
+        $('.portfolio-isotope').isotope({ filter: $scope.category_selected+$scope.topic_selected});
+        return true;
+    };
+
+    $scope.isTopicActive = function(topic_key) {
+        console.log(topic_key+ ' '+ (topic_key == $scope.topic_active ? 'active' : ''));
+        return (topic_key == $scope.topic_active ? 'active' : '');
+    };
+
+
+
 
 /*
     $scope.user_default = new google.maps.LatLng(-24.615692,-64.432846);
@@ -465,7 +516,10 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
 
 }])
-.controller('iniciativa-view', ['$scope','$http', '$routeParams', '$sce', 'Iniciativa', 'Usuario', function($scope, $http, $routeParams, $sce, Iniciativa, Usuario) {
+.controller('iniciativa-view', ['$scope','$http', '$routeParams', '$location', '$anchorScroll', '$sce', 'Iniciativa', 'Usuario', function($scope, $http, $routeParams, $location, $anchorScroll, $sce, Iniciativa, Usuario) {
+    $location.hash('page');
+    $anchorScroll();
+
     $scope.iniciativa = Iniciativa.get({
         id: $routeParams.id
     }, function(data) {

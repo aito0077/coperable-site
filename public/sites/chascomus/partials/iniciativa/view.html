@@ -15,7 +15,7 @@
 
                 <div class="info">
                     <div>
-                        <span ng-show="iniciativa.start_date != iniciativa.end_date">Desde</span> <span class="when">{{iniciativa.start_date | moment: 'DD MMMM YYYY, HH:mm'}}</span><span ng-show="iniciativa.start_date != iniciativa.end_date"> - Hasta <span class="when">{{iniciativa.end_date | moment: 'DD MMMM YYYY, HH:mm'}}</span></span>
+                        <span ng-show="iniciativa.start_date != iniciativa.end_date">Desde</span> <span class="when">{{iniciativa.start_date | moment: 'DD MMMM YYYY, HH:mm'}}</span><!--span ng-show="iniciativa.start_date != iniciativa.end_date"> - Hasta <span class="when">{{iniciativa.end_date | moment: 'DD MMMM YYYY, HH:mm'}}</span--></span>
                     </div>
                     <div class="where">{{iniciativa.address}}</div>
                 </div>
@@ -28,7 +28,7 @@
                 </ul>
             </div>
             <div ng-show="iniciativa.topics.length" class="cell tags-wrapper">
-                <h3>Temática</h3>
+                <h3>Tipo de Actividad</h3>
                 <div>
                     <span ng-repeat="tag in iniciativa.topics" class="label label-primary" style="margin: 5px;">{{tag}}</span>
                 </div>
@@ -116,7 +116,7 @@
                         {{organization.about}}
                     </div>
                     <div class="other">
-                        <div class="title">Otras iniciativas de {{organization.organization_name}}</div>
+                        <div class="title">Otras actividades de {{organization.organization_name}}</div>
                             <div ng-repeat="ownedIniciativa in iniciativa.owner.ownedIniciativas" class="pic">
                                 <a href="/iniciativas/{{ownedIniciativa.id}}">
                                     <div class="name">{{ownedIniciativa.name}}</div>

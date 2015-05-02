@@ -8,7 +8,11 @@ angular.module('chascomusApp.user', ['ngRoute','ui.router','ngResource'])
     });
 
 }])
-.controller('user-view', ['$scope','$http', '$routeParams', '$timeout', 'Usuario', function($scope, $http, $routeParams, $timeout,  Usuario) {
+.controller('user-view', ['$scope','$http', '$routeParams', '$timeout', '$location', '$anchorScroll',  'Usuario', function($scope, $http, $routeParams, $timeout, $location, $anchorScroll,  Usuario) {
+
+
+    $location.hash('page');
+    $anchorScroll();
 
     $scope.iniciativas = [];
     $scope.profile = Usuario.get({

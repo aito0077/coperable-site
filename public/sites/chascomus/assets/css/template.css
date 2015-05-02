@@ -7396,6 +7396,55 @@ img {
   margin: 0 5px;
   color: #eeeeee;
 }
+.section.section-portfolio #filters li span.selector {
+  text-transform: capitalize;
+}
+.section.section-portfolio #topics {
+  list-style-type: none;
+  margin: 0 0 10px;
+  border: 1px solid #a1a1a1;
+  padding: 10px 10px;
+  border-radius: 25px;
+}
+.section.section-portfolio #topics li {
+  display: inline-block;
+  margin: 0 5px;
+  color: #EF4832;
+}
+.section.section-portfolio #topics li span.selector {
+  text-transform: capitalize;
+}
+.section.section-portfolio #topics li .selector:hover {
+  background-color: #EF4832;
+  color: #FFFFFF;
+}
+.section.section-portfolio #topics li span.selector.active {
+  background-color: #EF4832;
+  color: #FFFFFF;
+}
+.section.section-portfolio #categories {
+  list-style-type: none;
+  margin: 0 0 10px;
+  border: 1px solid #a1a1a1;
+  padding: 10px 10px;
+  border-radius: 25px;
+}
+.section.section-portfolio #categories li {
+  display: inline-block;
+  margin: 0 5px;
+  color: #eeeeee;
+}
+.section.section-portfolio #categories li span.selector {
+  text-transform: capitalize;
+}
+.section.section-portfolio #categories li .selector:hover {
+  background-color: #EF4832;
+  color: #FFFFFF;
+}
+.section.section-portfolio #categories li span.selector.active {
+  background-color: #EF4832;
+  color: #FFFFFF;
+}
 .section.section-portfolio .portfolio-isotope {
   margin-bottom: 30px;
 }
@@ -7450,7 +7499,6 @@ img {
 .section.section-our-clients .vcenter {
   display: inline-block;
   vertical-align: middle;
-  float: none;
 }
 .section.section-our-clients a {
   background: #fff;
@@ -8415,7 +8463,6 @@ fieldset[disabled] .btn-alternate.active {
   font-weight: bold;
 }
 .slider-text {
-  background-color: rgba(238, 63, 34, 0.5);
   height: 340px;
   padding-top: 120px;
   vertical-align: middle;
@@ -8425,6 +8472,10 @@ fieldset[disabled] .btn-alternate.active {
   display: inline-block;
   vertical-align: middle;
   float: none;
+}
+.slider-text h3 {
+  background-color: rgba(238, 63, 34, 0.5);
+  margin: 20px;
 }
 #super-zone {
   background: url(/static/img/dropzone-bg.png) repeat;
@@ -8510,4 +8561,18 @@ fieldset[disabled] .btn-alternate.active {
 }
 #super-zone-ngo #dropzone-ngo.with-image.hover .text-hover {
   display: none;
+}
+span.selector {
+  padding: 10px 15px;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #333333;
+  line-height: 20px;
+  text-align: center;
+  font-size: 14px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 15px;
+  cursor: pointer;
 }
