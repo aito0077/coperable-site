@@ -165,11 +165,10 @@ exports.list = function(req, res) {
 
         console.dir(result.aggregations.comunidades);
         if(result.aggregations) {
-            _.each(result.aggregations.histogram.buckets, function(bucket) {
-                periods.push(_.extend(bucket, {month: months[bucket.key_as_string]}));
-            });
+		_.each(result.aggregations.histogram.buckets, function(bucket) {
+			periods.push(_.extend(bucket, {month: months[bucket.key_as_string]}));
+		});
 
-	if(result.aggregations) {
 		_.each(result.aggregations.main_categories.buckets, function(bucket) {
 		    var key_name = (bucket.key || '').replace(/_/g," ");
 		    bucket['name'] = key_name.charAt(0).toUpperCase() + key_name.slice(1); 
