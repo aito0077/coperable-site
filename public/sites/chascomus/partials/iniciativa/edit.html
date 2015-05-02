@@ -1,11 +1,12 @@
     <section  ng-show="persisted" class="section section-center section-iniciativa">
         <div class="container">
+
             <div class="main-action row">
                 <p class="text-center">
-                    Gracias por ingresar tu actividad, en algunos días publicaremos el mapa y la agenda con todas las actividades. 
+                    Gracias por ingresar tu actividad, para verla ingresá a <a class="link" href="/iniciativas/{{iniciativa._id}}">http://chascomus.coperable.org/iniciativas/{{iniciativa._id}}</a>.
                 </p>
                 <p>
-                    Para estar al tanto de las novedades y seguir apoyano la Semana de la economía colaborativa sigue la página de facebook y comparte las publicaciones 
+                    Ahora a compartirla con tus amigos en las redes sociales. Invitando gente y dándola a conocer vas a convocar más participantes y sumar más energía social para tu proyecto.
                 </p>
             </div>
 
@@ -19,8 +20,7 @@
 
 
     <form name="actividadForm" role="form"  ng-submit="save(actividadForm.$valid)" novalidate>
-
-        <section class="section section-center section-organization-form">
+        <section ng-show="show_organization_form()" class="section section-center section-organization-form">
             <div class="container">
                 <h3 class="section-title"><span>Organización</span></h3>
                 <h5>Por única vez, necesitamos que completes los datos de la organización</h5>
@@ -28,14 +28,14 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="sr-only">Nombre</label>
-                            <input type="text" name="organization_name" class="form-control" placeholder="Nombre Organización"  ng-model="organization.organization_name" required>
+                            <input type="text" name="organization_name" class="form-control" placeholder="Nombre Organización"  ng-model="organization.organization_name" ng-required="first_time">
                             <p ng-show="hasError && actividadForm.organization_name.$invalid" class="help-block"  style="color: red">Debe ingresar el nombre de la organización.</p>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label class="sr-only">Email de Contacto</label>
-                            <input type="email" class="form-control" name="contact_email" placeholder="Email Contacto"  ng-model="organization.contact_email" required>
+                            <input type="email" class="form-control" name="contact_email" placeholder="Email Contacto"  ng-model="organization.contact_email" ng-required="first_time">
                             <p ng-show="hasError && actividadForm.contact_email.$invalid" class="help-block"  style="color: red">Un correo de contacto.</p>
                         </div>
                     </div>
@@ -107,9 +107,24 @@
                 <h3 class="section-title"><span>Actividad</span></h3>
 
                 <div class="main-action">
+                    <div class="row">
+                        <p ng-show="hasError" class="help-block text-error" style="color: red">Faltan ingresar datos</p>
+                    </div>
+
+
+
                         <div class="row">
-                             <p ng-show="hasError" class="help-block text-error" style="color: red">Faltan ingresar datos</p>
+                            <div class="form-group btn-group">
+                                <label class="btn btn-primary" ng-model="iniciativa.categories.medio_ambiente" btn-checkbox > Medio Ambiente <i class="fa fa-check" ng-show="iniciativa.categories.medio_ambiente"></i></label>
+                                <label class="btn btn-primary" ng-model="iniciativa.categories.educacion" btn-checkbox > Educación <i class="fa fa-check" ng-show="iniciativa.categories.educacion"></i> </label>
+                                <label class="btn btn-primary" ng-model="iniciativa.categories.arte_cultura" btn-checkbox > Arte y Cultura  <i class="fa fa-check" ng-show="iniciativa.categories.arte_cultura"></i></label>
+                                <label class="btn btn-primary" ng-model="iniciativa.categories.desarrollo" btn-checkbox > Desarrollo Social  <i class="fa fa-check" ng-show="iniciativa.categories.desarrollo"></i></label>
+                                <label class="btn btn-primary" ng-model="iniciativa.categories.bienestar" btn-checkbox > Bienestar  <i class="fa fa-check" ng-show="iniciativa.categories.bienestar"></i></label>
+                                <label class="btn btn-primary" ng-model="iniciativa.categories.deporte" btn-checkbox > Deporte  <i class="fa fa-check" ng-show="iniciativa.categories.deporte"></i></label>
+                            </div>
+
                         </div>
+
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -139,15 +154,14 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-12 form-group">
+                                <select id="topics" placeholder="" name="topics[]" multiple class="col-md-12" ng-model="iniciativa.topics">
+                                    <option ng-repeat="topico in topicos" value="{{topico.text}}">{{topico.text}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-6">
-                                <!--div class="form-group">
-                                    <label class="sr-only">Pais</label>
-                                    <input type="text" class="form-control" placeholder="Pais" ng-model="iniciativa.country">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only">Ciudad</label>
-                                    <input type="text" class="form-control" placeholder="Ciudad" ng-model="iniciativa.city">
-                                </div-->
 
                                 <div class="form-group">
                                     <div class="content">
@@ -180,6 +194,41 @@
 
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Información de Contacto (Opcional)</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Mail Contacto</label>
+                                    <input type="text" class="form-control" placeholder="Email Contacto" ng-model="iniciativa.email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Telefono</label>
+                                    <input type="text" class="form-control" placeholder="Telefono" ng-model="iniciativa.phone">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Redes Sociales (Opcional)</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Facebook</label>
+                                    <input type="text" class="form-control" placeholder="Facebook" ng-model="iniciativa.networks.facebook">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Twitter</label>
+                                    <input type="text" class="form-control" placeholder="Twitter" ng-model="iniciativa.networks.twitter">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Youtube</label>
+                                    <input type="text" class="form-control" placeholder="Youtube" ng-model="iniciativa.networks.youtube">
+                                </div>
+                            </div>
+                        </div>
+
+
 
                     </div>
                 </section>

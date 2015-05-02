@@ -20,6 +20,7 @@
     "jt.timepicker": "1.6.5",
     "moment": "~2.9.0",
     "modernizr": "~2.8.3",
-    "moment-timezone": "~0.3.1"
+    "moment-timezone": "~0.3.1",
+    "selectize": "0.12.1"
   }
 }
