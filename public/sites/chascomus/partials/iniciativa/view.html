@@ -1,14 +1,12 @@
 <section class="section">
 <div class="container">
 <div id="initiativePage" class="row">
-    <div id="initiativeContent" class="col-md-9 col-sm-12">
+    <div id="initiativeContent" class="col-md-9 col-sm-9">
         <h1 class="title">{{iniciativa.name}}</h1>
         <div class="info">
-            Por <a class="name" href="/users/{{iniciativa.owner.user}}">{{iniciativa.owner.name}}</a> en <a href="#" data-category="environment">{{iniciativa.main_category}}</a>
+            Por <a class="name" ng-href="/users/{{organization._id}}">{{organization.organization_name}}</a> en <a href="#" data-category="environment">{{iniciativa.main_category}}</a>
         </div>
         <section role="main">
-            <h3>Objetivo</h3>
-            <div class="objective">{{iniciativa.goal}}</div>
             <div class="cover" style="background-image: url('/static/uploads/fullsize/{{iniciativa.profile_picture}}') !important;">
                 <img src="/static/uploads/fullsize/{{iniciativa.profile_picture}}" style="visibility:hidden"/>
 
@@ -38,13 +36,13 @@
 
             <div class="cell description">
                 <h3>Descripción</h3>
-                <div {{plain(iniciativa.description)}}
+                <p> {{iniciativa.description}} </p>
             </div>
         </section>
 
     </div>
 
-    <div id="initiativeSidebar" class="col-md-3 col-sm-10  section section-hilite">
+    <div id="initiativeSidebar" class="col-md-3 col-sm-3  section ">
         <div class="wrapper">
             <div ng-show="{{iniciativa.members.length}}" class="participants">
                 <div class="info">
@@ -53,7 +51,7 @@
                 </div>
                 <ul class="users-list-sq">
                     <li ng-repeat="member in iniciativa.members">
-                        <img src="{{member.picture_thumb}}" />
+                        <img ngSrc="{{member.picture_thumb}}" />
                     </li>
                 </ul>
 <!--
@@ -84,18 +82,6 @@
 <!--
                 {{/user}}
 -->
-                    <style type="text/css">
-                        .participar {
-                            -webkit-transition: background-color 0.3s linear;
-                            -moz-transition: background-color 0.3s linear;
-                            -o-transition: background-color 0.3s linear;
-                            -ms-transition: background-color 0.3s linear;
-                            transition: background-color 0.3s linear;
-                        }
-                        .participar.participando {
-                            background-color: #C32C2C;
-                        }
-                    </style>
                     <script type="text/javascript">
                         $(function(){
                             var $btn = $('.participar')
@@ -122,19 +108,19 @@
             <div class="wrapper about">
                 <div class="title">Sobre el organizador</div>
                     <div class="info">
-                        <img src="{{iniciativa.owner.picture_thumb}}" />
-                        <a href="/users/{{iniciativa.owner.user}}" class="name">{{iniciativa.owner.name}}</a>
-                        <div class="place">{{user.location}}</div>
+                        <img src="/static/uploads/thumbs/{{organization.profile_picture}}" />
+                        <a href="/users/{{organization._id}}" class="name">{{organization.organization_name}}</a>
+                        <!--div class="place">{{user.location}}</div-->
                     </div>
                     <div class="description">
-                        {{owner.about}}
+                        {{organization.about}}
                     </div>
                     <div class="other">
-                        <div class="title">Otras iniciativas de {{owner.username}}</div>
+                        <div class="title">Otras iniciativas de {{organization.organization_name}}</div>
                             <div ng-repeat="ownedIniciativa in iniciativa.owner.ownedIniciativas" class="pic">
                                 <a href="/iniciativas/{{ownedIniciativa.id}}">
                                     <div class="name">{{ownedIniciativa.name}}</div>
-                                    <img src="/static/uploads/thumbs/{{ownedIniciativa.profile_picture}}" />
+                                    <img ngSrc="/static/uploads/thumbs/{{ownedIniciativa.profile_picture}}" />
                                 </a>
                             </div>
                         </div>

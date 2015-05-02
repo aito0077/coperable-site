@@ -38,11 +38,32 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
     $scope.saving = false;
     $scope.hasError = false;
 
+    $scope.prepareOrganization = function() {
+        $scope.organization.implementation = 'chascomus';
+        _.extend($scope.organization.networks, {
+            facebook: {
+                has: $scope.organization.facebook ? true : false,
+                user_id: $scope.organization.facebook
+            },
+            twitter: {
+                has: $scope.organization.twitter ? true : false,
+                user_id: $scope.organization.twitter
+            },
+            youtube: {
+                has: $scope.organization.youtube ? true : false,
+                user_id: $scope.organization.youtube
+            }
+        });
+    };
+ 
+
     $scope.prepareModel = function() {
         $scope.iniciativa.implementation = 'chascomus';
         if($scope.iniciativa.name) {
             $scope.iniciativa.slug = $scope.iniciativa.name.replace(/\s+/g, '_');
         }
+        $scope.iniciativa.user_id = $scope.organization._id;
+        $scope.iniciativa.user_name = $scope.organization.name;
         $scope.iniciativa.longitude = $scope.geo.longitude;
         $scope.iniciativa.latitude = $scope.geo.latitude;
         $scope.iniciativa.address = $scope.geo.direccion;
@@ -91,11 +112,16 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
                 $location.hash('page');
                 $anchorScroll();
             });
-            if($scope.first_time) {
+            //if($scope.first_time) {
+
+                $scope.prepareOrganization();
                 $scope.organization.$save(function(data) {
                     $scope.first_time = false;
                 });
-            }
+            //}
+        } else {
+            $scope.saving = false;
+
         }
     };
 
@@ -138,7 +164,7 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
             url: '/uploads',
             done: function (e, data) {
             $.each(data.result.files, function (index, file) {
-                $scope.iniciativa.profile_picture = file.name;
+                $scope.organization.profile_picture = file.name;
                 $('#dropzone-ngo').css('background-image', "url('"+file.thumbnailUrl+"')");
                 $('#dropzone-ngo').addClass("with-image");
             });
@@ -401,11 +427,15 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 
 
 }])
-.controller('iniciativa-view', ['$scope','$http', '$routeParams', '$sce', 'Iniciativa', function($scope, $http, $routeParams, $sce, Iniciativa) {
+.controller('iniciativa-view', ['$scope','$http', '$routeParams', '$sce', 'Iniciativa', 'Usuario', function($scope, $http, $routeParams, $sce, Iniciativa, Usuario) {
     $scope.iniciativa = Iniciativa.get({
         id: $routeParams.id
     }, function(data) {
+        $scope.organization = Usuario.get({
+            id: data.owner.user
+        }, function(user_data) {
 
+        });
     });
 
 

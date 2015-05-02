@@ -21,6 +21,7 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
     //$scope.user_default = new google.maps.LatLng(-34.615692,-58.432846);
     $scope.user_default = new google.maps.LatLng(-24.615692,-64.432846);
 
+    $scope.organizations = [];
     $scope.iniciativas = [];
     $scope.hits = [];
     $scope.day_filters = [];
@@ -82,7 +83,7 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
                     bool: {
                         must: { 
                             match: { 
-                                "minka": true
+                                "implementation": 'chascomus'
                             }
                         }
                     }
@@ -122,7 +123,34 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
 
     };
 
+    $scope.fetch_organizations = function() {
+        client.search({
+            index: 'usuarios',
+            size: 6,
+            body: {
+                query: {
+                    bool: {
+                        must: { 
+                            match: { 
+                                "implementation": 'chascomus'
+                            }
+                        }
+                    }
+                }
+            }
+        }).then(function (resp) {
+
+            $scope.organizations = resp.hits.hits;
+            console.dir($scope.organizations);
+        });
+
+
+    };
+
+
+
     $scope.do_search();
+    $scope.fetch_organizations();
 
     $scope.edit = function() {
         $('#project-modal').modal('hide');

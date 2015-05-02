@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-6">
                     <header class="entry-header">
-                        <h2 class="entry-title">{{profile.username}}</h2>
+                        <h2 class="entry-title">{{profile.organization_name ? profile.organization_name: profile.username}}</h2>
                     </header>
                     <div class="entry-content">
                         <p class="pull-left">{{profile.about}}</p>
@@ -16,18 +16,18 @@
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2">
                     <ul class="list-unstyled">
-                        <li>
-                            <a href="{{profile.networks.twitter}}">
+                        <li ng-show="profile.networks.twitter.has">
+                            <a href="{{profile.networks.twitter.user_id}}">
                                 <img src="/static/img/twitter-circle.png">
                             </a>
                         </li>
-                        <li>
-                            <a href="{{profile.networks.facebook}}">
+                        <li ng-show="profile.networks.facebook.has">
+                            <a href="{{profile.networks.facebook.user_id}}">
                                 <img src="/static/img/facebook-circle.png">
                             </a>
                         </li>
-                        <li>
-                            <a href="{{profile.networks.youtube}}">
+                        <li ng-show="profile.networks.youtube.has">
+                            <a href="{{profile.networks.youtube.user_id}}">
                                 <img src="/static/img/youtube-circle.png">
                             </a>
                         </li>
@@ -51,7 +51,7 @@
 
         <div class="row">
 
-            <article ng-repeat="iniciativa in iniciativas" class="item-template col-md-4 col-sm-6 portfolio-item post ">
+            <article ng-repeat="iniciativa in iniciativas | filter:{ implementation: 'chascomus'}" class="item-template col-md-4 col-sm-6 portfolio-item post ">
 
                 <div class="initiative initiative-item">
                     <div data-label="{{iniciativa.start_date | moment: 'D [de] MMMM'}}" class="pic">

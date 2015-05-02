@@ -146,6 +146,7 @@ app.post('*/api/iniciativas', iniciativas.create);
 app.get('/api/usuarios/:id', users.get);
 app.put('/api/usuarios/:id', users.save);
 app.post('/api/usuarios', users.create);
+app.post('/api/usuarios/:id', users.save);
 app.get('/user/:id/edit', user.edit);
 
 app.get('/api/search/iniciativas/summary', search.iniciativas_summary);
