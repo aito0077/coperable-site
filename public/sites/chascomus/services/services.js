@@ -16,7 +16,7 @@ angular.module('chascomusApp.services',['ngResource', 'elasticsearch'])
     .factory('client',['esFactory', function(esFactory){
         return esFactory({
             hosts: [
-               'http://chascomus.dev/ses'
+               'http://chascomus.coperable.org:81'
             ],
             requestTimeout: 30000 ,
             apiVersion: '1.4'
