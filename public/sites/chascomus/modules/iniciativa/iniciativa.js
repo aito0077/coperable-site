@@ -1,4 +1,4 @@
-angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
+angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','ngResource'])
 
 .config(['$routeProvider', '$stateProvider', function($routeProvider, $stateProvider) {
     $routeProvider
@@ -23,20 +23,45 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 .controller('iniciativa-edit', ['$scope','$http', '$routeParams', '$location', '$anchorScroll', '$timeout', '$rootScope', 'Iniciativa', 'Usuario', function($scope, $http, $routeParams, $location, $anchorScroll, $timeout, $rootScope, Iniciativa, Usuario) {
 
     $scope.first_time = false;
+    $scope.geo = {};
+    $scope.saving = false;
+    $scope.hasError = false;
+    $scope.persisted = false;
+
+    $scope.topicos = [
+
+        { "value": "Taller"   ,"text": "Taller"   , "continent": "naturaleza"    },
+        { "value": "Seminario"   ,"text": "Seminario"   , "continent": "naturaleza"    },
+        { "value": "Espectaculo"   ,"text": "Espectaculo"   , "continent": "naturaleza"    },
+        { "value": "Feria"   ,"text": "Feria"   , "continent": "naturaleza"    },
+        { "value": "Encuentro"   ,"text": "Encuentro"   , "continent": "naturaleza"    },
+        { "value": "Peña"   ,"text": "Peña"   , "continent": "naturaleza"    },
+        { "value": "Gratis"   ,"text": "Gratis"   , "continent": "price"    },
+        { "value": "A la Gorra", "text": "A la Gorra"   , "continent": "price"    },
+        { "value": "Arancelada"   ,"text": "Arancelada"   , "continent": "price"    },
+        { "value": "Centro"   ,"text": "Centro"   , "continent": "place"    },
+        { "value": "El Hueco", "text": "El Hueco"   , "continent": "place"    },
+        { "value": "Iporá"   ,"text": "Iporá"   , "continent": "place"    },
+        { "value": "Tallo Blanco", "text": "Tallo Blanco"   , "continent": "place"    },
+        { "value": "30 de Mayo", "text": "30 de Mayo"   , "continent": "place"    },
+        { "value": "San Cayetano", "text": "San Cayetano"   , "continent": "place"    },
+        { "value": "Los Sauces", "text": "Los Sauces"   , "continent": "place"    },
+        { "value": "El Porteño", "text": "El Porteño"   , "continent": "place"    },
+        { "value": "Monte Corti", "text": "Monte Corti"   , "continent": "place"    },
+        { "value": "Parque Girado", "text": "Parque Girado"   , "continent": "place"    },
+        { "value": "La Libertad", "text": "La Libertad"   , "continent": "place"    }
+    ];      
 
     $scope.iniciativa = new Iniciativa();
     $scope.organization = Usuario.get({
         id: $rootScope.user_id
     }, function(data) {
-
         $scope.first_time = data.ownedIniciativas && data.ownedIniciativas.length > 1 ? false : true;
     });
 
-    $scope.persisted = false;
-
-    $scope.geo = {};
-    $scope.saving = false;
-    $scope.hasError = false;
+    $scope.show_organization_form = function() {
+        return $scope.first_time && !$scope.persisted;
+    };
 
     $scope.prepareOrganization = function() {
         $scope.organization.implementation = 'chascomus';
@@ -63,7 +88,9 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
             $scope.iniciativa.slug = $scope.iniciativa.name.replace(/\s+/g, '_');
         }
         $scope.iniciativa.user_id = $scope.organization._id;
-        $scope.iniciativa.user_name = $scope.organization.name;
+        if($scope.first_time && $scope.organization ) {
+            //$scope.iniciativa.user_name = $scope.organization.name ;
+        }
         $scope.iniciativa.longitude = $scope.geo.longitude;
         $scope.iniciativa.latitude = $scope.geo.latitude;
         $scope.iniciativa.address = $scope.geo.direccion;
@@ -85,18 +112,16 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
         $scope.iniciativa.start_date_timestamp = time_stamp.toDate().getTime();
         $scope.iniciativa.end_date_timestamp = time_stamp.add(1, 'days').toDate().getTime();
 
+        if($scope.first_time && $scope.organization ) {
+            //$scope.iniciativa.owner.name = $scope.organization.name;
+        }
         $scope.iniciativa.goal = '';
         $scope.iniciativa.duration = '';
         $scope.iniciativa.participants_amount =  '0';
         $scope.iniciativa.main_category ='arte_cultura';
-        $scope.iniciativa.categories = {
-            medio_ambiente: false,
-            educacion: false,
-            desarrollo: false,
-            arte_cultura: true
-        };
+
         $scope.iniciativa.activities = '';
-        $scope.iniciativa.topics = '';
+        //$scope.iniciativa.categories = $scope.categories;
 
     };
 
@@ -112,13 +137,12 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
                 $location.hash('page');
                 $anchorScroll();
             });
-            //if($scope.first_time) {
-
+            if($scope.first_time) {
                 $scope.prepareOrganization();
                 $scope.organization.$save(function(data) {
                     $scope.first_time = false;
                 });
-            //}
+            }
         } else {
             $scope.saving = false;
 
@@ -238,6 +262,12 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
             })
         });
 
+        $('#topics').selectize({
+            maxItems: 3,
+            selectOnTab: true,
+            options: $scope.topicos
+        });
+
     };
 
 
@@ -253,10 +283,10 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
             arte_cultura: true,
         },
         activities: [],
-        topics: [],
-
-
+        topics: []
     };
+
+
 
 
    $scope.is_new = (typeof($routeParams.id) === 'undefined');
@@ -298,6 +328,14 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
             });
         });
     } else {
+        $scope.iniciativa.categories = {
+            medio_ambiente: false,
+            educacion: false,
+            desarrollo: false,
+            arte_cultura: false,
+            bienestar: false, 
+            deporte: false
+        };
         $scope.setup_components();
     }
 
@@ -441,7 +479,6 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ngResource'])
 
     $scope.plain = function(text) {
         var processed = angular.fromJson(text);
-        console.log(processed);
 //        return $sce.trustAsHtml(processed);
         return processed;
     }

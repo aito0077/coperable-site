@@ -4,6 +4,7 @@ angular.module('chascomusApp', [
     'ngResource',
     //'ngSanitize',
     'ui.router',
+    'ui.bootstrap',
     'elasticsearch',
     'chascomusApp.services',
     'chascomusApp.iniciativa',

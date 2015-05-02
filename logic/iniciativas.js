@@ -34,12 +34,15 @@ console.dir(body);
     delete body.activities;
   }
 
-  if(topics) {
+  if(topics && us.isString(topics)) {
     us.each(topics.split(/,/), function(topic) {
       iniciativa_data.topics.push(topic);
     });
     delete body.topics;
   }
+    if(topics && us.isArray(topics)) {
+        iniciativa_data.topics = topics;
+    }
 
   var full_data = us.extend({}, body, iniciativa_data);
     console.dir(body);
