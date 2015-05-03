@@ -1,133 +1,133 @@
 <section class="section">
-<div class="container">
-<div id="initiativePage" class="row">
-    <div id="initiativeContent" class="col-md-9 col-sm-9">
-        <h1 class="title">{{iniciativa.name}}</h1>
-        <div class="info">
-            Por <a class="name" ng-href="/users/{{organization._id}}">{{organization.organization_name}}</a> en <a href="#" data-category="environment">{{iniciativa.main_category}}</a>
-        </div>
-        <section role="main">
-            <div class="cover" style="background-image: url('/static/uploads/fullsize/{{iniciativa.profile_picture}}') !important;">
-                <img src="/static/uploads/fullsize/{{iniciativa.profile_picture}}" style="visibility:hidden"/>
-
-            </div>
-            <div class="location" style="background:url(http://maps.googleapis.com/maps/api/staticmap?center={{iniciativa.location.latitude}},{{iniciativa.location.longitude}}&zoom=14&size=630x192&sensor=false&markers=color:red%7C{{iniciativa.location.latitude}},{{iniciativa.location.longitude}}) !important;">
-
+    <div class="container">
+        <div id="initiativePage" class="row">
+            <div id="initiativeContent" class="col-md-9 col-sm-9">
+                <h1 class="title">{{iniciativa.name}}</h1>
                 <div class="info">
-                    <div>
-                        <span ng-show="iniciativa.start_date != iniciativa.end_date">Desde</span> <span class="when">{{iniciativa.start_date | moment: 'DD MMMM YYYY, HH:mm'}}</span><!--span ng-show="iniciativa.start_date != iniciativa.end_date"> - Hasta <span class="when">{{iniciativa.end_date | moment: 'DD MMMM YYYY, HH:mm'}}</span--></span>
-                    </div>
-                    <div class="where">{{iniciativa.address}}</div>
+                    Por <a class="name" ng-href="/users/{{organization._id}}">{{organization.organization_name}}</a> en <a href="#" data-category="environment">{{iniciativa.main_category}}</a>
                 </div>
-            </div>
+                <section role="main">
+                    <div class="cover" style="background-image: url('/static/uploads/fullsize/{{iniciativa.profile_picture}}') !important;">
+                        <img src="/static/uploads/fullsize/{{iniciativa.profile_picture}}" style="visibility:hidden"/>
 
-            <div ng-show="{{iniciativa.tasks.length}}" class="cell tags-wrapper">
-                <h3>Tareas</h3>
-                <ul class="orange tags">
-                    <li ng-repeat="tag in iniciativa.tasks">{{tag}}</li>
-                </ul>
-            </div>
-            <div ng-show="iniciativa.topics.length" class="cell tags-wrapper">
-                <h3>Tipo de Actividad</h3>
-                <div>
-                    <span ng-repeat="tag in iniciativa.topics" class="label label-primary" style="margin: 5px;">{{tag}}</span>
-                </div>
-            </div>
-
-            <div class="cell description">
-                <h3>Descripción</h3>
-                <p> {{iniciativa.description}} </p>
-            </div>
-        </section>
-
-    </div>
-
-    <div id="initiativeSidebar" class="col-md-3 col-sm-3  section ">
-        <div class="wrapper">
-            <div ng-show="{{iniciativa.members.length}}" class="participants">
-                <div class="info">
-                    <span class="num">{{iniciativa.members.length}}</span> Participantes<br />
-                    <b>de <span class="total">{{iniciativa.participants_amount}}</span></b>
-                </div>
-                <ul class="users-list-sq">
-                    <li ng-repeat="member in iniciativa.members">
-                        <img ngSrc="{{member.picture_thumb}}" />
-                    </li>
-                </ul>
-<!--
-                {{#user}}
-                    {{#isOwner}}
-                        <a class="green button big block participar" href="/iniciativas/{{iniciativa._id}}/edit">
-                            Editar
-                        </a>
-                    {{/isOwner}}
-                    {{^isOwner}}
-                        {{#isMember}}
-                        <form method="POST" action="/api/iniciativas/{{iniciativa._id}}/{{user.id}}/quit">
-                            <input type="submit" class="green button big block participar" value="Dejar de Participar"/>
-                        </form>
-                        {{/isMember}}
-                        {{^isMember}}
-                        <form method="POST" action="/api/iniciativas/{{iniciativa._id}}/{{user.id}}">
-                            <input type="submit" class="green button big block participar" value="Participá"/>
-                        </form>
-                        {{/isMember}}
-                    {{/isOwner}}
-                {{/user}}
-                {{^user}}
--->
-                    <a class="btn btn-default participar" href="/user/login?returnURL=/iniciativas/{{iniciativa._id}}">
-                        Ingresá para participar
-                    </a>
-<!--
-                {{/user}}
--->
-                    <script type="text/javascript">
-                        $(function(){
-                            var $btn = $('.participar')
-                            $btn.on('click', function(){ $btn.toggleClass('participando') })
-                        })
-                    </script>
-            </div>
-
-            <div ng-show="iniciativa.networks.length" class="cell">
-                <h4>Seguinos</h4>
-                <a target="blank" href="http://twitter.com/{{iniciativa.networks.twitter}}" class="twitter-btn"></a>
-                <a target="blank" href="http://facebook.com/{{iniciativa.networks.facebook}}" class="facebook-btn"></a>
-                <a target="blank" href="http://youtube.com/{{iniciativa.networks.youtube}}" class="youtube-btn"></a>
-            </div>
-
-            <div class="cell">
-                <h4>Difundir</h4>
-                <div class="clearfix">
-                    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like" data-show-faces="false" data-share="true"></div>
-                        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
                     </div>
-                </div>
+                    <div class="location" style="background:url(http://maps.googleapis.com/maps/api/staticmap?center={{iniciativa.location.latitude}},{{iniciativa.location.longitude}}&zoom=14&size=630x192&sensor=false&markers=color:red%7C{{iniciativa.location.latitude}},{{iniciativa.location.longitude}}) !important;">
+
+                        <div class="info">
+                            <div>
+                                <span ng-show="iniciativa.start_date != iniciativa.end_date">Desde</span> <span class="when">{{iniciativa.start_date | moment: 'DD MMMM YYYY, HH:mm'}}</span><!--span ng-show="iniciativa.start_date != iniciativa.end_date"> - Hasta <span class="when">{{iniciativa.end_date | moment: 'DD MMMM YYYY, HH:mm'}}</span--></span>
+                            </div>
+                            <div class="where">{{iniciativa.address}}</div>
+                        </div>
+                    </div>
+
+                    <div ng-show="{{iniciativa.tasks.length}}" class="cell tags-wrapper">
+                        <h3>Tareas</h3>
+                        <ul class="orange tags">
+                            <li ng-repeat="tag in iniciativa.tasks">{{tag}}</li>
+                        </ul>
+                    </div>
+                    <div ng-show="iniciativa.topics.length" class="cell tags-wrapper">
+                        <h3>Tipo de Actividad</h3>
+                        <div>
+                            <span ng-repeat="tag in iniciativa.topics" class="label label-primary" style="margin: 5px;">{{tag}}</span>
+                        </div>
+                    </div>
+
+                    <div class="cell description">
+                        <h3>Descripción</h3>
+                        <p> {{iniciativa.description}} </p>
+                    </div>
+                </section>
+
             </div>
-            <div class="wrapper about">
-                <div class="title">Sobre el organizador</div>
-                    <div class="info">
-                        <img src="/static/uploads/thumbs/{{organization.profile_picture}}" />
-                        <a href="/users/{{organization._id}}" class="name">{{organization.organization_name}}</a>
-                        <!--div class="place">{{user.location}}</div-->
-                    </div>
-                    <div class="description">
-                        {{organization.about}}
-                    </div>
-                    <div class="other">
-                        <div class="title">Otras actividades de {{organization.organization_name}}</div>
-                            <div ng-repeat="ownedIniciativa in iniciativa.owner.ownedIniciativas" class="pic">
-                                <a href="/iniciativas/{{ownedIniciativa.id}}">
-                                    <div class="name">{{ownedIniciativa.name}}</div>
-                                    <img ngSrc="/static/uploads/thumbs/{{ownedIniciativa.profile_picture}}" />
+
+            <div id="initiativeSidebar" class="col-md-3 col-sm-3  section ">
+                <div class="wrapper">
+                    <div ng-show="{{iniciativa.members.length}}" class="participants">
+                        <div class="info">
+                            <span class="num">{{iniciativa.members.length}}</span> Participantes<br />
+                            <b>de <span class="total">{{iniciativa.participants_amount}}</span></b>
+                        </div>
+                        <ul class="users-list-sq">
+                            <li ng-repeat="member in iniciativa.members">
+                                <img ngSrc="{{member.picture_thumb}}" />
+                            </li>
+                        </ul>
+        <!--
+                        {{#user}}
+                            {{#isOwner}}
+                                <a class="green button big block participar" href="/iniciativas/{{iniciativa._id}}/edit">
+                                    Editar
                                 </a>
+                            {{/isOwner}}
+                            {{^isOwner}}
+                                {{#isMember}}
+                                <form method="POST" action="/api/iniciativas/{{iniciativa._id}}/{{user.id}}/quit">
+                                    <input type="submit" class="green button big block participar" value="Dejar de Participar"/>
+                                </form>
+                                {{/isMember}}
+                                {{^isMember}}
+                                <form method="POST" action="/api/iniciativas/{{iniciativa._id}}/{{user.id}}">
+                                    <input type="submit" class="green button big block participar" value="Participá"/>
+                                </form>
+                                {{/isMember}}
+                            {{/isOwner}}
+                        {{/user}}
+                        {{^user}}
+        -->
+                            <a class="btn btn-default participar" href="/user/login?returnURL=/iniciativas/{{iniciativa._id}}">
+                                Ingresá para participar
+                            </a>
+        <!--
+                        {{/user}}
+        -->
+                            <script type="text/javascript">
+                                $(function(){
+                                    var $btn = $('.participar')
+                                    $btn.on('click', function(){ $btn.toggleClass('participando') })
+                                })
+                            </script>
+                    </div>
+
+                    <div ng-show="iniciativa.networks.length" class="cell">
+                        <h4>Seguinos</h4>
+                        <a target="blank" href="http://twitter.com/{{iniciativa.networks.twitter}}" class="twitter-btn"></a>
+                        <a target="blank" href="http://facebook.com/{{iniciativa.networks.facebook}}" class="facebook-btn"></a>
+                        <a target="blank" href="http://youtube.com/{{iniciativa.networks.youtube}}" class="youtube-btn"></a>
+                    </div>
+
+                    <div class="cell">
+                        <h4>Difundir</h4>
+                        <div class="clearfix">
+                            <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like" data-show-faces="false" data-share="true"></div>
+                                <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
                             </div>
                         </div>
                     </div>
-                    <a class="report-initiative" href="#"><i class="icon-warning-sign"></i> Denunciar iniciativa</a>
-                </div>
-            </div>
-            <div id="fb-root"></div>
-</div>
+                    <div class="wrapper about">
+                        <div class="title">Sobre el organizador</div>
+                            <div class="info">
+                                <img src="/static/uploads/thumbs/{{organization.profile_picture}}" />
+                                <a href="/users/{{organization._id}}" class="name">{{organization.organization_name}}</a>
+                                <!--div class="place">{{user.location}}</div-->
+                            </div>
+                            <div class="description">
+                                {{organization.about}}
+                            </div>
+                            <div class="other">
+                                <div class="title">Otras actividades de {{organization.organization_name}}</div>
+                                    <div ng-repeat="ownedIniciativa in iniciativa.owner.ownedIniciativas" class="pic">
+                                        <a href="/iniciativas/{{ownedIniciativa.id}}">
+                                            <div class="name">{{ownedIniciativa.name}}</div>
+                                            <img ngSrc="/static/uploads/thumbs/{{ownedIniciativa.profile_picture}}" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="report-initiative" href="#"><i class="icon-warning-sign"></i> Denunciar iniciativa</a>
+                        </div>
+                    </div>
+                    <div id="fb-root"></div>
+    </div>
 </section>

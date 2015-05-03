@@ -9,7 +9,8 @@ angular.module('chascomusApp', [
     'chascomusApp.services',
     'chascomusApp.iniciativa',
     'chascomusApp.user',
-    'chascomusApp.home'
+    'chascomusApp.home',
+    'chascomusApp.menu'
 ]).
 config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   
@@ -64,13 +65,13 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
         }
     }
 }])
-.controller('static-controller', ['$scope','$http', '$timeout', '$location', function($scope, $http, $timeout, $location) {
-
+.controller('static-controller', ['$scope','$rootScope', '$http', '$timeout', '$location', function($scope, $rootScope, $http, $timeout, $location) {
+    $rootScope.page = 'enred';
 }])
  .run(function($rootScope, $window) {
 
     $rootScope.user_id = $window.user_id;
-    //$rootScope.user_id = '53c91943cc04da7b1d000006';
+    //$rootScope.user_id = $window.user_id = '53c91943cc04da7b1d000006';
 
 });
 

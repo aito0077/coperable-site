@@ -8,8 +8,9 @@ angular.module('chascomusApp.user', ['ngRoute','ui.router','ngResource'])
     });
 
 }])
-.controller('user-view', ['$scope','$http', '$routeParams', '$timeout', '$location', '$anchorScroll',  'Usuario', function($scope, $http, $routeParams, $timeout, $location, $anchorScroll,  Usuario) {
+.controller('user-view', ['$scope', '$rootScope', '$http', '$routeParams', '$timeout', '$location', '$anchorScroll',  'Usuario', function($scope, $rootScope, $http, $routeParams, $timeout, $location, $anchorScroll,  Usuario) {
 
+    $rootScope.page = 'user-view';
 
     $location.hash('page');
     $anchorScroll();

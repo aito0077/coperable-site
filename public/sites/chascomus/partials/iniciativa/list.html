@@ -39,7 +39,7 @@
                             </a>
                         </div>
                         <div class="subtext">
-                            <a ng-href="/users/{{hit._source.owner.user}}"> <h4>{{hit._source.owner.name}}</h4></a>
+                            <a ng-href="/users/{{hit._source.owner.user}}"> <h4>{{hit._source.organization || hit._source.owner.name}}</h4></a>
                         </div>
                         <div class="wrapper">
                             <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">

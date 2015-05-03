@@ -20,7 +20,9 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     });
 
 }])
-.controller('iniciativa-edit', ['$scope','$http', '$routeParams', '$location', '$anchorScroll', '$timeout', '$rootScope', 'Iniciativa', 'Usuario', function($scope, $http, $routeParams, $location, $anchorScroll, $timeout, $rootScope, Iniciativa, Usuario) {
+.controller('iniciativa-edit', ['$scope', '$rootScope', '$http', '$routeParams', '$location', '$anchorScroll', '$timeout', '$rootScope', 'Iniciativa', 'Usuario', function($scope, $rootScope, $http, $routeParams, $location, $anchorScroll, $timeout, $rootScope, Iniciativa, Usuario) {
+
+    $rootScope.page = 'iniciativa-edit';
 
     $scope.first_time = false;
     $scope.geo = {};
@@ -88,9 +90,6 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
             $scope.iniciativa.slug = $scope.iniciativa.name.replace(/\s+/g, '_');
         }
         $scope.iniciativa.user_id = $scope.organization._id;
-        if($scope.first_time && $scope.organization ) {
-            //$scope.iniciativa.user_name = $scope.organization.name ;
-        }
         $scope.iniciativa.longitude = $scope.geo.longitude;
         $scope.iniciativa.latitude = $scope.geo.latitude;
         $scope.iniciativa.address = $scope.geo.direccion;
@@ -112,8 +111,8 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
         $scope.iniciativa.start_date_timestamp = time_stamp.toDate().getTime();
         $scope.iniciativa.end_date_timestamp = time_stamp.add(1, 'days').toDate().getTime();
 
-        if($scope.first_time && $scope.organization ) {
-            //$scope.iniciativa.owner.name = $scope.organization.name;
+        if($scope.organization ) {
+            $scope.iniciativa.organization = $scope.organization.organization_name || $scope.organization.username;
         }
         $scope.iniciativa.goal = '';
         $scope.iniciativa.duration = '';
@@ -121,7 +120,6 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
         $scope.iniciativa.main_category ='arte_cultura';
 
         $scope.iniciativa.activities = '';
-        //$scope.iniciativa.categories = $scope.categories;
 
     };
 
@@ -296,11 +294,11 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
             id: $routeParams.id
         }, function(data) {
 
-		if(data.location) {
-		    $scope.initial_marker  =  {};
-		    $scope.initial_marker['latitude']  = data.location.latitude;
-		    $scope.initial_marker['longitude']  = data.location.longitude;
-		}
+            if(data.location) {
+                $scope.initial_marker  =  {};
+                $scope.initial_marker['latitude']  = data.location.latitude;
+                $scope.initial_marker['longitude']  = data.location.longitude;
+            }
 
             //$scope.initial_marker  =  data.location;
             $scope.geo = $scope.iniciativa.location;
@@ -322,7 +320,10 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
             $('#dropzone').css('background-image', "url('/static/uploads/thumbs/"+$scope.iniciativa.profile_picture+"')");
             $('#dropzone').addClass("with-image");
-            
+
+            $('#dropzone-ngo').css('background-image', "url('/static/uploads/thumbs/"+$scope.organization.profile_picture+"')");
+            $('#dropzone-ngo').addClass("with-image");
+
             $timeout(function () {
                 $scope.setup_components();
             });
@@ -336,8 +337,9 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $anchorScroll();
 
 }])
-.controller('iniciativa-list', ['$scope','$http', 'client', function($scope, $http, client) {
+.controller('iniciativa-list', ['$scope', '$rootScope', '$http', 'client', function($scope, $rootScope, $http, client) {
 
+    $rootScope.page = 'iniciativa-list';
     $scope.iniciativas = [];
     $scope.hits = [];
     $scope.day_filters = [];
@@ -415,7 +417,6 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.topic_active = '';
 
     $scope.select_category = function(category){
-        console.log(category);
         if(category == 'all') {
             $scope.category_selected = ''; 
             $scope.category_active = '';
@@ -423,7 +424,6 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
             $scope.category_selected = '.'+category;
             $scope.category_active = category;
         }
-        console.log($scope.category_selected+$scope.topic_selected);
         $('.portfolio-isotope').isotope({ filter: $scope.category_selected+$scope.topic_selected});
         return true;
     };
@@ -433,7 +433,6 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     };
 
     $scope.select_topic = function(topic){
-        console.log(topic);
         if(topic == 'all') {
             $scope.topic_selected = ''; 
             $scope.topic_active = '';
@@ -441,13 +440,11 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
             $scope.topic_selected = '.'+topic;
             $scope.topic_active = topic;
         }
-        console.log($scope.category_selected+$scope.topic_selected);
         $('.portfolio-isotope').isotope({ filter: $scope.category_selected+$scope.topic_selected});
         return true;
     };
 
     $scope.isTopicActive = function(topic_key) {
-        console.log(topic_key+ ' '+ (topic_key == $scope.topic_active ? 'active' : ''));
         return (topic_key == $scope.topic_active ? 'active' : '');
     };
 
@@ -516,7 +513,10 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
 
 }])
-.controller('iniciativa-view', ['$scope','$http', '$routeParams', '$location', '$anchorScroll', '$sce', 'Iniciativa', 'Usuario', function($scope, $http, $routeParams, $location, $anchorScroll, $sce, Iniciativa, Usuario) {
+.controller('iniciativa-view', ['$scope', '$rootScope', '$http', '$routeParams', '$location', '$anchorScroll', '$sce', 'Iniciativa', 'Usuario', function($scope, $rootScope, $http, $routeParams, $location, $anchorScroll, $sce, Iniciativa, Usuario) {
+
+    $rootScope.page = 'iniciativa-view';
+
     $location.hash('page');
     $anchorScroll();
 

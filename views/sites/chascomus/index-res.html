@@ -59,16 +59,27 @@
                                 </a>
                             </h1>
                         </div>
-                        <div class="collapse navbar-collapse" id="navbar-collapse-1">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a ng-href="/info/enred">La Red</a></li>
+
+                        <div data-ng-controller="menu-controller" class="collapse navbar-collapse" id="navbar-collapse-1">
+                            <ul id="navigation" class="nav navbar-nav navbar-right">
+                                <li ng-show="showInPage('home')" class="active"><a href="#header" class="current">Home</a></li>
+                                <li ng-show="showInPage('home')"><a href="#features">Agenda</a></li>
+                                <li ng-show="showInPage('home')"><a href="#team">Organizaciones</a></li>
+                                <li ng-show="showInPage('home')"><a class="external" ng-href="/info/enred">La Red</a></li>
+                                <li ng-show="!showInPage('home')"><a class="external" ng-href="/home" class="current">Home</a></li>
+                                <li ng-show="showInPage('user-view')"><a href="#owned-iniciativas" class="current">Actividades</a></li>
+                                <li ng-show="showInPage('user-view')"><a href="#map_owned" class="current">Mapa</a></li>
                             </ul>
+                        </div>
+
+                        <!--div class="collapse navbar-collapse" id="navbar-collapse-1">
                             <ul id="navigation" class="nav navbar-nav navbar-right">
                                 <li class="active"><a href="#header" class="current">Home</a></li>
                                 <li><a href="#features">Agenda</a></li>
                                 <li><a href="#team">Organizaciones</a></li>
+                                <li><a ng-href="/info/enred" class="external">La Red</a></li>
                             </ul>
-                        </div>
+                        </div-->
                     </div>
                 </nav>
             </header>
@@ -165,6 +176,7 @@
     <script type="text/javascript" src="/static/sites/chascomus/modules/home/home.js"></script>
     <script type="text/javascript" src="/static/sites/chascomus/modules/iniciativa/iniciativa.js"></script>
     <script type="text/javascript" src="/static/sites/chascomus/modules/user/user.js"></script>
+    <script type="text/javascript" src="/static/sites/chascomus/modules/menu/menu.js"></script>
     <script type="text/javascript" src="/static/sites/chascomus/app.js"></script>
 
     <script type="text/javascript" src="/static/bower_components/modernizr/modernizr.js"></script>

@@ -6,8 +6,9 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
         controller: 'HomeController'
     });
 }])
-.controller('HomeController', ['$scope','$http', '$timeout', '$location', 'client', function($scope, $http, $timeout, $location, client) {
+.controller('HomeController', ['$scope', '$rootScope', '$http', '$timeout', '$location', 'client', function($scope, $rootScope, $http, $timeout, $location, client) {
     
+    $rootScope.page = 'home';
     $scope.login_form_show = false;
 
     $scope.is_logged = function() {
@@ -141,7 +142,6 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
         }).then(function (resp) {
 
             $scope.organizations = resp.hits.hits;
-            console.dir($scope.organizations);
         });
 
 
