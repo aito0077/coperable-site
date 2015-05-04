@@ -23,6 +23,10 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
         templateUrl: '/static/sites/chascomus/partials/iniciativa/edit.html',
         controller: 'iniciativa-edit'
     })
+    .when('/iniciativas/edit/:id', {
+        templateUrl: '/static/sites/chascomus/partials/iniciativa/edit.html',
+        controller: 'iniciativa-edit'
+    })
     .when('/iniciativas', {
         templateUrl: '/static/sites/chascomus/partials/iniciativa/list.html',
         controller: 'iniciativa-list'
@@ -34,6 +38,10 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
     .when('/info/enred', {
         templateUrl: '/static/sites/chascomus/partials/static/red.html',
         controller: 'static-controller'
+    })
+    .when('/users/edit/:id', {
+        templateUrl: '/static/sites/chascomus/partials/user/edit.html',
+        controller: 'user-edit'
     })
     .when('/users/:id', {
         templateUrl: '/static/sites/chascomus/partials/user/profile.html',

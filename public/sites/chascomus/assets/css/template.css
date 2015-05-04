@@ -8150,9 +8150,6 @@ fieldset[disabled] .btn-alternate.active {
 #initiativePage .report-initiative i {
   opacity: .6;
 }
-#initiativePage #initiativeContent {
-  float: left;
-}
 #initiativePage #initiativeContent .info {
   color: #B4B4B4;
   font-size: 16px;
@@ -8233,7 +8230,6 @@ fieldset[disabled] .btn-alternate.active {
 #initiativePage #initiativeContent section[role=main] .cover {
   background-size: cover;
   background-repeat: no-repeat;
-  width: 630px;
   position: relative;
   border-radius: 6px;
   overflow: hidden;
@@ -8247,7 +8243,6 @@ fieldset[disabled] .btn-alternate.active {
   top: 0;
 }
 #initiativePage #initiativeContent section[role=main] .location {
-  width: 630px;
   height: 192px;
   position: relative;
   border-radius: 6px;
@@ -8336,14 +8331,6 @@ fieldset[disabled] .btn-alternate.active {
 #initiativePage #initiativeSidebar .twitter-btn,
 #initiativePage #initiativeSidebar .facebook-btn,
 #initiativePage #initiativeSidebar .youtube-btn,
-#initiativePage #initiativeSidebar .flickr-btn,
-#initiativePage #initiativeSidebar .linkedin-btn,
-#initiativePage #initiativeSidebar .delicious-btn {
-  margin-right: 5px;
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-}
 #initiativePage #initiativeSidebar .twitter-btn {
   background: url(../img/twitter.png);
 }
@@ -8352,17 +8339,6 @@ fieldset[disabled] .btn-alternate.active {
 }
 #initiativePage #initiativeSidebar .youtube-btn {
   background: url(../img/youtube.png);
-}
-#initiativePage #initiativeSidebar .flickr-btn {
-  background: url(../img/flickr.png) -1px -1px;
-  border: 1px solid #CCC;
-  border-radius: 3px;
-}
-#initiativePage #initiativeSidebar .linkedin-btn {
-  background: url(../img/linkedin.png);
-}
-#initiativePage #initiativeSidebar .delicious-btn {
-  background: url(../img/delicious.png);
 }
 #initiativePage #initiativeSidebar .fb_iframe_widget,
 #initiativePage #initiativeSidebar .twitter-share-button {

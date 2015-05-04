@@ -1,6 +1,8 @@
 <section class="section">
     <div class="container">
+
         <div id="initiativePage" class="row">
+
             <div id="initiativeContent" class="col-md-9 col-sm-9">
                 <h1 class="title">{{iniciativa.name}}</h1>
                 <div class="info">
@@ -39,7 +41,6 @@
                         <p> {{iniciativa.description}} </p>
                     </div>
                 </section>
-
             </div>
 
             <div id="initiativeSidebar" class="col-md-3 col-sm-3  section ">
@@ -54,41 +55,36 @@
                                 <img ngSrc="{{member.picture_thumb}}" />
                             </li>
                         </ul>
-        <!--
-                        {{#user}}
-                            {{#isOwner}}
-                                <a class="green button big block participar" href="/iniciativas/{{iniciativa._id}}/edit">
-                                    Editar
-                                </a>
-                            {{/isOwner}}
-                            {{^isOwner}}
-                                {{#isMember}}
-                                <form method="POST" action="/api/iniciativas/{{iniciativa._id}}/{{user.id}}/quit">
-                                    <input type="submit" class="green button big block participar" value="Dejar de Participar"/>
-                                </form>
-                                {{/isMember}}
-                                {{^isMember}}
-                                <form method="POST" action="/api/iniciativas/{{iniciativa._id}}/{{user.id}}">
-                                    <input type="submit" class="green button big block participar" value="Participá"/>
-                                </form>
-                                {{/isMember}}
-                            {{/isOwner}}
-                        {{/user}}
-                        {{^user}}
-        -->
-                            <a class="btn btn-default participar" href="/user/login?returnURL=/iniciativas/{{iniciativa._id}}">
-                                Ingresá para participar
-                            </a>
-        <!--
-                        {{/user}}
-        -->
-                            <script type="text/javascript">
-                                $(function(){
-                                    var $btn = $('.participar')
-                                    $btn.on('click', function(){ $btn.toggleClass('participando') })
-                                })
-                            </script>
                     </div>
+                    <div ng-show="is_logged()">
+                            <a ng-show="is_owner()" class="btn btn-primary " href="/iniciativas/edit/{{iniciativa._id}}">
+                                Editar
+                            </a>
+<!--
+                            {{#isMember}}
+                            <form method="POST" action="/api/iniciativas/{{iniciativa._id}}/{{user.id}}/quit">
+                                <input type="submit" class="green button big block participar" value="Dejar de Participar"/>
+                            </form>
+                            {{/isMember}}
+
+                            {{^isMember}}
+                            <form method="POST" action="/api/iniciativas/{{iniciativa._id}}/{{user.id}}">
+                                <input type="submit" class="green button big block participar" value="Participá"/>
+                            </form>
+                            {{/isMember}}
+-->
+                    </div>
+                    <div ng-show="!is_logged()">
+                        <a class="btn btn-default participar" href="/user/login?returnURL=/iniciativas/{{iniciativa._id}}">
+                            Ingresá para participar
+                        </a>
+                    </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            var $btn = $('.participar')
+                            $btn.on('click', function(){ $btn.toggleClass('participando') })
+                        })
+                    </script>
 
                     <div ng-show="iniciativa.networks.length" class="cell">
                         <h4>Seguinos</h4>

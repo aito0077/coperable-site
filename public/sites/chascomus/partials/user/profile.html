@@ -35,9 +35,9 @@
                 </div>
 
             </div>
-            <div class="row">
+            <div ng-show="can_edit()" class="row">
                 <div class="entry-thumbnail col-lg-2 col-md-3 col-sm-4">
-                    <a href="/user/{{user.id}}/edit"><span class="btn btn-primary">Editar Perfil</span></a>
+                    <a href="/users/edit/{{profile._id}}"><span class="btn btn-primary">Editar Perfil</span></a>
                 </div>
             </div>
         </article>

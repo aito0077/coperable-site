@@ -263,7 +263,8 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
         $('#topics').selectize({
             maxItems: 3,
             selectOnTab: true,
-            options: $scope.topicos
+            options: $scope.topicos,
+            items: $scope.iniciativa.topics
         });
 
     };
@@ -519,6 +520,22 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
     $location.hash('page');
     $anchorScroll();
+
+    $scope.is_logged = function() {
+        return $rootScope.user_id ? true : false;
+    };
+
+    $scope.is_member = function() {
+        return false;
+    };
+
+    $scope.is_owner = function() {
+        if($scope.iniciativa.owner) {
+            return $scope.iniciativa.owner && $rootScope.user_id == $scope.iniciativa.owner.user;
+        } else {
+            console.log('Sin owner');
+        }
+    };
 
     $scope.iniciativa = Iniciativa.get({
         id: $routeParams.id

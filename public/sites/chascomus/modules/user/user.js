@@ -2,6 +2,10 @@ angular.module('chascomusApp.user', ['ngRoute','ui.router','ngResource'])
 
 .config(['$routeProvider', '$stateProvider', function($routeProvider, $stateProvider) {
     $routeProvider
+    .when('/users/edit/:id', {
+        templateUrl: '/static/sites/chascomus/partials/user/edit.html',
+        controller: 'user-edit'
+    })
     .when('/users/:id', {
         templateUrl: '/static/sites/chascomus/partials/user/profile.html',
         controller: 'user-view'
@@ -21,6 +25,10 @@ angular.module('chascomusApp.user', ['ngRoute','ui.router','ngResource'])
     }, function(data) {
 
     });
+
+    $scope.can_edit = function() {
+        return $routeParams.id == $rootScope.user_id;
+    };
 
     var myOptions = {
         zoom: 13,
@@ -100,7 +108,100 @@ angular.module('chascomusApp.user', ['ngRoute','ui.router','ngResource'])
     $scope.item_template = '<div class="initiative" id="project-modal" tabindex="-1" aria-labelledby="project-modal-label" > <div class="_modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title" id="project-modal-label"><%= name %></h4> </div> <div class="modal-body"> <article class="single-project"> <div class="project-thumbnail"> <div id="project-thumbnail-carousel-1" class="carousel slide" data-ride="carousel"> <div class="carousel-inner"> <div class="item active"> <img src="/static/uploads/thumbs/<%= profile_picture %>"/> </div> </div>  </div> </div>  <div class="row"><ul class="list-unstyled project-info"> <li><span><strong><%= address %></strong></span></li> <li><span><strong><%= date_f %></strong></span></li> </ul> </div> <!--div class="row"> <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa"> <span type="button" class="btn btn-block btn-primary">Participá</button></a></div--> </div> </article> </div> </div> </div>';
 
     $scope.setup_components();
+}])
+.controller('user-edit', ['$scope', '$rootScope', '$http', '$routeParams', '$location', '$anchorScroll', '$timeout', '$rootScope', 'Usuario', function($scope, $rootScope, $http, $routeParams, $location, $anchorScroll, $timeout, $rootScope, Usuario) {
 
+    $rootScope.page = 'user-edit';
+
+    $scope.saving = false;
+    $scope.hasError = false;
+    $scope.persisted = false;
+
+    $scope.prepareModel = function() {
+        $scope.organization.implementation = 'chascomus';
+        _.extend($scope.organization.networks, {
+            facebook: {
+                has: $scope.organization.facebook ? true : false,
+                user_id: $scope.organization.facebook
+            },
+            twitter: {
+                has: $scope.organization.twitter ? true : false,
+                user_id: $scope.organization.twitter
+            },
+            youtube: {
+                has: $scope.organization.youtube ? true : false,
+                user_id: $scope.organization.youtube
+            }
+        });
+    };
  
+
+    $scope.save = function(isValid) {
+        console.log('Is Valid? '+isValid);
+        $scope.saving = true;
+        $scope.hasError = !isValid;
+        $scope.prepareModel();
+        if(isValid) {
+            $scope.organization.$save(function(data) {
+                $scope.first_time = false;
+            });
+            $location.path('/users/'+$scope.organization._id);
+        } else {
+            $scope.saving = false;
+
+        }
+    };
+
+
+    $scope.doRemove = function() {
+        $scope.User.$remove(function() {
+            $location.path('/home');
+        });
+    };
+
+    $scope.setup_components = function() {
+
+        $('#profile_picture_ngo').fileupload({
+            dropZone: $('#dropzone-ngo'),
+            dataType: 'json',
+            clickable: true,
+            url: '/uploads',
+            done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $scope.organization.profile_picture = file.name;
+                $('#dropzone-ngo').css('background-image', "url('"+file.thumbnailUrl+"')");
+                $('#dropzone-ngo').addClass("with-image");
+            });
+            }
+        });
+
+        $('#dropzone-ngo').css('background-image', "url('/static/uploads/thumbs/"+$scope.organization.profile_picture+"')");
+        $('#dropzone-ngo').addClass("with-image");
+
+    };
+
+    $scope.organization = Usuario.get({
+        id: $rootScope.user_id
+    }, function(data) {
+
+        if(data.networks) {
+            _.each(['youtube', 'facebook', 'twitter'], function(social) {
+                if(data.networks[social]) {
+                    $scope.organization[social] = data.networks[social].user_id;
+                }
+            });
+        }
+
+        $timeout(function () {
+            $scope.setup_components();
+        });
+
+    });
+
+
+
+    $location.hash('page');
+    $anchorScroll();
+
 }]);
 
