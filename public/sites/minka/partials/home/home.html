@@ -92,11 +92,11 @@
             <h2 class="section-title"><span>Agenda</span></h2>
             <div class="row">
                 <div class="col-md-12 block-center">
-                    <ul id="filters" class="nav nav-pills center-pills">
+                    <ul id="filters" class="nav nav-pills row">
 
-                      <li><span href="#" ng-click="select_day('all')" class="selector"><b>Todos</b></span></li>
+                      <li ng-click="select_day('all')" class="col-md-2 col-sm-2 selector"><b>Todos</b></li>
 
-                      <li ng-repeat="day in day_filters"><span ng-click="select_day(day.time)" class="selector {{isDayActive(day)}}">{{day.time | moment_plus: 'dddd D'}}</span></li>
+                      <li ng-repeat="day in day_filters" class="col-md-2 col-sm-2 selector text-center {{isDayActive(day)}}"  ng-click="select_day(day.time)">{{day.time | moment_plus: 'dddd D'}}</li>
                     </ul>
                 </div>
             </div>

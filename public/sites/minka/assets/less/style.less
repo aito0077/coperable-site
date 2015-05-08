@@ -139,32 +139,42 @@
 
 		#filters {
 			list-style-type: none;
-			margin: 0 0 10px;
             border: 1px solid #a1a1a1;
             padding: 10px 10px; 
             border-radius: 25px;
 
 			li {
-				display: inline-block;
-				margin: 0 5px;
 				color: @gray-lighter;
-                span.selector {
-                    text-transform: capitalize;
-                }
-                .selector:hover {
-                    background-color: #333333;
-                    color: #FFFFFF;
-                }
-                .selector.active {
-                    background-color: #333333;
-                    color: #FFFFFF;
-                }
+                margin: 0 5px;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                padding-left: 15px;
+                padding-right: 15px;
+
+                min-height: 30px;
+                text-transform: capitalize;
+                font-family: 'Roboto',Arial,sans-serif;
+                color: #333333;
+                text-align: center;
+                line-height: 20px;
+                font-size: 14px;
+                cursor: pointer;
+
+
 			}
+            li.selector:hover {
+                background-color: #333333;
+                color: #FFFFFF;
+            }
+            li.selector.active {
+                background-color: #333333;
+                color: #FFFFFF;
+            }
+
 		}
 		#countries {
 			list-style-type: none;
 			margin: 0 0 10px;
-
             border: 1px solid #a1a1a1;
             padding: 10px 10px; 
             border-radius: 25px;
@@ -172,6 +182,21 @@
                 display: inline-block;
                 margin: 0 5px;
                 color: #EF4832;
+                span.selector {
+                    text-transform: capitalize;
+                    color: #333333;
+                    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+                    font-family: 'Roboto',Arial,sans-serif;
+                    color: #333333;
+                    line-height: 20px;
+                    text-align: center;
+                    font-size: 14px;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    padding-left: 10px;
+                    padding-right: 15px;
+                    cursor: pointer;
+                }
                 .selector:hover {
                     background-color: #EF4832;
                     color: #FFFFFF;
@@ -944,18 +969,4 @@ ul.list {
 		}
 	}
 }
-span.selector {
-    padding: 10px 15px;
-    color: #333333;
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-    font-family: 'Roboto',Arial,sans-serif;
-    color: #333333;
-    line-height: 20px;
-    text-align: center;
-    font-size: 14px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 10px;
-    padding-right: 15px;
-    cursor: pointer;
-}
+
