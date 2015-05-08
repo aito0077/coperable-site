@@ -76,7 +76,25 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 .controller('static-controller', ['$scope','$rootScope', '$http', '$timeout', '$location', function($scope, $rootScope, $http, $timeout, $location) {
     $rootScope.page = 'enred';
 }])
- .run(function($rootScope, $window) {
+.controller("Ctrl", function ($scope, $location, $window) {
+    $scope.$on("$locationChangeStart", function (event, newUrl, oldUrl) {
+        $scope.startPath = $location.path();
+        $scope.startNewUrl = newUrl;
+        $scope.startOldUrl = oldUrl;
+    });
+    $scope.$on("$locationChangeSuccess", function (event, newUrl, oldUrl) {
+        $scope.successPath = $location.path();
+        $scope.successNewUrl = newUrl;
+        $scope.successOldUrl = oldUrl;
+    });
+    $scope.back = function () {
+        $window.history.back();
+    };
+    $scope.forward = function () {
+        $window.history.forward();
+    };
+})
+.run(function($rootScope, $window) {
 
     $rootScope.user_id = $window.user_id;
     //$rootScope.user_id = $window.user_id = '53c91943cc04da7b1d000006';
