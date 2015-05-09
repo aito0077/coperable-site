@@ -7338,6 +7338,9 @@ img {
     margin-bottom: 30px;
   }
 }
+.section.section-agenda .entry-thumbnail {
+  min-height: 200px;
+}
 .section.section-agenda .entry-thumbnail img {
   width: 100%;
 }
