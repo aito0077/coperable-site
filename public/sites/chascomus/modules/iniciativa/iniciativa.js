@@ -346,17 +346,45 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.hits = [];
     $scope.day_filters = [];
     $scope.topics = [];
+    $scope.query_terms = '';
+
+    $scope.search_action = function() {
+        $scope.hits = [];
+        $scope.day_filters = [];
+        $scope.topics = [];
+        $scope.do_search();
+    };
 
     $scope.do_search = function() {
+        var query_search = {
+            bool: {
+                must: {
+                    match: { "implementation": 'chascomus'}
+                }
+            }
+        };
+        if($scope.query_terms) {
+            query_search = {
+                bool: {
+                    must: [
+                        {
+                            match: { "implementation": 'chascomus'},
+                        },
+                        {
+                            query_string : {
+                                query : $scope.query_terms 
+                            }
+                        }
+                    ]
+                }
+            };
+        }
+
         client.search({
             index: 'iniciativas',
             size: 999,
             body: {
-                query: {
-                    bool: {
-                        must: { match: { "implementation": 'chascomus'}},
-                    }
-                },
+                query: query_search,
                 aggs: {
                     topics: {
                         terms: {
@@ -399,7 +427,7 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.split_filters = function(model) {
         var filters = '';
         _.each(model.topics, function(topic) {
-            filters = filters + ' '+topic;
+            filters = filters + ' '+topic.toLowerCase().replace(/_/g, ' ');
         });
         _.each($scope.categories, function(cat) {
             if(model.categories[cat]) {
@@ -442,6 +470,7 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
             $scope.topic_selected = '.'+topic;
             $scope.topic_active = topic;
         }
+
         $('.portfolio-isotope').isotope({ filter: $scope.category_selected+$scope.topic_selected});
         return true;
     };
