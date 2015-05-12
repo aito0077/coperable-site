@@ -658,5 +658,17 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 //        return $sce.trustAsHtml(processed);
         return processed;
     }
+
+    $scope.share_facebook = function() {
+        console.log('share!!!');
+        FB.ui({
+            method: 'share',
+            href: 'http://chascomusenred.com.ar/iniciativas/'+$scope.iniciativa._id,
+        }, function(response){
+            console.dir(response);
+    
+        });
+    };
+
 }]);
 
