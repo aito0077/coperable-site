@@ -23,6 +23,7 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
     $scope.user_default = new google.maps.LatLng(-24.615692,-64.432846);
 
     $scope.organizations = [];
+    $scope.lap_organizations = [];
     $scope.iniciativas = [];
     $scope.hits = [];
     $scope.day_filters = [];
@@ -127,7 +128,7 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
     $scope.fetch_organizations = function() {
         client.search({
             index: 'usuarios',
-            size: 6,
+            size: 50,
             body: {
                 query: {
                     bool: {
@@ -141,7 +142,21 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
             }
         }).then(function (resp) {
 
-            $scope.organizations = resp.hits.hits;
+            $scope.organizations = _.shuffle(resp.hits.hits);
+            $scope.lap_organizations = [];
+            var count = 0,
+                lap = 0;
+            $scope.lap_organizations[lap] = [];
+            _.each($scope.organizations, function(model) {
+                if(count == 6) {
+                    lap = lap + 1;
+                    count = 0;
+                    $scope.lap_organizations[lap] = [];
+                }
+                $scope.lap_organizations[lap].push(model);
+                count = count + 1;
+            
+            });
         });
 
 
