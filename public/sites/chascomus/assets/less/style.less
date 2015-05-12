@@ -1326,3 +1326,46 @@ span.selector {
     padding-right: 15px;
     cursor: pointer;
 }
+
+.filters-default {
+    .clearfix;
+    position: relative;
+    margin-bottom: 10px;
+    &:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 75%;
+    }
+    ul {
+        .clearfix;
+        z-index: 1;
+        position: relative;
+        li {
+            list-style-type: none;
+            padding: 0 25px;
+            cursor: pointer;
+            height: 45px;
+            line-height: 45px;
+            color: #7C7C7C;
+            float: left;
+            font-size: 13px;
+            font-weight: bold;
+            &.map-bt {
+                background: url(/static/img/map-icon.png) 20px 0 no-repeat;
+                padding-left: 45px;
+            }
+            &.grid-bt {
+                background: url(/static/img/grid-icon.png) 20px 0 no-repeat;
+                padding-left: 45px;
+            }
+            &.selected {
+                background-color: #EF4832;
+                border-bottom-color: #EF4832;
+                color: #FFF;
+                background-position: 20px -45px;
+            }
+        }
+    }
+}

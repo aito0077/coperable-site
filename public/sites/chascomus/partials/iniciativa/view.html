@@ -7,6 +7,7 @@
                 <h1 class="title">{{iniciativa.name}}</h1>
                 <div class="info">
                     Por <a class="name" ng-href="/users/{{organization._id}}">{{organization.organization_name}}</a> en <a href="#" data-category="environment">{{iniciativa.main_category}}</a>
+                     <small class="pull-right" ng-show="iniciativa.website"><a target="_blank" href="http://{{iniciativa.website}}">Visitar sitio <i class="fa fa-external-link"></i></a></small>
                 </div>
                 <section role="main">
                     <div class="cover" style="background-image: url('/static/uploads/fullsize/{{iniciativa.profile_picture}}') !important;">
@@ -17,7 +18,7 @@
 
                         <div class="info">
                             <div>
-                                <span ng-show="iniciativa.start_date != iniciativa.end_date">Desde</span> <span class="when">{{iniciativa.start_date | moment: 'DD MMMM YYYY, HH:mm'}}</span><!--span ng-show="iniciativa.start_date != iniciativa.end_date"> - Hasta <span class="when">{{iniciativa.end_date | moment: 'DD MMMM YYYY, HH:mm'}}</span--></span>
+                                <span>Desde</span> <span class="when">{{iniciativa.start_date | moment: 'DD MMMM YYYY, HH:mm'}}</span><span ng-show="iniciativa.start_date != iniciativa.end_date"> - Hasta <span class="when">{{iniciativa.end_date | moment: 'DD MMMM YYYY, HH:mm'}}</span></span>
                             </div>
                             <div class="where">{{iniciativa.address}}</div>
                         </div>

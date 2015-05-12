@@ -57,7 +57,8 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 }])
 .filter('moment', function() {
     return function(dateString, format) {
-        return moment(dateString).add(1, 'd').locale('es').format(format);
+        //return moment(dateString).add(1, 'd').locale('es').format(format);
+        return moment(dateString).locale('es').format(format);
     };
 })
 .directive('ngReallyClick', [function() {
@@ -109,8 +110,16 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 })
 .run(function($rootScope, $window) {
 
-    $rootScope.user_id = $window.user_id;
-    //$rootScope.user_id = $window.user_id = '53c91943cc04da7b1d000006';
+    //$rootScope.user_id = $window.user_id;
+
+    $rootScope.user_id = $window.user_id = '53c91943cc04da7b1d000006';
+    Isotope.prototype.getFilteredItemElements = function() {
+        var elems = [];
+        for ( var i=0, len = this.filteredItems.length; i < len; i++ ) {
+            elems.push( this.filteredItems[i].element );
+        }
+        return elems;
+    };
 
 });
 
