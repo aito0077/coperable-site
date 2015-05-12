@@ -1,25 +1,31 @@
-<section id="portfolio" class="section section-portfolio">
+<section id="portfolio" class="section section-portfolio" style="margin-bottom: 0px;">
     <div class="container">
-        <h2 class="section-title"><span>Agenda Común</span></h2>
+	<h2 class="section-title"><span>Agenda Común</span></h2>
 
-        <div class="row">
-            <div class="col-sm-4 col-sm-offset-2 col-md-4 col-md-offset-4 form-group">
-                <div class="input-group input-group-lg">
-                    <input type="text" class="form-control input-lg" placeholder="Buscar..."  ng-enter="search_action()"  ng-model="query_terms"  />
-                    <span class="input-group-btn" ng-show="query_terms">
-                        <button class="btn " type="button" ng-click="clear_query()">X</button>
-                    </span>
-                </div>
-            </div>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="form-group ">
+				<div class="input-group input-group-lg">
+				    <input type="text" class="form-control input-lg" placeholder="Buscar..."  ng-enter="search_action()"  ng-model="query_terms"  />
+				    <span class="input-group-btn" ng-show="query_terms">
+					<button class="btn " type="button" ng-click="clear_query()">X</button>
+				    </span>
+				</div>
 
-            <div class="filters-default col-md-4 col-sm-4">
-                <ul>
-                    <li class="{{map_show ? 'selected' : ''}} map-bt" ng-click="toggle_map()">Mapa</li>
-                    <li class="{{list_show ? 'selected' : ''}}  grid-bt" ng-click="toggle_list()">Grilla</li>
-                </ul>
-            </div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="filters-default pull-right">
+				<ul>
+					<li class="{{map_show ? 'selected' : ''}} map-bt" ng-click="toggle_map()">Mapa</li>
+					<li class="{{list_show ? 'selected' : ''}}  grid-bt" ng-click="toggle_list()">Grilla</li>
+				</ul>
+			</div>
+		</div>
 
-        </div>
+
+
+	</div>
 
         <div class="row">
             <div class="col-md-12 block-center text-center">
@@ -41,17 +47,15 @@
     </div>
 </section>
 
-<section id="map_portfolio" ng-show="map_show" class="section section-center section-porfolio-map">
+<section id="portfolio-items" class="section section-portfolio-items">
     <div class="container">
-        <div class="owned_map row" style="height:500px;">
+        <div class="owned_map row"  ng-show="map_show" style="height:400px; margin-bottom: 30px;">
             <div id="map_canvas_portfolio" style="width:100%; height:100%"></div>
         </div>
-    </div>
-</section>
 
-<section id="portfolio-items" ng-show="list_show" class="section section-portfolio-items">
-    <div class="container">
-            <div class="portfolio-isotope row">
+
+
+            <div class="portfolio-isotope row"  ng-show="list_show">
 
                 <article ng-repeat="hit in hits" id="{{hit._id}}" class="item-template col-md-4 col-sm-6 portfolio-item post {{split_filters(hit._source)}} ">
 

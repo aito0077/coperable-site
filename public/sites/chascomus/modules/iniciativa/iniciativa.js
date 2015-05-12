@@ -437,6 +437,8 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
                 $timeout(function () {
                     var $itemTemplate = $scope.itemTemplate( _.extend({
+
+			_id: hit._id,
                           main_category: '',
                           profile_picture: '',
                           address: '',
@@ -608,67 +610,10 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     };
 
 
+    $timeout(function () {
+	$scope.toggle_map();
+    }, 1000);
 
-
-/*
-    $scope.user_default = new google.maps.LatLng(-24.615692,-64.432846);
-    var myOptions = {
-        zoom: 3,
-        center:  $scope.user_default,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    $scope.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-    
-
-
-
-    $scope.marcar_iniciativas = function() {
-        var self = this;
-        $scope.markers = [];
-
-        var infowindow = new google.maps.InfoWindow({
-            maxWidth: 280
-        });
-
-        _.each($scope.iniciativas, function(hit) {
-            var model = hit._source;
-        
-            model['_id'] = hit._id;
-
-            var momento = moment(model.start_date).locale('es'),
-                location = model.location,
-                marker = new google.maps.Marker({
-                    title: model.name,
-                    position: new google.maps.LatLng(location.latitude,location.longitude),
-                    map: $scope.map
-                });
-
-            google.maps.event.addListener(marker, 'click', function() {
-
-                $timeout(function () {
-                    var $itemTemplate = $scope.itemTemplate( _.extend({
-                          main_category: '',
-                          profile_picture: '',
-                          address: '',
-                          goal: '',
-                          current_stage: '',
-                          description: '',
-                          participants_amount: 0,
-                          date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
-                    }, model));
-
-                    var $dummy = $('<div/>').append($itemTemplate);
-
-                    infowindow.setContent($dummy.html());
-                    infowindow.open($scope.map, marker);
-                });
-            });
-            $scope.markers.push(marker);
-        });
-    };
-
-*/
 
 
 }])
@@ -676,8 +621,10 @@ angular.module('chascomusApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
     $rootScope.page = 'iniciativa-view';
 
+	/*
     $location.hash('page');
     $anchorScroll();
+*/
 
     $scope.is_logged = function() {
         return $rootScope.user_id ? true : false;
