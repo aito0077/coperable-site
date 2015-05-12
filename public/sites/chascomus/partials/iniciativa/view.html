@@ -87,18 +87,18 @@
                         })
                     </script>
 
-                    <div ng-show="iniciativa.networks.length" class="cell">
+                    <div ng-show="iniciativa.networks" class="cell">
                         <h4>Seguinos</h4>
-                        <a target="blank" href="http://twitter.com/{{iniciativa.networks.twitter}}" class="twitter-btn"></a>
-                        <a target="blank" href="http://facebook.com/{{iniciativa.networks.facebook}}" class="facebook-btn"></a>
-                        <a target="blank" href="http://youtube.com/{{iniciativa.networks.youtube}}" class="youtube-btn"></a>
+                            <a target="_blank" ng-show="iniciativa.networks.twitter" href="http://twitter.com/{{iniciativa.networks.twitter}}" class="twitter-btn"><img src="/static/img/twitter.png"/></a>
+                            <a target="_blank" ng-show="iniciativa.networks.facebook" href="http://facebook.com/{{iniciativa.networks.facebook}}" class="facebook-btn"><img src="/static/img/facebook.png"/></a>
+                            <a target="_blank" ng-show="iniciativa.networks.youtube" href="http://youtube.com/{{iniciativa.networks.youtube}}" class="youtube-btn"><img src="/static/img/youtube.png"/></a>
                     </div>
 
                     <div class="cell">
                         <h4>Difundir!</h4>
                         <div class="row">
                             <a twitter data-count="horizontal" data-url="http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}" data-lang="es" data-size="medium" data-text="{{organization.organization_name}} organiza {{iniciativa.name}}"> </a>
-                             <a facebook class="facebookShare" data-url='http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}' data-shares='shares'>{{ shares }}</a>
+                             <a facebook class="facebookShare" data-url='http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}' data-shares='shares' data-lang="es">{{ shares }}</a>
                              <div gplus class="g-plus" data-size="tall" data-annotation="bubble" data-href='http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}' data-action='share'></div>
                         </div>
 
