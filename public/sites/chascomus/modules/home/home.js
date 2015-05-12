@@ -157,6 +157,13 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
                 count = count + 1;
             
             });
+
+		console.dir($scope.lap_organizations);
+
+        $timeout(function () {
+		$('#carousel-organizations').carousel();
+        }, 1000);
+
         });
 
 
