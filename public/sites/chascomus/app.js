@@ -6,6 +6,7 @@ angular.module('chascomusApp', [
     'ui.router',
     'ui.bootstrap',
     'elasticsearch',
+    'djds4rce.angular-socialshare',
     'chascomusApp.services',
     'chascomusApp.iniciativa',
     'chascomusApp.user',
@@ -110,9 +111,9 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 })
 .run(function($rootScope, $window) {
 
-    //$rootScope.user_id = $window.user_id;
+    $rootScope.user_id = $window.user_id;
 
-    $rootScope.user_id = $window.user_id = '53c91943cc04da7b1d000006';
+    //$rootScope.user_id = $window.user_id = '53c91943cc04da7b1d000006';
     Isotope.prototype.getFilteredItemElements = function() {
         var elems = [];
         for ( var i=0, len = this.filteredItems.length; i < len; i++ ) {

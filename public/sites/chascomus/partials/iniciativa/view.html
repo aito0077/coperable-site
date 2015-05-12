@@ -97,21 +97,11 @@
                     <div class="cell">
                         <h4>Difundir!</h4>
                         <div class="row">
-                                    <a class="twitter-share-button"
-                                      href="https://twitter.com/share"
-                                      data-size="large"
-                                      data-url="http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}"
-                                      data-via="chascomusenred"
-                                      data-text="{{organization.organization_name}} organiza {{iniciativa.name}}">
-                                    Tweet
-                                    </a>
-                                    <script>
-                                        window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
-                                    </script>
+                            <a twitter data-count="horizontal" data-url="http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}" data-lang="es" data-size="medium" data-text="{{organization.organization_name}} organiza {{iniciativa.name}}"> </a>
+                             <a facebook class="facebookShare" data-url='http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}' data-shares='shares'>{{ shares }}</a>
+                             <div gplus class="g-plus" data-size="tall" data-annotation="bubble" data-href='http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}' data-action='share'></div>
                         </div>
-                        <div class="row">
-                            <div class="fb-share-button" data-href="http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}" data-layout="button"></div>
-                        </div>
+
                     </div>
                     <div class="wrapper about">
                         <div class="title">Sobre el organizador</div>

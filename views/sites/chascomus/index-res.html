@@ -13,6 +13,9 @@
         <link href="/static/bower_components/datedropper/datedropper.css" rel="stylesheet">
         <link href="/static/bower_components/jt.timepicker/jquery.timepicker.css" rel="stylesheet">
         <link href="/static/bower_components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
+        <link rel='stylesheet' href="/static/bower_components/angular-socialshare/angular-socialshare.min.css">
+
+
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -20,18 +23,13 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
         <script src='//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'></script>
+        <script src="http://platform.twitter.com/widgets.js"></script>
+
         <base href="/">
     </head>
 
     <body ng-controller="Ctrl">
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.3&appId=368346063364540";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+        <script> window.fbAsyncInit = function() { FB.init({ appId      : '368346063364540', xfbml      : true, version    : 'v2.3' }); }; (function(d, s, id){ var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); </script>
 
         <div id="page">
             <header id="header" class="site-header">
@@ -171,6 +169,8 @@
     <script type="text/javascript" src="/static/bower_components/sifter/sifter.min.js"></script>
     <script type="text/javascript" src="/static/bower_components/microplugin/src/microplugin.js"></script>
     <script type="text/javascript" src="/static/bower_components/selectize/dist/js/selectize.min.js"></script>
+
+    <script src="/static/bower_components/angular-socialshare/angular-socialshare.min.js"></script>
 
 
     <script type="text/javascript" src="/static/bower_components/datedropper/datedropper.min.js"></script>
