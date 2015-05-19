@@ -62,7 +62,11 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
         return moment(dateString).locale('es').format(format);
     };
 })
-.directive('ngReallyClick', [function() {
+.filter('isBefore', function() {
+    return function(dateString) {
+        return moment().isAfter(dateString, 'day') ? 'past' : '';
+    };
+}).directive('ngReallyClick', [function() {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {

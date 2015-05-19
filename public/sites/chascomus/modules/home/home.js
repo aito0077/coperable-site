@@ -87,6 +87,13 @@ angular.module('chascomusApp.home', ['ngRoute','ui.router','ngResource'])
                             match: { 
                                 "implementation": 'chascomus'
                             }
+                        },
+                        must: { 
+                            range: {
+                                end_date: {
+                                    gte: "now",
+                                }
+                            }
                         }
                     }
                 },
