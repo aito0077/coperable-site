@@ -9,6 +9,17 @@
   <link rel='stylesheet/less' href='/static/css/cop-filters.less' />
   <link rel='stylesheet/less' href='/static/stylesheets/styles.less' />
 
+	{{#iniciativa}}
+	<meta name="description" content="{{iniciativa.description}}">
+	<meta property="og:title" content="{{iniciativa.name}}" />
+	<meta property="og:type" content="article" />
+	<meta property="og:description" content="{{iniciativa.description}}" />
+	<meta property="og:url" content="http://coperable.org/iniciativas/{{iniciativa._id}}" />
+	<meta property="og:image" content="http://coperable.org/static/uploads/fullsize/{{iniciativa.profile_picture}}" />
+	<meta property="fb:app_id" content="295482087249664" />
+	{{/iniciativa}}
+
+
   <script src='//cdn.jsdelivr.net/less/1.4.2/less.min.js'></script>
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
   <script src='//cdn.jsdelivr.net/lodash/2.1.0/lodash.underscore.min.js'></script>
