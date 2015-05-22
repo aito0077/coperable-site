@@ -1,0 +1,164 @@
+                <section id="carousel-1" class="carousel slide section-slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="item active" style="background: url(/static/sites/coperable/images/home_background.jpg);">
+                            <div class="container slider-text vcenter text-center">
+                                <h3 class="vcenter">
+Un Mapa Colaborativo para compartir iniciativas abiertas y participar en encuentros positivos para la comunidad. Sumate! 
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-1" data-slide="prev"><span class="fa fa-chevron-left"></span></a>
+                    <a class="right carousel-control" href="#carousel-1" data-slide="next"><span class="fa fa-chevron-right"></span></a>
+                </section>
+
+                <section class="section section-center section-cta">
+                    <div class="container">
+                        <div class="section-title">
+                            <h4> 
+                                Coperable es un proyecto autogestionado y colaborativo. Si te interesa colaborar o sumar apoyo escribinos a <a href="mailto:hola@lapapasustentable.com.ar">hola@lapapasustentable.com.ar</a>
+                            </h4>
+                        </div>
+                        <div class="main-action row">
+                            <div class=" col-md-offset-2  col-md-4 col-sm-4  col-sm-offset-2"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-info">Sumate</a></div>
+                            <div class="col-md-4 col-sm-4">
+                                <a  ng-show="is_logged()" ng-href="/iniciativas/edit" class="smooth-scroll btn btn-lg btn-block btn-default">Organizá</a>
+                                <a  ng-show="!is_logged()" href="/user/login" target="_self" class="smooth-scroll btn btn-lg btn-block btn-default">Organizá</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="map_home" class="section section-center section-map-home">
+                    <div class="container">
+                        <div class="section-title"><h2><span>Mapa</span><small>Iniciativas cercanas donde participar</small></h2></div>
+                        <div class="owned_map row" style="height:500px;">
+                            <div id="map_canvas_home" style="width:100%; height:100%"></div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section id="features" class="section section-center section-hilite section-features">
+                    <div class="container">
+                        <div class="section-title"><h2><span>Iniciativas</span><small>agenda</small></h2></div>
+
+                        <div class="row">
+
+                            <div ng-repeat="hit in hits | limitTo: 6" data-category="medio_ambiente" class="item-template col-md-4">
+
+                                <div class="initiative initiative-item">
+                                    <div data-label="{{hit._source.start_date | moment: 'D [de] MMMM'}}" class="pic">
+                                        <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
+                                            <img class="replace-src" src="/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
+                                        </a>
+                                    </div>
+                                    <div class="subtext">
+                                        <a ng-href="/users/{{hit._source.owner.user}}"> <h4>{{hit._source.organization || hit._source.owner.name}}</h4></a>
+                                    </div>
+                                    <div class="wrapper">
+                                        <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
+                                            <h4>{{hit._source.name}}</h4>
+                                        </a>
+                                        <div>{{hit._source.start_date | moment: 'L LT'}}</div>
+                                    </div>
+                                    <div class="bottom">
+                                        <div class="actions wrapper">
+                                            <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa" class="btn-alternate btn">Ver</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div >
+                                <a href="/iniciativas" class="btn-default col-md-offset-10 btn col-md-2">Ver más <i class="fa fa-chevron-right"></i> </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section id="team" class="section section-center section-hilite section-team">
+                    <div class="container">
+                        <div class="section-title"><h2><span>Organizaciones</span><small>trabajando en Coperable</small></h2></div>
+                        <div class="row">
+                            <div ng-repeat="organization in organizations" class="col-md-2 col-sm-4 col-xs-6">
+                                <a ng-href="/users/{{organization._id}}">
+                                    <img width="300px" src="/static/uploads/thumbs/{{organization._source.profile_picture}}">
+                                    <h5>{{organization._source.organization_name}}</h5>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+        <!--section id="blog" class="section section-blog">
+          <div class="container">
+            <h2 class="section-title"><span>Our Blog</span></h2>
+            <div class="row">
+              <div class="col-md-6">
+                <article class="hentry post">
+                  <div class="row">
+                    <div class="entry-thumbnail col-lg-4 col-md-5 col-sm-4">
+                      <a href="#" class="hover-effect">
+                        <img src="http://placehold.it/165x165" alt="" />
+                        <span class="overlay"><i class="fa fa-plus"></i></span>
+                      </a>
+                    </div>
+                    <div class="col-lg-8 col-md-7 col-sm-8">
+                      <header class="entry-header">
+                        <h2 class="entry-title"><a href="#">Sample blog title</a></h2>
+                        <div class="entry-meta">By <a href="#">Jackie Lord</a> in <a href="#">Category</a></div>
+                      </header>
+                      <div class="entry-content">
+                        <p>Pellentesque eleifend amet scelerisque convallis. Aenean eget metus non erat suscipit accumsan.</p>
+                        <a href="#" class="more"><span class="btn btn-primary">Continue Reading</span></a>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div class="col-md-6">
+                <article class="hentry post">
+                  <div class="row">
+                    <div class="entry-thumbnail col-lg-4 col-md-5 col-sm-4">
+                      <a href="#" class="hover-effect">
+                        <img src="http://placehold.it/165x165" alt="" />
+                        <span class="overlay"><i class="fa fa-plus"></i></span>
+                      </a>
+                    </div>
+                    <div class="col-lg-8 col-md-7 col-sm-8">
+                      <header class="entry-header">
+                        <h2 class="entry-title"><a href="#">Sample blog title</a></h2>
+                        <div class="entry-meta">By <a href="#">Jackie Lord</a> in <a href="#">Category</a></div>
+                      </header>
+                      <div class="entry-content">
+                        <p>Pellentesque eleifend amet scelerisque convallis. Aenean eget metus non erat suscipit accumsan.</p>
+                        <a href="#" class="more"><span class="btn btn-primary">Continue Reading</span></a>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section-->
+
+        <section id="clients" class="section section-our-clients">
+            <div class="container">
+                <h2 class="section-title"><span>Colaboran y Apoyan</span></h2>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 vcenter">
+                        <a href="#">
+                            <img src="/static/img/logos_support.png"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
