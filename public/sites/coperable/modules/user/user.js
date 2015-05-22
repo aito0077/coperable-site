@@ -30,11 +30,19 @@ angular.module('coperableApp.user', ['ngRoute','ui.router','ngResource'])
         return $routeParams.id == $rootScope.user_id;
     };
 
+    /*
     var myOptions = {
         zoom: 13,
         center:  new google.maps.LatLng(-35.559169,-57.9989482),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
+    */
+    var myOptions = {
+        zoom: 3,
+        center: new google.maps.LatLng(-21.616579,-60.849613),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
 
     $scope.map = new google.maps.Map(document.getElementById("map_canvas_owned"), myOptions);
 

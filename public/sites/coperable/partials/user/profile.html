@@ -51,7 +51,7 @@
 
         <div class="row">
 
-            <article ng-repeat="iniciativa in iniciativas" class="item-template col-md-4 col-sm-6 portfolio-item post ">
+            <article ng-repeat="iniciativa in iniciativas | filter:{ implementation: 'chascomus'}" class="item-template col-md-4 col-sm-6 portfolio-item post ">
 
                 <div class="initiative initiative-item">
                     <div data-label="{{iniciativa.start_date | moment: 'D [de] MMMM'}}" class="pic">

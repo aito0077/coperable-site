@@ -36,6 +36,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
         { "value": "Seminario"   ,"text": "Seminario"   , "continent": "naturaleza"    },
         { "value": "Espectaculo"   ,"text": "Espectaculo"   , "continent": "naturaleza"    },
         { "value": "Feria"   ,"text": "Feria"   , "continent": "naturaleza"    },
+        { "value": "Festivales"   ,"text": "Festivales"   , "continent": "naturaleza"    },
         { "value": "Encuentro"   ,"text": "Encuentro"   , "continent": "naturaleza"    },
         { "value": "Peña"   ,"text": "Peña"   , "continent": "naturaleza"    },
         { "value": "Gratis"   ,"text": "Gratis"   , "continent": "price"    },
@@ -107,9 +108,18 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
         var start_date = $scope.iniciativa.fecha+" "+$scope.iniciativa.hour;
         var time_stamp = moment(start_date, 'DD-MM-YYYY hh:mmA');
-
         $scope.iniciativa.start_date_timestamp = time_stamp.toDate().getTime();
-        $scope.iniciativa.end_date_timestamp = time_stamp.add(1, 'days').toDate().getTime();
+
+        if($scope.iniciativa.fecha_hasta && $scope.iniciativa.hour_hasta) {
+            $scope.iniciativa.hour_hasta = $('#hour_hasta').val();
+            var end_date = $scope.iniciativa.fecha_hasta+" "+$scope.iniciativa.hour_hasta;
+            var time_stamp_hasta = moment(end_date, 'DD-MM-YYYY hh:mmA');
+            $scope.iniciativa.end_date_timestamp = time_stamp_hasta.toDate().getTime();
+            console.log($scope.iniciativa.end_date_timestamp);
+        } else {
+            console.log('Default: '+$scope.iniciativa.end_date_timestamp);
+            $scope.iniciativa.end_date_timestamp = time_stamp.add(1, 'days').toDate().getTime();
+        }
 
         if($scope.organization ) {
             $scope.iniciativa.organization = $scope.organization.organization_name || $scope.organization.username;
@@ -158,9 +168,8 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
         var default_options = {
             format: 'd-m-y',
-            placeholder: 'Día Evento',
+            placeholder: 'Día Inicio Evento',
             minYear: 2015,
-            maxYear: 2015,
             lang: 'es',
             lock: 'from'
         };
@@ -197,8 +206,19 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
 
         $("#fecha" ).dateDropper(default_options);
+        $("#fecha_hasta" ).dateDropper({
+            format: 'd-m-y',
+            placeholder: 'Fin Evento',
+            minYear: 2015,
+            lang: 'es',
+            lock: 'from'
+        });
 
         $('#hour').timepicker({
+            show2400: true
+        });
+
+        $('#hour_hasta').timepicker({
             show2400: true
         });
 
@@ -316,8 +336,11 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
             }
             $scope.iniciativa.fecha =  moment($scope.iniciativa.start_date).format('DD-MM-YYYY');
             $scope.iniciativa.hour =  moment($scope.iniciativa.start_date).format('hh:mmA');
+            $scope.iniciativa.fecha_hasta =  moment($scope.iniciativa.end_date).format('DD-MM-YYYY');
+            $scope.iniciativa.hour_hasta =  moment($scope.iniciativa.end_date).format('hh:mmA');
 
             $('#hour').val($scope.iniciativa.hour);
+            $('#hour_hasta').val($scope.iniciativa.hour_hasta);
 
             $('#dropzone').css('background-image', "url('/static/uploads/thumbs/"+$scope.iniciativa.profile_picture+"')");
             $('#dropzone').addClass("with-image");
@@ -338,24 +361,134 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $anchorScroll();
 
 }])
-.controller('iniciativa-list', ['$scope', '$rootScope', '$http', 'client', function($scope, $rootScope, $http, client) {
+.controller('iniciativa-list', ['$scope', '$rootScope', '$http', '$timeout', 'client', function($scope, $rootScope, $http, $timeout, client) {
 
     $rootScope.page = 'iniciativa-list';
     $scope.iniciativas = [];
     $scope.hits = [];
     $scope.day_filters = [];
     $scope.topics = [];
+    $scope.query_terms = '';
+    $scope.list_show = true;
+    $scope.map_show = true;
+
+    $scope.toggle_map = function() {
+        $scope.map_show = !$scope.map_show;
+    };
+
+    $scope.toggle_list = function() {
+        $scope.list_show = !$scope.list_show;
+    };
+
+    $scope.clear_query = function() {
+        $scope.query_terms = '';
+        $scope.search_action();
+    };
+
+    $scope.search_action = function() {
+        $scope.hits = [];
+        $scope.day_filters = [];
+        $scope.topics = [];
+
+        $scope.category_selected = ''; 
+        $scope.category_active = '';
+        $scope.topic_selected = ''; 
+        $scope.topic_active = '';
+        $scope.do_search();
+    };
+
+
+    var myOptions = {
+        zoom: 13,
+        center:  new google.maps.LatLng(-35.559169,-57.9989482),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    $scope.map = new google.maps.Map(document.getElementById("map_canvas_portfolio"), myOptions);
+
+    $scope.refresh_markers = function() {
+        _.each($scope.markers, function(marker) {
+            marker.setMap(null);
+        });
+        $scope.markers = new Array();
+    };
+
+
+    $scope.marcar_iniciativas = function(iniciativas) {
+        var iniciativas_map = iniciativas || [];
+        $scope.refresh_markers();
+
+        var infowindow = new google.maps.InfoWindow({
+            maxWidth: 280
+        });
+
+
+        _.each(iniciativas_map, function(hit) {
+            var model = hit._source; 
+            var momento = moment(model.start_date).locale('es'),
+                location = model.location,
+                marker = new google.maps.Marker({
+                    title: model.name,
+                    position: new google.maps.LatLng(location.latitude,location.longitude),
+                    map: $scope.map
+                });
+
+            google.maps.event.addListener(marker, 'click', function() {
+
+                $timeout(function () {
+                    var $itemTemplate = $scope.itemTemplate( _.extend({
+
+			_id: hit._id,
+                          main_category: '',
+                          profile_picture: '',
+                          address: '',
+                          goal: '',
+                          current_stage: '',
+                          description: '',
+                          participants_amount: 0,
+                          date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
+                    }, model));
+
+                    var $dummy = $('<div/>').append($itemTemplate);
+
+                    infowindow.setContent($dummy.html());
+                    infowindow.open($scope.map, marker);
+                });
+            });
+            $scope.markers.push(marker);
+        });
+
+    };
+
+
+    $scope.item_template = '<div class="initiative" id="project-modal" tabindex="-1" aria-labelledby="project-modal-label" > <div class="_modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title" id="project-modal-label"><%= name %></h4> </div> <div class="modal-body"> <article class="single-project"> <div class="project-thumbnail"> <div id="project-thumbnail-carousel-1" class="carousel slide" data-ride="carousel"> <div class="carousel-inner"> <div class="item active"> <img src="/static/uploads/thumbs/<%= profile_picture %>"/> </div> </div>  </div> </div>  <div class="row"><ul class="list-unstyled project-info"> <li><span><strong><%= address %></strong></span></li> <li><span><strong><%= date_f %></strong></span></li> </ul> </div> <!--div class="row"> <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa"> <span type="button" class="btn btn-block btn-primary">Participá</button></a></div--> </div> </article> </div> </div> </div>';
+
+    $scope.itemTemplate = _.template(_.unescape($scope.item_template));
+
+
 
     $scope.do_search = function() {
+        var query_search = {
+        };
+        if($scope.query_terms) {
+            query_search = {
+                bool: {
+                    must: [
+                        {
+                            query_string : {
+                                query : $scope.query_terms 
+                            }
+                        }
+                    ]
+                }
+            };
+        }
+
         client.search({
             index: 'iniciativas',
             size: 999,
             body: {
-                query: {
-                    bool: {
-                        must: { match: { "implementation": 'coperable'}},
-                    }
-                },
+                query: query_search,
                 aggs: {
                     topics: {
                         terms: {
@@ -384,8 +517,16 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
             $scope.hits = resp.hits.hits;
             $scope.day_filters = resp.facets.histo1.entries;
-            $scope.topics = resp.aggregations.topics.buckets;
+            $scope.topics = _.filter(resp.aggregations.topics.buckets, function(topic) {
+                return topic.key && topic.key.length > 3;
+            });
+            
             $scope.iniciativas = resp.hits.hits;
+
+            $timeout(function () {
+                $scope.marcar_iniciativas($scope.iniciativas);
+            }, 1000);
+
         });
 
 
@@ -398,7 +539,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.split_filters = function(model) {
         var filters = '';
         _.each(model.topics, function(topic) {
-            filters = filters + ' '+topic;
+            filters = filters + ' '+topic.toLowerCase().replace(/_/g, ' ');
         });
         _.each($scope.categories, function(cat) {
             if(model.categories[cat]) {
@@ -425,7 +566,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
             $scope.category_selected = '.'+category;
             $scope.category_active = category;
         }
-        $('.portfolio-isotope').isotope({ filter: $scope.category_selected+$scope.topic_selected});
+        $scope.do_arrange();
         return true;
     };
 
@@ -441,8 +582,19 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
             $scope.topic_selected = '.'+topic;
             $scope.topic_active = topic;
         }
-        $('.portfolio-isotope').isotope({ filter: $scope.category_selected+$scope.topic_selected});
+        $scope.do_arrange();
         return true;
+    };
+
+
+    $scope.do_arrange = function() {
+        $('.portfolio-isotope').isotope({ filter: $scope.category_selected+$scope.topic_selected});
+        var iniciativas_id = _.pluck($('.portfolio-isotope').isotope('getFilteredItemElements'), 'id'); 
+        var iniciativas = _.filter($scope.iniciativas, function(model) {
+            return _.contains(iniciativas_id, model._id);
+        });
+        
+        $scope.marcar_iniciativas(iniciativas);
     };
 
     $scope.isTopicActive = function(topic_key) {
@@ -450,67 +602,10 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     };
 
 
+    $timeout(function () {
+	$scope.toggle_map();
+    }, 1000);
 
-
-/*
-    $scope.user_default = new google.maps.LatLng(-24.615692,-64.432846);
-    var myOptions = {
-        zoom: 3,
-        center:  $scope.user_default,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    $scope.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-    
-
-
-
-    $scope.marcar_iniciativas = function() {
-        var self = this;
-        $scope.markers = [];
-
-        var infowindow = new google.maps.InfoWindow({
-            maxWidth: 280
-        });
-
-        _.each($scope.iniciativas, function(hit) {
-            var model = hit._source;
-        
-            model['_id'] = hit._id;
-
-            var momento = moment(model.start_date).locale('es'),
-                location = model.location,
-                marker = new google.maps.Marker({
-                    title: model.name,
-                    position: new google.maps.LatLng(location.latitude,location.longitude),
-                    map: $scope.map
-                });
-
-            google.maps.event.addListener(marker, 'click', function() {
-
-                $timeout(function () {
-                    var $itemTemplate = $scope.itemTemplate( _.extend({
-                          main_category: '',
-                          profile_picture: '',
-                          address: '',
-                          goal: '',
-                          current_stage: '',
-                          description: '',
-                          participants_amount: 0,
-                          date_f: momento.fromNow()+' ('+momento.format('DD MMMM')+')'
-                    }, model));
-
-                    var $dummy = $('<div/>').append($itemTemplate);
-
-                    infowindow.setContent($dummy.html());
-                    infowindow.open($scope.map, marker);
-                });
-            });
-            $scope.markers.push(marker);
-        });
-    };
-
-*/
 
 
 }])
@@ -518,8 +613,10 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
     $rootScope.page = 'iniciativa-view';
 
+	/*
     $location.hash('page');
     $anchorScroll();
+*/
 
     $scope.is_logged = function() {
         return $rootScope.user_id ? true : false;
@@ -553,5 +650,6 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 //        return $sce.trustAsHtml(processed);
         return processed;
     }
+
 }]);
 

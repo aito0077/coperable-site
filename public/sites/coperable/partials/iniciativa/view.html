@@ -7,6 +7,7 @@
                 <h1 class="title">{{iniciativa.name}}</h1>
                 <div class="info">
                     Por <a class="name" ng-href="/users/{{organization._id}}">{{organization.organization_name}}</a> en <a href="#" data-category="environment">{{iniciativa.main_category}}</a>
+                     <small class="pull-right" ng-show="iniciativa.website"><a target="_blank" href="http://{{iniciativa.website}}">Visitar sitio <i class="fa fa-external-link"></i></a></small>
                 </div>
                 <section role="main">
                     <div class="cover" style="background-image: url('/static/uploads/fullsize/{{iniciativa.profile_picture}}') !important;">
@@ -17,7 +18,7 @@
 
                         <div class="info">
                             <div>
-                                <span ng-show="iniciativa.start_date != iniciativa.end_date">Desde</span> <span class="when">{{iniciativa.start_date | moment: 'DD MMMM YYYY, HH:mm'}}</span><!--span ng-show="iniciativa.start_date != iniciativa.end_date"> - Hasta <span class="when">{{iniciativa.end_date | moment: 'DD MMMM YYYY, HH:mm'}}</span--></span>
+                                <span>Desde</span> <span class="when">{{iniciativa.start_date | moment: 'DD MMMM YYYY, HH:mm'}}</span><span ng-show="iniciativa.start_date != iniciativa.end_date"> - Hasta <span class="when">{{iniciativa.end_date | moment: 'DD MMMM YYYY, HH:mm'}}</span></span>
                             </div>
                             <div class="where">{{iniciativa.address}}</div>
                         </div>
@@ -86,20 +87,21 @@
                         })
                     </script>
 
-                    <div ng-show="iniciativa.networks.length" class="cell">
+                    <div ng-show="iniciativa.networks" class="cell">
                         <h4>Seguinos</h4>
-                        <a target="blank" href="http://twitter.com/{{iniciativa.networks.twitter}}" class="twitter-btn"></a>
-                        <a target="blank" href="http://facebook.com/{{iniciativa.networks.facebook}}" class="facebook-btn"></a>
-                        <a target="blank" href="http://youtube.com/{{iniciativa.networks.youtube}}" class="youtube-btn"></a>
+                            <a target="_blank" ng-show="iniciativa.networks.twitter" href="http://twitter.com/{{iniciativa.networks.twitter}}" class="twitter-btn"><img src="/static/img/twitter.png"/></a>
+                            <a target="_blank" ng-show="iniciativa.networks.facebook" href="http://facebook.com/{{iniciativa.networks.facebook}}" class="facebook-btn"><img src="/static/img/facebook.png"/></a>
+                            <a target="_blank" ng-show="iniciativa.networks.youtube" href="http://youtube.com/{{iniciativa.networks.youtube}}" class="youtube-btn"><img src="/static/img/youtube.png"/></a>
                     </div>
 
                     <div class="cell">
-                        <h4>Difundir</h4>
-                        <div class="clearfix">
-                            <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like" data-show-faces="false" data-share="true"></div>
-                                <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-                            </div>
+                        <h4>Difundir!</h4>
+                        <div class="row">
+                            <a twitter data-count="horizontal" data-url="http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}" data-lang="es" data-size="medium" data-text="{{organization.organization_name}} organiza {{iniciativa.name}}"> </a>
+                             <a facebook class="facebookShare" data-url='http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}' data-shares='shares' data-lang="es">{{ shares }}</a>
+                             <div gplus class="g-plus" data-size="tall" data-annotation="bubble" data-href='http://chascomusenred.com.ar/iniciativas/{{iniciativa._id}}' data-action='share'></div>
                         </div>
+
                     </div>
                     <div class="wrapper about">
                         <div class="title">Sobre el organizador</div>
@@ -124,6 +126,5 @@
                             <a class="report-initiative" href="#"><i class="icon-warning-sign"></i> Denunciar iniciativa</a>
                         </div>
                     </div>
-                    <div id="fb-root"></div>
     </div>
 </section>

@@ -3,7 +3,7 @@
 
             <div class="main-action row">
                 <p class="text-center">
-                    Gracias por ingresar tu actividad, para verla ingresá a <a class="link" href="/iniciativas/{{iniciativa._id}}">http://coperable.coperable.org/iniciativas/{{iniciativa._id}}</a>.
+                    Gracias por ingresar tu actividad, para verla ingresá a <a class="link" href="/iniciativas/{{iniciativa._id}}">http://chascomus.coperable.org/iniciativas/{{iniciativa._id}}</a>.
                 </p>
                 <p>
                     Ahora a compartirla con tus amigos en las redes sociales. Invitando gente y dándola a conocer vas a convocar más participantes y sumar más energía social para tu proyecto.
@@ -135,7 +135,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-sm-6">
                                         <label class="sr-only">Desde</label>
-                                        <input name="fecha" id="fecha" type="text" placeholder="Día Evento" class="form-control" ng-model="iniciativa.fecha" required>
+                                        <input name="fecha" id="fecha" type="text" placeholder="Día Inicio Evento" class="form-control" ng-model="iniciativa.fecha" required>
                                          <p ng-show="hasError && actividadForm.fecha.$invalid" class="help-block"  style="color: red">La fecha es requerida.</p>
                                     </div>
                                     <div class="form-group col-md-6 col-sm-6">
@@ -144,6 +144,18 @@
                                         <input name="hora" type="text" class="form-control" placeholder="Hora"  ng-model="iniciativa.hour" id="hour">
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        <label class="sr-only">Hasta</label>
+                                        <input name="fecha_hasta" id="fecha_hasta" type="text" placeholder="Fin Evento" class="form-control" ng-model="iniciativa.fecha_hasta">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        <label class="sr-only">Hora</label>
+
+                                        <input name="hora_hasta" type="text" class="form-control" placeholder="Hora"  ng-model="iniciativa.hour_hasta" id="hour_hasta">
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -210,6 +222,10 @@
                                 <div class="form-group">
                                     <label class="sr-only">Telefono</label>
                                     <input type="text" class="form-control" placeholder="Telefono" ng-model="iniciativa.phone">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only">Sitio de la Actividad</label>
+                                    <input type="text" class="form-control" placeholder="Web Actividad" ng-model="iniciativa.website">
                                 </div>
                             </div>
                             <div class="col-sm-6">

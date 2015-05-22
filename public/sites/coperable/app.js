@@ -6,6 +6,7 @@ angular.module('coperableApp', [
     'ui.router',
     'ui.bootstrap',
     'elasticsearch',
+    'djds4rce.angular-socialshare',
     'coperableApp.services',
     'coperableApp.iniciativa',
     'coperableApp.user',
@@ -57,10 +58,15 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 }])
 .filter('moment', function() {
     return function(dateString, format) {
-        return moment(dateString).add(1, 'd').locale('es').format(format);
+        //return moment(dateString).add(1, 'd').locale('es').format(format);
+        return moment(dateString).locale('es').format(format);
     };
 })
-.directive('ngReallyClick', [function() {
+.filter('isBefore', function() {
+    return function(dateString) {
+        return moment().isAfter(dateString, 'day') ? 'past' : '';
+    };
+}).directive('ngReallyClick', [function() {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
@@ -73,13 +79,52 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
         }
     }
 }])
+.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+})
 .controller('static-controller', ['$scope','$rootScope', '$http', '$timeout', '$location', function($scope, $rootScope, $http, $timeout, $location) {
     $rootScope.page = 'enred';
 }])
- .run(function($rootScope, $window) {
+.controller("Ctrl", function ($scope, $location, $window) {
+    $scope.$on("$locationChangeStart", function (event, newUrl, oldUrl) {
+        $scope.startPath = $location.path();
+        $scope.startNewUrl = newUrl;
+        $scope.startOldUrl = oldUrl;
+    });
+    $scope.$on("$locationChangeSuccess", function (event, newUrl, oldUrl) {
+        $scope.successPath = $location.path();
+        $scope.successNewUrl = newUrl;
+        $scope.successOldUrl = oldUrl;
+    });
+    $scope.back = function () {
+        $window.history.back();
+    };
+    $scope.forward = function () {
+        $window.history.forward();
+    };
+})
+.run(function($rootScope, $window) {
 
     $rootScope.user_id = $window.user_id;
+
     //$rootScope.user_id = $window.user_id = '53c91943cc04da7b1d000006';
+    Isotope.prototype.getFilteredItemElements = function() {
+        var elems = [];
+        for ( var i=0, len = this.filteredItems.length; i < len; i++ ) {
+            elems.push( this.filteredItems[i].element );
+        }
+        return elems;
+    };
 
 });
 

@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+  // Add "loaded" class when a section has been loaded
   $(window).scroll(function() { 
     var scrollTop = $(window).scrollTop();
     $(".section").each(function() {
@@ -10,6 +11,7 @@ $(document).ready(function(){
     });
   });
 
+  // One Page Navigation Setup
   $('#navigation').singlePageNav({
     offset: $('#navbar').outerHeight(),
     filter: ':not(.external)',
@@ -22,12 +24,14 @@ $(document).ready(function(){
     }
   });
 
+  // Sticky Navbar Affix
   $('#navbar').affix({
     offset: {
       top: $('#topbar').outerHeight(),
     }
   });
 
+  // Smooth Hash Link Scroll
   $('.smooth-scroll').click(function() {
     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
 
@@ -57,6 +61,7 @@ $(document).ready(function(){
     resizesContainer: true
   });
 
+  // filter items when filter link is clicked
   $('#filters a').click(function(){
     var selector = $(this).attr('data-filter');
     $container.isotope({ filter: selector });
