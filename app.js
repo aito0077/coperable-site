@@ -126,6 +126,7 @@ app.post('/iniciativas/:id', iniciativas.save);
 app.post('/iniciativas', iniciativas.create);
 app.post('/minka/iniciativas', iniciativas.create);
 app.post('/chascomus/iniciativas', iniciativas.create);
+app.post('/minkanet/iniciativas', iniciativas.create);
 app.post('/coperable/iniciativas', iniciativas.create);
 
 app.get('/iniciativas/name/:slug', iniciativa.view_slug);
@@ -254,16 +255,16 @@ app.post('/user/login', function(req, res, next) {
 
 app.get('/auth/facebook', saveSubdomain, passport.authenticate('facebook'));
 
-//app.get('/chascomus/auth/facebook', passport.authenticate('facebook-chascomus'));
-
-//app.get('/auth/facebook', passport.authenticate('facebook', { callbackURL: '/auth/facebook/callback' }));
-
 app.get('/auth/facebook/callback', function(req, res, next) {
   customCallbackAuthentification('facebook', req, res, next);
 });
 
 app.get('/chascomus/auth/facebook/callback', function(req, res, next) {
   customCallbackAuthentification('facebook-chascomus', req, res, next);
+});
+
+app.get('/minkanet/auth/facebook/callback', function(req, res, next) {
+  customCallbackAuthentification('facebook-minkanet', req, res, next);
 });
 
 

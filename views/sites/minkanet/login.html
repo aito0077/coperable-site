@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+    <!--[if lt IE 7]>      <html lang="es" ng-app="chascomusApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>         <html lang="es" ng-app="chascomusApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>         <html lang="es" ng-app="chascomusApp" class="no-js lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> <html lang="es" ng-app="chascomusApp" class="no-js"> <!--<![endif]-->
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{layoutTitle}}</title>
+        <link href="/static/sites/chascomus/assets/css/template.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        <script src='//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'></script>
+        <base href="/">
+    </head>
+
+    <body>
+
+    <div id="page">
+
+            <header id="header" class="site-header">
+                <nav id="topbar" class="site-topbar visible-lg visible-md">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">Alojado en <a href="http://www.coperable.org" target="_blank" style="text-decoration: none">Coperable</a></div>
+                            <div class="pull-right social-links col-sm-6">
+                            {{^user}}
+                                <a href="/user/login" target="_self"><span><b>Ingres&aacute;</b> </span></a>
+                                <a href="/auth/facebook" target="_self"><i class="fa fa-facebook"></i></a>
+                                <span>|</span>
+                                <a href="/auth/twitter" target="_self"><i class="fa fa-twitter"></i></a>
+                            {{/user}}
+                            {{#user}}
+                                <a href="/user/{{user.id}}" target="_self" >{{user.username}}</a>
+                                <a href="/user/logout" target="_self">Salir</a>
+                            {{/user}}
+                            </div>
+
+                        </div>
+                    </div>
+                </nav>
+
+                <nav id="navbar" class="site-navbar navbar navbar-static-top" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <h1 class="navbar-brand">
+                                <a href="index.html">
+                                    <!--img src="/static/sites/minkanet/images/logo.png"/--> 
+                                    Minka
+                                </a>
+                            </h1>
+                        </div>
+
+                        <div data-ng-controller="menu-controller" class="collapse navbar-collapse" id="navbar-collapse-1">
+                            <ul id="navigation" class="nav navbar-nav navbar-right">
+                                <li ng-show="showInPage('home')"><a href="#header" class="current">Home</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </nav>
+            </header>
+
+
+      <main id="main" class="site-main">
+
+<section class="section section-center section-cta">
+    <div class="container">
+        <h2 class="section-title"><span>Ingreso a la Plataforma</span></h2>
+        <p style="color: red"><b>{{message}}</b></p>
+        <div class="main-action row">
+            <div class="col-md-12 col-sm-12" ng-show="login_form_show">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2 form-login">
+                        <h3>Ingresa con tus redes sociales</h3>
+                        <div class="row">
+                            <a href="/auth/facebook" target="_self" class="btn btn-default col-md-4 col-md-offset-1"><i class="fa fa-2x fa-facebook"></i></a>
+                            <a href="/auth/twitter" target="_self" class="btn btn-primary col-md-4 col-md-offset-2"><i class="fa fa-2x fa-twitter"></i></a>
+                        </div>
+                        <div class="row">
+                            <h3>O con tu usuario Coperable</h3>
+                        </div>
+                        <div class="row">
+                            <form action="/user/login?returnURL=/iniciativa/edit" method="post">
+                                <div class="form-group">
+                                    <input name="username" type="text" class="form-control" placeholder="Nombre Usuario" required>
+                                </div>
+                                <div class="form-group">
+                                    <input name="password" type="password" class="form-control" placeholder="Password"  required>
+                                </div>
+                                <button type="submit" class="btn btn-default">Ingresar</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 form-signup">
+                        <h3>O registrate</h3>
+                        <form action="/user/signup" method="post">
+                            <div class="row text-center">
+                                <div class="form-group">
+                                    <input name="username" type="text" class="form-control" placeholder="Nombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <input name="email" type="text" class="form-control" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <input name="password" type="password" class="form-control" placeholder="Password" required >
+                                </div>
+                                <div class="form-group">
+                                    <input name="repassword" type="password" class="form-control" placeholder="Repite Password" required >
+                                </div>
+                                <button type="submit" class="btn btn-primary">Registrarse</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+      </main>
+
+      <footer id="footer" class="site-footer">
+        <div class="container">
+
+          <div id="sidebar-footer-1">
+            <div class="row">
+
+              <aside class="widget col-sm-6">
+                <h5 class="widget-title">Una iniciativa</h5>
+			<a href="http://semana.minka.me/" target="_blank">
+			    <img src="/static/sites/minka/images/logo-minka.png"/>
+			</a>
+              </aside>
+
+              <aside class="widget widget_flickr col-sm-6">
+                <h5 class="widget-title">Apoyan | Soportan | Support</h5>
+                <a href="http://hivos.org" target="_self" class="hover-effect"><img src="/static/sites/minka/images/hivos.png" /><span class="overlay"><i class="fa fa-plus"></i></span></a>
+                <a href="#" class="hover-effect"><img src="/static/sites/minka/images/logo-culturared.jpg" /><span class="overlay"><i class="fa fa-plus"></i></span></a>
+              </aside>
+
+            </div>
+          </div>
+
+
+          <div id="sidebar-footer-2">
+            <div class="row">
+
+              <aside class="widget col-md-3 col-sm-6">
+                <h5 class="widget-title">Sobre Nosotros</h5>
+                <p><a href="#">Minka</a> es una red de personas y colectivos interesados en difundir, aprender y articular experiencias de economía colaborativa</p>
+              </aside>
+
+              <aside class="widget col-md-3 col-sm-6">
+                <h5 class="widget-title">Sobre Nós</h5>
+                <p><a href="#">Minka</a> é uma rede de pessoas e grupos interessados em divulgar, aprender e experiências articuladas de economia colaborativa</p>
+              </aside>
+
+              <aside class="widget col-md-3 col-sm-6">
+                <h5 class="widget-title">About Us</h5>
+                <p><a href="#">Minka</a> is a network of people and groups interested in spreading, learn and articulate experiences of collaborative economy</p>
+              </aside>
+
+              <aside class="widget col-md-3 col-sm-6">
+                <h5 class="widget-title">Dudas? | Dúvidas? | Questions?</h5>
+                <div class="input-group">
+                  <span class="input-group-btn">
+				<a class="btn btn-danger"  href="http://semana.minka.me/" target="_blank">
+				    <i class="fa fa-arrow-right"></i>
+				</a>
+                  </span>
+                </div>
+                <ul class="social-links">
+
+
+                
+
+                  <li><a href="https://www.facebook.com/bancodelasredes?ref=ts&fref=ts"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="https://twitter.com/minka_me"><i class="fa fa-twitter"></i></a></li>
+                    
+                </ul>
+              </aside>
+
+            </div>
+          </div>
+
+
+          <div class="copyright"><p>Minka - Banco de las redes. copyleft 2014</p></div>
+        </div>
+      </footer>
+
+
+      </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/static/sites/chascomus/assets/js/bootstrap-3.1.1.min.js"></script>
+    <!--script type="text/javascript" src="/static/sites/chascomus/assets/js/main.js"></script-->
+
+    <script type="text/javascript" src="/static/bower_components/underscore/underscore-min.js"></script>
+
+    <script type="text/javascript" src="/static/bower_components/modernizr/modernizr.js"></script>
+
+    </body>
+</html>
+
+
+
+
