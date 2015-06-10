@@ -227,7 +227,8 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
         if ($scope.initial_marker) {
             position = new google.maps.LatLng($scope.initial_marker.latitude, $scope.initial_marker.longitude);
         } else {
-            position = new google.maps.LatLng(-34.615692, -58.432846);
+            //position = new google.maps.LatLng(-34.615692, -58.432846);
+	    position = new google.maps.LatLng(-24.615692,-64.432846);
         }
         $scope.addresspicker = $( "#addresspicker" ).addresspicker();
         $scope.addresspickerMap = $( "#addresspicker_map" ).addresspicker({
@@ -236,7 +237,7 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
             typeaheaddelay: 1000,
             mapOptions: {
                 languaje: "es",
-                zoom: 12,
+                zoom: 3,
                 center: position
             }
         });
@@ -399,7 +400,7 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
 
 
     var myOptions = {
-        zoom: 13,
+        zoom: 3,
         center:  new google.maps.LatLng(-35.559169,-57.9989482),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };

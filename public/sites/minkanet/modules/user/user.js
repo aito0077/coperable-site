@@ -31,8 +31,8 @@ angular.module('minkanetApp.user', ['ngRoute','ui.router','ngResource'])
     };
 
     var myOptions = {
-        zoom: 13,
-        center:  new google.maps.LatLng(-35.559169,-57.9989482),
+        zoom: 3,
+	center: new google.maps.LatLng(-24.615692,-64.432846),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
