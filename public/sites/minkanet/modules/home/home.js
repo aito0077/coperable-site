@@ -85,7 +85,7 @@ angular.module('minkanetApp.home', ['ngRoute','ui.router','ngResource'])
                     bool: {
                         must: { 
                             match: { 
-                                "minka": true
+                                implementation: 'minka'
                             }
                         },
                         must: { 
@@ -141,7 +141,7 @@ angular.module('minkanetApp.home', ['ngRoute','ui.router','ngResource'])
                     bool: {
                         must: { 
                             match: { 
-                                minka: true
+                                implementation: 'minka'
                             }
                         }
                     }

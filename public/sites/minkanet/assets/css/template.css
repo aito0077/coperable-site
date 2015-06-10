@@ -7574,7 +7574,7 @@ img {
 }
 .section-slide .item {
   text-align: center;
-  padding: 60px 0;
+  padding: 0;
   left: 0 !important;
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;

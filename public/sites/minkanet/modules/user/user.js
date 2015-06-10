@@ -118,7 +118,7 @@ angular.module('minkanetApp.user', ['ngRoute','ui.router','ngResource'])
     $scope.persisted = false;
 
     $scope.prepareModel = function() {
-        $scope.organization.minka = true;
+        $scope.organization.implementation = 'minka';
         _.extend($scope.organization.networks, {
             facebook: {
                 has: $scope.organization.facebook ? true : false,

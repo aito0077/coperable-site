@@ -59,7 +59,7 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
     $scope.organization = Usuario.get({
         id: $rootScope.user_id
     }, function(data) {
-        $scope.first_time = data.ownedIniciativas && data.ownedIniciativas.length > 1 && data.minka == true ? false : true;
+        $scope.first_time = data.ownedIniciativas && data.ownedIniciativas.length > 1 && data.implementation == 'minka' ? false : true;
     });
 
     $scope.show_organization_form = function() {
@@ -67,7 +67,7 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
     };
 
     $scope.prepareOrganization = function() {
-        $scope.organization.minka = true ;
+        $scope.organization.implementation = 'minka';
         _.extend($scope.organization.networks, {
             facebook: {
                 has: $scope.organization.facebook ? true : false,
@@ -86,7 +86,7 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
  
 
     $scope.prepareModel = function() {
-        $scope.iniciativa.minka = true;
+        $scope.iniciativa.implementation = 'minka';
         if($scope.iniciativa.name) {
             $scope.iniciativa.slug = $scope.iniciativa.name.replace(/\s+/g, '_');
         }
@@ -472,7 +472,7 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
         var query_search = {
             bool: {
                 must: {
-                    match: { minka: true}
+                    match: { implementation: 'minka'}
                 }
             }
         };
@@ -481,7 +481,7 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
                 bool: {
                     must: [
                         {
-                            match: { minka: true},
+                            match: { implementation: 'minka'},
                         },
                         {
                             query_string : {
