@@ -365,6 +365,7 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
 .controller('iniciativa-list', ['$scope', '$rootScope', '$http', '$timeout', 'client', function($scope, $rootScope, $http, $timeout, client) {
 
     $rootScope.page = 'iniciativa-list';
+
     $scope.iniciativas = [];
     $scope.hits = [];
     $scope.day_filters = [];
@@ -615,6 +616,7 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
 	$scope.toggle_map();
     }, 1000);
 
+    $(window).scrollTop();
 
 
 }])
