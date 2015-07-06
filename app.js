@@ -19,7 +19,8 @@ var config = require('./config'),
   pass_autentication = require('./logic/authentication'),
   redis = require('redis'),
   filehandler = require('./logic/filehandler'),
-  RedisStore = require('connect-redis')(express),
+  session = require('express-session'),
+  RedisStore = require('connect-redis')(session);
   app = express();
    
 
