@@ -6,6 +6,13 @@ angular.module('coperableApp.services',['ngResource', 'elasticsearch'])
             }
         });
     }])
+    .factory('Comunidad',['$resource', function($resource){
+        return $resource('/api/0.1/comunidades/:id', { id:'@_id' }, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    }])
     .factory('Usuario',['$resource', function($resource){
         return $resource('/api/usuarios/:id', { id:'@_id' }, {
             update: {
@@ -16,7 +23,7 @@ angular.module('coperableApp.services',['ngResource', 'elasticsearch'])
     .factory('client',['esFactory', function(esFactory){
         return esFactory({
             hosts: [
-               'http://coperable.coperable.dev/es'
+		'http://coperable.coperable.org/es/'
             ],
             requestTimeout: 30000 ,
             apiVersion: '1.4'

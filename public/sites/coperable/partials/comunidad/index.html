@@ -1,0 +1,30 @@
+<section id="comunidades" class="section section-comunidades">
+    <div class="container">
+        <h2 class="section-title"><span>Comunidades</span></h2>
+        <p>
+            <small>
+                Las comunidades funcionan como Redes de afinidad para unir iniciativas, organizadores y participantes. El objetivo es generar un espacio común, potenciando su difusión, visibilizando sus iniciativas en el territorio y aumentando la participación. Si sos parte de una Red que podría ser activada por Coperable, escribinos: <a href="mailto:hola@coperable.org">hola@coperable.org</a>
+            </small>
+        </p>
+    </div>
+</section>
+<section id="portfolio-items" class="section section-portfolio-items">
+
+    <div class="container">
+        <ul class="tiles-list">
+            <li ng-repeat="comunidad in comunidades">
+                <div class="content-default">
+                    <div class="title">{{comunidad.name}}</div>
+                    <div class="country">{{comunidad.country}}</div>
+                    <div class="q"><span class="num">{{comunidad.iniciativas_amount}}</span> iniciativas</div>
+                </div>
+                <div class="content-hover">
+                    <div class="title">{{comunidad.name}}</div>
+                    <p>{{comunidad.description}}</p>
+                </div>
+                <a href="/comunidades/{{comunidad._id}}" class="btn">Ver iniciativas</a>
+            </li>
+        </ul>
+    </div>
+
+</section>

@@ -387,8 +387,9 @@ function redirectSubdomain (req, res) {
 	var domain = config.system.DOMAIN_BASE;
 	console.dir(req.session);
   if (req.session.subdomain !== '') {
-	domain = (req.session.subdomain || 'minka') + '.' + domain;
+	domain = req.session.subdomain + '.' + domain;
     /*
+	domain = (req.session.subdomain || 'minka') + '.' + domain;
 	if(domain.indexOf('minka') > -1) {
 		domain = domain + '/iniciativa/edit';
 	}

@@ -10,6 +10,7 @@ angular.module('coperableApp', [
     'coperableApp.services',
     'coperableApp.iniciativa',
     'coperableApp.user',
+    'coperableApp.comunidad',
     'coperableApp.home',
     'coperableApp.menu'
 ]).
