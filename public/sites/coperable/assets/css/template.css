@@ -8179,7 +8179,7 @@ fieldset[disabled] .btn-alternate.active {
   font-size: 16px;
 }
 #initiativePage #initiativeContent .info a {
-  color: #00BE94;
+  color: #37c666;
   font-weight: bold;
 }
 #initiativePage #initiativeContent .info [data-category] {
@@ -8400,7 +8400,7 @@ fieldset[disabled] .btn-alternate.active {
 #initiativePage #initiativeSidebar .about .info .name {
   float: left;
   font-size: 16px;
-  color: #00BE94;
+  color: #37c666;
   font-weight: bold;
   margin-top: 12px;
 }
@@ -8575,4 +8575,90 @@ span.selector {
   padding-left: 10px;
   padding-right: 15px;
   cursor: pointer;
+}
+.tiles-list:before,
+.tiles-list:after {
+  content: " ";
+  display: table;
+}
+.tiles-list:after {
+  clear: both;
+}
+.tiles-list:before,
+.tiles-list:after {
+  content: " ";
+  display: table;
+}
+.tiles-list:after {
+  clear: both;
+}
+.tiles-list li {
+  list-style-type: none;
+  text-align: center;
+  color: #37c666;
+  float: left;
+  margin: 0 8px 8px 0;
+  width: 229px;
+  height: 200px;
+  background: #FFF;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  position: relative;
+  padding: 17px 20px 20px;
+}
+.tiles-list li .content-default {
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
+  opacity: 1;
+}
+.tiles-list li .content-default .title {
+  color: #37c666;
+  font-size: 20px;
+  font-weight: bold;
+}
+.tiles-list li .content-default .country {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 14px;
+}
+.tiles-list li .content-default .q {
+  font-size: 12px;
+}
+.tiles-list li .content-hover {
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
+  opacity: 0;
+  text-align: left;
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  right: 20px;
+}
+.tiles-list li .content-hover .title {
+  color: #37c666;
+  font-size: 15px;
+  font-weight: bold;
+}
+.tiles-list li .content-hover p {
+  font-size: 13px;
+  color: #515151;
+  line-height: 17px;
+}
+.tiles-list li .btn {
+  background: #37c666;
+  position: absolute;
+  bottom: 20px;
+  width: 189px;
+  left: 20px;
+  height: 46px;
+  line-height: 40px;
+  font-weight: bold;
+  color: #FFF;
+  font-size: 16px;
+  display: block;
+}
+.tiles-list li:hover .content-default {
+  opacity: 0;
+}
+.tiles-list li:hover .content-hover {
+  opacity: 1;
 }

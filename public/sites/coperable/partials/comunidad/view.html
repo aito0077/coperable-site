@@ -1,44 +1,39 @@
-<section id="section-user-info" class="section section-center section-user-info">
+<section id="section-comunidad-info" class="section section-center section-comunidad-info">
     <div class="container">
         <article class="hentry post">
             <div class="row">
                 <div class="entry-thumbnail col-lg-2 col-md-3 col-sm-4">
-                    <img ng-show="profile.profile_picture" src="/static/uploads/fullsize/{{profile.profile_picture}}" alt="" />
-                    <img ng-show="!profile.profile_picture" src="http://placehold.it/165x165&text=(Sin Foto)" alt="" />
+                    <img ng-show="comunidad.profile_picture" src="/static/uploads/fullsize/{{comunidad.profile_picture}}" alt="" />
+                    <img ng-show="!comunidad.profile_picture" src="http://placehold.it/165x165&text=(Sin Foto)" alt="" />
                 </div>
                 <div class="col-lg-8 col-md-7 col-sm-6">
                     <header class="entry-header">
-                        <h2 class="entry-title">{{profile.organization_name ? profile.organization_name: profile.username}}</h2>
+                        <h2 class="entry-title">{{comunidad.name}}</h2>
                     </header>
                     <div class="entry-content">
-                        <p class="pull-left">{{profile.about}}</p>
+                        <p class="pull-left">{{comunidad.description}}</p>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-2">
+                <!--div class="col-lg-2 col-md-2 col-sm-2">
                     <ul class="list-unstyled">
                         <li ng-show="profile.networks.twitter.has">
-                            <a href="{{profile.networks.twitter.user_id}}">
+                            <a href="{{profile.networks.twitter.comunidad_id}}">
                                 <img src="/static/img/twitter-circle.png">
                             </a>
                         </li>
                         <li ng-show="profile.networks.facebook.has">
-                            <a href="{{profile.networks.facebook.user_id}}">
+                            <a href="{{profile.networks.facebook.comunidad_id}}">
                                 <img src="/static/img/facebook-circle.png">
                             </a>
                         </li>
                         <li ng-show="profile.networks.youtube.has">
-                            <a href="{{profile.networks.youtube.user_id}}">
+                            <a href="{{profile.networks.youtube.comunidad_id}}">
                                 <img src="/static/img/youtube-circle.png">
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div-->
 
-            </div>
-            <div ng-show="can_edit()" class="row">
-                <div class="entry-thumbnail col-lg-2 col-md-3 col-sm-4">
-                    <a href="/users/edit/{{profile._id}}"><span class="btn btn-primary">Editar Perfil</span></a>
-                </div>
             </div>
         </article>
     </div>
@@ -47,7 +42,7 @@
 
 <section id="owned-iniciativas" class="section section-center section-hilite section-owned-iniciativas">
     <div class="container">
-        <div class="section-title"><h2><span>Actividades</span></h2></div>
+        <div class="section-title"><h2><span>Iniciativas</span></h2></div>
 
         <div class="row">
 
@@ -81,12 +76,31 @@
     </div>
 </section>
 
-
-<section id="map_owned" class="section section-center section-user-info">
+<section id="comunidad-organizadores" class="section section-center section-hilite section-comunidad-organizadores">
     <div class="container">
-        <div class="section-title"><h2><span>Mapa de Actividades</span></h2></div>
+        <div class="section-title"><h2><span>Organizadores</span></h2></div>
+
+        <div class="row">
+
+            <div ng-repeat="organization in miembros" class="col-md-2 col-sm-4 col-xs-6">
+                <a ng-href="/users/{{organization._id}}">
+                    <img width="300px" src="/static/uploads/thumbs/{{organization.picture}}">
+                    <h5>{{organization.about}}</h5>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<section id="map_owned" class="section section-center section-comunidad-info">
+    <div class="container">
+        <div class="section-title"><h2><span>Mapa de Iniciativas</span></h2></div>
         <div class="owned_map row" style="height:500px;">
             <div id="map_canvas_owned" style="width:100%; height:100%"></div>
         </div>
     </div>
 </section>
+
