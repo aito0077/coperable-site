@@ -6,6 +6,13 @@ angular.module('coperableApp.services',['ngResource', 'elasticsearch'])
             }
         });
     }])
+    .factory('Comunidad',['$resource', function($resource){
+        return $resource('/api/0.1/comunidades/:id', { id:'@_id' }, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    }])
     .factory('Usuario',['$resource', function($resource){
         return $resource('/api/usuarios/:id', { id:'@_id' }, {
             update: {
