@@ -371,9 +371,15 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.query_terms = '';
     $scope.list_show = true;
     $scope.map_show = true;
+    $scope.show_history = false;
 
     $scope.toggle_map = function() {
         $scope.map_show = !$scope.map_show;
+    };
+
+    $scope.toggle_history = function() {
+        $scope.show_history = !$scope.show_history;
+        $scope.search_action();
     };
 
     $scope.toggle_list = function() {
@@ -466,22 +472,54 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.itemTemplate = _.template(_.unescape($scope.item_template));
 
 
-
     $scope.do_search = function() {
         var query_search = {
+            filtered: {
+                query: {
+                    bool: {
+                        must: [],
+                        should: []
+                    }
+                },
+                filter: {
+                    exists : { field : "profile_picture" }
+                }
+            }
         };
+
         if($scope.query_terms) {
             query_search = {
-                bool: {
-                    must: [
-                        {
-                            query_string : {
-                                query : $scope.query_terms 
-                            }
+                filtered: {
+                    query: {
+                        bool: {
+                            must: [
+                                {
+                                    query_string : {
+                                        query : $scope.query_terms 
+                                    }
+                                }
+                            ], 
+                            should: []
                         }
-                    ]
+                    },
+                    filter: {
+                        exists : { field : "profile_picture" }
+                    }
                 }
             };
+        }
+
+        if(!$scope.show_history) {
+            query_search.filtered.query.bool.should.push(
+                {
+                    range: {
+                        end_date: {
+                            gte: "now-2d"
+                        }
+                    }
+                }
+            );
+
         }
 
         client.search({
