@@ -371,9 +371,15 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.query_terms = '';
     $scope.list_show = true;
     $scope.map_show = true;
+    $scope.show_history = false;
 
     $scope.toggle_map = function() {
         $scope.map_show = !$scope.map_show;
+    };
+
+    $scope.toggle_history = function() {
+        $scope.show_history = !$scope.show_history;
+        $scope.search_action();
     };
 
     $scope.toggle_list = function() {
@@ -399,8 +405,8 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
 
     var myOptions = {
-        zoom: 13,
-        center:  new google.maps.LatLng(-35.559169,-57.9989482),
+        zoom: 3,
+	center: new google.maps.LatLng(-24.615692,-64.432846),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -466,22 +472,64 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.itemTemplate = _.template(_.unescape($scope.item_template));
 
 
-
     $scope.do_search = function() {
         var query_search = {
+            filtered: {
+                query: {
+                    bool: {
+                        must: [
+				{
+				    range: {
+					start_date: {
+					    gte: "now-1y"
+					}
+				    }
+				}
+			],
+                        should: [
+
+			]
+                    }
+                },
+                filter: {
+                    exists : { field : "profile_picture" }
+                }
+            }
         };
+
         if($scope.query_terms) {
             query_search = {
-                bool: {
-                    must: [
-                        {
-                            query_string : {
-                                query : $scope.query_terms 
-                            }
+                filtered: {
+                    query: {
+                        bool: {
+                            must: [
+                                {
+                                    query_string : {
+                                        query : $shouldscope.query_terms 
+                                    }
+                                }
+                            ], 
+                            should: []
                         }
-                    ]
+                    },
+                    filter: {
+                        exists : { field : "profile_picture" }
+                    }
                 }
             };
+        }
+
+        if(!$scope.show_history) {
+            query_search.filtered.query.bool.must.push(
+                {
+                    range: {
+                        end_date: {
+                            gte: "now-2d"
+                        }
+                    }
+                }
+            );
+
         }
 
         client.search({

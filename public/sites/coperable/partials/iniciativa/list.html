@@ -17,8 +17,8 @@
 		<div class="col-md-4">
 			<div class="filters-default pull-right">
 				<ul>
-					<li class="{{map_show ? 'selected' : ''}} map-bt" ng-click="toggle_map()">Mapa</li>
 					<li class="{{list_show ? 'selected' : ''}}  grid-bt" ng-click="toggle_list()">Grilla</li>
+					<li class="{{map_show ? 'selected' : ''}} map-bt" ng-click="toggle_map()">Mapa</li>
 				</ul>
 			</div>
 		</div>
@@ -36,14 +36,27 @@
             </div>
         </div>
 
-        <div class="row">
+        <!--div class="row">
             <div class="col-md-12 block-center text-center">
                 <ul id="topics" class="nav nav-pills center-pills">
                     <li><span ng-click="select_topic('all')"><b style="color: #EF4832">Tipos</b></span></li>
                     <li ng-repeat="topic in topics" ><span class="selector topic-name {{isTopicActive(topic.key)}}" ng-click="select_topic(topic.key)">{{topic.key}}</span></li>
                 </ul>
             </div>
-        </div>
+        </div-->
+
+		<div class="row">
+			<div class="filters-default pull-right">
+				<ul>
+					<li class="{{show_history ? 'selected' : ''}}  history-bt" ng-click="toggle_history()">
+                        <i class="fa fa-history"></i> Finalizados
+                    </li>
+				</ul>
+			</div>
+		</div>
+
+
+
     </div>
 </section>
 
@@ -60,7 +73,7 @@
                 <article ng-repeat="hit in hits" id="{{hit._id}}" class="item-template col-md-4 col-sm-6 portfolio-item post {{split_filters(hit._source)}} ">
 
                     <div class="initiative initiative-item">
-                        <div data-label="{{hit._source.start_date | moment: 'D [de] MMMM'}}" class="pic {{hit._source.start_date | isBefore}}">
+                        <div data-label="{{hit._source.start_date | moment: 'D [de] MMMM   [\']YY'}}" class="pic {{hit._source.start_date | isBefore}}">
                             <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
                                 <img class="replace-src" src="/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
                             </a>
