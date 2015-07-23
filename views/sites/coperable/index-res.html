@@ -9,17 +9,19 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{layoutTitle}}</title>
-<!--
         <link href="/static/sites/coperable/assets/css/template.css" rel="stylesheet">
+<!--
+        <link rel='stylesheet/less' href='/static/sites/coperable/assets/less/template.less' />
 -->
-	  <link rel='stylesheet/less' href='/static/sites/coperable/assets/less/template.less' />
         <link href="/static/bower_components/datedropper/datedropper.css" rel="stylesheet">
         <link href="/static/bower_components/jt.timepicker/jquery.timepicker.css" rel="stylesheet">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link href="/static/bower_components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
         <link rel='stylesheet' href="/static/bower_components/angular-socialshare/angular-socialshare.min.css">
 
+<!--
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
+-->
 
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -101,10 +103,10 @@
                                 <li ng-show="showInPage('home')"><a href="#map_home">MAPA</a></li>
                                 <li ng-show="showInPage('home')"><a href="#features">AGENDA</a></li>
                                 <li ng-show="showInPage('home')"><a href="#team">ORGANIZACIONES</a></li>
-                                <li ng-show="showInPage('home')"><a class="external" ng-href="/comunidades">Comunidades</a></li>
-                                <li ng-show="!showInPage('home')"><a class="external" ng-href="/home" class="current">Home</a></li>
-                                <li ng-show="showInPage('user-view')"><a href="#owned-iniciativas" class="current">Actividades</a></li>
-                                <li ng-show="showInPage('user-view')"><a href="#map_owned" class="current">Mapa</a></li>
+                                <li ng-show="showInPage('home')"><a class="external" ng-href="/comunidades">COMUNIDADES</a></li>
+                                <li ng-show="!showInPage('home')"><a class="external" ng-href="/home" class="current">HOME</a></li>
+                                <li ng-show="showInPage('user-view')"><a href="#owned-iniciativas" class="current">ACTIVIDADES</a></li>
+                                <li ng-show="showInPage('user-view')"><a href="#map_owned" class="current">MAPA</a></li>
                             </ul>
                         </div>
 

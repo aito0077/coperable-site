@@ -113,6 +113,11 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
     $scope.forward = function () {
         $window.history.forward();
     };
+
+    $scope.is_logged = function() {
+        return window.user_id;
+    };
+
 })
 .run(function($rootScope, $window) {
 
