@@ -49,7 +49,7 @@
             <article ng-repeat="iniciativa in iniciativas" class="item-template col-md-4 col-sm-6 portfolio-item post ">
 
                 <div class="initiative initiative-item">
-                    <div data-label="{{iniciativa.start_date | moment: 'D [de] MMMM'}}" class="pic">
+                    <div data-label="{{iniciativa.start_date | moment: 'D [de] MMMM [\']YY'}}" class="pic">
                         <a ng-href="/iniciativas/{{iniciativa._id}}" rel="address:/iniciativa">
                             <img class="replace-src" src="/static/uploads/thumbs/{{iniciativa.profile_picture}}" width="100%"/>
                         </a>

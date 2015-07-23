@@ -24,8 +24,8 @@ angular.module('coperableApp.comunidad', ['ngRoute','ui.router','ngResource'])
         id: $routeParams.id
     }, function(data) {
         $scope.comunidad = data.comunidad;
-        $scope.iniciativas = data.iniciativas;
-        $scope.miembros = data.miembros;
+        $scope.iniciativas = data.comunidad.iniciativas;
+        $scope.miembros = data.comunidad.members;
         $timeout(function () {
             $scope.marcar_iniciativas();
         });
@@ -107,7 +107,6 @@ angular.module('coperableApp.comunidad', ['ngRoute','ui.router','ngResource'])
     $scope.setup_components();
 }])
 .controller('comunidad-list', ['$scope', '$rootScope', '$http', '$routeParams', '$location', '$anchorScroll', '$timeout', '$rootScope', 'Comunidad', function($scope, $rootScope, $http, $routeParams, $location, $anchorScroll, $timeout, $rootScope, Comunidad) {
-    console.log('lista comunidades');
 
     $rootScope.page = 'comunidad-list';
 
@@ -118,9 +117,7 @@ angular.module('coperableApp.comunidad', ['ngRoute','ui.router','ngResource'])
     };
 
     $scope.comunidades = Comunidad.query(function(data) {
-        console.log('1');
         $scope.comunidades = data;
-        console.log('2');
 
         $timeout(function () {
             $scope.setup_components();
