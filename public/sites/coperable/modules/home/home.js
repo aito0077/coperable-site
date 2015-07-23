@@ -185,9 +185,28 @@ angular.module('coperableApp.home', ['ngRoute','ui.router','ngResource'])
     };
 
     $scope.fetch_organizations = function() {
+
+        var query_search = {
+            filtered: {
+                query: {
+                    bool: {
+                        must: [],
+                        should: []
+                    }
+                },
+                filter: {
+                    exists : { field : "profile_picture" }
+                }
+            }
+        };
+
         client.search({
             index: 'usuarios',
             size: 6,
+            body: {
+                query: query_search,
+            }
+ 
         }).then(function (resp) {
 
             $scope.organizations = resp.hits.hits;
