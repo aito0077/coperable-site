@@ -1,4 +1,4 @@
-                <section id="carousel-1" class="carousel slide section-slide" data-ride="carousel">
+					<!--<section id="carousel-1" class="carousel slide section-slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="item active" style="background: url(/static/sites/coperable/images/home_background.jpg);">
                             <div class="container slider-text vcenter text-center">
@@ -27,20 +27,72 @@ Un Mapa Colaborativo para compartir iniciativas y participar en encuentros posit
                             </div>
                         </div>
                     </div>
-                </section>
-
+                </section>-->
+                
+                
+                <div id="espacio-para-el-mapa" style="height:195px;"></div>
+                
                 <section id="map_home" class="section section-center section-map-home">
-                    <div class="container">
-                        <div class="section-title"><h2><span>Mapa</span><small>Iniciativas cercanas donde participar</small></h2></div>
-                        <div class="owned_map row" style="height:500px;">
+                	  
+                    <div class="container map-container">
+                        <!--<div class="section-title"><h2><span>Mapa</span><small>Iniciativas cercanas donde participar</small></h2></div>-->
+                        <div class="owned_map row" style="height:615px;">
+                        	 <div class="categorias">
+			                	  		<table>
+			                	  			<tr>
+			                	  				<td>Todas</td>
+			                	  				<td>Medio Ambiente</td>
+			                	  				<td>Arte y Cultura</td>
+			                	  				<td>Educación</td>
+			                	  				<td>Desarrollo Social</td>
+			                	  			</tr>
+			                	  		</table>
+			                	  </div>
                             <div id="map_canvas_home" style="width:100%; height:100%"></div>
                         </div>
                     </div>
                 </section>
 
+                <section class="section section-center section-cta section-cta-principal">
+                    <div class="container container-info">
+                    		<table>
+                    			<tr>
+                    				<td class="td-tit"><h1>Somos cada día más!</h1> </td>
+                    				<td class="td-img"><img src="/static/sites/coperable/images/coperable-logo-crema.png" alt=""></td>
+                    				<td class="td-desc"><h3>COPERABLE LOCAL-GLOBAL</h3>
+                    										  <p>Coperable cuenta con miembros en más d e 13 países en Latinoamérica.</p>
+                    				
+                    				</td>
+                    			</tr>
+                    		</table>
+                    
+                        <!-- <div class="main-action row">
+                            <div class=" col-md-offset-2  col-md-4 col-sm-4  col-sm-offset-2"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-info">Sumate</a></div>
+                            <div class="col-md-4 col-sm-4">
+                                <a  ng-show="is_logged()" ng-href="/iniciativas/edit" class="smooth-scroll btn btn-lg btn-block btn-default">Organizá</a>
+                                <a  ng-show="!is_logged()" href="/user/login" target="_self" class="smooth-scroll btn btn-lg btn-block btn-default">Organizá</a>
+                            </div>
+                        </div> -->
+                    </div>
+                </section>
+
+
+
 
                 <section id="features" class="section section-center section-hilite section-features">
-                    <div class="container">
+                   <div class="categorias">
+			                	  		<table>
+			                	  			<tr>
+			                	  				<td>Todas</td>
+			                	  				<td>Medio Ambiente</td>
+			                	  				<td>Arte y Cultura</td>
+			                	  				<td>Educación</td>
+			                	  				<td>Desarrollo Social</td>
+			                	  			</tr>
+			                	  		</table>
+			                	  </div> 
+			               <div class="container">
+                    		
                         <div class="section-title"><h2><span>Iniciativas</span><small>agenda</small></h2></div>
 
                         <div class="row">
@@ -79,6 +131,29 @@ Un Mapa Colaborativo para compartir iniciativas y participar en encuentros posit
                             </div>
                         </div>
 
+                    </div>
+                </section>
+                
+                <section class="section section-center section-cta section-cta-fondo">
+                    <div class="container container-info">
+                    		<table>
+                    			<tr>
+                    				<td class="td-tit"><h1>INFORMACIÓN</h1> </td>
+                    				<td class="td-img"><img src="/static/sites/coperable/images/coperable-linea-crema.png" alt=""></td>
+                    				<td class="td-desc"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    										  <p>Donec non sapien dui. Praesent vulputate turpis eget justo rutrum luctus ut ut nunc.</p>
+                    										  <p>Vivamus fermentum purus enim, vitae congue mi consequat eu. Cras finibus, nunc nec elementum placerat, nibh nunc hendrerit mauris, vitae volutpat mauris massa id nulla.</p>
+                    				</td>
+                    			</tr>
+                    		</table>
+                    
+                        <!-- <div class="main-action row">
+                            <div class=" col-md-offset-2  col-md-4 col-sm-4  col-sm-offset-2"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-info">Sumate</a></div>
+                            <div class="col-md-4 col-sm-4">
+                                <a  ng-show="is_logged()" ng-href="/iniciativas/edit" class="smooth-scroll btn btn-lg btn-block btn-default">Organizá</a>
+                                <a  ng-show="!is_logged()" href="/user/login" target="_self" class="smooth-scroll btn btn-lg btn-block btn-default">Organizá</a>
+                            </div>
+                        </div> -->
                     </div>
                 </section>
 

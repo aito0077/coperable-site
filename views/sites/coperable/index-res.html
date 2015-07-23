@@ -39,6 +39,7 @@
         
         <div id="page">
             <header id="header" class="site-header">
+                
                 <nav id="topbar" class="site-topbar visible-lg visible-md">
                     <div class="container">
                         <div class="row">
@@ -57,27 +58,49 @@
 
                         </div>
                     </div>
+                    
+                    <div class="container container-intro" ng-show="page == 'home'">
+                    		<table>
+                     		<tr>
+                     			<td class="td-logo"><img src="/static/sites/coperable/images/coperable-logoPrincipal.png" alt="" width="130px"></td>
+                     			<td class="td-titulo"><h1>COPERABLE</h1></td>
+                     			<td class="td-descripcion">
+                     				<h3>MAPA Y AGENDA COLABORATIVA</h3>
+                     				<p>Donde compartir iniciativas abiertas y participar en encuentros positivos para la comunidad.</p>
+                     				<div class="main-action row">
+			                            <div class=" col-md-offset-2  col-md-4 col-sm-4  col-sm-offset-2"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-info">Sumate</a></div>
+			                            <div class="col-md-4 col-sm-4">
+			                                <a  ng-show="is_logged()" ng-href="/iniciativas/edit" class="smooth-scroll btn btn-lg btn-block btn-default">Organizá</a>
+			                                <a  ng-show="!is_logged()" href="/user/login" target="_self" class="smooth-scroll btn btn-lg btn-block btn-default">Organizá</a>
+			                            </div>
+			                        </div>
+                     			</td>
+                     		</tr>
+                     	</table>
+                    </div>
+                    
                 </nav>
 
                 <nav id="navbar" class="site-navbar navbar navbar-static-top" role="navigation">
-                    <div class="container">
+                    <div class="container container-nav">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                                 <span class="sr-only">Toggle navigation</span>
                                 <i class="fa fa-bars"></i>
                             </button>
                             <h1 class="navbar-brand">
-                                <a href="index.html">
-                                    <img src="/static/sites/coperable/images/logo_coperable.png"/> 
+                                <a href="index.html/#home">
+                                    <img src="/static/sites/coperable/images/coperable-icon-navBar.png" height="100px" /> 
                                 </a>
                             </h1>
                         </div>
 
                         <div data-ng-controller="menu-controller" class="collapse navbar-collapse" id="navbar-collapse-1">
                             <ul id="navigation" class="nav navbar-nav navbar-right">
-                                <li ng-show="showInPage('home')" class="active"><a href="#header" class="current">Home</a></li>
-                                <li ng-show="showInPage('home')"><a href="#features">Agenda</a></li>
-                                <li ng-show="showInPage('home')"><a href="#team">Organizaciones</a></li>
+                                <li ng-show="showInPage('home')" class="active"><a href="#header" class="current">INICIO</a></li>                                
+                                <li ng-show="showInPage('home')"><a href="#map_home">MAPA</a></li>
+                                <li ng-show="showInPage('home')"><a href="#features">AGENDA</a></li>
+                                <li ng-show="showInPage('home')"><a href="#team">ORGANIZACIONES</a></li>
                                 <li ng-show="showInPage('home')"><a class="external" ng-href="/comunidades">Comunidades</a></li>
                                 <li ng-show="!showInPage('home')"><a class="external" ng-href="/home" class="current">Home</a></li>
                                 <li ng-show="showInPage('user-view')"><a href="#owned-iniciativas" class="current">Actividades</a></li>

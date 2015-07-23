@@ -15,11 +15,14 @@
 	&.section-hilite {
 		background: @gray-lighter;
 	}
+	
+	
 
 	.section-title {
-		margin: 0 0 @grid-gutter-width;
+		margin: 0 0 @grid-gutter-width; 
 		text-align: center;
 		position: relative;
+		font-family: @titulos-font-family !important;
 
 		@media (max-width: @screen-sm-max) {
 			font-size: @font-size-h3;
@@ -33,7 +36,7 @@
 	.section-title:after {
 		content: "";
 		display: block;
-		height: 1px;
+		height: 0px;            //lo puse en 0 para eliminar una línea blanca que me estorba :)
 		background: #f5f5f5;
 		position: absolute;
 		top: 20px;
@@ -61,6 +64,7 @@
 
 	&.section-features {
 		padding-bottom: 0;
+		padding-top: 0px;
 
 		.icon-wrap {
 			width: 128px;
@@ -296,6 +300,8 @@
 	}
 
 	&.section-cta {
+		padding: 20px 0px 20px 0px;
+		
 		.main-action {
 			margin: 20px 0 0;
 
@@ -444,7 +450,7 @@
 
 .site-topbar {
 	background: @gray-darker;
-	padding: 10px 0;
+	//padding: 10px 0; KARL: lo comento porque me genera un borde gris que no me sirve
 	color: @gray-light;
 
 	a {
@@ -472,30 +478,30 @@
 }
 
 .site-navbar {
-	background: #fff;
-	box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+	background: #0aa55e !important;
+	//box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);  
 	margin: 0;
 	z-index: 999;
 	width: 100%;
 	top: 0;
+	border-bottom: 15px solid @brand-fondo;
 
-
-    &:before {
+   /* &:before {
         content: '';
         height: 3px;
         width: 100%;
         position: absolute;
         left: 0;
         top: 0;
-        background: linear-gradient(to right,  #78c6ff 0%,#78c6ff 11%,#fb0000 11%,#fb0000 22%,#edff07 22%,#edff07 33%,#388d47 33%,#388d47 44%,#FFFFFF 44%,#FFFFFF 55%,#e80000 55%,#e80000 66%,#2b44ff 66%,#2b44ff 77%,#ffffff 77%,#ffffff 88%,#e4ca07 88%); /* W3C */
-        background: #78c6ff; /* Old browsers */
+        background: linear-gradient(to right,  #78c6ff 0%,#78c6ff 11%,#fb0000 11%,#fb0000 22%,#edff07 22%,#edff07 33%,#388d47 33%,#388d47 44%,#FFFFFF 44%,#FFFFFF 55%,#e80000 55%,#e80000 66%,#2b44ff 66%,#2b44ff 77%,#ffffff 77%,#ffffff 88%,#e4ca07 88%); // W3C 
+        background: #78c6ff; // Old browsers 
         background: -moz-linear-gradient(left, #78c6ff 0%, #78c6ff 11%, #fb0000 11%, #fb0000 22%, #edff07 22%, #edff07 33%, #388d47 33%, #388d47 44%, #FFFFFF 44%, #FFFFFF 55%, #e80000 55%, #e80000 66%, #2b44ff 66%, #2b44ff 77%, #ffffff 77%, #ffffff 88%, #e4ca07 88%);
-        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#78c6ff), color-stop(11%,#78c6ff), color-stop(11%,#fb0000), color-stop(22%,#fb0000), color-stop(22%,#edff07), color-stop(33%,#edff07), color-stop(33%,#edff07), color-stop(44%,#388d47), color-stop(44%,#FFFFFF), color-stop(55%,#FFFFFF), color-stop(55%,#e80000), color-stop(66%,#e80000), color-stop(66%,#2b44ff), color-stop(77%,#2b44ff), color-stop(77%,#ffffff), color-stop(88%,#ffffff), color-stop(88%,#e4ca07)); /* Chrome,Safari4+ */
+        background: -webkit-gradient(linear, left top, right top, color-stop(0%,#78c6ff), color-stop(11%,#78c6ff), color-stop(11%,#fb0000), color-stop(22%,#fb0000), color-stop(22%,#edff07), color-stop(33%,#edff07), color-stop(33%,#edff07), color-stop(44%,#388d47), color-stop(44%,#FFFFFF), color-stop(55%,#FFFFFF), color-stop(55%,#e80000), color-stop(66%,#e80000), color-stop(66%,#2b44ff), color-stop(77%,#2b44ff), color-stop(77%,#ffffff), color-stop(88%,#ffffff), color-stop(88%,#e4ca07)); // Chrome,Safari4+ 
         background: -webkit-linear-gradient(left, #78c6ff 0%, #78c6ff 11%, #fb0000 11%, #fb0000 22%, #edff07 22%, #edff07 33%, #388d47 33%, #388d47 44%, #FFFFFF 44%, #FFFFFF 55%, #e80000 55%, #e80000 66%, #2b44ff 66%, #2b44ff 77%, #ffffff 77%, #ffffff 88%, #e4ca07 88%);
         background: -o-linear-gradientlinear-gradient(left, #78c6ff 0%, #78c6ff 11%, #fb0000 11%, #fb0000 22%, #edff07 22%, #edff07 33%, #388d47 33%, #388d47 44%, #FFFFFF 44%, #FFFFFF 55%, #e80000 55%, #e80000 66%, #2b44ff 66%, #2b44ff 77%, #ffffff 77%, #ffffff 88%, #e4ca07 88%);
         background: -ms-linear-gradientlinear-gradient(left, #78c6ff 0%, #78c6ff 11%, #fb0000 11%, #fb0000 22%, #edff07 22%, #edff07 33%, #388d47 33%, #388d47 44%, #FFFFFF 44%, #FFFFFF 55%, #e80000 55%, #e80000 66%, #2b44ff 66%, #2b44ff 77%, #ffffff 77%, #ffffff 88%, #e4ca07 88%);
         background-size: 390px 2px;
-    }
+    } */
 
 
 
@@ -503,6 +509,7 @@
 
 	.navbar-brand {
 		margin: 0;
+		margin-top: -2px;
 
 		i {
 			font-size: 40px;
@@ -517,13 +524,14 @@
 			display: inline-block;
 			line-height: 40px;
 			font-size: 24px;
-			color: @gray-darker;
-			font-family: @font-family-sans-serif;
+			color: @brand-primary;
+			//font-family: @font-family-sans-serif;
+			font-family: @titulos-font-family;
 		}
 
 		a:hover,
 		a:active {
-			color: @brand-primary;
+			color: @brand-fondo;
 			text-decoration: none;
 		}
 
@@ -544,19 +552,7 @@
 
 	.navbar-nav {
 		margin: 15px 0;
-
-        li {
-            &:nth-child(1) a {
-                color: #127824;
-            }
-            &:nth-child(2) a {
-                color:#FF5B60;
-            }
-            &:nth-child(3) a {
-                color:#2B44FF;
-            }
-        }
-
+		font-family: @titulos-font-family;
 
 		@media (min-width: @grid-float-breakpoint) {
 			a {
@@ -1476,5 +1472,123 @@ span.selector {
         }
     }
 }
+
+//
+// Karl
+// --------------------------------------------------
+
+.container-intro {
+	width: 100%;
+	height: 200px;
+	background: @brand-fondo;
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png); /* fallback */
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png), -webkit-gradient(linear, left bottom, right top, from(@brand-fondo), to(#FFF)); /* Saf4+, Chrome */
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png), -webkit-linear-gradient(to top rigth, @brand-fondo, @brand-fondo, #FFF); /* Chrome 10+, Saf5.1+ */
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png),    -moz-linear-gradient(to top right, @brand-fondo, @brand-fondo, #FFF); /* FF3.6+ */
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png),      -o-linear-gradient(top right, @brand-fondo, @brand-fondo, #FFF); /* Opera 11.10+ */
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png),         linear-gradient(to top right, @brand-fondo, @brand-fondo, #FFF); /* W3C */
+
+	table {
+	   margin-left:auto; 
+	   margin-right:auto;
+		position: relative;
+		width: 80%;
+		margin-top: 10px;
+		
+		.td-logo { width: 5%; }
+		.td-titulo { width: 45%; }
+		.td-descripcion { width: 30%; text-align: left; font-family:@info-font-family; color:#063a23; }
+		
+		h1 { font-family: @titulos-font-family; color: #063a23; }
+		
+		h3 { font-family: @titulos-font-family; color:#0aa55e; }
+	}
+}
+
+
+.container-info{
+	width: 100%;
+	
+	table {
+	   margin-left:auto; 
+	   margin-right:auto;
+		position: relative;
+		width: 80%;
+		margin-top: 10px;
+		
+		td { padding:10px }
+		
+		.td-tit { width: 45%; text-align: right;}
+		.td-img { width: 10%; }
+		.td-desc { width: 40%; text-align: left; font-family:@info-font-family;  }
+		
+		h1 { font-family: @titulos-font-family; }
+		
+		h3 { font-family: @titulos-font-family; }
+	}
+}
+
+.section-cta-principal {
+	background-color: @brand-principal;
+	color: @brand-fondo;
+	border-bottom: 15px solid @brand-fondo;
+	z-index:3000; 
+}
+
+.section-cta-fondo {
+	background-color: @brand-fondo;
+	color: @brand-fondo-osc;
+}
+
+
+
+
+
+.categorias {
+	background-color: @brand-fondo;
+	font-family: @info-font-family;
+	color: @brand-principal;box-shadow: 0px 2px 3px #808080;
+	position: relative;
+	z-index: 200;
+	
+	table {
+	   margin-left:auto; 
+	   margin-right:auto;
+	   padding-bottom: 10px;
+	}
+	
+	td {
+		padding: 10px 20px 20px 20px;
+	}
+}
+
+.section-map-home {
+	padding: 0px 0 80px 0;	
+	background-color: @brand-fondo;
+}
+
+.map-container {
+	width: 100%;
+	max-height: 80%;
+}
+
+
+.container-nav{
+	width: 90%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
