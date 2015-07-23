@@ -8,6 +8,7 @@ var config = require('../config'),
     AWS = require('aws-sdk'),
     uuid = require('node-uuid');
 
+
 AWS.config.update(config.system.AMAZON);
 var s3 = new AWS.S3();
 
@@ -49,7 +50,6 @@ exports.createS3Policy = function(req, res, callback ) {
 exports.upload= function(req, res, callback ) {
     
     console.log("[filehandler::upload] File uploaded:");
-        console.dir(req);
     var fileUploaded = req.files.files[0];
     var imageName = fileUploaded.name;
 
@@ -77,34 +77,50 @@ exports.upload= function(req, res, callback ) {
       if(err){
         console.error("[filehandler::upload] Error! An error ocurred while moving the file from [%s] to [%s]: %j",
           fileUploaded.path, newPath, err);
-        res.redirect("/");
         res.end();
         return;
       }
-      im.crop({
-          srcPath: newPath,
-          dstPath: thumbPath,
-          width:   280,
-          height:   120,
-          gravity: 'North'
-      }, function(err, stdout, stderr){
-        if (err) {
-          console.error("[filehandler::upload] Error! An error ocurred while cropping the file [%s]: %j",
-            newPath, err);
+      try {
+        im.identify(['-strip', newPath], function(err, features){
+            console.log(err);
+            if (err) throw err;
+            console.log(features);
+            // { format: 'JPEG', width: 3904, height: 2622, depth: 8 }
+            im.crop({
+                srcPath: newPath,
+                dstPath: thumbPath,
+                width:   280,
+                height:   120
+            }, function(err, stdout, stderr){
+                console.log(stdout);
+                console.log(stderr);
+                if (err) {
+                    console.error("[filehandler::upload] Error! An error ocurred while cropping the file [%s]: %j", newPath, err);
+                }
+                var result = {
+                    "files": [{
+                        "name": imageName,
+                        "size": fileUploaded.size,
+                        "url": "/static/uploaded/fullsize/"+imageName,
+                        "thumbnailUrl": "/static/uploads/thumbs/"+imageName,
+                        "deleteUrl": "/static/uploads/fullsize/"+imageName,
+                        "deleteType": "DELETE"
+                    }]
+                };
+                console.log("[filehandler::upload] File uploaded to [%s] with thumbnail [%s]", newPath, thumbPath);
+                res.send(result);
+            });
+
+        });
+
+        } catch(e) {
+            console.error("[filehandler::upload] "+e+" Error! An error ocurred while moving the file from [%s] to [%s]: %j",
+              fileUploaded.path, newPath, err);
+            res.redirect("/");
+            res.end();
+            return;
+
         }
-        var result = {
-          "files": [{
-              "name": imageName,
-              "size": fileUploaded.size,
-              "url": "/static/uploaded/fullsize/"+imageName,
-              "thumbnailUrl": "/static/uploads/thumbs/"+imageName,
-              "deleteUrl": "/static/uploads/fullsize/"+imageName,
-              "deleteType": "DELETE"
-          }]
-        };
-        console.log("[filehandler::upload] File uploaded to [%s] with thumbnail [%s]", newPath, thumbPath);
-        res.send(result);
-      });
    });
 };
 
