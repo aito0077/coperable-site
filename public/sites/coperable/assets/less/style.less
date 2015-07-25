@@ -367,9 +367,51 @@
 	}
 
 	&.section-organization-form {
-        .organization_description {
-            height: 150px;
-        }
+		text-align: left;
+		font-family: @info-font-family;
+		
+		.section-title {
+			text-align: left;
+			margin: 0px -12px 30px;
+			color: @brand-fondo-osc;
+		}
+		
+		.info-adicional {
+			margin: 0px 0px 10px 20px;
+		}
+        
+      .organization_description {
+      	height: 150px;
+      }
+      
+      .sin-margen {
+      	margin-bottom: 0;
+      }
+      
+      
+	
+		.boton {
+			  -webkit-border-radius: 7;
+			  -moz-border-radius: 7;
+			  border-radius: 7px;
+			  font-family: @titulos-font-family;
+			  color: #FFF;
+			  font-size: 16px;
+			  background: #e7a020;
+			  padding: 12px 20px 10px 20px;
+			  text-decoration: none;
+			  cursor: pointer;
+	
+			   &:hover {
+			   	background: #063a23;
+			   	text-decoration: none;			   	
+			  		box-shadow: 0px 1px 3px #666666;
+			  		-webkit-box-shadow: 0px 1px 3px #666666;
+			  		-moz-box-shadow: 0px 1px 3px #666666;
+				}
+			}  
+      
+      
 	}
 
 
@@ -446,6 +488,13 @@
 .site-header {
 	position: absolute;
 	width: 100%;
+	
+	.logo-estatico {
+		position: fixed;
+		top: 0px;
+		left: 20px;
+		width: 40%;
+	}
 }
 
 .site-topbar {
@@ -1480,6 +1529,19 @@ span.selector {
 //
 // Karl
 // --------------------------------------------------
+
+@font-face {
+  font-family: 'Gotham';
+  src: url("static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Light.otf");
+  //src: url('GraublauWeb.eot?') format('eot'), url('GraublauWeb.woff') format('woff'), url('GraublauWeb.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Gotham Medium';
+  src: url("static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Medium.otf");
+  //src: url('GraublauWeb.eot?') format('eot'), url('GraublauWeb.woff') format('woff'), url('GraublauWeb.ttf') format('truetype');
+}
+
 
 .container-intro {
 	width: 100%;
