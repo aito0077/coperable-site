@@ -40,7 +40,6 @@ angular.module('coperableApp.home', ['ngRoute','ui.router','ngResource'])
                 $scope.iniciativas = data;
                 $scope.marcar_iniciativas();
             }).error(function(data, status, headers, config) {
-                console.log(data);
             });
 
     };
@@ -91,7 +90,6 @@ angular.module('coperableApp.home', ['ngRoute','ui.router','ngResource'])
 
         _.each($scope.iniciativas, function(hit) {
             var model = hit._source;
-            console.dir(model);
             var momento = moment(model.start_date).locale('es'),
                 location = model.location,
                 marker = new google.maps.Marker({

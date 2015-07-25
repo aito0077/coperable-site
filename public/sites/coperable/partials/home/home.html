@@ -101,7 +101,7 @@ Un Mapa Colaborativo para compartir iniciativas y participar en encuentros posit
                                 <div class="initiative initiative-item">
                                     <div data-label="{{hit._source.start_date | moment: 'D [de] MMMM'}}" class="pic">
                                         <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
-                                            <img class="replace-src" src="/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
+                                            <img class="replace-src" ng-src="/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
                                         </a>
                                     </div>
                                     <div class="subtext">
@@ -162,7 +162,7 @@ Un Mapa Colaborativo para compartir iniciativas y participar en encuentros posit
                         <div class="row">
                             <div ng-repeat="organization in organizations" class="col-md-2 col-sm-4 col-xs-6">
                                 <a ng-href="/users/{{organization._id}}">
-                                    <img width="300px" src="/static/uploads/thumbs/{{organization._source.profile_picture}}">
+                                    <img width="300px" ng-src="/static/uploads/thumbs/{{organization._source.profile_picture}}">
                                     <h5>{{organization._source.organization_name}}</h5>
                                 </a>
                             </div>
