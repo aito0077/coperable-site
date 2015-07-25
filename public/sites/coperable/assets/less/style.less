@@ -14,13 +14,68 @@
 
 	&.section-hilite {
 		background: @gray-lighter;
+		
+		text-align: left;
+		font-family: @info-font-family;
+		
+		.section-title {
+			text-align: left;
+			margin: 0px 0px 10px;
+			color: @brand-fondo-osc;
+			background-color: @gray-lighter;
+		}
+		
+		.btn-group {
+			margin-left: 15px;
+			font-family: @titulos-font-family;
+		}
+		
+		.info-adicional {
+			margin: 0px 0px 10px 20px;
+		}
+        
+      .organization_description {
+      	height: 150px;
+      }
+      
+      .sin-margen {
+      	margin-bottom: 0;
+      	padding-left: 15px;
+      }
+      
+      .btn-primary {
+    		color: #FFF;
+    		background-color: @brand-fondo-osc;
+    		border-color: @brand-fondo-osc;
+		}
+      
+		.boton {
+			-webkit-border-radius: 7;
+			-moz-border-radius: 7;
+			border-radius: 7px;
+			font-family: @titulos-font-family;
+			color: #FFF;
+			font-size: 16px;
+			background: #e7a020;
+			padding: 12px 20px 10px 20px;
+			text-decoration: none;
+			cursor: pointer;
+	
+			&:hover {
+			 	background: #063a23;
+			  	text-decoration: none;			   	
+				box-shadow: 0px 1px 3px #666666;
+				-webkit-box-shadow: 0px 1px 3px #666666;
+				-moz-box-shadow: 0px 1px 3px #666666;
+			}
+		}		
 	}
 	
 	
 
 	.section-title {
 		margin: 0 0 @grid-gutter-width; 
-		text-align: center;
+		text-align: left;
 		position: relative;
 		font-family: @titulos-font-family !important;
 
@@ -58,8 +113,7 @@
 		position: relative;
 	}
 
-	&.section-hilite .section-title span {
-		background: @gray-lighter;
+	&.section-hilite .section-title span{
 	}
 
 	&.section-features {
@@ -491,9 +545,10 @@
 	
 	.logo-estatico {
 		position: fixed;
-		top: 0px;
-		left: 20px;
+		top: 13px;
+		left: 2%;
 		width: 40%;
+		max-width: 294px;
 	}
 }
 
