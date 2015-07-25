@@ -18,8 +18,8 @@
 </section>
 
 
-
-    <section ng-show="show_organization_form()" class="section section-center section-organization-form">
+<<<<<<< HEAD
+    <section ng-show="show_organization_form()" class="section section-organization-form">
         <form name="organizacionForm" role="form"  ng-submit="save_organizacion(organizacionForm.$valid)" novalidate>
             <div class="container">
                 <h3 class="section-title"><span>ORGANIZADOR - completar datos</span></h3>
@@ -108,9 +108,9 @@
 
         <form name="actividadForm" role="form"  ng-submit="save(actividadForm.$valid)" novalidate>
 
-    <section ng-show="show_iniciativa_form()" id="iniciativa" class="section section-center section-hilite section-iniciativa section-iniciativa-form">
+    <section ng-show="show_iniciativa_form()" id="iniciativa" class="section section-hilite section-iniciativa section-iniciativa-form">
         <div class="container">
-                <h3 class="section-title"><span>ACTIVIDAD</span></h3>
+                <h3 class="section-title">ACTIVIDAD</h3>
 
                 <div class="main-action">
                     <div class="row">
@@ -118,7 +118,7 @@
                     </div>
 
 
-
+								<h5>CATEGORÍAS:</h5>
                         <div class="row">
                             <div class="form-group btn-group">
                                 <label class="btn btn-primary" ng-model="iniciativa.categories.medio_ambiente" btn-checkbox > Medio Ambiente <i class="fa fa-check" ng-show="iniciativa.categories.medio_ambiente"></i></label>
@@ -171,8 +171,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group">
-                                <label>Tipo de Actividad</label>
+                            <div class="form-group sin-margen">
+                                <label><h5>Tipo de Actividad:</h5></label>
                             </div>
                             <div class="col-md-12 form-group">
                                 <select id="topics" placeholder="" name="topics[]" multiple class="col-md-12" ng-model="iniciativa.topics">
@@ -200,7 +200,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="picture">Imagen de Portada</label>
+                                    <label for="picture"><h5>Imagen de Portada:</h5></label>
                                 </div>
                                 <div class="form-group">
                                     <input id="profile_picture" type="file" name="files[]" multiple class="block-center"> 
@@ -218,7 +218,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Información de Contacto (Opcional)</label>
+                                    <label><h5>Información de Contacto (Opcional)</h5></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only">Mail Contacto</label>
@@ -235,7 +235,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Redes Sociales (Opcional)</label>
+                                    <label><h5>Redes Sociales (Opcional)</h5></label>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only">Facebook</label>

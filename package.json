@@ -32,7 +32,9 @@
     "node-uuid": "1.4.0",
     "express-subdomain": "1.0.1",
     "express-jwt": "*",
-    "jsonwebtoken": "*",
-    "connect-redis": "~2.3.0"
+    "connect-redis": "~2.3.0",
+    "cors": "^2.7.1",
+    "jwt-simple": "^0.3.0"
+
   }
 }
