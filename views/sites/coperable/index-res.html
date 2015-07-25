@@ -9,10 +9,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{layoutTitle}}</title>
-<!--
         <link href="/static/sites/coperable/assets/css/template.css" rel="stylesheet">
--->
+<!--
         <link rel='stylesheet/less' href='/static/sites/coperable/assets/less/template.less' />
+-->
 
         <link href="/static/bower_components/datedropper/datedropper.css" rel="stylesheet">
         <link href="/static/bower_components/jt.timepicker/jquery.timepicker.css" rel="stylesheet">
@@ -27,8 +27,8 @@
    <link rel="/static/sites/coperable/slide-in-panel/stylesheet" href="css/reset.css"> <!-- CSS reset -->
 	<link rel="/static/sites/coperable/slide-in-panel/stylesheet" href="css/style.css"> <!-- Resource style -->
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
 <!--
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
 -->
 
 
@@ -50,8 +50,7 @@
         <script> window.fbAsyncInit = function() { FB.init({ appId      : '368346063364540', xfbml      : true, version    : 'v2.3' }); }; (function(d, s, id){ var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); </script>
        -->  
         <div id="page">
-        		<!--Botón para ver PANEL LATERAL-->
-        		<div><a href="#0" class="cd-btn"><img src="http://coperable.coperable.org/static/sites/coperable/images/COP-ICON.png" alt=""></a></div>
+            <div  ng-show="showInPage('home')"><a href="#0" class="cd-btn"><img src="http://coperable.coperable.org/static/sites/coperable/images/COP-ICON.png" alt=""></a></div>
         		
             <header id="header" class="site-header">
                 
@@ -84,10 +83,10 @@
 
 
                                 {{^user}}
-                                    <li class="pull-right"><a class="boton-login" href="/user/login" target="_self">Ingresá</a></li>
+                                    <li class="pull-right"><a href="/user/login" target="_self">Ingresá</a></li>
                                 {{/user}}
                                 {{#user}}
-                                    <li class="pull-right"><a href="/user/{{user.id}}" target="_self" >{{user.username}}</a></li>
+                                    <li class="pull-right"><a ng-href="/users/{{user.id}}">{{user.username}}</a></li>
                                     <!--a href="/user/logout" target="_self">Salir</a-->
                                 {{/user}}
 
@@ -149,9 +148,11 @@
       </footer>
     </div>
     </main>
-  
+
+
 	<!--ACÁ PARA EL PANEL INFORMATIVO-->
-	<div class="cd-panel from-right is-visible">
+
+	<div  class="cd-panel from-right {{showInPage('home') ? is-visible : ''}}">
 		<header class="cd-panel-header">
 			<h1>COPERABLE</h1>
 			<a href="#0" class="cd-panel-close">Close</a>
@@ -163,7 +164,9 @@
 				<img src="/static/sites/coperable/images/coperable-logoPrincipal.png" alt="" width="130px">
             <h3>MAPA Y AGENDA COLABORATIVA</h3>
             <p>Donde compartir iniciativas abiertas y participar en encuentros positivos para la comunidad.</p>
-            <a class="boton">Organizá</a>
+
+            <a ng-show="is_logged()" class="boton-organiza" ng-href="/iniciativas/edit"> Organizá</a>
+            <a ng-show="!is_logged()" class="boton-organiza" href="/user/login" target="_self"> Organizá</a>
             <p></p>
             
             
@@ -173,6 +176,9 @@
 		</div> <!-- cd-panel-container -->
 	</div> <!-- cd-panel -->
 
+
+
+  
     <div class="scroll-to-top" data-spy="affix" data-offset-top="10"><a href="#page" class="smooth-scroll"><i class="fa fa-arrow-up"></i></a></div>
   
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

@@ -3351,7 +3351,7 @@ select[multiple].input-lg {
 }
 .btn:hover,
 .btn:focus {
-  color: #ffffff;
+  color: #333333;
   text-decoration: none;
 }
 .btn:active,
@@ -3372,8 +3372,8 @@ fieldset[disabled] .btn {
   box-shadow: none;
 }
 .btn-default {
-  color: #ffffff;
-  background-color: #01bce4;
+  color: #333333;
+  background-color: #ffffff;
   border-color: #cccccc;
 }
 .btn-default:hover,
@@ -3381,8 +3381,8 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: #ffffff;
-  background-color: #019bbb;
+  color: #333333;
+  background-color: #ebebeb;
   border-color: #adadad;
 }
 .btn-default:active,
@@ -3405,17 +3405,17 @@ fieldset[disabled] .btn-default:active,
 .btn-default.disabled.active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
-  background-color: #01bce4;
+  background-color: #ffffff;
   border-color: #cccccc;
 }
 .btn-default .badge {
-  color: #01bce4;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #333333;
 }
 .btn-primary {
   color: #ffffff;
-  background-color: #ee3f22;
-  border-color: #e53012;
+  background-color: #e7a020;
+  border-color: #d69217;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -3423,8 +3423,8 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
   color: #ffffff;
-  background-color: #d72d11;
-  border-color: #ac240d;
+  background-color: #c98916;
+  border-color: #9f6c11;
 }
 .btn-primary:active,
 .btn-primary.active,
@@ -3446,11 +3446,11 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-  background-color: #ee3f22;
-  border-color: #e53012;
+  background-color: #e7a020;
+  border-color: #d69217;
 }
 .btn-primary .badge {
-  color: #ee3f22;
+  color: #e7a020;
   background-color: #ffffff;
 }
 .btn-success {
@@ -7574,8 +7574,61 @@ img {
     display: block;
   }
 }
+.section.section-organization-form {
+  text-align: left;
+  font-family: 'Gotham', "Gotham Rounded Light", Gotham, Arial, sans-serif;
+}
+.section.section-organization-form .section-title {
+  text-align: left;
+  margin: 0px -12px 30px;
+  color: #e7a020;
+}
+.section.section-organization-form .info-adicional {
+  margin: 0px 0px 10px 20px;
+}
 .section.section-organization-form .organization_description {
   height: 150px;
+}
+.section.section-organization-form .sin-margen {
+  margin-bottom: 0;
+}
+.section.section-organization-form .boton {
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  font-family: 'Gotham Medium', "Gotham Rounded Medium", Gotham, Arial, sans-serif;
+  color: #FFF;
+  font-size: 16px;
+  background: #e7a020;
+  padding: 12px 20px 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.section.section-organization-form .boton:hover {
+  background: #063a23;
+  text-decoration: none;
+  box-shadow: 0px 1px 3px #666666;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+}
+.section.section-iniciativa-form .boton {
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  font-family: 'Gotham Medium', "Gotham Rounded Medium", Gotham, Arial, sans-serif;
+  color: #FFF;
+  font-size: 16px;
+  background: #e7a020;
+  padding: 12px 20px 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.section.section-iniciativa-form .boton:hover {
+  background: #063a23;
+  text-decoration: none;
+  box-shadow: 0px 1px 3px #666666;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
 }
 .section-slide .item {
   height: 354px;
@@ -7645,6 +7698,12 @@ img {
 .site-header {
   position: absolute;
   width: 100%;
+}
+.site-header .logo-estatico {
+  position: fixed;
+  top: 0px;
+  left: 20px;
+  width: 40%;
 }
 .site-topbar {
   background: #4b494f;
@@ -8122,7 +8181,7 @@ img {
 .btn-alternate {
   color: #ffffff;
   background-color: #b6c731;
-  border-color: #e53012;
+  border-color: #d69217;
 }
 .btn-alternate:hover,
 .btn-alternate:focus,
@@ -8131,7 +8190,7 @@ img {
 .open .dropdown-toggle.btn-alternate {
   color: #ffffff;
   background-color: #98a629;
-  border-color: #ac240d;
+  border-color: #9f6c11;
 }
 .btn-alternate:active,
 .btn-alternate.active,
@@ -8154,7 +8213,7 @@ fieldset[disabled] .btn-alternate:active,
 .btn-alternate[disabled].active,
 fieldset[disabled] .btn-alternate.active {
   background-color: #b6c731;
-  border-color: #e53012;
+  border-color: #d69217;
 }
 .btn-alternate .badge {
   color: #b6c731;
@@ -8734,6 +8793,14 @@ span.selector {
 .tiles-list li:hover .content-hover {
   opacity: 1;
 }
+@font-face {
+  font-family: 'Gotham';
+  src: url("static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Light.otf");
+}
+@font-face {
+  font-family: 'Gotham Medium';
+  src: url("static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Medium.otf");
+}
 .container-intro {
   width: 100%;
   height: 200px;
@@ -8767,7 +8834,7 @@ span.selector {
 .container-intro table .td-descripcion {
   width: 30%;
   text-align: left;
-  font-family: 'Gotham', "Gotham Rounded", Gotham, Arial, sans-serif;
+  font-family: 'Gotham', "Gotham Rounded Light", Gotham, Arial, sans-serif;
   color: #063a23;
 }
 .container-intro table h1 {
@@ -8801,7 +8868,7 @@ span.selector {
 .container-info table .td-desc {
   width: 40%;
   text-align: left;
-  font-family: 'Gotham', "Gotham Rounded", Gotham, Arial, sans-serif;
+  font-family: 'Gotham', "Gotham Rounded Light", Gotham, Arial, sans-serif;
 }
 .container-info table h1 {
   font-family: 'Gotham Medium', "Gotham Rounded Medium", Gotham, Arial, sans-serif;
@@ -8820,7 +8887,7 @@ span.selector {
 }
 .categorias {
   background-color: #f4e69d;
-  font-family: 'Gotham', "Gotham Rounded", Gotham, Arial, sans-serif;
+  font-family: 'Gotham', "Gotham Rounded Light", Gotham, Arial, sans-serif;
   color: #0aa55e;
   box-shadow: 0px 2px 3px #808080;
   position: relative;
@@ -9274,7 +9341,7 @@ html, body {
 .container-intro table .td-descripcion {
   width: 30%;
   text-align: left;
-  font-family: 'Gotham', "Gotham Rounded", Gotham, Arial, sans-serif;
+  font-family: 'Gotham', "Gotham Rounded Light", Gotham, Arial, sans-serif;
   color: #063a23;
 }
 .cd-panel-content {
@@ -9311,7 +9378,7 @@ html, body {
 }
 .cd-panel-content p {
   text-align: left;
-  font-family: 'Gotham', "Gotham Rounded", Gotham, Arial, sans-serif;
+  font-family: 'Gotham', "Gotham Rounded Light", Gotham, Arial, sans-serif;
   color: #063a23;
   margin: 2em 0;
 }

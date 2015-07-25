@@ -10,42 +10,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{layoutTitle}}</title>
         <link href="/static/sites/coperable/assets/css/template.css" rel="stylesheet">
+<!--
+        <link rel='stylesheet/less' href='/static/sites/coperable/assets/less/template.less' />
+-->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel='stylesheet' href="/static/bower_components/angular-socialshare/angular-socialshare.min.css">
+   
+<!--
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
+-->
+
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-        <script src='//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'></script>
+
         <base href="/">
     </head>
 
     <body>
 
-    <div id="page">
-
+   <main class="cd-main-content">
+        <div id="page">
+        		
             <header id="header" class="site-header">
-                <nav id="topbar" class="site-topbar visible-lg visible-md">
-                    <div class="container">
-                        <div class="row">
-                            <div class="pull-right social-links col-sm-6">
-                            {{^user}}
-                                <span>Ingres&aacute;: </span>
-                                <a href="/auth/facebook" target="_self"><i class="fa fa-facebook"></i></a>
-                                <span>|</span>
-                                <a href="/auth/twitter" target="_self"><i class="fa fa-twitter"></i></a>
-                            {{/user}}
-                            {{#user}}
-                                <a href="/user/{{user.id}}" target="_self" >{{user.username}}</a>
-                                <a href="/user/logout" target="_self">Salir</a>
-                            {{/user}}
-                            </div>
-
-                        </div>
-                    </div>
-                </nav>
-
+                
                 <nav id="navbar" class="site-navbar navbar navbar-static-top" role="navigation">
-                    <div class="container">
+                    <div class="container container-nav">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                                 <span class="sr-only">Toggle navigation</span>
@@ -53,22 +46,21 @@
                             </button>
                             <h1 class="navbar-brand">
                                 <a href="index.html">
-                                    <img src="/static/sites/coperable/images/logo_coperable.png"/> 
+                                    <img src="/static/sites/coperable/images/coperable-icon-navBar.png"/> 
                                 </a>
                             </h1>
                         </div>
-                        <div class="collapse navbar-collapse" id="navbar-collapse-1">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="/" class="current" target="_self">Home</a></li>
+
+                        <div data-ng-controller="menu-controller" class="collapse navbar-collapse pull-right" id="navbar-collapse-1">
+                            <ul id="navigation" class="nav navbar-nav pull-left">
+                                <li><a class="external" href="/" target="_self" class="current">HOME</a></li>
                             </ul>
+                            
                         </div>
                     </div>
                 </nav>
             </header>
 
-
-
-      <main id="main" class="site-main">
 
 <section class="section section-center section-cta">
     <div class="container">
@@ -125,7 +117,7 @@
 </section>
 
 
-      </main>
+
 
       <footer id="footer" class="site-footer">
         <div class="container">
@@ -133,53 +125,58 @@
           <div id="sidebar-footer-1">
             <div class="row">
 
-              <aside class="widget col-md-3 col-sm-6">
-                <h5 class="widget-title">Coperable</h5>
-                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptate rerum voluptates. <a href="#">Read more</a></p>
+              <aside class="widget col-md-4 col-sm-4">
+                <h4 class="widget-title">Coperable</h4>
+                <ul>
+                    <li><a href="/site/about">Sobre Coperable</a></li>
+                    <li><a href="/site/networks">Nuestra Red</a></li>
+                    <li><a href="/site/practices">Buenas Practicas</a></li>
+                    <li><a href="/site/open">Abierto y Colaborativo</a></li>
+                </ul>
+
               </aside>
 
-              <aside class="widget col-md-3 col-sm-6">
-                <h5 class="widget-title">Contacto</h5>
-                <div class="textwidget">
-                  <div class="adr">
-                    <div class="street-address">Nombre Calle.</div>
-                    <span class="locality">Chascomús</span>,
-                    <abbr class="region" title="Buenos Aires">Bs As</abbr>,
-                    <span class="postal-code">7130</span>,
-                    <span class="country-name">Argentina</span>
-                  </div>
-                  <div>Tel: <span class="tel">Nro de Telefono</span></div>
-                </div>
+              <aside class="widget col-md-4 col-sm-4">
+                <h4 class="widget-title">Servicios</h4>
+                <ul>
+                    <li><a href="/site/implementation">Implementacion a medida</a></li>
+                    <li><a href="/site/social_analytic">Inteligencia Social</a></li>
+                    <li><a href="/site/workshops">Talleres de Mapeo Colaborativo</a></li>
+                    <li><a href="/site/rse">Voluntariado Empresarial y RSE</a></li>
+                </ul>
+
               </aside>
 
-              <aside class="widget col-md-3 col-sm-6">
-                <h5 class="widget-title">Querés saber más?</h5>
-                <p>Entrá a nuestro <a href="#">blog</a>.</p>
-              </aside>
-
-              <aside class="widget col-md-3 col-sm-6">
-                <img src="/static/sites/coperable/images/cultura-nacion.png"/>
+              <aside class="widget col-md-4 col-sm-4">
+                <h4 class="widget-title">Contectate</h4>
+                <p><a href="https://www.facebook.com/coperable">facebook.com/coperable</a></p>
               </aside>
 
             </div>
           </div>
 
-          <div class="copyright"><p>© 2015 CC Coperable en Red<br /> Powered by: <a href="http://coperable.org">Coperable</a></p></div>
+          <div class="copyright"><p>© 2015 CC Coperable <br /> Powered by: <a href="http://coperable.org">Coperable</a></p></div>
         </div>
       </footer>
     </div>
+    </main>
+  
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/bootstrap-3.1.1.min.js"></script>
-    <!--script type="text/javascript" src="/static/sites/coperable/assets/js/main.js"></script-->
+    <script type="text/javascript" src="/static/sites/coperable/assets/js/jquery.isotope.min.js?v=1.5.26"></script>
+    <script type="text/javascript" src="/static/sites/coperable/assets/js/jquery.singlePageNav.min.js"></script>
+    <script type="text/javascript" src="/static/sites/coperable/assets/js/main.js"></script>
+    <script type="text/javascript" src="/static/sites/coperable/assets/js/modernizr.js"></script>
 
-    <script type="text/javascript" src="/static/bower_components/underscore/underscore-min.js"></script>
+    <script src="/static/bower_components/angular-socialshare/angular-socialshare.min.js"></script>
 
-    <script type="text/javascript" src="/static/bower_components/modernizr/modernizr.js"></script>
+    <script type="text/javascript" src="/static/sites/coperable/assets/js/main.js"></script>
 
-    </body>
+    <script type="text/javascript" src="/static/sites/coperable/assets/js/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <script type="text/javascript" src="/static/sites/coperable/assets/js/ui-bootstrap-0.12.0.min.js"></script>
+
+
+  </body>
 </html>
-
-
-
 

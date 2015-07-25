@@ -73,7 +73,7 @@
                 <article ng-repeat="hit in hits" id="{{hit._id}}" class="item-template col-md-4 col-sm-6 portfolio-item post {{split_filters(hit._source)}} ">
 
                     <div class="initiative initiative-item">
-                        <div data-label="{{hit._source.start_date | moment: 'D [de] MMMM   [\']YY'}}" class="pic {{hit._source.start_date | isBefore}}">
+                        <div data-label="{{hit._source.start_date | moment: 'D [de] MMMM'}}" class="pic {{hit._source.start_date | isBefore}}">
                             <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
                                 <img class="replace-src" src="/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
                             </a>

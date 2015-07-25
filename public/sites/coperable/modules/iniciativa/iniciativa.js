@@ -36,35 +36,41 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
         { "value": "Seminario"   ,"text": "Seminario"   , "continent": "naturaleza"    },
         { "value": "Espectaculo"   ,"text": "Espectaculo"   , "continent": "naturaleza"    },
         { "value": "Feria"   ,"text": "Feria"   , "continent": "naturaleza"    },
-        { "value": "Festivales"   ,"text": "Festivales"   , "continent": "naturaleza"    },
+        { "value": "Festival"   ,"text": "Festival"   , "continent": "naturaleza"    },
+        { "value": "Jazz"   ,"text": "Jazz"   , "continent": "naturaleza"    },
+        { "value": "Rock"   ,"text": "Rock"   , "continent": "naturaleza"    },
+        { "value": "Folklore"   ,"text": "Folklore"   , "continent": "naturaleza"    },
+        { "value": "Clasica"   ,"text": "Clasica"   , "continent": "naturaleza"    },
+        { "value": "Música"   ,"text": "Música"   , "continent": "naturaleza"    },
+        { "value": "Danza"   ,"text": "Danza"   , "continent": "naturaleza"    },
+        { "value": "Cine"   ,"text": "Cine"   , "continent": "naturaleza"    },
+        { "value": "Teatro"   ,"text": "Teatro"   , "continent": "naturaleza"    },
         { "value": "Encuentro"   ,"text": "Encuentro"   , "continent": "naturaleza"    },
-        { "value": "Peña"   ,"text": "Peña"   , "continent": "naturaleza"    },
+        { "value": "Libre"   ,"text": "Libre"   , "continent": "price"    },
         { "value": "Gratis"   ,"text": "Gratis"   , "continent": "price"    },
-        { "value": "A la Gorra", "text": "A la Gorra"   , "continent": "price"    },
         { "value": "Arancelada"   ,"text": "Arancelada"   , "continent": "price"    },
-        { "value": "Centro"   ,"text": "Centro"   , "continent": "place"    },
-        { "value": "El Hueco", "text": "El Hueco"   , "continent": "place"    },
-        { "value": "Iporá"   ,"text": "Iporá"   , "continent": "place"    },
-        { "value": "Tallo Blanco", "text": "Tallo Blanco"   , "continent": "place"    },
-        { "value": "30 de Mayo", "text": "30 de Mayo"   , "continent": "place"    },
-        { "value": "San Cayetano", "text": "San Cayetano"   , "continent": "place"    },
-        { "value": "Los Sauces", "text": "Los Sauces"   , "continent": "place"    },
-        { "value": "El Porteño", "text": "El Porteño"   , "continent": "place"    },
-        { "value": "Monte Corti", "text": "Monte Corti"   , "continent": "place"    },
-        { "value": "Parque Girado", "text": "Parque Girado"   , "continent": "place"    },
-        { "value": "La Libertad", "text": "La Libertad"   , "continent": "place"    }
+        { "value": "Donaciones"   ,"text": "Donaciones"   , "continent": "price"    },
+        { "value": "Parque", "text": "Parque"   , "continent": "place"    },
+        { "value": "Calle", "text": "Calle"   , "continent": "place"    },
+        { "value": "Plaza", "text": "Plaza"   , "continent": "place"    }
     ];      
 
     $scope.iniciativa = new Iniciativa();
     $scope.organization = Usuario.get({
         id: $rootScope.user_id
     }, function(data) {
-        $scope.first_time = data.ownedIniciativas && data.ownedIniciativas.length > 1 && data.implementation == 'coperable' ? false : true;
+        $scope.first_time = data.ownedIniciativas && data.ownedIniciativas.length > 1;
     });
 
     $scope.show_organization_form = function() {
         return $scope.first_time && !$scope.persisted;
     };
+
+    $scope.show_iniciativa_form = function() {
+        return !$scope.first_time && !$scope.persisted;
+    };
+
+
 
     $scope.prepareOrganization = function() {
         $scope.organization.implementation = 'coperable';
@@ -133,6 +139,24 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
     };
 
+    $scope.save_organizacion = function(isValid) {
+        $scope.saving = true;
+        $scope.hasError = !isValid;
+        $scope.prepareModel();
+        if(isValid) {
+            $scope.prepareOrganization();
+            $scope.organization.$save(function(data) {
+                $scope.first_time = false;
+                $scope.saving = false;
+                $location.hash('page');
+                $anchorScroll();
+            });
+        } else {
+            $scope.saving = false;
+
+        }
+    };
+
     $scope.save = function(isValid) {
         $scope.saving = true;
         $scope.hasError = !isValid;
@@ -145,15 +169,8 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
                 $location.hash('page');
                 $anchorScroll();
             });
-            if($scope.first_time) {
-                $scope.prepareOrganization();
-                $scope.organization.$save(function(data) {
-                    $scope.first_time = false;
-                });
-            }
         } else {
             $scope.saving = false;
-
         }
     };
 
@@ -481,7 +498,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 				{
 				    range: {
 					start_date: {
-					    gte: "now-1y"
+					    gte: "now-7M"
 					}
 				    }
 				}

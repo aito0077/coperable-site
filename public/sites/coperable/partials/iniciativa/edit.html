@@ -1,31 +1,31 @@
-    <section  ng-show="persisted" class="section section-center section-iniciativa">
-        <div class="container">
+<section  ng-show="persisted" class="section section-center section-iniciativa">
+    <div class="container">
 
-            <div class="main-action row">
-                <p class="text-center">
-                    Gracias por ingresar tu actividad, para verla ingresá a <a class="link" href="/iniciativas/{{iniciativa._id}}">http://coperable.coperable.org/iniciativas/{{iniciativa._id}}</a>.
-                </p>
-                <p>
-                    Ahora a compartirla con tus amigos en las redes sociales. Invitando gente y dándola a conocer vas a convocar más participantes y sumar más energía social para tu proyecto.
-                </p>
-            </div>
-
-            <div class="main-action row">
-                <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4"><a ng-href="/" class="smooth-scroll btn btn-lg btn-block btn-default">Volver</a></div>
-            </div>
-
+        <div class="main-action row">
+            <p class="text-center">
+                Gracias por ingresar tu actividad, para verla ingresá a <a class="link" href="/iniciativas/{{iniciativa._id}}">http://coperable.coperable.org/iniciativas/{{iniciativa._id}}</a>.
+            </p>
+            <p>
+                Ahora a compartirla con tus amigos en las redes sociales. Invitando gente y dándola a conocer vas a convocar más participantes y sumar más energía social para tu proyecto.
+            </p>
         </div>
-    </section>
+
+        <div class="main-action row">
+            <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4"><a ng-href="/" class="smooth-scroll btn btn-lg btn-block btn-default">Volver</a></div>
+        </div>
+
+    </div>
+</section>
 
 
 
-    <form name="actividadForm" role="form"  ng-submit="save(actividadForm.$valid)" novalidate>
-        <section ng-show="show_organization_form()" class="section section-center section-organization-form">
+    <section ng-show="show_organization_form()" class="section section-center section-organization-form">
+        <form name="organizacionForm" role="form"  ng-submit="save_organizacion(organizacionForm.$valid)" novalidate>
             <div class="container">
                 <h3 class="section-title"><span>ORGANIZADOR - completar datos</span></h3>
                 <h5>▶ PARA REGISTRAR UNA ACTIVIDAD, PRIMERO DEBES COMPLETAR TUS DATOS DE ORGANIZADOR:</h5>
                 <p class="info-adicional">- Tu cuenta de usuario de <strong>Participante</strong> pasará a la categoría de <strong>Organizador</strong>, podrás no solamenta participar de actividades, sino empezar a organizar las tuyas. </p>
-                <p class="info-adicional">- Como Organizador vas a tener un perfil que los demás usuarios pueden ver, con todas las actividades que organices, tanto como tu información de contacto.</p></br>
+                <p class="info-adicional">- Como Organizador vas a tener un perfil que los demás usuarios pueden ver, con todas las actividades que organices, tanto como tu información y contacto.</p></br>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -94,18 +94,21 @@
 
                     </div>
 
-						
                 </div>
-					</br>
-					<a class="boton">Siguiente ►</a>
 
+                <div class="row"  ng-show="show_organization_form()">
+                    <button type="submit" class="boton" ng-show="!saving" >Continuar ►</button>
+                    <span class="boton" ng-show="saving">Guardando...</span>
+                </div>
             </div>
+
+            </form>
         </section>
 
 
+        <form name="actividadForm" role="form"  ng-submit="save(actividadForm.$valid)" novalidate>
 
-
-    <section ng-show="!persisted" id="iniciativa" class="section section-center section-hilite section-iniciativa">
+    <section ng-show="show_iniciativa_form()" id="iniciativa" class="section section-center section-hilite section-iniciativa section-iniciativa-form">
         <div class="container">
                 <h3 class="section-title"><span>ACTIVIDAD</span></h3>
 
@@ -249,22 +252,17 @@
                             </div>
                         </div>
 
-
-
-                    </div>
-                </section>
-
-
-                <section id="iniciativa-action-form" ng-show="!persisted" class="section section-center section-iniciativa">
-                    <div class="container">
-
-                        <div class="row">
-                            <button type="submit" class="btn-save-iniciativa btn btn-default" ng-show="!saving" >Guardar</button>
-                            <span class="btn-saving btn btn-default" ng-show="saving">Guardar</span>
+                        <div class="row"  ng-show="show_iniciativa_form()">
+                            <button type="submit" class="boton" ng-show="!saving" >Guardar</button>
+                            <span class="boton" ng-show="saving">Guardando...</span>
                             <span class="btn-delete-iniciativa btn btn-primary" ng-show="!saving && !is_new"  ng-really-message="Desea eliminar la actividad ?" ng-really-click="doRemove()" style="cursor:hand">Eliminar</span>
 
+
+
                         </div>
+
                     </div>
                 </section>
+
 
             </form>
