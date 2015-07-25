@@ -9,18 +9,22 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{layoutTitle}}</title>
-        <link href="/static/sites/coperable/assets/css/template.css" rel="stylesheet">
 <!--
-        <link rel='stylesheet/less' href='/static/sites/coperable/assets/less/template.less' />
+        <link href="/static/sites/coperable/assets/css/template.css" rel="stylesheet">
 -->
+        <link rel='stylesheet/less' href='/static/sites/coperable/assets/less/template.less' />
         <link href="/static/bower_components/datedropper/datedropper.css" rel="stylesheet">
         <link href="/static/bower_components/jt.timepicker/jquery.timepicker.css" rel="stylesheet">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link href="/static/bower_components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
         <link rel='stylesheet' href="/static/bower_components/angular-socialshare/angular-socialshare.min.css">
+   
+   <!--PANEL LATERAL-->
+   <link rel="/static/sites/coperable/slide-in-panel/stylesheet" href="css/reset.css"> <!-- CSS reset -->
+	<link rel="/static/sites/coperable/slide-in-panel/stylesheet" href="css/style.css"> <!-- Resource style -->
 
-<!--
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
+<!--
 -->
 
 
@@ -37,11 +41,18 @@
     </head>
 
     <body ng-controller="Ctrl">
+   <main class="cd-main-content">
+	<!-- your main content here --> 
         <script> window.fbAsyncInit = function() { FB.init({ appId      : '368346063364540', xfbml      : true, version    : 'v2.3' }); }; (function(d, s, id){ var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); </script>
         
         <div id="page">
+        		<!--Botón para ver PANEL LATERAL-->
+        		<div><a href="#0" class="cd-btn"><img src="http://coperable.coperable.org/static/sites/coperable/images/COP-ICON.png" alt=""></a></div>
+        		
             <header id="header" class="site-header">
                 
+                
+                <!--
                 <nav id="topbar" class="site-topbar visible-lg visible-md">
                     <div class="container">
                         <div class="row">
@@ -60,7 +71,7 @@
 
                         </div>
                     </div>
-                    
+                    <!--
                     <div class="container container-intro" ng-show="page == 'home'">
                     		<table>
                      		<tr>
@@ -81,7 +92,7 @@
                      	</table>
                     </div>
                     
-                </nav>
+                </nav>-->
 
                 <nav id="navbar" class="site-navbar navbar navbar-static-top" role="navigation">
                     <div class="container container-nav">
@@ -91,23 +102,26 @@
                                 <i class="fa fa-bars"></i>
                             </button>
                             <h1 class="navbar-brand">
-                                <a href="index.html/#home">
-                                    <img src="/static/sites/coperable/images/coperable-icon-navBar.png" height="100px" /> 
+                                <a href="index.html">
+                                    <img src="/static/sites/coperable/images/coperable-icon-navBar.png"/> 
                                 </a>
                             </h1>
                         </div>
 
                         <div data-ng-controller="menu-controller" class="collapse navbar-collapse" id="navbar-collapse-1">
                             <ul id="navigation" class="nav navbar-nav navbar-right">
-                                <li ng-show="showInPage('home')" class="active"><a href="#header" class="current">INICIO</a></li>                                
+                                <!--<li ng-show="showInPage('home')" class="active"><a href="#header" class="current">INICIO</a></li>-->                                
                                 <li ng-show="showInPage('home')"><a href="#map_home">MAPA</a></li>
                                 <li ng-show="showInPage('home')"><a href="#features">AGENDA</a></li>
-                                <li ng-show="showInPage('home')"><a href="#team">ORGANIZACIONES</a></li>
-                                <li ng-show="showInPage('home')"><a class="external" ng-href="/comunidades">COMUNIDADES</a></li>
+                                <li ng-show="showInPage('home')"><a href="#team">ORGANIZADORES</a></li>
+                                <!--<li ng-show="showInPage('home')"><a class="external" ng-href="/comunidades">COMUNIDADES</a></li>-->
+                                <li ng-show="showInPage('home')" class="boton-organiza">Organizá</li>
                                 <li ng-show="!showInPage('home')"><a class="external" ng-href="/home" class="current">HOME</a></li>
                                 <li ng-show="showInPage('user-view')"><a href="#owned-iniciativas" class="current">ACTIVIDADES</a></li>
                                 <li ng-show="showInPage('user-view')"><a href="#map_owned" class="current">MAPA</a></li>
+                                <li>usuario ▼</li>
                             </ul>
+                            
                         </div>
 
                         <!--div class="collapse navbar-collapse" id="navbar-collapse-1">
@@ -122,11 +136,13 @@
                 </nav>
             </header>
 
+
             <main id="main" class="site-main" ng-view>
 
        
             </main>
-
+		<div class="bandera"></div>
+		
       <footer id="footer" class="site-footer">
         <div class="container">
 
@@ -167,14 +183,39 @@
         </div>
       </footer>
     </div>
+    </main>
+  
+	<!--ACÁ PARA EL PANEL INFORMATIVO-->
+	<div class="cd-panel from-right is-visible">
+		<header class="cd-panel-header">
+			<h1>COPERABLE</h1>
+			<a href="#0" class="cd-panel-close">Close</a>
+		</header>
 
-    <div class="scroll-to-top" data-spy="affix" data-offset-top="200"><a href="#page" class="smooth-scroll"><i class="fa fa-arrow-up"></i></a></div>
+		<div class="cd-panel-container">
+			<div class="cd-panel-content">
+				
+				<img src="/static/sites/coperable/images/coperable-logoPrincipal.png" alt="" width="130px">
+            <h3>MAPA Y AGENDA COLABORATIVA</h3>
+            <p>Donde compartir iniciativas abiertas y participar en encuentros positivos para la comunidad.</p>
+            <a class="boton">Organizá</a>
+            <p></p>
+            
+            
+            <div class="diagrama-intro"><img src="/static/sites/coperable/images/COP-DIAGRAMA.png" alt=""></div>
+
+			</div> <!-- cd-panel-content -->
+		</div> <!-- cd-panel-container -->
+	</div> <!-- cd-panel -->
+
+    <div class="scroll-to-top" data-spy="affix" data-offset-top="10"><a href="#page" class="smooth-scroll"><i class="fa fa-arrow-up"></i></a></div>
   
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/bootstrap-3.1.1.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/jquery.isotope.min.js?v=1.5.26"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/jquery.singlePageNav.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/main.js"></script>
+    <script type="text/javascript" src="/static/sites/coperable/assets/js/modernizr.js"></script>
 
     <script type="text/javascript" src="/static/bower_components/underscore/underscore-min.js"></script>
     <script type="text/javascript" src="/static/bower_components/angular/angular.js"></script>
@@ -212,14 +253,15 @@
     <script type="text/javascript" src="/static/sites/coperable/assets/js/ui-bootstrap-0.12.0.min.js"></script>
 
     <script type="text/javascript" src="/static/sites/coperable/services/services.js"></script>
-    <script type="text/javascript" src="/static/sites/coperable/modules/home/home.js"></script>
-    <script type="text/javascript" src="/static/sites/coperable/modules/iniciativa/iniciativa.js"></script>
+    <script type="text/javascript" src="/static/sites/coperable/modules/home/home.js?1"></script>
+    <script type="text/javascript" src="/static/sites/coperable/modules/iniciativa/iniciativa.js?1"></script>
     <script type="text/javascript" src="/static/sites/coperable/modules/comunidad/comunidad.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/modules/user/user.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/modules/menu/menu.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/app.js"></script>
-
-    <script type="text/javascript" src="/static/bower_components/modernizr/modernizr.js"></script>
+	
+	<!--PANEL LATERAL-->
+	<script src="/static/sites/coperable/slide-in-panel/js/modernizr.js"></script> <!-- Modernizr -->
 
     <script>
     {{#user}}
@@ -249,9 +291,6 @@
   }
 }
     </script>
-
-
-
 
   </body>
 </html>
