@@ -81,21 +81,22 @@ exports.upload= function(req, res, callback ) {
         return;
       }
       try {
+	/*
         im.identify(['-strip', newPath], function(err, features){
             console.log(err);
             if (err) throw err;
             console.log(features);
             // { format: 'JPEG', width: 3904, height: 2622, depth: 8 }
+	*/
             im.crop({
                 srcPath: newPath,
                 dstPath: thumbPath,
                 width:   280,
                 height:   120
-            }, function(err, stdout, stderr){
-                console.log(stdout);
-                console.log(stderr);
-                if (err) {
-                    console.error("[filehandler::upload] Error! An error ocurred while cropping the file [%s]: %j", newPath, err);
+            }, function(errr, stdout, stderr){
+                console.log(errr);
+                if (errr) {
+                    console.error("[filehandler::upload] Error! An error ocurred while cropping the file [%s]: %j", newPath, errr);
                 }
                 var result = {
                     "files": [{
@@ -111,7 +112,7 @@ exports.upload= function(req, res, callback ) {
                 res.send(result);
             });
 
-        });
+        //});
 
         } catch(e) {
             console.error("[filehandler::upload] "+e+" Error! An error ocurred while moving the file from [%s] to [%s]: %j",

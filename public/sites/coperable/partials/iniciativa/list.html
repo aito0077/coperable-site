@@ -30,8 +30,14 @@
         <div class="row">
             <div class="col-md-12 block-center text-center">
                 <ul id="categories" class="nav nav-pills center-pills">
-                    <li ng-click="select_category('all')"><b style="color: #EF4832">Categorías</b></li>
-                    <li ng-repeat="category in categories"><span class="selector category-name {{isCategoryActive(category)}}" ng-click="select_category(category)">{{display_category(category)}}</span></li>
+                    <li>
+			<span class="selector category-name {{!category_selected ? 'active' : ''}}" ng-click="select_category('all')">
+				Todas
+			</span> 
+			</li>
+                    <li ng-repeat="category in categories" ng-show="{{category != 'deporte'}}">
+			<span class="selector category-name {{isCategoryActive(category)}}" ng-click="select_category(category)">{{display_category(category)}}</span>
+	           </li>
                 </ul>
             </div>
         </div>

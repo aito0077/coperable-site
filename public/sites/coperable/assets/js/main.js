@@ -27,7 +27,7 @@ $(document).ready(function(){
   // Sticky Navbar Affix
   $('#navbar').affix({
     offset: {
-      top: $('#topbar').outerHeight(),
+      //top: $('#topbar').outerHeight(),
     }
   });
 

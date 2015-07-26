@@ -1607,13 +1607,13 @@ span.selector {
 
 @font-face {
   font-family: 'Gotham';
-  src: url("static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Light.otf");
+  src: url("/static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Light.otf");
   //src: url('GraublauWeb.eot?') format('eot'), url('GraublauWeb.woff') format('woff'), url('GraublauWeb.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'Gotham Medium';
-  src: url("static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Medium.otf");
+  src: url("/static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Medium.otf");
   //src: url('GraublauWeb.eot?') format('eot'), url('GraublauWeb.woff') format('woff'), url('GraublauWeb.ttf') format('truetype');
 }
 
@@ -2231,9 +2231,6 @@ html, body {
 		  -webkit-border-radius: 7;
 		  -moz-border-radius: 7;
 		  border-radius: 7px;
-		  -webkit-box-shadow: 0px 1px 3px #666666;
-		  -moz-box-shadow: 0px 1px 3px #666666;
-		  box-shadow: 0px 1px 3px #666666;
 		  font-family: @titulos-font-family;
 		  color: #f6e9a8;
 		  font-size: 20px;
@@ -2244,6 +2241,9 @@ html, body {
 		   &:hover {
 		   	background: #063a23;
 		   	text-decoration: none;
+			  -webkit-box-shadow: 0px 1px 3px #666666;
+			  -moz-box-shadow: 0px 1px 3px #666666;
+			  box-shadow: 0px 1px 3px #666666;
 			}
 		}  
 }
@@ -2252,17 +2252,18 @@ html, body {
     -webkit-border-radius: 4;
     -moz-border-radius: 4;
     border-radius: 4px;
-    -webkit-box-shadow: 0px 1px 3px #666666;
-    -moz-box-shadow: 0px 1px 3px #666666;
-    box-shadow: 0px 1px 3px #666666;
     font-family: @titulos-font-family;
     color: #063a23;
     background: #e7a020;
     text-decoration: none;
+	 padding: 12px 20px 10px 20px;
 
     &:hover {
         background: #063a23;
         text-decoration: none;
+	    -webkit-box-shadow: 0px 1px 3px #666666;
+	    -moz-box-shadow: 0px 1px 3px #666666;
+	    box-shadow: 0px 1px 3px #666666;
     }
 }  
 
