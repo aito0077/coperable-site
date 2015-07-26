@@ -7278,10 +7278,56 @@ img {
 }
 .section.section-hilite {
   background: #eeeeee;
+  text-align: left;
+  font-family: 'Gotham', "Gotham Rounded Light", Gotham, Arial, sans-serif;
+}
+.section.section-hilite .section-title {
+  text-align: left;
+  margin: 0px 0px 10px;
+  color: #e7a020;
+  background-color: #eeeeee;
+}
+.section.section-hilite .btn-group {
+  margin-left: 15px;
+  font-family: 'Gotham Medium', "Gotham Rounded Medium", Gotham, Arial, sans-serif;
+}
+.section.section-hilite .info-adicional {
+  margin: 0px 0px 10px 20px;
+}
+.section.section-hilite .organization_description {
+  height: 150px;
+}
+.section.section-hilite .sin-margen {
+  margin-bottom: 0;
+  padding-left: 15px;
+}
+.section.section-hilite .btn-primary {
+  color: #FFF;
+  background-color: #e7a020;
+  border-color: #e7a020;
+}
+.section.section-hilite .boton {
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  font-family: 'Gotham Medium', "Gotham Rounded Medium", Gotham, Arial, sans-serif;
+  color: #FFF;
+  font-size: 16px;
+  background: #e7a020;
+  padding: 12px 20px 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.section.section-hilite .boton:hover {
+  background: #063a23;
+  text-decoration: none;
+  box-shadow: 0px 1px 3px #666666;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
 }
 .section .section-title {
   margin: 0 0 30px;
-  text-align: center;
+  text-align: left;
   position: relative;
   font-family: 'Gotham Medium', "Gotham Rounded Medium", Gotham, Arial, sans-serif !important;
 }
@@ -7317,9 +7363,6 @@ img {
   padding: 0 10px;
   z-index: 1;
   position: relative;
-}
-.section.section-hilite .section-title span {
-  background: #eeeeee;
 }
 .section.section-features {
   padding-bottom: 0;
@@ -7701,9 +7744,10 @@ img {
 }
 .site-header .logo-estatico {
   position: fixed;
-  top: 0px;
-  left: 20px;
+  top: 13px;
+  left: 2%;
   width: 40%;
+  max-width: 294px;
 }
 .site-topbar {
   background: #4b494f;
@@ -8795,11 +8839,11 @@ span.selector {
 }
 @font-face {
   font-family: 'Gotham';
-  src: url("static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Light.otf");
+  src: url("/static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Light.otf");
 }
 @font-face {
   font-family: 'Gotham Medium';
-  src: url("static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Medium.otf");
+  src: url("/static/sites/coperable/assets/fonts/GothamRounded/GothamRounded-Medium.otf");
 }
 .container-intro {
   width: 100%;
@@ -9395,9 +9439,6 @@ html, body {
   -webkit-border-radius: 7;
   -moz-border-radius: 7;
   border-radius: 7px;
-  -webkit-box-shadow: 0px 1px 3px #666666;
-  -moz-box-shadow: 0px 1px 3px #666666;
-  box-shadow: 0px 1px 3px #666666;
   font-family: 'Gotham Medium', "Gotham Rounded Medium", Gotham, Arial, sans-serif;
   color: #f6e9a8;
   font-size: 20px;
@@ -9408,22 +9449,26 @@ html, body {
 .cd-panel-content .boton:hover {
   background: #063a23;
   text-decoration: none;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
 }
 .boton-organiza {
   -webkit-border-radius: 4;
   -moz-border-radius: 4;
   border-radius: 4px;
-  -webkit-box-shadow: 0px 1px 3px #666666;
-  -moz-box-shadow: 0px 1px 3px #666666;
-  box-shadow: 0px 1px 3px #666666;
   font-family: 'Gotham Medium', "Gotham Rounded Medium", Gotham, Arial, sans-serif;
   color: #063a23;
   background: #e7a020;
   text-decoration: none;
+  padding: 12px 20px 10px 20px;
 }
 .boton-organiza:hover {
   background: #063a23;
   text-decoration: none;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
 }
 .cd-panel-content p:first-of-type {
   margin-top: 0;
@@ -9433,4 +9478,106 @@ html, body {
     font-size: 16px;
     line-height: 1.6;
   }
+}
+.btn-facebook {
+  color: #ffffff;
+  background-color: #133783;
+  border-color: #102e6d;
+}
+.btn-facebook:hover,
+.btn-facebook:focus,
+.btn-facebook:active,
+.btn-facebook.active,
+.open .dropdown-toggle.btn-facebook {
+  color: #ffffff;
+  background-color: #0e285f;
+  border-color: #081737;
+}
+.btn-facebook:active,
+.btn-facebook.active,
+.open .dropdown-toggle.btn-facebook {
+  background-image: none;
+}
+.btn-facebook.disabled,
+.btn-facebook[disabled],
+fieldset[disabled] .btn-facebook,
+.btn-facebook.disabled:hover,
+.btn-facebook[disabled]:hover,
+fieldset[disabled] .btn-facebook:hover,
+.btn-facebook.disabled:focus,
+.btn-facebook[disabled]:focus,
+fieldset[disabled] .btn-facebook:focus,
+.btn-facebook.disabled:active,
+.btn-facebook[disabled]:active,
+fieldset[disabled] .btn-facebook:active,
+.btn-facebook.disabled.active,
+.btn-facebook[disabled].active,
+fieldset[disabled] .btn-facebook.active {
+  background-color: #133783;
+  border-color: #102e6d;
+}
+.btn-facebook .badge {
+  color: #133783;
+  background-color: #ffffff;
+}
+.btn-twitter {
+  color: #ffffff;
+  background-color: #0084b4;
+  border-color: #00719b;
+}
+.btn-twitter:hover,
+.btn-twitter:focus,
+.btn-twitter:active,
+.btn-twitter.active,
+.open .dropdown-toggle.btn-twitter {
+  color: #ffffff;
+  background-color: #00668b;
+  border-color: #00445d;
+}
+.btn-twitter:active,
+.btn-twitter.active,
+.open .dropdown-toggle.btn-twitter {
+  background-image: none;
+}
+.btn-twitter.disabled,
+.btn-twitter[disabled],
+fieldset[disabled] .btn-twitter,
+.btn-twitter.disabled:hover,
+.btn-twitter[disabled]:hover,
+fieldset[disabled] .btn-twitter:hover,
+.btn-twitter.disabled:focus,
+.btn-twitter[disabled]:focus,
+fieldset[disabled] .btn-twitter:focus,
+.btn-twitter.disabled:active,
+.btn-twitter[disabled]:active,
+fieldset[disabled] .btn-twitter:active,
+.btn-twitter.disabled.active,
+.btn-twitter[disabled].active,
+fieldset[disabled] .btn-twitter.active {
+  background-color: #0084b4;
+  border-color: #00719b;
+}
+.btn-twitter .badge {
+  color: #0084b4;
+  background-color: #ffffff;
+}
+.btn-account {
+  text-decoration: none;
+  padding: 12px 20px 10px 20px;
+}
+.alert-material {
+  position: fixed;
+  right: 5px;
+  top: 150px;
+  z-index: 250;
+  display: inline-block;
+  min-height: 48px;
+  padding: 13px 24px 12px;
+  font-family: 'Roboto', sans-serif;
+  color: #e7a020;
+  cursor: default;
+  background: #063a23;
+  border-radius: 2px;
+  outline: none;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }

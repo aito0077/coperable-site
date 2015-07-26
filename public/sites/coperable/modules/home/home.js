@@ -1,6 +1,6 @@
-angular.module('coperableApp.home', ['ngRoute','ui.router','ngResource'])
+angular.module('coperableApp.home', ['ngRoute','ngResource'])
 
-.config(['$routeProvider', '$stateProvider', function($routeProvider, $stateProvider) {
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/home', {
         templateUrl: '/static/sites/coperable/partials/home/home.html',
         controller: 'HomeController'

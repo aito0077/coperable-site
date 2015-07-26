@@ -1,6 +1,6 @@
-angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','ngResource'])
+angular.module('coperableApp.iniciativa', ['ngRoute','ui.bootstrap','ngResource'])
 
-.config(['$routeProvider', '$stateProvider', function($routeProvider, $stateProvider) {
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider
     .when('/iniciativa/edit', {
         templateUrl: '/static/sites/coperable/partials/iniciativa/edit.html',
@@ -20,7 +20,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     });
 
 }])
-.controller('iniciativa-edit', ['$scope', '$rootScope', '$http', '$routeParams', '$location', '$anchorScroll', '$timeout', '$rootScope', 'Iniciativa', 'Usuario', function($scope, $rootScope, $http, $routeParams, $location, $anchorScroll, $timeout, $rootScope, Iniciativa, Usuario) {
+.controller('iniciativa-edit', ['$scope', '$rootScope', '$routeParams', '$location', '$anchorScroll', '$timeout', '$rootScope', 'Iniciativa', 'Usuario', function($scope, $rootScope, $routeParams, $location, $anchorScroll, $timeout, $rootScope, Iniciativa, Usuario) {
 
     $rootScope.page = 'iniciativa-edit';
 
@@ -378,7 +378,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $anchorScroll();
 
 }])
-.controller('iniciativa-list', ['$scope', '$rootScope', '$http', '$timeout', 'client', function($scope, $rootScope, $http, $timeout, client) {
+.controller('iniciativa-list', ['$scope', '$rootScope', '$timeout', 'client', function($scope, $rootScope, $timeout, client) {
 
     $rootScope.page = 'iniciativa-list';
     $scope.iniciativas = [];
@@ -674,7 +674,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
 
 }])
-.controller('iniciativa-view', ['$scope', '$rootScope', '$http', '$routeParams', '$location', '$anchorScroll', '$sce', 'Iniciativa', 'Usuario', function($scope, $rootScope, $http, $routeParams, $location, $anchorScroll, $sce, Iniciativa, Usuario) {
+.controller('iniciativa-view', ['$scope', '$rootScope', '$routeParams', '$location', '$anchorScroll', '$sce', 'Iniciativa', 'Usuario', function($scope, $rootScope, $routeParams, $location, $anchorScroll, $sce, Iniciativa, Usuario) {
 
     $rootScope.page = 'iniciativa-view';
 

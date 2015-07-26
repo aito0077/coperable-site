@@ -9,10 +9,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{layoutTitle}}</title>
-<!--
         <link href="/static/sites/coperable/assets/css/template.css" rel="stylesheet">
--->
+<!--
         <link rel='stylesheet/less' href='/static/sites/coperable/assets/less/template.less' />
+-->
 
         <link href="/static/bower_components/datedropper/datedropper.css" rel="stylesheet">
         <link href="/static/bower_components/jt.timepicker/jquery.timepicker.css" rel="stylesheet">
@@ -22,13 +22,13 @@
 		  
 		  <!-- FUENTE PARA TEXTO INFORMATIVO -->        
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900' rel='stylesheet' type='text/css'>
-   
-   <!--PANEL LATERAL-->
-   <link rel="/static/sites/coperable/slide-in-panel/stylesheet" href="css/reset.css"> <!-- CSS reset -->
-	<link rel="/static/sites/coperable/slide-in-panel/stylesheet" href="css/style.css"> <!-- Resource style -->
+           
+        <!--PANEL LATERAL-->
+        <link rel="/static/sites/coperable/slide-in-panel/stylesheet" href="css/reset.css"> <!-- CSS reset -->
+        <link rel="/static/sites/coperable/slide-in-panel/stylesheet" href="css/style.css"> <!-- Resource style -->
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
 <!--
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
 -->
 
 
@@ -44,12 +44,13 @@
         <base href="/">
     </head>
 
-    <body ng-controller="Ctrl">
+    <body>
    <main class="cd-main-content">
 	<!-- your main content here 
         <script> window.fbAsyncInit = function() { FB.init({ appId      : '368346063364540', xfbml      : true, version    : 'v2.3' }); }; (function(d, s, id){ var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); </script>
        -->  
         <div id="page">
+
             <div> <a href="#0" class="cd-btn"><img src="http://coperable.coperable.org/static/sites/coperable/images/COP-ICON.png" alt=""></a></div>
         		
             <header id="header" class="site-header">
@@ -67,7 +68,7 @@
                             </a>
                         </div>
 
-                        <div data-ng-controller="menu-controller" class="collapse navbar-collapse pull-right" id="navbar-collapse-1">
+                        <div ng-controller="menu-controller as menu" class="collapse navbar-collapse pull-right" id="navbar-collapse-1">
                             <ul id="navigation" class="nav navbar-nav pull-left">
                                 <!--<li ng-show="showInPage('home')" class="active"><a href="#header" class="current">INICIO</a></li>-->                                
                                 <li ng-show="showInPage('home')"><a href="#map_home">MAPA</a></li>
@@ -81,17 +82,22 @@
                             
                             <ul class="nav navbar-nav navbar-right pull-right">
 
+                                    <li ng-show="!isAuthenticated()" class="pull-right"><a ng-href="/login" target="_self">Ingresá</a></li>
+                                    <li ng-show="isAuthenticated()" class="pull-right">
+                                        <div class="dropdown">
+                                            <a class="btn-account" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                &#123;{username}}
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <li><a ng-href="/users/&#123;{user_id}}">Perfil</a></li>
+                                                <li><a ng-click="do_logout()">Salir</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
 
-                                {{^user}}
-                                    <li class="pull-right"><a href="/user/login" target="_self">Ingresá</a></li>
-                                {{/user}}
-                                {{#user}}
-                                    <li class="pull-right"><a ng-href="/users/{{user.id}}">{{user.username}}</a></li>
-                                    <!--a href="/user/logout" target="_self">Salir</a-->
-                                {{/user}}
-
-                                <li ng-show="is_logged() && showInPage('home')" class="pull-right"><a class="boton-organiza" ng-href="/iniciativas/edit">Organizá</a></li>
-                                <li ng-show="!is_logged() && showInPage('home')" class="pull-right"><a class="boton-organiza" href="/user/login" target="_self">Organizá</a></li>
+                                <li ng-show="isAuthenticated() && showInPage('home')" class="pull-right"><a class="boton-organiza" ng-href="/iniciativas/edit">Organizá</a></li>
+                                <li ng-show="!isAuthenticated() && showInPage('home')" class="pull-right"><a class="boton-organiza" href="/login" target="_self">Organizá</a></li>
 
 
                             </ul>
@@ -187,14 +193,13 @@
     <script type="text/javascript" src="/static/sites/coperable/assets/js/jquery.singlePageNav.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/main.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/modernizr.js"></script>
-
     <script type="text/javascript" src="/static/bower_components/underscore/underscore-min.js"></script>
+
     <script type="text/javascript" src="/static/bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="/static/bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="/static/bower_components/angular-resource/angular-resource.min.js"></script>
-    <script type="text/javascript" src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script type="text/javascript" src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script type="text/javascript" src="/static/bower_components/elasticsearch/elasticsearch.angular.js"></script>
+    <!--script type="text/javascript" src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script-->
+    <script type="text/javascript" src="/static/bower_components/elasticsearch/elasticsearch.angular.min.js"></script>
     <script type="text/javascript" src="/static/bower_components/jt.timepicker/jquery.timepicker.min.js"></script>
 
     <script type="text/javascript" src="/static/bower_components/moment/min/moment.min.js"></script>
@@ -222,6 +227,12 @@
 
     <script type="text/javascript" src="/static/sites/coperable/assets/js/ui-bootstrap-tpls-0.12.1.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/ui-bootstrap-0.12.0.min.js"></script>
+
+    <script type="text/javascript" src="/static/bower_components/angular-messages/angular-messages.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-strap/dist/angular-strap.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/satellizer/satellizer.min.js"></script>
 
     <script type="text/javascript" src="/static/sites/coperable/services/services.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/modules/home/home.js?1"></script>

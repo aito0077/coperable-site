@@ -1,8 +1,4 @@
-angular.module('coperableApp.menu', ['ngRoute','ui.router','ngResource'])
+angular.module('coperableApp.menu', ['ngRoute','ngResource'])
 
-.controller('menu-controller', ['$scope', '$rootScope', '$timeout', '$location', function($scope, $rootScope, $timeout, $location) {
-    $scope.showInPage = function(page) {
-        return $rootScope.page == page;
-    };
-}]);
+;
 

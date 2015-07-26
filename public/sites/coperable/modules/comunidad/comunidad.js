@@ -1,6 +1,6 @@
-angular.module('coperableApp.comunidad', ['ngRoute','ui.router','ngResource'])
+angular.module('coperableApp.comunidad', ['ngRoute','ngResource'])
 
-.config(['$routeProvider', '$stateProvider', function($routeProvider, $stateProvider) {
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider
     .when('/comunidades', {
         templateUrl: '/static/sites/coperable/partials/comunidad/index.html',

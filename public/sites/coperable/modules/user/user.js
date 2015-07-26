@@ -1,6 +1,6 @@
-angular.module('coperableApp.user', ['ngRoute','ui.router','ngResource'])
+angular.module('coperableApp.user', ['ngRoute','ngResource'])
 
-.config(['$routeProvider', '$stateProvider', function($routeProvider, $stateProvider) {
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider
     .when('/users/edit/:id', {
         templateUrl: '/static/sites/coperable/partials/user/edit.html',
@@ -10,6 +10,113 @@ angular.module('coperableApp.user', ['ngRoute','ui.router','ngResource'])
         templateUrl: '/static/sites/coperable/partials/user/profile.html',
         controller: 'user-view'
     });
+
+}])
+.controller('user-login', ['$scope', '$rootScope', '$http', '$auth', '$alert', function($scope, $rootScope, $http, $auth, $alert) {
+    $scope.login = function() {
+        $auth.login({ email: $scope.email, password: $scope.password })
+        .then(function() {
+            $alert({
+                content: 'Ya te encuentras dentro',
+                animation: 'fadeZoomFadeDown',
+                type: 'material',
+                duration: 3
+            });
+            $http.get('/api/0.1/auth/me').
+            success(function(data, status, headers, config) {
+                $rootScope.user = data;
+            }).error(function(data, status, headers, config) {
+            });
+
+        })
+        .catch(function(response) {
+            console.dir(response);
+            $alert({
+                content: response.data ? response.data.message : response,
+                animation: 'fadeZoomFadeDown',
+                type: 'material',
+                duration: 3
+            });
+        });
+    };
+
+    $scope.authenticate = function(provider) {
+        $auth.authenticate(provider)
+        .then(function() {
+            $alert({
+                content: 'Ya te encuentras dentro',
+                animation: 'fadeZoomFadeDown',
+                type: 'material',
+                duration: 3
+            });
+            $http.get('/api/0.1/auth/me').
+            success(function(data, status, headers, config) {
+                $rootScope.user = data;
+            }).error(function(data, status, headers, config) {
+            });
+
+        })
+        .catch(function(response) {
+            $alert({
+                content: response.data ? response.data.message : response,
+                animation: 'fadeZoomFadeDown',
+                type: 'material',
+                duration: 3
+            });
+        });
+    };
+
+    $scope.signup = function() {
+        $auth.signup({
+            username: $scope.new_username,
+            email: $scope.new_email,
+            password: $scope.new_password
+        }).then(function() {
+            $http.get('/api/0.1/auth/me').
+            success(function(data, status, headers, config) {
+                $rootScope.user = data;
+            }).error(function(data, status, headers, config) {
+            });
+
+        }).catch(function(response) {
+            if (typeof response.data.message === 'object') {
+                angular.forEach(response.data.message, function(message) {
+                    $alert({
+                        content: message[0],
+                        animation: 'fadeZoomFadeDown',
+                        type: 'material',
+                        duration: 3
+                    });
+                });
+            } else {
+                $alert({
+                    content: response.data.message,
+                    animation: 'fadeZoomFadeDown',
+                    type: 'material',
+                    duration: 3
+                });
+            }
+        });
+    };
+ 
+}])
+.controller('user-logout', ['$scope', '$auth', '$alert', '$location', function($scope, $auth, $alert, $location) {
+
+        console.log('logout');
+    if (!$auth.isAuthenticated()) {
+        return;
+    }
+        console.log('relogout');
+    $auth.logout()
+      .then(function() {
+        $alert({
+          content: 'You have been logged out',
+          animation: 'fadeZoomFadeDown',
+          type: 'material',
+          duration: 3
+        });
+        $location.path('/');
+      });
 
 }])
 .controller('user-view', ['$scope', '$rootScope', '$http', '$routeParams', '$timeout', '$location', '$anchorScroll',  'Usuario', function($scope, $rootScope, $http, $routeParams, $timeout, $location, $anchorScroll,  Usuario) {
