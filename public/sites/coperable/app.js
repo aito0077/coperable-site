@@ -129,8 +129,14 @@ config(['$routeProvider', '$locationProvider', '$authProvider', function($routeP
         });
     };
 })
-.controller('static-controller', ['$scope','$rootScope', '$http', '$timeout', '$location', function($scope, $rootScope, $http, $timeout, $location) {
+.controller('static-controller', ['$scope','$rootScope', function($scope, $rootScope) {
     $rootScope.page = 'enred';
+}])
+.controller('page-controller', ['$scope', '$location', '$anchorScroll', function($scope, $location, $anchorScroll) {
+    $scope.toTop = function() {
+        $location.hash('page');
+        $anchorScroll();
+    };
 }])
 .controller('menu-controller', ['$scope', '$rootScope', '$timeout', '$location', '$auth', '$alert', '$http', function($scope, $rootScope, $timeout, $location, $auth, $alert, $http) {
     $scope.retrieving = false;
@@ -138,8 +144,6 @@ config(['$routeProvider', '$locationProvider', '$authProvider', function($routeP
     $scope.username = false;
     $scope.user_id = false;
     $scope.user = false;
-
-    console.log('menuconroller');
 
     $scope.isAuthenticated = function() {
             
@@ -159,30 +163,20 @@ config(['$routeProvider', '$locationProvider', '$authProvider', function($routeP
             success(function(data, status, headers, config) {
                 $scope.user = data;
                 $scope.retrieving = false;
-                console.dir($scope.user);
                 $scope.username = $scope.user.username;
                 $scope.user_id = $scope.user._id;
-                console.log($scope.username+' - '+$scope.user_id);
+                $rootScope.user_id = $scope.user_id;
             }).error(function(data, status, headers, config) {
                 $scope.retrieving = false;
-                console.log('error');
             });
     };
 
     $scope.do_logout = function() {
-        console.log('logout');
         if (!$auth.isAuthenticated()) {
             return;
         }
-        console.log('relogout');
         $auth.logout()
         .then(function() {
-            $alert({
-            content: 'You have been logged out',
-            animation: 'fadeZoomFadeDown',
-            type: 'material',
-            duration: 3
-            });
             $location.path('/');
         });
 

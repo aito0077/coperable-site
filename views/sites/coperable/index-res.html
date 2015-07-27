@@ -44,12 +44,13 @@
         <base href="/">
     </head>
 
-    <body>
-   <main class="cd-main-content">
+    <body ng-controller="page-controller">
 	<!-- your main content here 
         <script> window.fbAsyncInit = function() { FB.init({ appId      : '368346063364540', xfbml      : true, version    : 'v2.3' }); }; (function(d, s, id){ var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); </script>
        -->  
         <div id="page">
+
+            <div class="cd-main-content">
 
             <div> <a href="#0" class="cd-btn"><img src="http://coperable.coperable.org/static/sites/coperable/images/COP-ICON.png" alt=""></a></div>
         		
@@ -70,7 +71,6 @@
 
                         <div ng-controller="menu-controller as menu" class="collapse navbar-collapse pull-right" id="navbar-collapse-1">
                             <ul id="navigation" class="nav navbar-nav pull-left">
-                                <!--<li ng-show="showInPage('home')" class="active"><a href="#header" class="current">INICIO</a></li>-->                                
                                 <li ng-show="showInPage('home')"><a href="#map_home">MAPA</a></li>
                                 <li ng-show="showInPage('home')"><a href="#features">AGENDA</a></li>
                                 <li ng-show="showInPage('home')"><a href="#team">ORGANIZADORES</a></li>
@@ -152,8 +152,9 @@
           <div class="copyright"><p>© 2015 CC Coperable <br /> Powered by: <a href="http://coperable.org">Coperable</a></p></div>
         </div>
       </footer>
+            </div>
     </div>
-    </main>
+    <div class="scroll-to-top" data-spy="affix" data-offset-top="200"><a href="#page" ng-click="toTop()" class="smooth-scroll"><i class="fa fa-arrow-up"></i></a></div>
 
 
 	<!--ACÁ PARA EL PANEL INFORMATIVO-->
@@ -185,7 +186,6 @@
 
 
   
-    <div class="scroll-to-top" data-spy="affix" data-offset-top="10"><a href="#map_home" class="smooth-scroll"><i class="fa fa-arrow-up"></i></a></div>
   
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/bootstrap-3.1.1.min.js"></script>
@@ -219,6 +219,8 @@
 
     <script src="/static/bower_components/angular-socialshare/angular-socialshare.min.js"></script>
 
+
+    <script type="text/javascript" src="/static/javascripts/bootstrap-datepicker.js"></script>
 
     <script type="text/javascript" src="/static/bower_components/datedropper/datedropper.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/jquery.isotope.min.js?v=1.5.26"></script>

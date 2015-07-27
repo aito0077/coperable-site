@@ -231,7 +231,8 @@ angular.module('coperableApp.home', ['ngRoute','ngResource'])
     $scope.class_name = function() {
         return window.bleeding;
     };
-		$('.cd-panel').addClass('is-visible');
+
+    //$('.cd-panel').addClass('is-visible');
 
 	$scope.close_panel = function() {
 		$('.cd-panel').removeClass('is-visible');
