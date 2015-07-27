@@ -10,11 +10,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{layoutTitle}}</title>
         <link href="/static/sites/coperable/assets/css/template.css" rel="stylesheet">
+<!--
+        <link rel='stylesheet/less' href='/static/sites/coperable/assets/less/template.less' />
+-->
+
         <link href="/static/bower_components/datedropper/datedropper.css" rel="stylesheet">
         <link href="/static/bower_components/jt.timepicker/jquery.timepicker.css" rel="stylesheet">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link href="/static/bower_components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
         <link rel='stylesheet' href="/static/bower_components/angular-socialshare/angular-socialshare.min.css">
+		  
+		  <!-- FUENTE PARA TEXTO INFORMATIVO -->        
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900' rel='stylesheet' type='text/css'>
+           
+        <!--PANEL LATERAL-->
+        <link rel="/static/sites/coperable/slide-in-panel/stylesheet" href="css/reset.css"> <!-- CSS reset -->
+        <link rel="/static/sites/coperable/slide-in-panel/stylesheet" href="css/style.css"> <!-- Resource style -->
 
+<!--
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
+-->
 
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,77 +40,79 @@
         <script src='//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'></script>
         <script src="http://platform.twitter.com/widgets.js"></script>
 
+
         <base href="/">
     </head>
 
-    <body ng-controller="Ctrl">
+    <body>
+   <main class="cd-main-content">
+	<!-- your main content here 
         <script> window.fbAsyncInit = function() { FB.init({ appId      : '368346063364540', xfbml      : true, version    : 'v2.3' }); }; (function(d, s, id){ var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); </script>
-        
+       -->  
         <div id="page">
+
+            <div> <a href="#0" class="cd-btn"><img src="http://coperable.coperable.org/static/sites/coperable/images/COP-ICON.png" alt=""></a></div>
+        		
             <header id="header" class="site-header">
-                <nav id="topbar" class="site-topbar visible-lg visible-md">
-                    <div class="container">
-                        <div class="row">
-                            <div class="pull-right social-links col-sm-6">
-                            {{^user}}
-                                <a href="/user/login" target="_self"><span><b>Ingres&aacute;</b> </span></a>
-                                <a href="/auth/facebook" target="_self"><i class="fa fa-facebook"></i></a>
-                                <span>|</span>
-                                <a href="/auth/twitter" target="_self"><i class="fa fa-twitter"></i></a>
-                            {{/user}}
-                            {{#user}}
-                                <a href="/user/{{user.id}}" target="_self" >{{user.username}}</a>
-                                <a href="/user/logout" target="_self">Salir</a>
-                            {{/user}}
-                            </div>
-
-                        </div>
-                    </div>
-                </nav>
-
+                
                 <nav id="navbar" class="site-navbar navbar navbar-static-top" role="navigation">
-                    <div class="container">
+                    <div class="container container-nav">
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                                 <span class="sr-only">Toggle navigation</span>
                                 <i class="fa fa-bars"></i>
                             </button>
-                            <h1 class="navbar-brand">
-                                <a href="index.html">
-                                    <img src="/static/sites/coperable/images/logo_coperable.png"/> 
-                                </a>
-                            </h1>
+                            
+                            <a href="index.html">
+                                    <img class="logo-estatico" src="/static/sites/coperable/images/coperable-icon-navBar.png"/>
+                            </a>
                         </div>
 
-                        <div data-ng-controller="menu-controller" class="collapse navbar-collapse" id="navbar-collapse-1">
-                            <ul id="navigation" class="nav navbar-nav navbar-right">
-                                <li ng-show="showInPage('home')" class="active"><a href="#header" class="current">Home</a></li>
-                                <li ng-show="showInPage('home')"><a href="#features">Agenda</a></li>
-                                <li ng-show="showInPage('home')"><a href="#team">Organizaciones</a></li>
-                                <li ng-show="showInPage('home')"><a class="external" ng-href="/info/enred">La Red</a></li>
-                                <li ng-show="!showInPage('home')"><a class="external" ng-href="/home" class="current">Home</a></li>
-                                <li ng-show="showInPage('user-view')"><a href="#owned-iniciativas" class="current">Actividades</a></li>
-                                <li ng-show="showInPage('user-view')"><a href="#map_owned" class="current">Mapa</a></li>
+                        <div ng-controller="menu-controller as menu" class="collapse navbar-collapse pull-right" id="navbar-collapse-1">
+                            <ul id="navigation" class="nav navbar-nav pull-left">
+                                <!--<li ng-show="showInPage('home')" class="active"><a href="#header" class="current">INICIO</a></li>-->                                
+                                <li ng-show="showInPage('home')"><a href="#map_home">MAPA</a></li>
+                                <li ng-show="showInPage('home')"><a href="#features">AGENDA</a></li>
+                                <li ng-show="showInPage('home')"><a href="#team">ORGANIZADORES</a></li>
+                                <li ng-show="showInPage('user-view')"><a href="#owned-iniciativas" class="current">ACTIVIDADES</a></li>
+                                <li ng-show="!showInPage('home')"><a class="external" ng-href="/home" class="current">HOME</a></li>
+                                <li ng-show="showInPage('user-view')"><a href="#map_owned" class="current">MAPA</a></li>
+
+                            </ul>
+                            
+                            <ul class="nav navbar-nav navbar-right pull-right">
+
+                                    <li ng-show="!isAuthenticated()" class="pull-right"><a ng-href="/login" target="_self">Ingresá</a></li>
+                                    <li ng-show="isAuthenticated()" class="pull-right">
+                                        <div class="dropdown">
+                                            <a class="btn-account" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                &#123;{username}}
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <li><a ng-href="/users/&#123;{user_id}}">Perfil</a></li>
+                                                <li><a ng-click="do_logout()">Salir</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                <li ng-show="isAuthenticated() && showInPage('home')" class="pull-right"><a class="boton-organiza" ng-href="/iniciativas/edit">Organizá</a></li>
+                                <li ng-show="!isAuthenticated() && showInPage('home')" class="pull-right"><a class="boton-organiza" href="/login" target="_self">Organizá</a></li>
+
+
                             </ul>
                         </div>
-
-                        <!--div class="collapse navbar-collapse" id="navbar-collapse-1">
-                            <ul id="navigation" class="nav navbar-nav navbar-right">
-                                <li class="active"><a href="#header" class="current">Home</a></li>
-                                <li><a href="#features">Agenda</a></li>
-                                <li><a href="#team">Organizaciones</a></li>
-                                <li><a ng-href="/info/enred" class="external">La Red</a></li>
-                            </ul>
-                        </div-->
                     </div>
                 </nav>
             </header>
+
 
             <main id="main" class="site-main" ng-view>
 
        
             </main>
-
+		<div class="bandera"></div>
+		
       <footer id="footer" class="site-footer">
         <div class="container">
 
@@ -136,22 +153,53 @@
         </div>
       </footer>
     </div>
+    </main>
 
-    <div class="scroll-to-top" data-spy="affix" data-offset-top="200"><a href="#page" class="smooth-scroll"><i class="fa fa-arrow-up"></i></a></div>
+
+	<!--ACÁ PARA EL PANEL INFORMATIVO-->
+
+	<div  class="cd-panel from-right">
+		<header class="cd-panel-header">
+			<h1>COPERABLE</h1>
+			<a href="#0" class="cd-panel-close">Close</a>
+		</header>
+
+		<div class="cd-panel-container">
+			<div class="cd-panel-content">
+				
+				<img src="/static/sites/coperable/images/coperable-logoPrincipal.png" alt="" width="130px">
+            <h3>MAPA Y AGENDA COLABORATIVA</h3>
+            <p>Donde compartir iniciativas abiertas y participar en encuentros positivos para la comunidad.</p>
+
+            <a ng-show="is_logged()" class="boton" ng-href="/iniciativas/edit"> Organizá</a>
+            <a ng-show="!is_logged()" class="boton" href="/user/login" target="_self"> Organizá</a>
+            <p></p>
+            
+            
+            <div class="diagrama-intro"><img src="/static/sites/coperable/images/COP-DIAGRAMA.png" alt=""></div>
+
+			</div> <!-- cd-panel-content -->
+		</div> <!-- cd-panel-container -->
+	</div> <!-- cd-panel -->
+
+
+
+  
+    <div class="scroll-to-top" data-spy="affix" data-offset-top="10"><a href="#map_home" class="smooth-scroll"><i class="fa fa-arrow-up"></i></a></div>
   
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/bootstrap-3.1.1.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/jquery.isotope.min.js?v=1.5.26"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/jquery.singlePageNav.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/main.js"></script>
-
+    <script type="text/javascript" src="/static/sites/coperable/assets/js/modernizr.js"></script>
     <script type="text/javascript" src="/static/bower_components/underscore/underscore-min.js"></script>
+
     <script type="text/javascript" src="/static/bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="/static/bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="/static/bower_components/angular-resource/angular-resource.min.js"></script>
-    <script type="text/javascript" src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script type="text/javascript" src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script type="text/javascript" src="/static/bower_components/elasticsearch/elasticsearch.angular.js"></script>
+    <!--script type="text/javascript" src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script-->
+    <script type="text/javascript" src="/static/bower_components/elasticsearch/elasticsearch.angular.min.js"></script>
     <script type="text/javascript" src="/static/bower_components/jt.timepicker/jquery.timepicker.min.js"></script>
 
     <script type="text/javascript" src="/static/bower_components/moment/min/moment.min.js"></script>
@@ -180,15 +228,22 @@
     <script type="text/javascript" src="/static/sites/coperable/assets/js/ui-bootstrap-tpls-0.12.1.min.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/assets/js/ui-bootstrap-0.12.0.min.js"></script>
 
+    <script type="text/javascript" src="/static/bower_components/angular-messages/angular-messages.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-strap/dist/angular-strap.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/satellizer/satellizer.min.js"></script>
+
     <script type="text/javascript" src="/static/sites/coperable/services/services.js"></script>
-    <script type="text/javascript" src="/static/sites/coperable/modules/home/home.js"></script>
-    <script type="text/javascript" src="/static/sites/coperable/modules/iniciativa/iniciativa.js"></script>
+    <script type="text/javascript" src="/static/sites/coperable/modules/home/home.js?1"></script>
+    <script type="text/javascript" src="/static/sites/coperable/modules/iniciativa/iniciativa.js?1"></script>
     <script type="text/javascript" src="/static/sites/coperable/modules/comunidad/comunidad.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/modules/user/user.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/modules/menu/menu.js"></script>
     <script type="text/javascript" src="/static/sites/coperable/app.js"></script>
-
-    <script type="text/javascript" src="/static/bower_components/modernizr/modernizr.js"></script>
+	
+	<!--PANEL LATERAL-->
+	<script src="/static/sites/coperable/slide-in-panel/js/modernizr.js"></script> <!-- Modernizr -->
 
     <script>
     {{#user}}
@@ -218,9 +273,6 @@
   }
 }
     </script>
-
-
-
 
   </body>
 </html>

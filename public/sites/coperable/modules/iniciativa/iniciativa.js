@@ -1,6 +1,6 @@
-angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','ngResource'])
+angular.module('coperableApp.iniciativa', ['ngRoute','ui.bootstrap','ngResource'])
 
-.config(['$routeProvider', '$stateProvider', function($routeProvider, $stateProvider) {
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider
     .when('/iniciativa/edit', {
         templateUrl: '/static/sites/coperable/partials/iniciativa/edit.html',
@@ -20,7 +20,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     });
 
 }])
-.controller('iniciativa-edit', ['$scope', '$rootScope', '$http', '$routeParams', '$location', '$anchorScroll', '$timeout', '$rootScope', 'Iniciativa', 'Usuario', function($scope, $rootScope, $http, $routeParams, $location, $anchorScroll, $timeout, $rootScope, Iniciativa, Usuario) {
+.controller('iniciativa-edit', ['$scope', '$rootScope', '$routeParams', '$location', '$anchorScroll', '$timeout', '$rootScope', 'Iniciativa', 'Usuario', function($scope, $rootScope, $routeParams, $location, $anchorScroll, $timeout, $rootScope, Iniciativa, Usuario) {
 
     $rootScope.page = 'iniciativa-edit';
 
@@ -36,35 +36,41 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
         { "value": "Seminario"   ,"text": "Seminario"   , "continent": "naturaleza"    },
         { "value": "Espectaculo"   ,"text": "Espectaculo"   , "continent": "naturaleza"    },
         { "value": "Feria"   ,"text": "Feria"   , "continent": "naturaleza"    },
-        { "value": "Festivales"   ,"text": "Festivales"   , "continent": "naturaleza"    },
+        { "value": "Festival"   ,"text": "Festival"   , "continent": "naturaleza"    },
+        { "value": "Jazz"   ,"text": "Jazz"   , "continent": "naturaleza"    },
+        { "value": "Rock"   ,"text": "Rock"   , "continent": "naturaleza"    },
+        { "value": "Folklore"   ,"text": "Folklore"   , "continent": "naturaleza"    },
+        { "value": "Clasica"   ,"text": "Clasica"   , "continent": "naturaleza"    },
+        { "value": "Música"   ,"text": "Música"   , "continent": "naturaleza"    },
+        { "value": "Danza"   ,"text": "Danza"   , "continent": "naturaleza"    },
+        { "value": "Cine"   ,"text": "Cine"   , "continent": "naturaleza"    },
+        { "value": "Teatro"   ,"text": "Teatro"   , "continent": "naturaleza"    },
         { "value": "Encuentro"   ,"text": "Encuentro"   , "continent": "naturaleza"    },
-        { "value": "Peña"   ,"text": "Peña"   , "continent": "naturaleza"    },
+        { "value": "Libre"   ,"text": "Libre"   , "continent": "price"    },
         { "value": "Gratis"   ,"text": "Gratis"   , "continent": "price"    },
-        { "value": "A la Gorra", "text": "A la Gorra"   , "continent": "price"    },
         { "value": "Arancelada"   ,"text": "Arancelada"   , "continent": "price"    },
-        { "value": "Centro"   ,"text": "Centro"   , "continent": "place"    },
-        { "value": "El Hueco", "text": "El Hueco"   , "continent": "place"    },
-        { "value": "Iporá"   ,"text": "Iporá"   , "continent": "place"    },
-        { "value": "Tallo Blanco", "text": "Tallo Blanco"   , "continent": "place"    },
-        { "value": "30 de Mayo", "text": "30 de Mayo"   , "continent": "place"    },
-        { "value": "San Cayetano", "text": "San Cayetano"   , "continent": "place"    },
-        { "value": "Los Sauces", "text": "Los Sauces"   , "continent": "place"    },
-        { "value": "El Porteño", "text": "El Porteño"   , "continent": "place"    },
-        { "value": "Monte Corti", "text": "Monte Corti"   , "continent": "place"    },
-        { "value": "Parque Girado", "text": "Parque Girado"   , "continent": "place"    },
-        { "value": "La Libertad", "text": "La Libertad"   , "continent": "place"    }
+        { "value": "Donaciones"   ,"text": "Donaciones"   , "continent": "price"    },
+        { "value": "Parque", "text": "Parque"   , "continent": "place"    },
+        { "value": "Calle", "text": "Calle"   , "continent": "place"    },
+        { "value": "Plaza", "text": "Plaza"   , "continent": "place"    }
     ];      
 
     $scope.iniciativa = new Iniciativa();
     $scope.organization = Usuario.get({
         id: $rootScope.user_id
     }, function(data) {
-        $scope.first_time = data.ownedIniciativas && data.ownedIniciativas.length > 1 && data.implementation == 'coperable' ? false : true;
+        $scope.first_time = data.ownedIniciativas && data.ownedIniciativas.length > 1;
     });
 
     $scope.show_organization_form = function() {
         return $scope.first_time && !$scope.persisted;
     };
+
+    $scope.show_iniciativa_form = function() {
+        return !$scope.first_time && !$scope.persisted;
+    };
+
+
 
     $scope.prepareOrganization = function() {
         $scope.organization.implementation = 'coperable';
@@ -133,6 +139,24 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
     };
 
+    $scope.save_organizacion = function(isValid) {
+        $scope.saving = true;
+        $scope.hasError = !isValid;
+        $scope.prepareModel();
+        if(isValid) {
+            $scope.prepareOrganization();
+            $scope.organization.$save(function(data) {
+                $scope.first_time = false;
+                $scope.saving = false;
+                $location.hash('page');
+                $anchorScroll();
+            });
+        } else {
+            $scope.saving = false;
+
+        }
+    };
+
     $scope.save = function(isValid) {
         $scope.saving = true;
         $scope.hasError = !isValid;
@@ -145,15 +169,8 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
                 $location.hash('page');
                 $anchorScroll();
             });
-            if($scope.first_time) {
-                $scope.prepareOrganization();
-                $scope.organization.$save(function(data) {
-                    $scope.first_time = false;
-                });
-            }
         } else {
             $scope.saving = false;
-
         }
     };
 
@@ -361,7 +378,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $anchorScroll();
 
 }])
-.controller('iniciativa-list', ['$scope', '$rootScope', '$http', '$timeout', 'client', function($scope, $rootScope, $http, $timeout, client) {
+.controller('iniciativa-list', ['$scope', '$rootScope', '$timeout', 'client', function($scope, $rootScope, $timeout, client) {
 
     $rootScope.page = 'iniciativa-list';
     $scope.iniciativas = [];
@@ -371,9 +388,15 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     $scope.query_terms = '';
     $scope.list_show = true;
     $scope.map_show = true;
+    $scope.show_history = false;
 
     $scope.toggle_map = function() {
         $scope.map_show = !$scope.map_show;
+    };
+
+    $scope.toggle_history = function() {
+        $scope.show_history = !$scope.show_history;
+        $scope.search_action();
     };
 
     $scope.toggle_list = function() {
@@ -399,8 +422,8 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
 
     var myOptions = {
-        zoom: 13,
-        center:  new google.maps.LatLng(-35.559169,-57.9989482),
+        zoom: 3,
+	center: new google.maps.LatLng(-24.615692,-64.432846),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -461,27 +484,69 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
     };
 
 
-    $scope.item_template = '<div class="initiative" id="project-modal" tabindex="-1" aria-labelledby="project-modal-label" > <div class="_modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title" id="project-modal-label"><%= name %></h4> </div> <div class="modal-body"> <article class="single-project"> <div class="project-thumbnail"> <div id="project-thumbnail-carousel-1" class="carousel slide" data-ride="carousel"> <div class="carousel-inner"> <div class="item active"> <img src="/static/uploads/thumbs/<%= profile_picture %>"/> </div> </div>  </div> </div>  <div class="row"><ul class="list-unstyled project-info"> <li><span><strong><%= address %></strong></span></li> <li><span><strong><%= date_f %></strong></span></li> </ul> </div> <!--div class="row"> <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa"> <span type="button" class="btn btn-block btn-primary">Participá</button></a></div--> </div> </article> </div> </div> </div>';
+    $scope.item_template = '<div class="initiative" id="project-modal" tabindex="-1" aria-labelledby="project-modal-label" > <div class="_modal-dialog"> <div class="_modal-content"> <div class="modal-header"> <!--button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button--> <h4 class="modal-title" id="project-modal-label"><%= name %></h4> </div> <div class="modal-body"> <article class="single-project"> <div class="project-thumbnail"> <div id="project-thumbnail-carousel-1" class="carousel slide" data-ride="carousel"> <div class="carousel-inner"> <div class="item active"> <img src="/static/uploads/thumbs/<%= profile_picture %>"/> </div> </div>  </div> </div>  <div class="row"><ul class="list-unstyled project-info"> <li><span><strong><%= address %></strong></span></li> <li><span><strong><%= date_f %></strong></span></li> </ul> </div> <!--div class="row"> <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa"> <span type="button" class="btn btn-block btn-primary">Participá</button></a></div--> </div> </article> </div> </div> </div>';
 
     $scope.itemTemplate = _.template(_.unescape($scope.item_template));
 
 
-
     $scope.do_search = function() {
         var query_search = {
+            filtered: {
+                query: {
+                    bool: {
+                        must: [
+				{
+				    range: {
+					start_date: {
+					    gte: "now-7M"
+					}
+				    }
+				}
+			],
+                        should: [
+
+			]
+                    }
+                },
+                filter: {
+                    exists : { field : "profile_picture" }
+                }
+            }
         };
+
         if($scope.query_terms) {
             query_search = {
-                bool: {
-                    must: [
-                        {
-                            query_string : {
-                                query : $scope.query_terms 
-                            }
+                filtered: {
+                    query: {
+                        bool: {
+                            must: [
+                                {
+                                    query_string : {
+                                        query : $shouldscope.query_terms 
+                                    }
+                                }
+                            ], 
+                            should: []
                         }
-                    ]
+                    },
+                    filter: {
+                        exists : { field : "profile_picture" }
+                    }
                 }
             };
+        }
+
+        if(!$scope.show_history) {
+            query_search.filtered.query.bool.must.push(
+                {
+                    range: {
+                        end_date: {
+                            gte: "now-2d"
+                        }
+                    }
+                }
+            );
+
         }
 
         client.search({
@@ -609,7 +674,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap',
 
 
 }])
-.controller('iniciativa-view', ['$scope', '$rootScope', '$http', '$routeParams', '$location', '$anchorScroll', '$sce', 'Iniciativa', 'Usuario', function($scope, $rootScope, $http, $routeParams, $location, $anchorScroll, $sce, Iniciativa, Usuario) {
+.controller('iniciativa-view', ['$scope', '$rootScope', '$routeParams', '$location', '$anchorScroll', '$sce', 'Iniciativa', 'Usuario', function($scope, $rootScope, $routeParams, $location, $anchorScroll, $sce, Iniciativa, Usuario) {
 
     $rootScope.page = 'iniciativa-view';
 

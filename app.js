@@ -19,7 +19,11 @@ var config = require('./config'),
   pass_autentication = require('./logic/authentication'),
   redis = require('redis'),
   filehandler = require('./logic/filehandler'),
-  RedisStore = require('connect-redis')(express),
+  session = require('express-session'),
+  cors = require('cors'),
+  jwt = require('jwt-simple'),
+  moment = require('moment'),
+  RedisStore = require('connect-redis')(session);
   app = express();
    
 
@@ -51,6 +55,10 @@ app.configure(function(){
         }
     }));
     app.use(bodyParser());
+
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
+
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(express.methodOverride());
@@ -374,6 +382,25 @@ app.post('/feca/user/signup', users.do_signup, function(req, res){
 });
 
 
+function ensureAuthenticated(req, res, next) {
+    if (!req.headers.authorization) {
+        return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
+    }
+    var token = req.headers.authorization.split(' ')[1];
+
+    var payload = null;
+    try {
+        payload = jwt.decode(token, config.TOKEN_SECRET);
+    } catch (err) {
+        return res.status(401).send({ message: err.message });
+    }
+
+    if (payload.exp <= moment().unix()) {
+        return res.status(401).send({ message: 'Token has expired' });
+    }
+    req.user = payload.sub;
+    next();
+}
 
 function saveSubdomain(req, res, next) {
     if(!req.session) req.session = {};

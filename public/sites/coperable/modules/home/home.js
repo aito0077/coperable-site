@@ -1,6 +1,6 @@
-angular.module('coperableApp.home', ['ngRoute','ui.router','ngResource'])
+angular.module('coperableApp.home', ['ngRoute','ngResource'])
 
-.config(['$routeProvider', '$stateProvider', function($routeProvider, $stateProvider) {
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/home', {
         templateUrl: '/static/sites/coperable/partials/home/home.html',
         controller: 'HomeController'
@@ -40,7 +40,6 @@ angular.module('coperableApp.home', ['ngRoute','ui.router','ngResource'])
                 $scope.iniciativas = data;
                 $scope.marcar_iniciativas();
             }).error(function(data, status, headers, config) {
-                console.log(data);
             });
 
     };
@@ -68,13 +67,14 @@ angular.module('coperableApp.home', ['ngRoute','ui.router','ngResource'])
     };
 
 
-    $scope.item_template = '<div class="initiative" id="project-modal" tabindex="-1" aria-labelledby="project-modal-label" > <div class="_modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title" id="project-modal-label"><%= name %></h4> </div> <div class="modal-body"> <article class="single-project"> <div class="project-thumbnail"> <div id="project-thumbnail-carousel-1" class="carousel slide" data-ride="carousel"> <div class="carousel-inner"> <div class="item active"> <img src="/static/uploads/thumbs/<%= profile_picture %>"/> </div> </div>  </div> </div>  <div class="row"><ul class="list-unstyled project-info"> <li><span><strong><%= address %></strong></span></li> <li><span><strong><%= date_f %></strong></span></li> </ul> </div> <!--div class="row"> <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa"> <span type="button" class="btn btn-block btn-primary">Participá</button></a></div--> </div> </article> </div> </div> </div>';
+    $scope.item_template = '<div class="initiative" id="project-modal" tabindex="-1" aria-labelledby="project-modal-label" > <div class="_modal-dialog"> <div class="_modal-content"> <div class="modal-header"> <!--button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button--> <h4 class="modal-title" id="project-modal-label"><%= name %></h4> </div> <div class="modal-body"> <article class="single-project"> <div class="project-thumbnail"> <div id="project-thumbnail-carousel-1" class="carousel slide" data-ride="carousel"> <div class="carousel-inner"> <div class="item active"> <img src="/static/uploads/thumbs/<%= profile_picture %>"/> </div> </div>  </div> </div>  <div class="row"><ul class="list-unstyled project-info"> <li><span><strong><%= address %></strong></span></li> <li><span><strong><%= date_f %></strong></span></li> </ul> </div> <!--div class="row"> <a href="/iniciativas/<%= _id %>" rel="address:/iniciativa"> <span type="button" class="btn btn-block btn-primary">Participá</button></a></div--> </div> </article> </div> </div> </div>';
 
     $scope.setup_components();
 
     var myOptions = {
-        zoom: 3,
-        center: new google.maps.LatLng(-21.616579,-60.849613),
+        zoom: 13,
+        //center: new google.maps.LatLng(-21.616579,-60.849613),
+        center: new google.maps.LatLng(-34.615692,-58.432846),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -90,7 +90,6 @@ angular.module('coperableApp.home', ['ngRoute','ui.router','ngResource'])
 
         _.each($scope.iniciativas, function(hit) {
             var model = hit._source;
-            console.dir(model);
             var momento = moment(model.start_date).locale('es'),
                 location = model.location,
                 marker = new google.maps.Marker({
@@ -184,9 +183,30 @@ angular.module('coperableApp.home', ['ngRoute','ui.router','ngResource'])
     };
 
     $scope.fetch_organizations = function() {
+
+        var query_search = {
+            filtered: {
+                query: {
+                    bool: {
+                        must: [],
+                        should: [
+
+			]
+                    }
+                },
+                filter: {
+                    exists : { field : "profile_picture" }
+                }
+            }
+        };
+
         client.search({
             index: 'usuarios',
             size: 6,
+            body: {
+                query: query_search,
+            }
+ 
         }).then(function (resp) {
 
             $scope.organizations = resp.hits.hits;
@@ -211,6 +231,11 @@ angular.module('coperableApp.home', ['ngRoute','ui.router','ngResource'])
     $scope.class_name = function() {
         return window.bleeding;
     };
+		$('.cd-panel').addClass('is-visible');
+
+	$scope.close_panel = function() {
+		$('.cd-panel').removeClass('is-visible');
+	};
 
 }]);
 

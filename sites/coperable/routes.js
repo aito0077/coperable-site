@@ -5,12 +5,10 @@ var _ = require('underscore'),
 
 exports.index = function(req, res) {
 
-  var geo = (req.session ? req.session.geo : false) ||
+    var geo = (req.session ? req.session.geo : false) ||
             (req.cookies ? req.cookies.geo : undefined);
 
-    console.dir(req.session.passport.user);
-
-      return res.render('sites/coperable/index-res.html', {
+    return res.render('sites/coperable/index-res.html', {
         layoutTitle: 'Coperable (DEV)',
         layout: 'sites/coperable/index-res.html',
         layoutId: 'home-index',
@@ -18,11 +16,12 @@ exports.index = function(req, res) {
         coperable_admin: req.user &&  (""+req.user.id == '53b4592f7e0c217564000006'),
         is_coperable: req.user ? req.user.is_coperable : false,
         geo: geo
-      });
+    });
 
 
 };
 
+/*
 exports.login = function(req, res) {
     if(req.session) {
         req.session.redirectURL = req.query ? req.query.returnURL : '/';
@@ -45,5 +44,6 @@ exports.signup = function(req, res) {
     })
 };
 
+*/
 
 

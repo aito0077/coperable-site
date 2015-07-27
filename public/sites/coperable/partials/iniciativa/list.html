@@ -17,8 +17,8 @@
 		<div class="col-md-4">
 			<div class="filters-default pull-right">
 				<ul>
-					<li class="{{map_show ? 'selected' : ''}} map-bt" ng-click="toggle_map()">Mapa</li>
 					<li class="{{list_show ? 'selected' : ''}}  grid-bt" ng-click="toggle_list()">Grilla</li>
+					<li class="{{map_show ? 'selected' : ''}} map-bt" ng-click="toggle_map()">Mapa</li>
 				</ul>
 			</div>
 		</div>
@@ -30,20 +30,39 @@
         <div class="row">
             <div class="col-md-12 block-center text-center">
                 <ul id="categories" class="nav nav-pills center-pills">
-                    <li ng-click="select_category('all')"><b style="color: #EF4832">Categorías</b></li>
-                    <li ng-repeat="category in categories"><span class="selector category-name {{isCategoryActive(category)}}" ng-click="select_category(category)">{{display_category(category)}}</span></li>
+                    <li>
+			<span class="selector category-name {{!category_selected ? 'active' : ''}}" ng-click="select_category('all')">
+				Todas
+			</span> 
+			</li>
+                    <li ng-repeat="category in categories" ng-show="{{category != 'deporte'}}">
+			<span class="selector category-name {{isCategoryActive(category)}}" ng-click="select_category(category)">{{display_category(category)}}</span>
+	           </li>
                 </ul>
             </div>
         </div>
 
-        <div class="row">
+        <!--div class="row">
             <div class="col-md-12 block-center text-center">
                 <ul id="topics" class="nav nav-pills center-pills">
                     <li><span ng-click="select_topic('all')"><b style="color: #EF4832">Tipos</b></span></li>
                     <li ng-repeat="topic in topics" ><span class="selector topic-name {{isTopicActive(topic.key)}}" ng-click="select_topic(topic.key)">{{topic.key}}</span></li>
                 </ul>
             </div>
-        </div>
+        </div-->
+
+		<div class="row">
+			<div class="filters-default pull-right">
+				<ul>
+					<li class="{{show_history ? 'selected' : ''}}  history-bt" ng-click="toggle_history()">
+                        <i class="fa fa-history"></i> Finalizados
+                    </li>
+				</ul>
+			</div>
+		</div>
+
+
+
     </div>
 </section>
 

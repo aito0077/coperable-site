@@ -18,8 +18,8 @@
     "moment": "*",
     "restify": "2.3.4",
     "bcrypt": "0.7.5",
-    "redis": "0.8.2",
-    "connect-redis": "1.4.5",
+    "express-session": "*",
+    "redis": "*",
     "aws-sdk": "0.9.7-pre.8",
     "mime-magic": "5.14.0",
     "validator": "1.1.1",
@@ -29,9 +29,12 @@
     "stylus": "~0.38.0",
     "imagemagick": "*",
     "nib": "~1.0.1",
-    "node-uuid" : "1.4.0",
+    "node-uuid": "1.4.0",
     "express-subdomain": "1.0.1",
     "express-jwt": "*",
-    "jsonwebtoken": "*"
+    "connect-redis": "~2.3.0",
+    "cors": "^2.7.1",
+    "jwt-simple": "^0.3.0"
+
   }
 }
