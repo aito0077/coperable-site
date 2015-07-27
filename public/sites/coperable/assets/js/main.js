@@ -28,6 +28,7 @@ $(document).ready(function(){
   $('#navbar').affix({
     offset: {
       //top: $('#topbar').outerHeight(),
+      top: 20
     }
   });
 

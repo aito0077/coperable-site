@@ -678,10 +678,8 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.bootstrap','ngResource'
 
     $rootScope.page = 'iniciativa-view';
 
-	/*
     $location.hash('page');
     $anchorScroll();
-*/
 
     $scope.is_logged = function() {
         return $rootScope.user_id ? true : false;
