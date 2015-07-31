@@ -83,20 +83,26 @@ angular.module('minkanetApp.home', ['ngRoute','ui.router','ngResource'])
             body: {
                 query: {
                     bool: {
-                        must: { 
+                        must: [ 
+				{
                             match: { 
                                 implementation: 'minka'
-                            }
-                        },
-                        must: { 
+                            }}
+
+/*
+	,
+				{
                             range: {
                                 end_date: {
-                                    gte: "now",
+                                    gte: "now"
                                 }
                             }
-                        }
+				}
+*/
+                        ]
                     }
                 },
+
                 aggs: {
                     countries: {
                         terms: {
@@ -145,6 +151,9 @@ angular.module('minkanetApp.home', ['ngRoute','ui.router','ngResource'])
                             }
                         }
                     }
+                },
+                filter: {
+                    exists : { field : "profile_picture" }
                 }
             }
         }).then(function (resp) {
