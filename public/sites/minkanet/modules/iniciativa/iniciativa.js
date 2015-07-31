@@ -366,6 +366,9 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
 
     $rootScope.page = 'iniciativa-list';
 
+	window.scrollTo(0, 0);
+
+
     $scope.iniciativas = [];
     $scope.hits = [];
     $scope.day_filters = [];
@@ -615,8 +618,6 @@ angular.module('minkanetApp.iniciativa', ['ngRoute','ui.router','ui.bootstrap','
     $timeout(function () {
 	$scope.toggle_map();
     }, 1000);
-
-    $(window).scrollTop();
 
 
 }])

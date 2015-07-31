@@ -72,9 +72,10 @@ angular.module('coperableApp.home', ['ngRoute','ngResource'])
     $scope.setup_components();
 
     var myOptions = {
-        zoom: 13,
-        //center: new google.maps.LatLng(-21.616579,-60.849613),
-        center: new google.maps.LatLng(-34.615692,-58.432846),
+        zoom: 3,
+        //zoom: 13,
+        center: new google.maps.LatLng(-21.616579,-60.849613),
+        //center: new google.maps.LatLng(-34.615692,-58.432846),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 

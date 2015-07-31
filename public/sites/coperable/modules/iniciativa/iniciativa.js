@@ -522,7 +522,7 @@ angular.module('coperableApp.iniciativa', ['ngRoute','ui.bootstrap','ngResource'
                             must: [
                                 {
                                     query_string : {
-                                        query : $shouldscope.query_terms 
+                                        query : $scope.query_terms 
                                     }
                                 }
                             ], 
