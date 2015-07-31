@@ -28,7 +28,7 @@
                     				<td class="td-tit"><h1>Somos cada día más!</h1> </td>
                     				<td class="td-img"><img src="/static/sites/coperable/images/coperable-logo-crema.png" alt=""></td>
                     				<td class="td-desc"><h3>COPERABLE LOCAL-GLOBAL</h3>
-                    										  <p>Sumate a una red con iniciativas en toda América Latina.</p>
+                    										  <h5>Sumate a una red con iniciativas en toda América Latina.</h5>
                     				
                     				</td>
                     			</tr>
@@ -54,14 +54,14 @@
                           </div--> 
 			               <div class="container">
                     		
-                        <div class="section-title"><h2><small>AGENDA de INICIATIVAS en Coperable</small></h2></div>
+                        <div class="section-title"><h3>AGENDA de INICIATIVAS en Coperable</h3></div>
 
                         <div class="row">
 
                             <div ng-repeat="hit in hits | limitTo: 6" data-category="medio_ambiente" class="item-template col-md-4">
 
                                 <div class="initiative initiative-item">
-                                    <div data-label="{{hit._source.start_date | moment: 'D [de] MMMM'}}" class="pic">
+                                    <div data-label="{{hit._source.start_date | moment: 'DD MMM'}}" class="pic">
                                         <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
                                             <img class="replace-src" ng-src="/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
                                         </a>
@@ -102,9 +102,10 @@
                     				<td class="td-tit"><h1>INFORMACIÓN</h1> </td>
                     				<td class="td-img"><img src="/static/sites/coperable/images/coperable-linea-crema.png" alt=""></td>
                     				<td class="td-desc">
-                                        <p>Un set de herramientas colaborativas para difundir y visibilizar las iniciativas de las organizaciones</p>
-                                        <p>Sumando participantes</p>
-                                        <p>Fomentando la cooperación y el trabajo en red</p>
+                                        <h4>UN SET DE HERRAMIENTAS PARA DIFUNDIR Y VISIBILIZAR INICIATIVAS COLABORATIVAS</h4>
+                                        <!--<h5>Un set de herramientas colaborativas para difundir y visibilizar las iniciativas de las organizaciones</h5>-->
+                                        <h5>- Sumando participantes</br>
+                                        - Fomentando la cooperación y el trabajo en red</h5>
                     				</td>
                     			</tr>
                     		</table>
@@ -121,12 +122,13 @@
 
                 <section id="team" class="section section-center section-hilite section-team">
                     <div class="container">
-                        <div class="section-title"><h2><span></span><small>ORGANIZADORES trabajando en Coperable</small></h2></div>
+                        <div class="section-title"><h3>ORGANIZADORES trabajando en Coperable</h3></div>
                         <div class="row">
-                            <div ng-repeat="organization in organizations" class="col-md-2 col-sm-4 col-xs-6">
+                            <div ng-repeat="organization in organizations" class="col-md-2 col-sm-4 col-xs-6 ficha-organizador">
                                 <a ng-href="/users/{{organization._id}}">
-                                    <img width="300px" ng-src="/static/uploads/thumbs/{{organization._source.profile_picture}}">
+                                    <img class="img-usr" ng-src="/static/uploads/fullsize/{{organization._source.profile_picture}}">
                                     <h5>{{organization._source.organization_name}}</h5>
+                                    <p><img style="width=15px" src="/static/sites/coperable/images/location-icon.png" />Ciudad, País</p>
                                 </a>
                             </div>
                         </div>
