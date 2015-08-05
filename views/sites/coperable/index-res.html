@@ -70,9 +70,9 @@
 
                         <div ng-controller="menu-controller as menu" class="collapse navbar-collapse pull-right" id="navbar-collapse-1">
                             <ul id="navigation" class="nav navbar-nav pull-left">
-                                <li ng-show="showInPage('home')"><a href="#map_home">MAPA</a></li>
-                                <li ng-show="showInPage('home')"><a href="#features">AGENDA</a></li>
-                                <li ng-show="showInPage('home')"><a href="#team">ORGANIZADORES</a></li>
+                                <li ng-show="showInPage('home')"><a href="#map_home"><img src="/static/sites/coperable/images/mapa-icon-sm.png" height="20px"> MAPA</a></li>
+                                <li ng-show="showInPage('home')"><a href="#features"><img src="/static/sites/coperable/images/agenda-icon-sm.png" height="20px"> AGENDA</a></li>
+                                <li ng-show="showInPage('home')"><a href="#team"><img src="/static/sites/coperable/images/organizador-icon-sm.png" height="20px"> Organizadores</a></li>
                                 <li ng-show="showInPage('user-view')"><a href="#owned-iniciativas" class="current">ACTIVIDADES</a></li>
                                 <li ng-show="!showInPage('home')"><a class="external" ng-href="/home" class="current">HOME</a></li>
                                 <li ng-show="showInPage('user-view')"><a href="#map_owned" class="current">MAPA</a></li>
@@ -95,7 +95,7 @@
                                         </div>
                                     </li>
 
-                                <li ng-show="isAuthenticated() && showInPage('home')" class="pull-right"><a class="boton-organiza" ng-href="/iniciativas/edit">Organizá</a></li>
+                                <li ng-show="isAuthenticated() && showInPage('home')" class="pull-right"><a class="boton-organiza" ng-href="/iniciativas/edit"><img src="/static/sites/coperable/images/organiza-icon.png" height="20px"> Organizá</a></li>
                                 <li ng-show="!isAuthenticated() && showInPage('home')" class="pull-right"><a class="boton-organiza" ng-href="/login">Organizá</a></li>
 
 
@@ -160,14 +160,13 @@
 
 	<div  class="cd-panel from-right">
 		<header class="cd-panel-header">
-			<h1>COPERABLE</h1>
 			<a href="#0" class="cd-panel-close">Close</a>
 		</header>
 
 		<div class="cd-panel-container">
 			<div class="cd-panel-content">
 				
-				<img src="/static/sites/coperable/images/coperable-logoPrincipal.png" alt="" width="130px">
+            <h1><img src="/static/sites/coperable/images/coperable-logoPrincipal.png" alt="" width="130px"> COPERABLE</h1>
             <h3>MAPA Y AGENDA COLABORATIVA</h3>
             <h4>Donde compartir iniciativas abiertas y participar en encuentros positivos para la comunidad.</h4></br>
 

@@ -1,7 +1,7 @@
                
                 <!--<div id="espacio-para-el-mapa" style="height:195px;" class="visible-lg visible-md"></div>-->
                 
-                <section id="map_home" class="section section-center section-map-home">
+                <section id="map_home" class="section section-map-home">
                 	  
                     <div class="container map-container">
                         <div class="owned_map row">
@@ -16,7 +16,16 @@
 			                	  			</tr>
 			                	  		</table>
                               </div-->
-                            <div id="map_canvas_home" style="width:100%; height:100%"></div>
+                            <div id="map_canvas_home" class="col-md-10 col-sm-10 col-xs-10" style="height:100%"></div>
+                            <div class="infoPanel col-md-2 col-sm-2 col-xs-2">
+                                <h1>MAPA</h1>
+                                <h3>Mapa de Iniciativas</h3>
+                                <p></p>
+                                <p>Descubrí las iniciativas cercanas, o buscá por ubicación.</p>
+                                <p>Estás a un clic de empezar a participar!</p>
+                                <a class="btn" href=""><img src="/static/sites/coperable/images/localizar-icon.png" width="20px"> LOCALIZAR</a>
+                                <img src="/static/sites/coperable/images/mapa-icon.png" class="icono"/>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -52,46 +61,52 @@
 			                	  			</tr>
 			                	  		</table>
                           </div--> 
-			               <div class="container">
-                    		
-                        <div class="section-title"><h3>AGENDA de INICIATIVAS en Coperable</h3></div>
+
+                    <div class="container container-agenda">
 
                         <div class="row">
 
-                            <div ng-repeat="hit in hits | limitTo: 6" data-category="medio_ambiente" class="item-template col-md-4">
+                            <div class="col-md-10 col-sm-10 col-xs-10 grilla-iniciativas"> 
 
-                                <div class="initiative initiative-item">
-                                    <div data-label="{{hit._source.start_date | moment: 'DD MMM'}}" class="pic">
-                                        <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
-                                            <img class="replace-src" ng-src="/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
-                                        </a>
-                                    </div>
-                                    <div class="subtext">
-                                        <a ng-href="/users/{{hit._source.owner.user}}"> <h4>{{hit._source.organization || hit._source.owner.name}}</h4></a>
-                                    </div>
-                                    <div class="wrapper">
-                                        <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
-                                            <h4>{{hit._source.name}}</h4>
-                                        </a>
-                                        <div>{{hit._source.start_date | moment: 'L LT'}}</div>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="actions wrapper">
-                                            <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa" class="btn-alternate btn">Ver</a>
+                                <div ng-repeat="hit in hits | limitTo: 6" data-category="medio_ambiente" class="item-template col-md-6 col-sm-6 col-lg-4">
+
+                                    <div class="initiative initiative-item">
+                                        <div data-label="{{hit._source.start_date | moment: 'DD MMM'}}" class="pic">
+                                            <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
+                                                <img class="replace-src" ng-src="/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
+                                            </a>
+                                        </div>
+                                        <div class="subtext">
+                                            <a ng-href="/users/{{hit._source.owner.user}}"> <h4>{{hit._source.organization || hit._source.owner.name}}</h4></a>
+                                        </div>
+                                        <div class="wrapper">
+                                            <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
+                                                <h4>{{hit._source.name}}</h4>
+                                            </a>
+                                            <div>{{hit._source.start_date | moment: 'L LT'}}</div>
+                                        </div>
+                                        <div class="bottom">
+                                            <div class="actions wrapper">
+                                                <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa" class="btn-alternate btn">Ver</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
+                            <div class="infoPanel col-md-2 col-sm-2">
+                                <h1>AGENDA</h1>
+                                <h3>Iniciativas Destacadas:</h3>
+                                <p></p>
+                                <p>Descubrí las iniciativas más destacadas de la Agenda Coperable, o entrá en la AGENDA COMPLETA para encontrar las Iniciativas que más te interesan: </p>
+                                <p></br></br></p>
+                                <a href="/iniciativas" class="btn-default btn-agenda"><img src="/static/sites/coperable/images/agenda-icon-sm.png" width="20px"/> AGENDA COMPLETA</a>
+                                <p></br></br>.</p>
+
+                                <img src="/static/sites/coperable/images/agenda-icon.png" class="icono"/>
                             </div>
 
                         </div>
-
-                        <div class="row">
-                            <div >
-                                <a href="/iniciativas" class="btn-default col-md-offset-10 btn col-md-2">Ver más <i class="fa fa-chevron-right"></i> </a>
-                            </div>
-                        </div>
-
                     </div>
                 </section>
                 
@@ -99,7 +114,7 @@
                     <div class="container container-info">
                     		<table>
                     			<tr>
-                    				<td class="td-tit"><h1>INFORMACIÓN</h1> </td>
+                    				<td class="td-tit"><h1>COLABORANDO</h1> </td>
                     				<td class="td-img"><img src="/static/sites/coperable/images/coperable-linea-crema.png" alt=""></td>
                     				<td class="td-desc">
                                         <h4>UN SET DE HERRAMIENTAS PARA DIFUNDIR Y VISIBILIZAR INICIATIVAS COLABORATIVAS</h4>
@@ -120,24 +135,59 @@
                     </div>
                 </section>
 
-                <section id="team" class="section section-center section-hilite section-team">
-                    <div class="container">
-                        <div class="section-title"><h3>ORGANIZADORES trabajando en Coperable</h3></div>
+                <section id="team" class="section section-hilite section-our-clients">
+                    <div class="container container-agenda">
                         <div class="row">
-                            <div ng-repeat="organization in organizations" class="col-md-2 col-sm-4 col-xs-6 ficha-organizador">
-                                <a ng-href="/users/{{organization._id}}">
-                                    <img class="img-usr" ng-src="/static/uploads/fullsize/{{organization._source.profile_picture}}">
-                                    <h5>{{organization._source.organization_name}}</h5>
-                                    <p><img style="width=15px" src="/static/sites/coperable/images/location-icon.png" />Ciudad, País</p>
-                                </a>
+                            <div class="col-md-10 col-sm-10 col-xs-10 grilla-iniciativas" style="padding:50px 0px 0px 20px;">
+                                <div ng-repeat="organization in organizations" class="col-md-2 col-sm-4 col-xs-6 col-lg-2 ficha-organizador">
+                                    <a ng-href="/users/{{organization._id}}">
+                                        <img class="img-usr" ng-src="/static/uploads/fullsize/{{organization._source.profile_picture}}">
+                                        <h5>{{organization._source.organization_name}}</h5>
+                                        <p><img style="width=15px" src="/static/sites/coperable/images/location-icon.png" />Ciudad, País</p>
+                                    </a>
+                                </div>
                             </div>
+
+                            <div class="infoPanel col-md-2 col-sm-2">
+                                <h1>Orga</br>niza</br>dores</h1>
+                                <p>Son cada vez más (personas, colectivos, agrupaciones..) organizando actividades y compartiéndolas a través de Coperable.</p>
+                                <p>Podés ver las actividades de cada organizador entrando a su perfil.</p>
+                                <p></br></br></p>
+                                <a href="/iniciativas" class="btn-default btn-agenda"><img src="/static/sites/coperable/images/organizador-icon-sm.png" width="20px"/> Ver TODOS</a>
+
+                                <img src="/static/sites/coperable/images/organizador-icon.png" class="icono"/>
+                            </div>
+
                         </div>
+                    </div>
+                </section>
+
+                <section class="section section-center section-cta section-cta-gris">
+                    <div class="container container-info">
+                            <table>
+                                <tr>
+                                    <td class="td-tit"><h1>IMPLEMENTACIONES:</h1> </td>
+                                    <td class="td-img"><img src="/static/sites/coperable/images/coperable-linea-crema.png" alt=""></td>
+                                    <td class="td-desc">
+                                        <h4><a href="http://chascomusenred.com.ar/" target="_blank">- Chascomús en Red</a></h4>
+                                        <h4><a href="">- Slam de Poesía</a></h4>
+                                    </td>
+                                </tr>
+                            </table>
+                    
+                        <!-- <div class="main-action row">
+                            <div class=" col-md-offset-2  col-md-4 col-sm-4  col-sm-offset-2"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-info">Sumate</a></div>
+                            <div class="col-md-4 col-sm-4">
+                                <a  ng-show="is_logged()" ng-href="/iniciativas/edit" class="smooth-scroll btn btn-lg btn-block btn-default">Organizá</a>
+                                <a  ng-show="!is_logged()" href="/user/login" target="_self" class="smooth-scroll btn btn-lg btn-block btn-default">Organizá</a>
+                            </div>
+                        </div> -->
                     </div>
                 </section>
 
         <section id="clients" class="section section-our-clients">
             <div class="container">
-                <h2 class="section-title"><span>Colaboran y Apoyan</span></h2>
+                <h3 class="section-title">Colaboran y Apoyan</h3>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12 vcenter">
                         <a href="#">

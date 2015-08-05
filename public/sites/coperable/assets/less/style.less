@@ -140,7 +140,7 @@
 	}//section-title span
 
 	&.section-features {
-		padding-bottom: 40px;
+		padding-bottom: 0px;
 		padding-top: 0px;
 
 		.icon-wrap {
@@ -155,8 +155,22 @@
 			@media (max-width: @screen-sm-max) {
 				margin-bottom: @grid-gutter-width;
 			}
-		}//p
-	}//section-features
+		}
+
+		.btn-agenda {
+			margin-top: 30px !important;
+			color: @brand-fondo;
+			background-color: rgba(231, 160, 32, 0.7);
+
+			&:hover {
+				background-color: @brand-fondo-osc;
+			}
+		}
+		.grilla-iniciativas {
+			padding-top: 40px;
+			padding-bottom: 30px;
+		}
+	}
 
 	&.section-testimonial {
 		.carousel-control {
@@ -350,6 +364,7 @@
 
 	&.section-our-clients {
 		padding-bottom: 0;
+		padding-top: 0;
 
         .vcenter {
             display: inline-block;
@@ -372,6 +387,16 @@
 		a:hover,
 		a:active {
 			.box-shadow(0 0 0 1px @gray-light inset);
+		}
+
+		.btn-agenda {
+			margin-top: 30px !important;
+			color: @brand-fondo;
+			background-color: rgba(231, 160, 32, 0.7);
+
+			&:hover {
+				background-color: @brand-fondo-osc;
+			}
 		}
 	}
 
@@ -401,6 +426,15 @@
 		background-color: @brand-fondo;
 		color: @brand-fondo-osc;
 	}
+
+	&.section-cta-gris {
+		background-color: #4B494F;
+		color: @brand-fondo-osc;
+
+		a {
+			color: @brand-fondo-osc;
+		}
+	}	
 
 	&.section-map-home {
 		padding: 0px 0 15px 0;	
@@ -637,8 +671,12 @@
 }
 
 .site-navbar {
-	background: #0aa55e !important;
+	background: @brand-principal;
 	//box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);  
+	
+	//background-image: url("/static/sites/coperable/images/patronTriangulos-gris.png");
+	//background-image: linear-gradient(to right, rgba(5, 57, 35, 0.3), rgba(5, 57, 35, 0.8)), url("/static/sites/coperable/images/cop-fondo-colores.png");
+
 	margin: 0;
 	z-index: 999;
 	width: 100%;
@@ -1688,7 +1726,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 body {
 	font-family: @info-font-family;
-	
+	color: @brand-principal-osc;
 }
 
 /* se usaba para la intro en banner horizontal antes del menú, ya no se usa más 
@@ -1742,6 +1780,10 @@ body {
 	}
 }
 
+.container-agenda {
+	width: 100%;
+}
+
 .map-container {
 	width: 100%;
 	max-height: 80%;
@@ -1772,8 +1814,68 @@ body {
 }
 
 .owned_map {
-	height:515px;
+	height:615px;
 }
+
+
+.infoPanel {
+	height: 100% !important;
+	background: #f8f0c4;
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png);
+	
+	/*
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png), -webkit-gradient(linear, left bottom, right top, from(@brand-fondo), to(#FFF)); // Saf4+, Chrome 
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png), -webkit-linear-gradient(to top rigth, @brand-fondo, @brand-fondo, #FFF); // Chrome 10+, Saf5.1+
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png),    -moz-linear-gradient(to top right, @brand-fondo, @brand-fondo, #FFF); // FF3.6+ 
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png),      -o-linear-gradient(top right, @brand-fondo, @brand-fondo, #FFF); // Opera 11.10+ 
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png),         linear-gradient(to top right, @brand-fondo, @brand-fondo, #FFF); // W3C */
+
+	.icono {
+		position: absolute;
+		top: 20px;
+		right: 8%;
+		width: 25%;
+	}
+
+	h3 {
+		margin-bottom: 30px !important;
+		margin-right: 30% !important;
+	}
+
+	p {
+		font-size: 13pt;
+		margin-right: 30%;
+		margin-bottom: 0px !important;
+	}
+
+	.btn {
+		-webkit-border-radius: 7;
+		-moz-border-radius: 7;
+		border-radius: 7px;
+		font-family: @titulos-font-family;
+		
+		color: @brand-principal-osc;
+		//background: #e7a020;
+		font-size: 12px;
+		text-decoration: none;
+		cursor: pointer;
+		margin-top: 30px;
+
+		border: 2px dashed rgba(6, 58, 35, 0.6) !important;
+		padding: 6px 10px;
+		
+		&:hover {
+		 	background: rgba(6, 58, 35, 0.2);
+		  	text-decoration: none;			   	
+			/*box-shadow: 0px 1px 3px #666666;
+			-webkit-box-shadow: 0px 1px 3px #666666;
+			-moz-box-shadow: 0px 1px 3px #666666;*/
+		}
+	}//btn-default
+
+
+}
+
 
 .ficha-organizador {
     margin: 0px 20px 20px 0px;
@@ -1782,6 +1884,7 @@ body {
     overflow: hidden;
     background-color: rgba(255, 255, 255, 1);
     //width: 310px;
+    max-width: 200px;
     height: 300px;
     border-radius: 6px;
     color: #959595 !important;
@@ -1984,12 +2087,12 @@ html, body {
   
   
 	position: fixed;right: 0px;
-	bottom: 35%;
+	bottom: 45%;
 	border-radius: 1em 0em 0em 1em;
 	z-index: 1000;
 	
 	img {
-		width: 100px;
+		width: 80px;
 	}
 }
 
@@ -2287,7 +2390,7 @@ html, body {
 }
 .cd-panel-content {
   position: absolute;
-  padding: 70px 5%; 
+  padding: 0px 5%; 
   top: 0;
   left: 0;
   width: 100%;
@@ -2415,6 +2518,7 @@ html, body {
   outline: none;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
+
 .navbar-nav {
     .dropdown {
         -webkit-border-radius: 4;
@@ -2427,7 +2531,27 @@ html, body {
 			cursor: pointer;
         }
     }
+
+    a {
+    	color: @brand-fondo;
+
+    	&:hover {
+    		background-color: @brand-principal-osc;
+    	}
+
+    	&:focus {
+    		//color: @brand-principal-osc;
+    		background-color: #118e34 !important;
+    	}
+    }
 }
+
+.nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: @brand-secundario !important;
+}
+
+
 .btn-account {
     padding: 12px 20px 10px 20px;
     margin: 15px 0;
