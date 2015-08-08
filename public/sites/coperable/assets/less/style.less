@@ -157,19 +157,17 @@
 			}
 		}
 
-		.btn-agenda {
-			margin-top: 30px !important;
-			color: @brand-fondo;
-			background-color: rgba(231, 160, 32, 0.7);
-
-			&:hover {
-				background-color: @brand-fondo-osc;
-			}
-		}
 		.grilla-iniciativas {
 			padding-top: 40px;
 			padding-bottom: 30px;
 		}
+
+		@media (min-width:1480px) {
+			.grilla-iniciativas {
+				padding-left: 10%;
+			}
+		}
+
 	}
 
 	&.section-testimonial {
@@ -387,16 +385,6 @@
 		a:hover,
 		a:active {
 			.box-shadow(0 0 0 1px @gray-light inset);
-		}
-
-		.btn-agenda {
-			margin-top: 30px !important;
-			color: @brand-fondo;
-			background-color: rgba(231, 160, 32, 0.7);
-
-			&:hover {
-				background-color: @brand-fondo-osc;
-			}
 		}
 	}
 
@@ -1780,6 +1768,10 @@ body {
 	}
 }
 
+small {
+	color: #063a23 !important;
+}
+
 .container-agenda {
 	width: 100%;
 }
@@ -1787,6 +1779,7 @@ body {
 .map-container {
 	width: 100%;
 	max-height: 80%;
+	background-color: #eeeeee;
 }
 
 .container-nav{
@@ -1817,36 +1810,55 @@ body {
 	height:615px;
 }
 
+	/* sm */
+	@media(min-width:768px) {
+    	.owned_map { height:315px;; }
+    }
+
+    /* md */
+	@media(min-width:992px) {
+    	.owned_map { height:615px; }
+	}
+
+	/* lg */
+	@media(min-width:1200px) {
+	    .owned_map { height:615px; }
+	}
+	
+
+.btn-generico {
+	border-radius: 7px;
+	font-size: 10pt;
+	font-family: @titulos-font-family;
+	background: @brand-fondo-osc;
+	padding: 12px 12px 10px;
+	text-decoration: none;
+	cursor: pointer;
+
+	margin-top: 30px;
+	margin-bottom: 10px;
+	color: @brand-fondo;
+	//background-color: rgba(231, 160, 32, 0.7);
+
+	&:hover {
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+		text-decoration: none;
+		color: @brand-fondo;
+		background-color: @brand-fondo-osc-hover;
+	}
+}
+
 
 .infoPanel {
-	height: 100% !important;
 	background: #f8f0c4;
 	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png);
-	
 	/*
 	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png), -webkit-gradient(linear, left bottom, right top, from(@brand-fondo), to(#FFF)); // Saf4+, Chrome 
 	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png), -webkit-linear-gradient(to top rigth, @brand-fondo, @brand-fondo, #FFF); // Chrome 10+, Saf5.1+
 	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png),    -moz-linear-gradient(to top right, @brand-fondo, @brand-fondo, #FFF); // FF3.6+ 
 	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png),      -o-linear-gradient(top right, @brand-fondo, @brand-fondo, #FFF); // Opera 11.10+ 
-	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png),         linear-gradient(to top right, @brand-fondo, @brand-fondo, #FFF); // W3C */
-
-	.icono {
-		position: absolute;
-		top: 20px;
-		right: 8%;
-		width: 25%;
-	}
-
-	h3 {
-		margin-bottom: 30px !important;
-		margin-right: 30% !important;
-	}
-
-	p {
-		font-size: 13pt;
-		margin-right: 30%;
-		margin-bottom: 0px !important;
-	}
+	background-image: url(/static/sites/coperable/images/patronTriangulos-gris.png),         linear-gradient(to top right, @brand-fondo, @brand-fondo, #FFF); // W3C 
+	*/
 
 	.btn {
 		-webkit-border-radius: 7;
@@ -1859,7 +1871,6 @@ body {
 		font-size: 12px;
 		text-decoration: none;
 		cursor: pointer;
-		margin-top: 30px;
 
 		border: 2px dashed rgba(6, 58, 35, 0.6) !important;
 		padding: 6px 10px;
@@ -1871,10 +1882,186 @@ body {
 			-webkit-box-shadow: 0px 1px 3px #666666;
 			-moz-box-shadow: 0px 1px 3px #666666;*/
 		}
-	}//btn-default
-
-
+	}
 }
+
+
+	/* img-cop-icon */
+	
+	/* xs */
+	@media(min-width:320px) {
+    	.img-cop-icon { width: 50px; }
+    }
+
+	/* sm */
+	@media(min-width:768px) {
+    	.img-cop-icon { width: 60px; }
+    }
+
+    /* md */
+	@media(min-width:992px) {
+    	.img-cop-icon { width: 70px; }
+	}
+
+	/* lg */
+	@media(min-width:1200px) {
+	    .img-cop-icon { width: 80px; }
+	}
+
+	img-cop-icon {
+		width: 80px;
+	}
+
+
+/* aln-der */
+
+	/* sm */
+	@media(min-width:768px) {
+    	.aln-der { 
+    		text-align: center; 
+			padding: 0px 20px;
+    	}
+    }
+
+    /* md */
+	@media(min-width:992px) {
+    	.aln-der { 
+    		text-align: right;
+			padding: 3% 20px;
+    	}
+	}
+
+	/* lg */
+	@media(min-width:1200px) {
+	    .aln-der { 
+	    	text-align: right; 
+			padding: 3% 20px;
+	    }
+	}
+
+.aln-vert-medio {
+	padding-top: 3% !important;
+	padding-bottom: 3% !important
+}
+
+ /*aln-izq */
+
+	/* sm */
+	@media(min-width:768px) {
+    	.aln-izq { 
+    		text-align: center; 
+			padding: 0px 20px;
+    	}
+    }
+
+    /* md */
+	@media(min-width:992px) {
+    	.aln-izq { 
+    		text-align: left;
+			padding: 1% 20px; 
+    	}
+	}
+
+	/* lg */
+	@media(min-width:1200px) {
+	    .aln-izq { 
+	    	text-align: left; 
+	    	padding: 1% 20px; 
+	    }
+	}
+	
+
+.aln-centro {
+	padding: 3% 20px;
+}
+
+.borde-mapa-sm{
+	background-color: #EEEEEE !important;
+	height: 100%;
+}
+
+.infoPanel-lg {
+	height: 100% !important;
+
+	h3 {
+		margin-bottom: 30px !important;
+		margin-right: 30% !important;
+	}
+	.icono {
+		width: 25%;
+		max-width: 90px;
+		margin-top: 20px;
+	}
+
+	p {
+		font-size: 12pt;
+		margin-right: 30%;
+		margin-bottom: 20px !important;
+	}
+
+	.btn {
+		margin-top: 30px;
+	}
+}
+
+
+
+
+
+.infoPanel-sm {
+	border-bottom: 2px dashed @brand-principal-osc;
+
+	h3 {
+		margin-bottom: 0px;
+		margin-right: 24%;
+	}
+	.icono {
+		position: absolute;
+		top: 20px;
+		right: 8%;
+		width: 18%;
+		max-width: 90px;
+	}
+
+	p {
+		font-size: 11pt;
+		margin-right: 0px;
+		margin-bottom: 0px;
+		margin-top: 10px;
+	}
+
+	.p-corto {
+		margin-right: 27% !important;
+	}
+
+	.btn {
+		margin: 10px 0px;
+	}
+}
+
+
+.btn-bajar-agenda {
+ 	position: absolute;
+  	display: inline-block;
+  	background-color: rgba(244, 230, 157, 1);
+  	left: 0px;
+	border-radius: 0em 0.6em 0.6em 0em;
+	bottom: 0px;
+	padding: 10px 18px;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+	
+	img {
+		width: 20px;
+	}
+	/*
+	&:hover {
+		box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+	}*/
+}
+
+
+
+
 
 
 .ficha-organizador {
@@ -2090,10 +2277,6 @@ html, body {
 	bottom: 45%;
 	border-radius: 1em 0em 0em 1em;
 	z-index: 1000;
-	
-	img {
-		width: 80px;
-	}
 }
 
 

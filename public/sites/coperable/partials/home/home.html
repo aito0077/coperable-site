@@ -4,6 +4,7 @@
                 <section id="map_home" class="section section-map-home">
                 	  
                     <div class="container map-container">
+                        
                         <div class="owned_map row">
                         	 <!--div class="categorias">
 			                	  		<table>
@@ -16,15 +17,24 @@
 			                	  			</tr>
 			                	  		</table>
                               </div-->
-                            <div id="map_canvas_home" class="col-md-10 col-sm-10 col-xs-10" style="height:100%"></div>
-                            <div class="infoPanel col-md-2 col-sm-2 col-xs-2">
-                                <h1>MAPA</h1>
-                                <h3>Mapa de Iniciativas</h3>
-                                <p></p>
-                                <p>Descubrí las iniciativas cercanas, o buscá por ubicación.</p>
-                                <p>Estás a un clic de empezar a participar!</p>
+
+                            <div class="infoPanel infoPanel-sm col-xs-12 col-sm-12 visible-xs visible-sm">
+                                <h3>Mapa Colaborativo <small>de Iniciativas</small></h3>
+                                <p class="p-corto">Encuentra iniciativas abiertas y cercanas donde participar. </p>
                                 <a class="btn" href=""><img src="/static/sites/coperable/images/localizar-icon.png" width="20px"> LOCALIZAR</a>
                                 <img src="/static/sites/coperable/images/mapa-icon.png" class="icono"/>
+                            </div>
+
+                            <div id="map_canvas_home" class="col-xs-11 col-sm-11 col-md-10 col-lg-10" style="height:100%"></div>
+                            <!--<div class="visible-xs"> <a href="#features" class="btn-bajar-agenda"><img src="http://coperable.coperable.org/static/sites/coperable/images/agenda-icon-bajar.png" alt=""></a></div>-->
+                            
+                            <div class="infoPanel infoPanel-lg col-md-2 col-lg-2 visible-md visible-lg">
+                                <img src="/static/sites/coperable/images/mapa-icon.png" class="icono"/>
+                                <h3>Mapa Colaborativo <small>de Iniciativas</small></h3>
+                                <p></p>
+                                <p>Encuentra iniciativas abiertas y cercanas donde participar.</p>
+                                <p>Puedes ir a TU UBICACION.</p>
+                                <a class="btn" href=""><img src="/static/sites/coperable/images/localizar-icon.png" width="20px"> LOCALIZAR</a>
                             </div>
                         </div>
                     </div>
@@ -32,6 +42,13 @@
 
                 <section class="section section-center section-cta section-cta-principal">
                     <div class="container container-info">
+                        <div class="row">
+                            <div class="col-md-5 aln-der"><h1>Somos cada día más!</h1></div>
+                            <div class="col-md-2 aln-centro"><img src="/static/sites/coperable/images/coperable-logo-crema.png" alt="" width="70px"/></div>
+                            <div class="col-md-5 aln-izq aln-vert-medio"><h3>COPERABLE LOCAL-GLOBAL</h3>
+                                 <h5>Sumate a una red con iniciativas en toda América Latina.</h5>
+                            </div>
+                        <!--
                     		<table>
                     			<tr>
                     				<td class="td-tit"><h1>Somos cada día más!</h1> </td>
@@ -42,33 +59,29 @@
                     				</td>
                     			</tr>
                     		</table>
-                    
+                        -->
+                        </div>
                     </div>
                 </section>
 
 
-
-
                 <section id="features" class="section section-center section-hilite section-features">
-                   <!--div class="categorias">
-			                	  		<table>
-			                	  			<tr>
-			                	  				<td>Todas</td>
-			                	  				<td>Medio Ambiente</td>
-			                	  				<td>Arte y Cultura</td>
-			                	  				<td>Educación</td>
-			                	  				<td>Desarrollo Social</td>
-			                	  			</tr>
-			                	  		</table>
-                          </div--> 
 
                     <div class="container container-agenda">
 
                         <div class="row">
 
-                            <div class="col-md-10 col-sm-10 col-xs-10 grilla-iniciativas"> 
+                            <div class="infoPanel infoPanel-sm col-xs-12 col-sm-12 visible-xs visible-sm">
+                                <h3>Iniciativas Destacadas</h3>
+                                <p class="p-corto">Descubrí las iniciativas más destacadas, o entrá en la AGENDA COMPLETA</p>
+                                <a href="/iniciativas" class="btn-generico"><img src="/static/sites/coperable/images/agenda-icon-sm.png" width="20px"/> AGENDA ►</a>
+                                <p></p>
+                                <img src="/static/sites/coperable/images/agenda-icon.png" class="icono"/>
+                            </div>
 
-                                <div ng-repeat="hit in hits | limitTo: 6" data-category="medio_ambiente" class="item-template col-md-6 col-sm-6 col-lg-4">
+                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 grilla-iniciativas">
+
+                                <div ng-repeat="hit in hits | limitTo: 6" data-category="medio_ambiente" class="item-template col-sm-6 col-md-6 col-lg-4">
 
                                     <div class="initiative initiative-item">
                                         <div data-label="{{hit._source.start_date | moment: 'DD MMM'}}" class="pic">
@@ -94,16 +107,15 @@
                                 </div>
                             </div>
 
-                            <div class="infoPanel col-md-2 col-sm-2">
-                                <h1>AGENDA</h1>
+                            <div class="infoPanel infoPanel-lg col-md-2 col-sm-2 visible-md visible-lg">
+                                <img src="/static/sites/coperable/images/agenda-icon.png" class="icono"/>
                                 <h3>Iniciativas Destacadas:</h3>
                                 <p></p>
-                                <p>Descubrí las iniciativas más destacadas de la Agenda Coperable, o entrá en la AGENDA COMPLETA para encontrar las Iniciativas que más te interesan: </p>
-                                <p></br></br></p>
-                                <a href="/iniciativas" class="btn-default btn-agenda"><img src="/static/sites/coperable/images/agenda-icon-sm.png" width="20px"/> AGENDA COMPLETA</a>
+                                <p>Descubrí las iniciativas más destacadas de la Agenda Coperable,</p>
+                                <p>O entrá en la AGENDA COMPLETA para encontrar las Iniciativas que más te interesan:</p>
+                                <p></br></p>
+                                <a href="/iniciativas" class="btn-generico"><img src="/static/sites/coperable/images/agenda-icon-sm.png" width="20px"/> AGENDA ►</a>
                                 <p></br></br>.</p>
-
-                                <img src="/static/sites/coperable/images/agenda-icon.png" class="icono"/>
                             </div>
 
                         </div>
@@ -112,18 +124,15 @@
                 
                 <section class="section section-center section-cta section-cta-fondo">
                     <div class="container container-info">
-                    		<table>
-                    			<tr>
-                    				<td class="td-tit"><h1>COLABORANDO</h1> </td>
-                    				<td class="td-img"><img src="/static/sites/coperable/images/coperable-linea-crema.png" alt=""></td>
-                    				<td class="td-desc">
-                                        <h4>UN SET DE HERRAMIENTAS PARA DIFUNDIR Y VISIBILIZAR INICIATIVAS COLABORATIVAS</h4>
-                                        <!--<h5>Un set de herramientas colaborativas para difundir y visibilizar las iniciativas de las organizaciones</h5>-->
-                                        <h5>- Sumando participantes</br>
-                                        - Fomentando la cooperación y el trabajo en red</h5>
-                    				</td>
-                    			</tr>
-                    		</table>
+
+                        <div class="row">
+                            <div class="col-md-5 aln-der"><h1>COLABORANDO!</h1></div>
+                            <div class="col-md-2 aln-centro"><img src="/static/sites/coperable/images/implementacion-icon.png" alt="" width="100px"/></div>
+                            <div class="col-md-5 aln-izq"><h3>UN SET DE HERRAMIENTAS PARA DIFUNDIR Y VISIBILIZAR INICIATIVAS COLABORATIVAS</h3>
+                                 <h5>- Sumando participantes</h5>
+                                 <h5>- Fomentando la cooperación y el trabajo en red</h5>
+                            </div>
+                        </div>
                     
                         <!-- <div class="main-action row">
                             <div class=" col-md-offset-2  col-md-4 col-sm-4  col-sm-offset-2"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-info">Sumate</a></div>
@@ -135,10 +144,19 @@
                     </div>
                 </section>
 
-                <section id="team" class="section section-hilite section-our-clients">
+                <section id="team" class="section section-center section-hilite section-features">
                     <div class="container container-agenda">
                         <div class="row">
-                            <div class="col-md-10 col-sm-10 col-xs-10 grilla-iniciativas" style="padding:50px 0px 0px 20px;">
+
+                             <div class="infoPanel infoPanel-sm col-xs-12 col-sm-12 visible-xs visible-sm">
+                                <h3>Organizadores <small>compartiendo sus iniciativas</small></h3>
+                                <p class="p-corto">Podés ver las Iniciativas de cada organizador entrando a su perfil. </p>
+                                <a class="btn-generico" href=""><img src="/static/sites/coperable/images/organizador-icon-sm.png" width="10px"> Ver TODOS</a>
+                                <p></p>
+                                <img src="/static/sites/coperable/images/organizador-icon.png" class="icono"/>
+                            </div>
+
+                            <div class="col-md-10 col-sm-10 col-xs-10 grilla-iniciativas">
                                 <div ng-repeat="organization in organizations" class="col-md-2 col-sm-4 col-xs-6 col-lg-2 ficha-organizador">
                                     <a ng-href="/users/{{organization._id}}">
                                         <img class="img-usr" ng-src="/static/uploads/fullsize/{{organization._source.profile_picture}}">
@@ -148,14 +166,15 @@
                                 </div>
                             </div>
 
-                            <div class="infoPanel col-md-2 col-sm-2">
-                                <h1>Orga</br>niza</br>dores</h1>
-                                <p>Son cada vez más (personas, colectivos, agrupaciones..) organizando actividades y compartiéndolas a través de Coperable.</p>
-                                <p>Podés ver las actividades de cada organizador entrando a su perfil.</p>
-                                <p></br></br></p>
-                                <a href="/iniciativas" class="btn-default btn-agenda"><img src="/static/sites/coperable/images/organizador-icon-sm.png" width="20px"/> Ver TODOS</a>
-
+                            <div class="infoPanel infoPanel-lg col-md-2 col-sm-2 visible-md visible-lg">
                                 <img src="/static/sites/coperable/images/organizador-icon.png" class="icono"/>
+                                <h3>Organizadores
+                                <small>compartiendo sus iniciativas</small></h3>
+                                <p>Podés ver las Iniciativas de cada organizador entrando a su perfil.</p>
+                                <p></br></p>
+                                <a href="/iniciativas" class="btn-generico"><img src="/static/sites/coperable/images/organizador-icon-sm.png" width="10px"/> Ver TODOS</a>
+                                <p></br></br></p>
+
                             </div>
 
                         </div>
@@ -164,16 +183,17 @@
 
                 <section class="section section-center section-cta section-cta-gris">
                     <div class="container container-info">
-                            <table>
-                                <tr>
-                                    <td class="td-tit"><h1>IMPLEMENTACIONES:</h1> </td>
-                                    <td class="td-img"><img src="/static/sites/coperable/images/coperable-linea-crema.png" alt=""></td>
-                                    <td class="td-desc">
-                                        <h4><a href="http://chascomusenred.com.ar/" target="_blank">- Chascomús en Red</a></h4>
-                                        <h4><a href="">- Slam de Poesía</a></h4>
-                                    </td>
-                                </tr>
-                            </table>
+
+                        <div class="row">
+                            <div class="col-md-5 aln-der"><h1>RED COLABORATIVA:</h1></div>
+                            <div class="col-md-2 aln-centro"><img src="/static/sites/coperable/images/herramientas-icon.png" alt="" width="100px"/></div>
+                            <div class="col-md-5 aln-izq"><h4>CONOCE LAS APLICACIONES QUE ESTAMOS DESARROLLANDO:</h4>
+                                                          <h5>- <a href="http://chascomusenred.com.ar/" target="_blank">Chascomús en Red</a></h5>
+                                                          <h5>- <a href="http://minka.me/" target="_blank">Minka</a></h5>
+                                                          <h5>- <a href="http://minka.coperable.org/" target="_blank">Semana de Economía Colaborativa</a></h5>
+                                                          <h5>- SLAM! <span style="font-size:80%">próximamente..</h5>
+                            </div>
+                        </div>
                     
                         <!-- <div class="main-action row">
                             <div class=" col-md-offset-2  col-md-4 col-sm-4  col-sm-offset-2"><a ng-href="/iniciativas" class="smooth-scroll btn btn-lg btn-block btn-info">Sumate</a></div>
