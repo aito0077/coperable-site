@@ -1,0 +1,90 @@
+<section id="portfolio" class="section section-portfolio" style="margin-bottom: 0px;">
+    <div class="container">
+	<h2 class="section-title"><span>Agenda Colaborativa</span></h2>
+
+	<div class="row">
+		<div class="col-md-8">
+			<div class="form-group ">
+				<div class="input-group input-group-lg">
+				    <input type="text" class="form-control input-lg" placeholder="Buscar..."  ng-enter="search_action()"  ng-model="query_terms"  />
+				    <span class="input-group-btn" ng-show="query_terms">
+					<button class="btn " type="button" ng-click="clear_query()">X</button>
+				    </span>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="filters-default pull-right">
+				<ul>
+					<li class="{{map_show ? 'selected' : ''}} map-bt" ng-click="toggle_map()">Mapa</li>
+					<li class="{{list_show ? 'selected' : ''}}  grid-bt" ng-click="toggle_list()">Grilla</li>
+				</ul>
+			</div>
+		</div>
+
+
+
+	</div>
+
+        <div class="row">
+            <div class="col-md-12 block-center text-center">
+                <ul id="categories" class="nav nav-pills center-pills">
+                    <li ng-click="select_category('all')"><b style="color: #EF4832">Categorías</b></li>
+                    <li ng-repeat="category in categories"><span class="selector category-name {{isCategoryActive(category)}}" ng-click="select_category(category)">{{display_category(category)}}</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 block-center text-center">
+                <ul id="topics" class="nav nav-pills center-pills">
+                    <li><span ng-click="select_topic('all')"><b style="color: #EF4832">Temas</b></span></li>
+                    <li ng-repeat="topic in topics" ><span class="selector topic-name {{isTopicActive(topic.key)}}" ng-click="select_topic(topic.key)">{{topic.key}}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="portfolio-items" class="section section-portfolio-items">
+    <div class="container">
+        <div class="owned_map row"  ng-show="map_show" style="height:400px; margin-bottom: 30px;">
+            <div id="map_canvas_portfolio" style="width:100%; height:100%"></div>
+        </div>
+
+
+
+            <div class="portfolio-isotope row"  ng-show="list_show">
+
+                <article ng-repeat="hit in hits" id="{{hit._id}}" class="item-template col-md-4 col-sm-6 portfolio-item post {{split_filters(hit._source)}} ">
+
+                    <div class="initiative initiative-item">
+                        <div data-label="{{hit._source.start_date | moment: 'D [de] MMMM'}}" class="pic {{hit._source.start_date | isBefore}}">
+                            <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
+                                <img class="replace-src" src="/static/uploads/thumbs/{{hit._source.profile_picture}}" width="100%"/>
+                            </a>
+                        </div>
+                        <div class="subtext">
+                            <a ng-href="/users/{{hit._source.owner.user}}"> <h4>{{hit._source.organization || hit._source.owner.name}}</h4></a>
+                        </div>
+                        <div class="wrapper">
+                            <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa">
+                                <h4>{{hit._source.name}}</h4>
+                            </a>
+                            <div>{{hit._source.start_date | moment: 'L LT'}}</div>
+                        </div>
+                        <div class="bottom">
+                            <div class="actions wrapper">
+                                <a ng-href="/iniciativas/{{hit._id}}" rel="address:/iniciativa" class="btn-alternate btn">Ver</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </article>
+
+        </div>
+    </div>
+</section>
+
+

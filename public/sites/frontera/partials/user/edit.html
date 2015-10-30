@@ -1,0 +1,100 @@
+<form name="userForm" role="form"  ng-submit="save(userForm.$valid)" novalidate>
+    <div class="container">
+        <section class="section section-center section-organization-form">
+            <div class="container">
+
+                <h3 class="section-title"><span>Perfil</span><small>Edición</small></h3>
+
+                <div class="row" ng-show="hasError" >
+                    <p class="help-block text-error" style="color: red">Faltan ingresar datos</p>
+                </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="sr-only">Nombre</label>
+                            <input type="text" name="organization_name" class="form-control" placeholder="Nombre Organización"  ng-model="organization.organization_name" ng-required="first_time">
+                            <p ng-show="hasError && userForm.organization_name.$invalid" class="help-block"  style="color: red">Debe ingresar el nombre de la organización.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="sr-only">Email de Contacto</label>
+                            <input type="email" class="form-control" name="contact_email" placeholder="Email Contacto"  ng-model="organization.contact_email" ng-required="first_time">
+                            <p ng-show="hasError && userForm.contact_email.$invalid" class="help-block"  style="color: red">Un correo de contacto.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="picture">Imagen Perfil Organización</label>
+                        </div>
+                        <div class="form-group">
+                            <input id="profile_picture_ngo" type="file" name="files[]" multiple class="block-center"> 
+                              <div id="super-zone-ngo" >
+                                  <div id="dropzone-ngo" class="dropzone-help-text">
+                                    <span class="text">Arrastra hasta aquí una<br>foto para el perfil</span>
+                                    <span class="text-hover">¡Suéltala!</span>
+                                  </div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label>Descripción de la Organización</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only">Descripción</label>
+                            <textarea class="form-control organization_description" name="about" placeholder="Descripción" rows="8" ng-model="organization.about"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="sr-only">Página Web</label>
+                            <input type="text" name="website" class="form-control" placeholder="Página Web"  ng-model="organization.website">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only">Facebook</label>
+                            <input type="text" name="facebook" class="form-control" placeholder="Facebook"  ng-model="organization.facebook">
+                        </div>
+
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="sr-only">Twitter</label>
+                            <input type="text" name="twitter" class="form-control" placeholder="Twitter"  ng-model="organization.twitter">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only">Youtube</label>
+                            <input type="text" name="youtube" class="form-control" placeholder="Youtube"  ng-model="organization.youtube">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </section>
+
+
+
+
+        <section id="user-action-form" ng-show="!persisted" class="section section-center section-action-user">
+            <div class="container">
+                <div class="row">
+                    <button type="submit" class="btn-save-iniciativa btn btn-default" ng-show="!saving" >Guardar</button>
+                    <span class="btn-saving btn btn-default" ng-show="saving">Guardando...</span>
+                    <span class="btn-delete-iniciativa btn btn-primary" ng-show="!saving && !is_new"  ng-really-message="Desea eliminar al usuario?" ng-really-click="doRemove()" style="cursor:hand">Eliminar</span>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+</form>

@@ -135,6 +135,7 @@ app.post('/iniciativas', iniciativas.create);
 app.post('/minka/iniciativas', iniciativas.create);
 app.post('/chascomus/iniciativas', iniciativas.create);
 app.post('/minkanet/iniciativas', iniciativas.create);
+app.post('/frontera/iniciativas', iniciativas.create);
 app.post('/coperable/iniciativas', iniciativas.create);
 
 app.get('/iniciativas/name/:slug', iniciativa.view_slug);
@@ -273,6 +274,10 @@ app.get('/chascomus/auth/facebook/callback', function(req, res, next) {
 
 app.get('/minkanet/auth/facebook/callback', function(req, res, next) {
   customCallbackAuthentification('facebook-minkanet', req, res, next);
+});
+
+app.get('/frontera/auth/facebook/callback', function(req, res, next) {
+  customCallbackAuthentification('facebook-frontera', req, res, next);
 });
 
 

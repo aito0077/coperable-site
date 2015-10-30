@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+    <!--[if lt IE 7]>      <html lang="es" ng-app="fronteraApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]>         <html lang="es" ng-app="fronteraApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]>         <html lang="es" ng-app="fronteraApp" class="no-js lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> <html lang="es" ng-app="fronteraApp" class="no-js"> <!--<![endif]-->
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{layoutTitle}}</title>
+        <link href="/static/sites/frontera/assets/css/template.css" rel="stylesheet">
+        <link href="/static/bower_components/datedropper/datedropper.css" rel="stylesheet">
+        <link href="/static/bower_components/jt.timepicker/jquery.timepicker.css" rel="stylesheet">
+        <link href="/static/bower_components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
+        <link rel='stylesheet' href="/static/bower_components/angular-socialshare/angular-socialshare.min.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        <script src='//maps.googleapis.com/maps/api/js?v=3.exp&sensor=true'></script>
+        <script src="http://platform.twitter.com/widgets.js"></script>
+
+        <base href="/">
+    </head>
+
+    <body ng-controller="Ctrl">
+        <!--script> window.fbAsyncInit = function() { FB.init({ appId      : '368346063364540', xfbml      : true, version    : 'v2.3' }); }; (function(d, s, id){ var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk')); </script-->
+
+        <div id="page">
+            <header id="header" class="site-header">
+                <nav id="topbar" class="site-topbar visible-lg visible-md">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6"><a href="http://www.coperable.org" target="_blank" style="text-decoration: none">Coperable</a> agenda y mapeo colaborativo</div>
+                            <div class="pull-right social-links col-sm-6">
+                            {{^user}}
+                                <a href="/user/login" target="_self"><span><b>Ingres&aacute;</b> </span></a>
+                                <a href="/auth/facebook" target="_self"><i class="fa fa-facebook"></i></a>
+                                <span>|</span>
+                                <a href="/auth/twitter" target="_self"><i class="fa fa-twitter"></i></a>
+                            {{/user}}
+                            {{#user}}
+                                <a href="/user/{{user.id}}" target="_self" >{{user.username}}</a>
+                                <a href="/user/logout" target="_self">Salir</a>
+                            {{/user}}
+                            </div>
+
+                        </div>
+                    </div>
+                </nav>
+
+                <nav id="navbar" class="site-navbar navbar navbar-static-top" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <h1 class="navbar-brand">
+                                <a href="index.html">
+                                    Frontera
+                                </a>
+                            </h1>
+                        </div>
+
+                        <div data-ng-controller="menu-controller" class="collapse navbar-collapse" id="navbar-collapse-1">
+                            <ul id="navigation" class="nav navbar-nav navbar-right">
+                                <li ng-show="showInPage('home')" class="active"><a href="#header" class="current">Home</a></li>
+                                <li ng-show="showInPage('home')"><a href="#features">Agenda</a></li>
+                                <li ng-show="showInPage('home')"><a href="#team">Apoyan</a></li>
+                                <li ng-show="!showInPage('home')"><a class="external" ng-href="/home" class="current">Home</a></li>
+                                <li ng-show="showInPage('user-view')"><a href="#owned-iniciativas" class="current">Propuestas</a></li>
+                                <li ng-show="showInPage('user-view')"><a href="#map_owned" class="current">Mapa</a></li>
+                                <li><a ng-href="/info/enred" class="external">Sobre Frontera</a></li>
+                            </ul>
+                        </div>
+
+                        <!--div class="collapse navbar-collapse" id="navbar-collapse-1">
+                            <ul id="navigation" class="nav navbar-nav navbar-right">
+                                <li class="active"><a href="#header" class="current">Home</a></li>
+                                <li><a href="#features">Agenda</a></li>
+                                <li><a href="#team">Organizaciones</a></li>
+                                <li><a ng-href="/info/enred" class="external">La Red</a></li>
+                            </ul>
+                        </div-->
+                    </div>
+                </nav>
+
+
+
+            </header>
+
+            <main id="main" class="site-main" ng-view>
+
+       
+            </main>
+
+      <footer id="footer" class="site-footer">
+        <div class="container">
+
+          <div id="sidebar-footer-1">
+            <div class="row">
+
+              <aside class="widget col-sm-6">
+                <h5 class="widget-title">Sobre Nosotros</h5>
+                <p><a href="#">Frontera</a> Frontera es una zona de intercambio colaborativo de información evidente. Refleja lo que hacemos a través de una agenda de producción colaborativa que concentra la oferta de residencias, programas de formación y actividades que trabajan en relación con su contexto cercano, que abordan de alguna u otra manera ámbitos por fuera del arte desde la práctica artística en cualquiera de las disciplinas conocidas y en desarrollo.
+
+</p>
+
+              </aside>
+
+              <aside class="widget widget_flickr col-sm-6">
+                <h5 class="widget-title">Apoyan | Soportan | Support</h5>
+                <a href="http://" target="_self" class="hover-effect"><img src="/static/sites/frontera/images/logo_paternal.jpg" /><span class="overlay"><i class="fa fa-plus"></i></span></a>
+                <a href="http://minka.me" class="hover-effect"><img src="/static/sites/frontera/images/logo_minka.png"/><span class="overlay"><i class="fa fa-plus"></i></span></a>
+                <a href="http://coperable.org" target="_blank" class="hover-effect"><img src="/static/sites/frontera/images/logo-coperable.jpg" /><span class="overlay"><i class="fa fa-plus"></i></span></a>
+              </aside>
+
+            </div>
+          </div>
+
+
+          <!--div id="sidebar-footer-2">
+            <div class="row">
+
+              <aside class="widget col-md-3 col-sm-6">
+              </aside>
+
+              <aside class="widget col-md-3 col-sm-6">
+              </aside>
+
+              <aside class="widget col-md-3 col-sm-6">
+              </aside>
+
+              <aside class="widget col-md-3 col-sm-6">
+                <h5 class="widget-title">Contacto</h5>
+                <div class="input-group">
+                  <span class="input-group-btn">
+                    <a class="btn btn-danger"  href="http://coperable.org/" target="_blank">
+                        <i class="fa fa-arrow-right"></i>
+                    </a>
+                  </span>
+                </div>
+                <ul class="social-links">
+
+                    
+                </ul>
+              </aside>
+
+            </div>
+          </div-->
+
+
+          <div class="copyright"><p>Frontera - Red de residencias y formación cultural en contexto.</p></div>
+        </div>
+      </footer>
+    </div>
+
+    <div class="scroll-to-top" data-spy="affix" data-offset-top="200"><a href="#page" class="smooth-scroll"><i class="fa fa-arrow-up"></i></a></div>
+  
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/static/sites/frontera/assets/js/bootstrap-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/static/sites/frontera/assets/js/jquery.isotope.min.js?v=1.5.26"></script>
+    <script type="text/javascript" src="/static/sites/frontera/assets/js/jquery.singlePageNav.min.js"></script>
+    <script type="text/javascript" src="/static/sites/frontera/assets/js/main.js"></script>
+
+    <script type="text/javascript" src="/static/bower_components/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-resource/angular-resource.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/elasticsearch/elasticsearch.angular.js"></script>
+    <script type="text/javascript" src="/static/bower_components/jt.timepicker/jquery.timepicker.min.js"></script>
+
+    <script type="text/javascript" src="/static/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/moment/locale/es.js"></script>
+    <script type="text/javascript" src="/static/bower_components/moment-timezone/moment-timezone.js"></script>
+
+
+    <script src="/static/lib/fileUpload/js/vendor/jquery.ui.widget.js"></script>
+    <script src="/static/lib/fileUpload/js/jquery.iframe-transport.js"></script>
+    <script src="/static/lib/fileUpload/js/jquery.fileupload.js"></script>
+    <script src="/static/javascripts/bootstrap-typeahead.min.js"></script>
+    <script src="/static/javascripts/jquery.addresspicker.min.js"></script>
+
+    <script type="text/javascript" src="/static/bower_components/sifter/sifter.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/microplugin/src/microplugin.js"></script>
+    <script type="text/javascript" src="/static/bower_components/selectize/dist/js/selectize.min.js"></script>
+
+    <script src="/static/bower_components/angular-socialshare/angular-socialshare.min.js"></script>
+
+
+    <script type="text/javascript" src="/static/bower_components/datedropper/datedropper.min.js"></script>
+    <script type="text/javascript" src="/static/sites/frontera/assets/js/jquery.isotope.min.js?v=1.5.26"></script>
+    <script type="text/javascript" src="/static/sites/frontera/assets/js/jquery.singlePageNav.min.js"></script>
+    <script type="text/javascript" src="/static/sites/frontera/assets/js/main.js"></script>
+
+    <script type="text/javascript" src="/static/sites/frontera/assets/js/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <script type="text/javascript" src="/static/sites/frontera/assets/js/ui-bootstrap-0.12.0.min.js"></script>
+
+    <script type="text/javascript" src="/static/sites/frontera/services/services.js?1"></script>
+    <script type="text/javascript" src="/static/sites/frontera/modules/home/home.js?1"></script>
+    <script type="text/javascript" src="/static/sites/frontera/modules/iniciativa/iniciativa.js?1"></script>
+    <script type="text/javascript" src="/static/sites/frontera/modules/user/user.js?1"></script>
+    <script type="text/javascript" src="/static/sites/frontera/modules/menu/menu.js?1"></script>
+    <script type="text/javascript" src="/static/sites/frontera/app.js"></script>
+
+    <script type="text/javascript" src="/static/bower_components/modernizr/modernizr.js"></script>
+
+    <script>
+    {{#user}}
+        window.user_id = '{{user.id}}';
+    {{/user}}
+    {{#frontera_admin}}
+        window.bleeding = true;
+    {{/frontera_admin}}
+    {{^user}}
+        window.user_id = false;
+    {{/user}}
+
+
+	if (window.location.hash && window.location.hash === "#_=_") {
+  // If you are not using Modernizr, then the alternative is:
+  //   `if (window.history && history.pushState) {`
+  if (Modernizr.history) {
+    window.history.pushState("", document.title, window.location.pathname);
+  } else {
+    var scroll = {
+      top: document.body.scrollTop,
+      left: document.body.scrollLeft
+    };
+    window.location.hash = "";
+    document.body.scrollTop = scroll.top;
+    document.body.scrollLeft = scroll.left;
+  }
+}
+    </script>
+
+
+
+
+  </body>
+</html>
+
